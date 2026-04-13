@@ -1,0 +1,155 @@
+import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
+import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
+
+const projects = [
+  {
+    title: "E-Commerce Platform",
+    category: "Web Development · UI Design",
+    description:
+      "A full-featured e-commerce platform with seamless checkout, real-time inventory, and a custom CMS for product management. Built with React and Node.js.",
+    year: "2024",
+    tech: ["React", "Node.js", "Stripe", "PostgreSQL"],
+  },
+  {
+    title: "SaaS Dashboard",
+    category: "Product Design · Frontend",
+    description:
+      "Analytics dashboard for a B2B SaaS product. Complex data visualizations made intuitive through thoughtful design and interaction patterns.",
+    year: "2024",
+    tech: ["React", "TypeScript", "D3.js", "Tailwind"],
+  },
+  {
+    title: "Brand Identity System",
+    category: "Design System · Branding",
+    description:
+      "Comprehensive design system including component library, typography guidelines, and brand assets for a fintech startup.",
+    year: "2023",
+    tech: ["Figma", "Storybook", "React", "CSS"],
+  },
+  {
+    title: "Mobile Banking App",
+    category: "UI/UX Design · Prototype",
+    description:
+      "End-to-end design for a mobile banking experience. User research, wireframes, and high-fidelity prototypes tested with real users.",
+    year: "2023",
+    tech: ["Figma", "Protopie", "User Testing"],
+  },
+  {
+    title: "Real Estate Platform",
+    category: "Full Stack · Product Design",
+    description:
+      "Property listing and management platform with map integration, virtual tours, and an intelligent search system.",
+    year: "2022",
+    tech: ["Next.js", "MongoDB", "Mapbox", "AWS"],
+  },
+  {
+    title: "Health & Fitness App",
+    category: "UI/UX · Frontend",
+    description:
+      "Fitness tracking application with workout plans, progress analytics, and social features for community engagement.",
+    year: "2022",
+    tech: ["React Native", "Firebase", "Chart.js"],
+  },
+];
+
+const Projects = () => {
+  return (
+    <div className="min-h-screen bg-background">
+      <Navbar />
+
+      {/* Header */}
+      <section className="pt-32 pb-20 border-b border-border">
+        <div className="max-w-6xl mx-auto px-6">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+          >
+            <p className="text-sm font-medium tracking-widest uppercase text-muted-foreground mb-4">
+              Projects
+            </p>
+            <h1 className="font-display text-5xl sm:text-6xl font-semibold text-foreground leading-tight mb-6">
+              Selected <span className="italic">work</span>
+            </h1>
+            <p className="text-lg text-muted-foreground max-w-2xl leading-relaxed">
+              A curated collection of projects showcasing my expertise in web development, 
+              product design, and user experience across various industries.
+            </p>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Projects */}
+      <section className="py-24">
+        <div className="max-w-6xl mx-auto px-6">
+          <div className="space-y-8">
+            {projects.map((project, i) => (
+              <motion.article
+                key={project.title}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.08 }}
+                className="group grid lg:grid-cols-[1fr_2fr] gap-8 border border-border rounded-lg p-6 lg:p-8 hover:shadow-md transition-shadow cursor-pointer"
+              >
+                {/* Image placeholder */}
+                <div className="bg-secondary aspect-[16/10] rounded-md flex items-center justify-center">
+                  <span className="font-display text-4xl font-bold text-muted-foreground/20">
+                    {project.year}
+                  </span>
+                </div>
+
+                {/* Info */}
+                <div className="flex flex-col justify-center">
+                  <p className="text-xs font-semibold tracking-widest uppercase text-muted-foreground mb-2">
+                    {project.category}
+                  </p>
+                  <h3 className="font-display text-2xl lg:text-3xl font-semibold text-foreground mb-3">
+                    {project.title}
+                  </h3>
+                  <p className="text-muted-foreground leading-relaxed max-w-lg mb-4">
+                    {project.description}
+                  </p>
+                  <div className="flex flex-wrap gap-2">
+                    {project.tech.map((t) => (
+                      <span
+                        key={t}
+                        className="text-xs text-muted-foreground border border-border px-3 py-1 rounded-md"
+                      >
+                        {t}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </motion.article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* CTA */}
+      <section className="py-20 bg-primary text-primary-foreground">
+        <div className="max-w-3xl mx-auto px-6 text-center">
+          <h2 className="font-display text-3xl sm:text-4xl font-semibold mb-4">
+            Have a project in mind?
+          </h2>
+          <p className="text-primary-foreground/60 mb-8">
+            Let's discuss how I can help bring your idea to life.
+          </p>
+          <Link
+            to="/contact"
+            className="inline-block bg-primary-foreground text-primary px-8 py-3.5 text-sm font-medium rounded-md hover:bg-primary-foreground/90 transition-colors"
+          >
+            Start a Conversation
+          </Link>
+        </div>
+      </section>
+
+      <Footer />
+    </div>
+  );
+};
+
+export default Projects;

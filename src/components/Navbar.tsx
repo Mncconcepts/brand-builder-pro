@@ -1,42 +1,49 @@
 import { useState } from "react";
+import { Link, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 
 const navItems = [
-  { label: "About", href: "#about" },
-  { label: "Services", href: "#services" },
-  { label: "Projects", href: "#projects" },
-  { label: "Contact", href: "#contact" },
+  { label: "Home", href: "/" },
+  { label: "About", href: "/about" },
+  { label: "Services", href: "/services" },
+  { label: "Projects", href: "/projects" },
+  { label: "Contact", href: "/contact" },
 ];
 
 const Navbar = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const location = useLocation();
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md border-b border-border">
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-background/90 backdrop-blur-md border-b border-border">
       <div className="max-w-6xl mx-auto px-6 flex items-center justify-between h-16">
-        <a href="#" className="font-display text-xl font-semibold tracking-tight text-foreground">
-          Portfolio
-        </a>
+        <Link to="/" className="font-display text-xl font-semibold tracking-tight text-foreground">
+          Studio
+        </Link>
 
         {/* Desktop */}
         <ul className="hidden md:flex items-center gap-8">
           {navItems.map((item) => (
             <li key={item.href}>
-              <a
-                href={item.href}
-                className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
+              <Link
+                to={item.href}
+                className={`text-sm font-medium transition-colors ${
+                  location.pathname === item.href
+                    ? "text-foreground"
+                    : "text-muted-foreground hover:text-foreground"
+                }`}
               >
                 {item.label}
-              </a>
+              </Link>
             </li>
           ))}
           <li>
-            <a
-              href="#contact"
-              className="text-sm font-medium bg-foreground text-background px-5 py-2 rounded-sm hover:opacity-90 transition-opacity"
+            <Link
+              to="/contact"
+              className="text-sm font-medium bg-primary text-primary-foreground px-5 py-2 rounded-md hover:bg-primary/90 transition-colors"
             >
-              Let's Talk
-            </a>
+              Get Started
+            </Link>
           </li>
         </ul>
 
@@ -64,23 +71,27 @@ const Navbar = () => {
             <ul className="px-6 py-4 space-y-4">
               {navItems.map((item) => (
                 <li key={item.href}>
-                  <a
-                    href={item.href}
+                  <Link
+                    to={item.href}
                     onClick={() => setMobileOpen(false)}
-                    className="block text-sm font-medium text-muted-foreground hover:text-foreground"
+                    className={`block text-sm font-medium ${
+                      location.pathname === item.href
+                        ? "text-foreground"
+                        : "text-muted-foreground hover:text-foreground"
+                    }`}
                   >
                     {item.label}
-                  </a>
+                  </Link>
                 </li>
               ))}
               <li>
-                <a
-                  href="#contact"
+                <Link
+                  to="/contact"
                   onClick={() => setMobileOpen(false)}
-                  className="inline-block text-sm font-medium bg-foreground text-background px-5 py-2 rounded-sm"
+                  className="inline-block text-sm font-medium bg-primary text-primary-foreground px-5 py-2 rounded-md"
                 >
-                  Let's Talk
-                </a>
+                  Get Started
+                </Link>
               </li>
             </ul>
           </motion.div>
