@@ -20,10 +20,10 @@ const Footer = () => {
               Navigation
             </p>
             <ul className="space-y-2 text-sm">
-              {["Home", "About", "Services", "Projects", "Contact"].map((item) => (
+              {["Home", "About", "Services", "Projects", "Case Studies", "Blog", "Contact"].map((item) => (
                 <li key={item}>
                   <Link
-                    to={item === "Home" ? "/" : `/${item.toLowerCase()}`}
+                    to={item === "Home" ? "/" : `/${item.toLowerCase().replace(/ /g, "-")}`}
                     className="text-primary-foreground/60 hover:text-primary-foreground transition-colors"
                   >
                     {item}
