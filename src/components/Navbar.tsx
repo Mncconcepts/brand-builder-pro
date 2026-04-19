@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
+import ThemeToggle from "@/components/ThemeToggle";
 
 const navItems = [
   { label: "Home", href: "/" },
@@ -47,18 +48,25 @@ const Navbar = () => {
               Get Started
             </Link>
           </li>
+          <li>
+            <ThemeToggle />
+          </li>
         </ul>
 
+        {/* Mobile actions */}
+        <div className="md:hidden flex items-center gap-1">
+          <ThemeToggle />
         {/* Mobile toggle */}
         <button
           onClick={() => setMobileOpen(!mobileOpen)}
-          className="md:hidden flex flex-col gap-1.5 p-2"
+          className="flex flex-col gap-1.5 p-2"
           aria-label="Toggle menu"
         >
           <span className={`block w-5 h-px bg-foreground transition-transform ${mobileOpen ? "rotate-45 translate-y-[3.5px]" : ""}`} />
           <span className={`block w-5 h-px bg-foreground transition-opacity ${mobileOpen ? "opacity-0" : ""}`} />
           <span className={`block w-5 h-px bg-foreground transition-transform ${mobileOpen ? "-rotate-45 -translate-y-[3.5px]" : ""}`} />
         </button>
+        </div>
       </div>
 
       {/* Mobile menu */}

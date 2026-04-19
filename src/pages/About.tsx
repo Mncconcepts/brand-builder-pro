@@ -68,9 +68,9 @@ const About = () => {
       <section className="pt-32 pb-20 border-b border-border">
         <div className="max-w-6xl mx-auto px-6">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: -40 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
+            transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
           >
             <p className="text-sm font-medium tracking-widest uppercase text-muted-foreground mb-4">
               About Me

@@ -69,9 +69,9 @@ const Index = () => {
       <section className="relative min-h-screen flex items-center pt-16">
         <div className="max-w-6xl mx-auto px-6 w-full grid lg:grid-cols-2 gap-12 lg:gap-16 items-center py-20">
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: -40 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: "easeOut" }}
+            transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
           >
             <p className="text-sm font-medium tracking-widest uppercase text-muted-foreground mb-4">
               Web Developer & Product Designer
