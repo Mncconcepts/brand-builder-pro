@@ -2,6 +2,8 @@ import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import StackingCards from "@/components/StackingCards";
+import TestimonialsMarquee from "@/components/TestimonialsMarquee";
 import heroImage from "@/assets/hero-abstract.jpg";
 
 const stats = [
