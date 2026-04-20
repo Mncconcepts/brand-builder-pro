@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import StackingCards from "@/components/StackingCards";
 
 const caseStudies = [
   {
@@ -98,15 +99,12 @@ const CaseStudies = () => {
 
       {/* Case Studies */}
       <section className="py-24">
-        <div className="max-w-6xl mx-auto px-6 space-y-20">
-          {caseStudies.map((cs, idx) => (
-            <motion.article
+        <div className="max-w-6xl mx-auto px-6">
+          <StackingCards offset={28} top={100}>
+          {caseStudies.map((cs) => (
+            <article
               key={cs.slug}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: idx * 0.1 }}
-              className="border border-border rounded-lg overflow-hidden"
+              className="border border-border rounded-lg overflow-hidden bg-card shadow-sm"
             >
               {/* Top bar */}
               <div className="bg-secondary/50 border-b border-border px-8 py-5 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
@@ -183,8 +181,9 @@ const CaseStudies = () => {
                   ))}
                 </div>
               </div>
-            </motion.article>
+            </article>
           ))}
+          </StackingCards>
         </div>
       </section>
 

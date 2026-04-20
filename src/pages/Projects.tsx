@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import StackingCards from "@/components/StackingCards";
 
 const projects = [
   {
@@ -84,15 +85,11 @@ const Projects = () => {
       {/* Projects */}
       <section className="py-24">
         <div className="max-w-6xl mx-auto px-6">
-          <div className="space-y-8">
-            {projects.map((project, i) => (
-              <motion.article
+          <StackingCards offset={24} top={100}>
+            {projects.map((project) => (
+              <article
                 key={project.title}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.08 }}
-                className="group grid lg:grid-cols-[1fr_2fr] gap-8 border border-border rounded-lg p-6 lg:p-8 hover:shadow-md transition-shadow cursor-pointer"
+                className="group grid lg:grid-cols-[1fr_2fr] gap-8 border border-border rounded-lg p-6 lg:p-8 bg-card shadow-sm hover:shadow-md transition-shadow cursor-pointer"
               >
                 {/* Image placeholder */}
                 <div className="bg-secondary aspect-[16/10] rounded-md flex items-center justify-center">
@@ -123,9 +120,9 @@ const Projects = () => {
                     ))}
                   </div>
                 </div>
-              </motion.article>
+              </article>
             ))}
-          </div>
+          </StackingCards>
         </div>
       </section>
 

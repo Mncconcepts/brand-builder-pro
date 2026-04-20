@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import StackingCards from "@/components/StackingCards";
 
 const skills = [
   "React / Next.js",
@@ -212,23 +213,19 @@ const About = () => {
             </h2>
           </motion.div>
 
-          <div className="grid md:grid-cols-2 gap-6">
-            {values.map((v, i) => (
-              <motion.div
+          <StackingCards offset={20} top={100}>
+            {values.map((v) => (
+              <div
                 key={v.title}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.1 }}
-                className="bg-card border border-border rounded-lg p-8"
+                className="bg-card border border-border rounded-lg p-8 shadow-sm"
               >
                 <h3 className="font-display text-lg font-semibold text-foreground mb-2">
                   {v.title}
                 </h3>
                 <p className="text-muted-foreground text-sm leading-relaxed">{v.description}</p>
-              </motion.div>
+              </div>
             ))}
-          </div>
+          </StackingCards>
         </div>
       </section>
 
