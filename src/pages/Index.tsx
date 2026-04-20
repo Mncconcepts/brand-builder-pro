@@ -3,7 +3,14 @@ import { motion } from "framer-motion";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import StackingCards from "@/components/StackingCards";
-import TestimonialsMarquee from "@/components/TestimonialsMarquee";
+import TestimonialsCarousel from "@/components/TestimonialsCarousel";
+import TypewriterText from "@/components/TypewriterText";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 import heroImage from "@/assets/hero-abstract.jpg";
 
 const stats = [
@@ -59,6 +66,25 @@ const testimonials = [
     quote: "Delivered a stunning website that perfectly captures our brand. Professional, responsive, and a pleasure to work with.",
     name: "Michael Chen",
     role: "Founder, DesignLab",
+  },
+];
+
+const homeFaqs = [
+  {
+    q: "What Services Do You Offer?",
+    a: "I specialize in web development, product design, and UI/UX design — from initial strategy and wireframes to fully shipped, production-ready applications.",
+  },
+  {
+    q: "How Long Does A Typical Project Take?",
+    a: "Most engagements run 2–8 weeks depending on scope. After our intro call I'll share a detailed timeline with milestones.",
+  },
+  {
+    q: "Do You Work With International Clients?",
+    a: "Yes — I collaborate remotely with clients worldwide and adapt comfortably to different time zones.",
+  },
+  {
+    q: "What Is Your Pricing Model?",
+    a: "Projects are typically scoped as fixed-price engagements. For ongoing work, monthly retainers are also available.",
   },
 ];
 
