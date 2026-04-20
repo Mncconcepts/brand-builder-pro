@@ -99,7 +99,7 @@ const Services = () => {
             <h1 className="font-display text-5xl sm:text-6xl font-semibold text-foreground leading-tight mb-6">
               Solutions tailored to
               <br />
-              your <span className="italic">needs</span>.
+              Your <span className="italic">Needs</span>.
             </h1>
             <p className="text-lg text-muted-foreground max-w-2xl leading-relaxed">
               From concept to launch, I provide end-to-end services that cover every aspect of 
@@ -154,7 +154,7 @@ const Services = () => {
               Process
             </p>
             <h2 className="font-display text-4xl font-semibold text-foreground">
-              How it <span className="italic">works</span>
+              How It <span className="italic">Works</span>
             </h2>
           </motion.div>
 
@@ -193,7 +193,7 @@ const Services = () => {
               Pricing
             </p>
             <h2 className="font-display text-4xl font-semibold text-foreground">
-              Investment <span className="italic">tiers</span>
+              Investment <span className="italic">Tiers</span>
             </h2>
             <p className="text-muted-foreground mt-4 max-w-lg mx-auto">
               Transparent pricing to match your project scope. Every engagement includes a detailed proposal.

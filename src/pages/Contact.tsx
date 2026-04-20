@@ -52,7 +52,7 @@ const Contact = () => {
               Contact
             </p>
             <h1 className="font-display text-5xl sm:text-6xl font-semibold text-foreground leading-tight mb-6">
-              Let's work <span className="italic">together</span>.
+              Let's Work <span className="italic">Together</span>.
             </h1>
             <p className="text-lg text-muted-foreground max-w-2xl leading-relaxed">
               Have a project in mind or want to discuss a potential collaboration? 
@@ -221,7 +221,7 @@ const Contact = () => {
               FAQ
             </p>
             <h2 className="font-display text-4xl font-semibold text-foreground">
-              Common <span className="italic">questions</span>
+              Common <span className="italic">Questions</span>
             </h2>
           </motion.div>
 

@@ -2,7 +2,6 @@ import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import StackingCards from "@/components/StackingCards";
 
 const caseStudies = [
   {
@@ -87,7 +86,7 @@ const CaseStudies = () => {
               Case Studies
             </p>
             <h1 className="font-display text-5xl sm:text-6xl font-semibold text-foreground leading-tight mb-6">
-              Results that <span className="italic">speak</span>
+              Results That <span className="italic">Speak</span>
             </h1>
             <p className="text-lg text-muted-foreground max-w-2xl leading-relaxed">
               In-depth look at select projects — the challenges, the process, and
@@ -100,10 +99,14 @@ const CaseStudies = () => {
       {/* Case Studies */}
       <section className="py-24">
         <div className="max-w-6xl mx-auto px-6">
-          <StackingCards offset={28} top={100}>
-          {caseStudies.map((cs) => (
-            <article
+          <div className="space-y-10">
+          {caseStudies.map((cs, idx) => (
+            <motion.article
               key={cs.slug}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-80px" }}
+              transition={{ duration: 0.6, delay: idx * 0.05, ease: [0.22, 1, 0.36, 1] }}
               className="border border-border rounded-lg overflow-hidden bg-card shadow-sm"
             >
               {/* Top bar */}
@@ -181,9 +184,9 @@ const CaseStudies = () => {
                   ))}
                 </div>
               </div>
-            </article>
+            </motion.article>
           ))}
-          </StackingCards>
+          </div>
         </div>
       </section>
 

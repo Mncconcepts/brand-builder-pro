@@ -72,7 +72,7 @@ const Projects = () => {
               Projects
             </p>
             <h1 className="font-display text-5xl sm:text-6xl font-semibold text-foreground leading-tight mb-6">
-              Selected <span className="italic">work</span>
+              Selected <span className="italic">Work</span>
             </h1>
             <p className="text-lg text-muted-foreground max-w-2xl leading-relaxed">
               A curated collection of projects showcasing my expertise in web development, 
