@@ -5,6 +5,8 @@ import Footer from "@/components/Footer";
 import StackingCards from "@/components/StackingCards";
 import TestimonialsCarousel from "@/components/TestimonialsCarousel";
 import TypewriterText from "@/components/TypewriterText";
+import BookCallSheet from "@/components/BookCallSheet";
+import { Calendar as CalendarIcon } from "lucide-react";
 import {
   Accordion,
   AccordionContent,
@@ -330,12 +332,25 @@ const Index = () => {
             <p className="text-primary-foreground/60 mb-10 max-w-lg mx-auto leading-relaxed">
               Let's discuss how I can help bring your vision to life with clean code and thoughtful design.
             </p>
-            <Link
-              to="/contact"
-              className="inline-block bg-primary-foreground text-primary px-8 py-3.5 text-sm font-medium rounded-md hover:bg-primary-foreground/90 transition-colors"
-            >
-              Start a Conversation
-            </Link>
+            <div className="flex flex-wrap gap-3 justify-center">
+              <Link
+                to="/contact"
+                className="inline-block bg-primary-foreground text-primary px-8 py-3.5 text-sm font-medium rounded-md hover:bg-primary-foreground/90 transition-colors"
+              >
+                Start A Conversation
+              </Link>
+              <BookCallSheet
+                trigger={
+                  <button
+                    type="button"
+                    className="inline-flex items-center gap-2 border border-primary-foreground/40 text-primary-foreground px-8 py-3.5 text-sm font-medium rounded-md hover:bg-primary-foreground/10 transition-colors"
+                  >
+                    <CalendarIcon className="h-4 w-4" />
+                    Book A Call Session
+                  </button>
+                }
+              />
+            </div>
           </motion.div>
         </div>
       </section>
