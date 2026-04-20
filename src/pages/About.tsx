@@ -79,7 +79,7 @@ const About = () => {
             <h1 className="font-display text-5xl sm:text-6xl font-semibold text-foreground leading-tight mb-6">
               Designer who codes,
               <br />
-              developer who <span className="italic">designs</span>.
+              Developer Who <span className="italic">Designs</span>.
             </h1>
             <p className="text-lg text-muted-foreground max-w-2xl leading-relaxed">
               I'm a multidisciplinary creative with over 4 years of experience bridging the gap 
@@ -100,7 +100,7 @@ const About = () => {
               viewport={{ once: true }}
             >
               <h2 className="font-display text-3xl font-semibold text-foreground mb-6">
-                My <span className="italic">approach</span>
+                My <span className="italic">Approach</span>
               </h2>
               <div className="space-y-4 text-muted-foreground leading-relaxed">
                 <p>
@@ -164,7 +164,7 @@ const About = () => {
               Experience
             </p>
             <h2 className="font-display text-4xl font-semibold text-foreground">
-              Work <span className="italic">history</span>
+              Work <span className="italic">History</span>
             </h2>
           </motion.div>
 
@@ -209,7 +209,7 @@ const About = () => {
               Values
             </p>
             <h2 className="font-display text-4xl font-semibold text-foreground">
-              How I <span className="italic">work</span>
+              How I <span className="italic">Work</span>
             </h2>
           </motion.div>
 

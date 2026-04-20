@@ -78,7 +78,7 @@ const Blog = () => {
               Blog
             </p>
             <h1 className="font-display text-5xl sm:text-6xl font-semibold text-foreground leading-tight mb-6">
-              Thoughts & <span className="italic">insights</span>
+              Thoughts & <span className="italic">Insights</span>
             </h1>
             <p className="text-lg text-muted-foreground max-w-2xl leading-relaxed">
               Writing about web development, product design, and the lessons learned
@@ -122,7 +122,7 @@ const Blog = () => {
       <section className="py-20 bg-primary text-primary-foreground">
         <div className="max-w-3xl mx-auto px-6 text-center">
           <h2 className="font-display text-3xl sm:text-4xl font-semibold mb-4">
-            Stay in the <span className="italic">loop</span>
+            Stay In The <span className="italic">Loop</span>
           </h2>
           <p className="text-primary-foreground/60 mb-8 max-w-md mx-auto">
             Get occasional updates on new articles, projects, and insights. No spam, unsubscribe anytime.
