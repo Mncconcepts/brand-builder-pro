@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import StackingCards from "@/components/StackingCards";
 
 const posts = [
   {
@@ -90,15 +91,11 @@ const Blog = () => {
       {/* Posts */}
       <section className="py-24">
         <div className="max-w-4xl mx-auto px-6">
-          <div className="space-y-0">
-            {posts.map((post, i) => (
-              <motion.article
+          <StackingCards offset={20} top={100}>
+            {posts.map((post) => (
+              <article
                 key={post.slug}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.06 }}
-                className="group border-b border-border py-10 first:pt-0"
+                className="group bg-card border border-border rounded-lg p-8 shadow-sm hover:shadow-md transition-shadow cursor-pointer"
               >
                 <div className="flex flex-wrap items-center gap-3 text-xs text-muted-foreground mb-3">
                   <span className="font-semibold uppercase tracking-wider">
@@ -109,15 +106,15 @@ const Blog = () => {
                   <span>·</span>
                   <span>{post.readTime}</span>
                 </div>
-                <h2 className="font-display text-2xl font-semibold text-foreground mb-3 group-hover:text-muted-foreground transition-colors cursor-pointer">
+                <h2 className="font-display text-2xl font-semibold text-foreground mb-3 group-hover:text-muted-foreground transition-colors">
                   {post.title}
                 </h2>
                 <p className="text-muted-foreground leading-relaxed max-w-2xl">
                   {post.excerpt}
                 </p>
-              </motion.article>
+              </article>
             ))}
-          </div>
+          </StackingCards>
         </div>
       </section>
 
