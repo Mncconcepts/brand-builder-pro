@@ -105,11 +105,11 @@ const Index = () => {
               Web Developer & Product Designer
             </p>
             <h1 className="font-display text-5xl sm:text-6xl lg:text-7xl font-semibold leading-[1.1] tracking-tight text-foreground mb-6">
-              Building digital
-              <br />
-              products that
-              <br />
-              <span className="italic">perform</span>.
+              <TypewriterText
+                text="Building Digital Products That Perform."
+                speed={55}
+                startDelay={250}
+              />
             </h1>
             <p className="text-lg text-muted-foreground max-w-md leading-relaxed mb-10">
               I help businesses create powerful web applications and thoughtful digital experiences that drive growth and engagement.
@@ -182,7 +182,7 @@ const Index = () => {
                 What I Do
               </p>
               <h2 className="font-display text-4xl font-semibold text-foreground">
-                Services & <span className="italic">expertise</span>
+                Services & <span className="italic">Expertise</span>
               </h2>
             </div>
             <Link
@@ -228,7 +228,7 @@ const Index = () => {
                 Recent Work
               </p>
               <h2 className="font-display text-4xl font-semibold text-foreground">
-                Featured <span className="italic">projects</span>
+                Featured <span className="italic">Projects</span>
               </h2>
             </div>
             <Link
@@ -272,26 +272,47 @@ const Index = () => {
               Testimonials
             </p>
             <h2 className="font-display text-4xl font-semibold text-foreground">
-              What clients <span className="italic">say</span>
+              What Clients <span className="italic">Say</span>
             </h2>
           </motion.div>
 
-          <TestimonialsMarquee speed={35}>
-            {testimonials.concat(testimonials).map((t, i) => (
-              <blockquote
-                key={`${t.name}-${i}`}
-                className="bg-card border border-border rounded-lg p-8 h-full"
+          <TestimonialsCarousel items={testimonials} />
+        </div>
+      </section>
+
+      {/* FAQ */}
+      <section className="py-24 bg-secondary/30 border-y border-border">
+        <div className="max-w-3xl mx-auto px-6">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="mb-12 text-center"
+          >
+            <p className="text-sm font-medium tracking-widest uppercase text-muted-foreground mb-3">
+              FAQ
+            </p>
+            <h2 className="font-display text-4xl font-semibold text-foreground">
+              Frequently Asked <span className="italic">Questions</span>
+            </h2>
+          </motion.div>
+
+          <Accordion type="single" collapsible className="w-full">
+            {homeFaqs.map((faq, i) => (
+              <AccordionItem
+                key={faq.q}
+                value={`home-faq-${i}`}
+                className="border-b border-border"
               >
-                <p className="text-foreground leading-relaxed mb-6 italic">
-                  "{t.quote}"
-                </p>
-                <footer>
-                  <p className="font-semibold text-foreground text-sm">{t.name}</p>
-                  <p className="text-muted-foreground text-sm">{t.role}</p>
-                </footer>
-              </blockquote>
+                <AccordionTrigger className="text-left font-semibold text-foreground hover:no-underline py-6">
+                  {faq.q}
+                </AccordionTrigger>
+                <AccordionContent className="text-sm text-muted-foreground leading-relaxed pb-6">
+                  {faq.a}
+                </AccordionContent>
+              </AccordionItem>
             ))}
-          </TestimonialsMarquee>
+          </Accordion>
         </div>
       </section>
 
@@ -304,7 +325,7 @@ const Index = () => {
             viewport={{ once: true }}
           >
             <h2 className="font-display text-4xl sm:text-5xl font-semibold mb-6">
-              Ready to start your <span className="italic">project</span>?
+              Ready To Start Your <span className="italic">Project</span>?
             </h2>
             <p className="text-primary-foreground/60 mb-10 max-w-lg mx-auto leading-relaxed">
               Let's discuss how I can help bring your vision to life with clean code and thoughtful design.
