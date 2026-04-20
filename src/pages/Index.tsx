@@ -5,6 +5,8 @@ import Footer from "@/components/Footer";
 import StackingCards from "@/components/StackingCards";
 import TestimonialsCarousel from "@/components/TestimonialsCarousel";
 import TypewriterText from "@/components/TypewriterText";
+import BookCallSheet from "@/components/BookCallSheet";
+import { Calendar as CalendarIcon } from "lucide-react";
 import {
   Accordion,
   AccordionContent,
