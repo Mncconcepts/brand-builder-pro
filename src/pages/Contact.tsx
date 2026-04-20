@@ -2,6 +2,12 @@ import { motion } from "framer-motion";
 import { useState, FormEvent } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 
 const faqs = [
   {
@@ -219,21 +225,22 @@ const Contact = () => {
             </h2>
           </motion.div>
 
-          <div className="space-y-0">
+          <Accordion type="single" collapsible className="w-full">
             {faqs.map((faq, i) => (
-              <motion.div
+              <AccordionItem
                 key={faq.q}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.08 }}
-                className="border-b border-border py-6"
+                value={`item-${i}`}
+                className="border-b border-border"
               >
-                <h3 className="font-semibold text-foreground mb-2">{faq.q}</h3>
-                <p className="text-sm text-muted-foreground leading-relaxed">{faq.a}</p>
-              </motion.div>
+                <AccordionTrigger className="text-left font-semibold text-foreground hover:no-underline py-6">
+                  {faq.q}
+                </AccordionTrigger>
+                <AccordionContent className="text-sm text-muted-foreground leading-relaxed pb-6">
+                  {faq.a}
+                </AccordionContent>
+              </AccordionItem>
             ))}
-          </div>
+          </Accordion>
         </div>
       </section>
 
