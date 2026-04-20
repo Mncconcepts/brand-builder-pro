@@ -167,15 +167,11 @@ const Index = () => {
             </Link>
           </motion.div>
 
-          <div className="grid md:grid-cols-3 gap-6">
-            {featuredServices.map((service, i) => (
-              <motion.div
+          <StackingCards offset={20} top={100}>
+            {featuredServices.map((service) => (
+              <div
                 key={service.number}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.1 }}
-                className="bg-card border border-border rounded-lg p-8 hover:shadow-md transition-shadow"
+                className="bg-card border border-border rounded-lg p-8 shadow-sm"
               >
                 <span className="text-xs font-semibold text-muted-foreground tracking-wider">
                   {service.number}
@@ -186,9 +182,9 @@ const Index = () => {
                 <p className="text-muted-foreground text-sm leading-relaxed">
                   {service.desc}
                 </p>
-              </motion.div>
+              </div>
             ))}
-          </div>
+          </StackingCards>
         </div>
       </section>
 
@@ -217,30 +213,23 @@ const Index = () => {
             </Link>
           </motion.div>
 
-          <div className="space-y-4">
-            {featuredProjects.map((project, i) => (
-              <motion.div
+          <StackingCards offset={20} top={100}>
+            {featuredProjects.map((project) => (
+              <Link
                 key={project.title}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.1 }}
+                to="/projects"
+                className="group flex items-center justify-between border border-border bg-card rounded-lg px-8 py-6 shadow-sm hover:shadow-md transition-shadow"
               >
-                <Link
-                  to="/projects"
-                  className="group flex items-center justify-between border border-border bg-card rounded-lg px-8 py-6 hover:shadow-md transition-shadow"
-                >
-                  <div>
-                    <h3 className="font-display text-xl font-semibold text-foreground group-hover:text-muted-foreground transition-colors">
-                      {project.title}
-                    </h3>
-                    <p className="text-sm text-muted-foreground mt-1">{project.category}</p>
-                  </div>
-                  <span className="text-sm text-muted-foreground">{project.year}</span>
-                </Link>
-              </motion.div>
+                <div>
+                  <h3 className="font-display text-xl font-semibold text-foreground group-hover:text-muted-foreground transition-colors">
+                    {project.title}
+                  </h3>
+                  <p className="text-sm text-muted-foreground mt-1">{project.category}</p>
+                </div>
+                <span className="text-sm text-muted-foreground">{project.year}</span>
+              </Link>
             ))}
-          </div>
+          </StackingCards>
         </div>
       </section>
 
@@ -261,15 +250,11 @@ const Index = () => {
             </h2>
           </motion.div>
 
-          <div className="grid md:grid-cols-2 gap-8">
-            {testimonials.map((t, i) => (
-              <motion.blockquote
-                key={t.name}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.15 }}
-                className="bg-card border border-border rounded-lg p-8"
+          <TestimonialsMarquee speed={35}>
+            {testimonials.concat(testimonials).map((t, i) => (
+              <blockquote
+                key={`${t.name}-${i}`}
+                className="bg-card border border-border rounded-lg p-8 h-full"
               >
                 <p className="text-foreground leading-relaxed mb-6 italic">
                   "{t.quote}"
@@ -278,9 +263,9 @@ const Index = () => {
                   <p className="font-semibold text-foreground text-sm">{t.name}</p>
                   <p className="text-muted-foreground text-sm">{t.role}</p>
                 </footer>
-              </motion.blockquote>
+              </blockquote>
             ))}
-          </div>
+          </TestimonialsMarquee>
         </div>
       </section>
 
