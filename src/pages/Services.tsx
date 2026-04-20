@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import StackingCards from "@/components/StackingCards";
 
 const services = [
   {
@@ -111,15 +112,11 @@ const Services = () => {
       {/* Services Grid */}
       <section className="py-24">
         <div className="max-w-6xl mx-auto px-6">
-          <div className="grid md:grid-cols-2 gap-6">
-            {services.map((service, i) => (
-              <motion.div
+          <StackingCards offset={20} top={100}>
+            {services.map((service) => (
+              <div
                 key={service.number}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.1 }}
-                className="bg-card border border-border rounded-lg p-8 lg:p-10"
+                className="bg-card border border-border rounded-lg p-8 lg:p-10 shadow-sm"
               >
                 <span className="text-xs font-semibold text-muted-foreground tracking-wider">
                   {service.number}
@@ -138,9 +135,9 @@ const Services = () => {
                     </li>
                   ))}
                 </ul>
-              </motion.div>
+              </div>
             ))}
-          </div>
+          </StackingCards>
         </div>
       </section>
 
@@ -203,15 +200,11 @@ const Services = () => {
             </p>
           </motion.div>
 
-          <div className="grid md:grid-cols-3 gap-6">
-            {pricing.map((tier, i) => (
-              <motion.div
+          <StackingCards offset={20} top={100}>
+            {pricing.map((tier) => (
+              <div
                 key={tier.name}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.1 }}
-                className={`border rounded-lg p-8 ${
+                className={`border rounded-lg p-8 shadow-sm ${
                   tier.featured
                     ? "bg-primary text-primary-foreground border-primary"
                     : "bg-card border-border"
@@ -245,9 +238,9 @@ const Services = () => {
                 >
                   Get Started
                 </Link>
-              </motion.div>
+              </div>
             ))}
-          </div>
+          </StackingCards>
         </div>
       </section>
 
