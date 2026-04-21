@@ -10,7 +10,7 @@ const projects = [
     category: "Web Development · UI Design",
     description:
       "A full-featured e-commerce platform with seamless checkout, real-time inventory, and a custom CMS for product management. Built with React and Node.js.",
-    year: "2024",
+    year: "2025",
     tech: ["React", "Node.js", "Stripe", "PostgreSQL"],
   },
   {
@@ -18,7 +18,7 @@ const projects = [
     category: "Product Design · Frontend",
     description:
       "Analytics dashboard for a B2B SaaS product. Complex data visualizations made intuitive through thoughtful design and interaction patterns.",
-    year: "2024",
+    year: "2025",
     tech: ["React", "TypeScript", "D3.js", "Tailwind"],
   },
   {
@@ -71,7 +71,7 @@ const Projects = () => {
             <p className="text-sm font-medium tracking-widest uppercase text-muted-foreground mb-4">
               Projects
             </p>
-            <h1 className="font-display text-5xl sm:text-6xl font-semibold text-foreground leading-tight mb-6">
+            <h1 className="font-display text-5xl sm:text-6xl text-foreground leading-tight mb-6 font-extrabold">
               Selected <span className="italic">Work</span>
             </h1>
             <p className="text-lg text-muted-foreground max-w-2xl leading-relaxed">
