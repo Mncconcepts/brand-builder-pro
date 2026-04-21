@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import ThemeToggle from "@/components/ThemeToggle";
+import logo from "@/assets/logo2.png";
 
 const navItems = [
   { label: "Home", href: "/" },
