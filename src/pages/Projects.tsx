@@ -20,9 +20,9 @@ const projects = [
     title: "Computer Village MarketPlace(CVMP)",
     category: "PRODUCT DESIGN · UIUX",
     description:
-      "Analytics dashboard for a B2B SaaS product. Complex data visualizations made intuitive through thoughtful design and interaction patterns.",
+      "A mobile marketplace app connecting buyers and sellers in Computer Village. Designed in Figma and built with Flutter for a seamless cross-platform experience.",
     year: "2025",
-    tech: ["Flutter", "TypeScript", "D3.js", "Tailwind"],
+    tech: ["Flutter", "Figma", "Dart", "Firebase"],
     image: projStoreapp2,
   },
   {
