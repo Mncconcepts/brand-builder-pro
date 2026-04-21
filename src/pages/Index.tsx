@@ -13,7 +13,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import heroImage from "@/assets/hero-tech-design.jpg";
+import heroVideo from "@/assets/hero-typing.mp4.asset.json";
 
 const stats = [
   { value: "4+", label: "Years Experience" },
@@ -139,9 +139,12 @@ const Index = () => {
             className="relative"
           >
             <div className="aspect-[4/3] overflow-hidden rounded-lg">
-              <img
-                src={heroImage}
-                alt="Tech design and development visual"
+              <video
+                src={heroVideo.url}
+                autoPlay
+                loop
+                muted
+                playsInline
                 className="w-full h-full object-cover"
               />
             </div>
