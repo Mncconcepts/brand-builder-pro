@@ -4,6 +4,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import StackingCards from "@/components/StackingCards";
 import projPearlzStore from "@/assets/proj-pearlz-store.png";
+import projStoreapp2 from "@/assets/proj-storeapp2.png";
 
 const projects = [
   {
@@ -22,7 +23,7 @@ const projects = [
       "Analytics dashboard for a B2B SaaS product. Complex data visualizations made intuitive through thoughtful design and interaction patterns.",
     year: "2025",
     tech: ["React", "TypeScript", "D3.js", "Tailwind"],
-    image: null,
+    image: projStoreapp2,
   },
   {
     title: "Brand Identity System",
