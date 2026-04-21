@@ -13,7 +13,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import heroImage from "@/assets/hero-abstract.jpg";
+import heroImage from "@/assets/hero-tech-design.jpg";
 
 const stats = [
   { value: "4+", label: "Years Experience" },
@@ -141,7 +141,7 @@ const Index = () => {
             <div className="aspect-[4/3] overflow-hidden rounded-lg">
               <img
                 src={heroImage}
-                alt="Abstract design composition"
+                alt="Tech design and development visual"
                 className="w-full h-full object-cover"
               />
             </div>
