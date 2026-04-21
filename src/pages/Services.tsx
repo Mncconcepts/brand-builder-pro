@@ -61,15 +61,15 @@ const process = [
 const pricing = [
   {
     name: "Starter",
-    price: "From $2,500",
+    price: "From $900",
     description: "Perfect for small businesses needing a professional web presence.",
-    features: ["Single page website", "Responsive design", "Basic SEO", "1 round of revisions", "2 week delivery"],
+    features: ["Single page website", "Responsive design", "Basic SEO", "1 round of revisions", "3 week delivery"],
   },
   {
     name: "Professional",
-    price: "From $5,000",
+    price: "From $3,000",
     description: "For growing businesses that need a comprehensive digital solution.",
-    features: ["Multi-page website", "Custom design", "Advanced SEO", "CMS integration", "3 rounds of revisions", "4 week delivery"],
+    features: ["Multi-page website", "Custom design", "Advanced SEO", "CMS integration", "3 rounds of revisions", "12 week delivery"],
     featured: true,
   },
   {
@@ -96,8 +96,8 @@ const Services = () => {
             <p className="text-sm font-medium tracking-widest uppercase text-muted-foreground mb-4">
               Services
             </p>
-            <h1 className="font-display text-5xl sm:text-6xl font-semibold text-foreground leading-tight mb-6">
-              Solutions tailored to
+            <h1 className="font-display text-5xl sm:text-6xl text-foreground leading-tight mb-6 font-extrabold">
+              Solutions Tailored to
               <br />
               Your <span className="italic">Needs</span>.
             </h1>
@@ -153,7 +153,7 @@ const Services = () => {
             <p className="text-sm font-medium tracking-widest uppercase text-muted-foreground mb-3">
               Process
             </p>
-            <h2 className="font-display text-4xl font-semibold text-foreground">
+            <h2 className="font-display text-4xl text-foreground font-extrabold">
               How It <span className="italic">Works</span>
             </h2>
           </motion.div>
@@ -192,7 +192,7 @@ const Services = () => {
             <p className="text-sm font-medium tracking-widest uppercase text-muted-foreground mb-3">
               Pricing
             </p>
-            <h2 className="font-display text-4xl font-semibold text-foreground">
+            <h2 className="font-display text-4xl text-foreground font-extrabold">
               Investment <span className="italic">Tiers</span>
             </h2>
             <p className="text-muted-foreground mt-4 max-w-lg mx-auto">
