@@ -3,15 +3,17 @@ import { Link } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import StackingCards from "@/components/StackingCards";
+import projPearlzStore from "@/assets/proj-pearlz-store.png";
 
 const projects = [
   {
     title: "E-Commerce Platform",
-    category: "Web Development · UI Design",
+    category: "App Design · UI Design",
     description:
       "A full-featured e-commerce platform with seamless checkout, real-time inventory, and a custom CMS for product management. Built with React and Node.js.",
     year: "2025",
     tech: ["React", "Node.js", "Stripe", "PostgreSQL"],
+    image: projPearlzStore,
   },
   {
     title: "SaaS Dashboard",
@@ -20,6 +22,7 @@ const projects = [
       "Analytics dashboard for a B2B SaaS product. Complex data visualizations made intuitive through thoughtful design and interaction patterns.",
     year: "2025",
     tech: ["React", "TypeScript", "D3.js", "Tailwind"],
+    image: null,
   },
   {
     title: "Brand Identity System",
@@ -28,6 +31,7 @@ const projects = [
       "Comprehensive design system including component library, typography guidelines, and brand assets for a fintech startup.",
     year: "2023",
     tech: ["Figma", "Storybook", "React", "CSS"],
+    image: null,
   },
   {
     title: "Mobile Banking App",
@@ -36,6 +40,7 @@ const projects = [
       "End-to-end design for a mobile banking experience. User research, wireframes, and high-fidelity prototypes tested with real users.",
     year: "2023",
     tech: ["Figma", "Protopie", "User Testing"],
+    image: null,
   },
   {
     title: "Real Estate Platform",
@@ -44,6 +49,7 @@ const projects = [
       "Property listing and management platform with map integration, virtual tours, and an intelligent search system.",
     year: "2022",
     tech: ["Next.js", "MongoDB", "Mapbox", "AWS"],
+    image: null,
   },
   {
     title: "Health & Fitness App",
@@ -52,6 +58,7 @@ const projects = [
       "Fitness tracking application with workout plans, progress analytics, and social features for community engagement.",
     year: "2022",
     tech: ["React Native", "Firebase", "Chart.js"],
+    image: null,
   },
 ];
 
@@ -92,10 +99,18 @@ const Projects = () => {
                 className="group grid lg:grid-cols-[1fr_2fr] gap-8 border border-border rounded-lg p-6 lg:p-8 bg-card shadow-sm hover:shadow-md transition-shadow cursor-pointer"
               >
                 {/* Image placeholder */}
-                <div className="bg-secondary aspect-[16/10] rounded-md flex items-center justify-center">
-                  <span className="font-display text-4xl font-bold text-muted-foreground/20">
-                    {project.year}
-                  </span>
+                <div className="bg-secondary aspect-[16/10] rounded-md flex items-center justify-center overflow-hidden">
+                  {project.image ? (
+                    <img
+                      src={project.image}
+                      alt={project.title}
+                      className="w-full h-full object-cover"
+                    />
+                  ) : (
+                    <span className="font-display text-4xl font-bold text-muted-foreground/20">
+                      {project.year}
+                    </span>
+                  )}
                 </div>
 
                 {/* Info */}
