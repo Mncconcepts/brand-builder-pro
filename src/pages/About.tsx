@@ -19,21 +19,21 @@ const skills = [
 
 const experience = [
   {
-    role: "Senior Product Designer & Developer",
+    role: "Lead Product Designer (VISA GUARD AFRICA TECHNOLOGIES LTD)",
     company: "Mncconcepts",
     period: "2022 – Present",
     description:
       "Leading product design for startups and established brands. Creating user-centered designs, conducting user research, building prototypes, and delivering scalable design systems that drive business outcomes.",
   },
   {
-    role: "Product Designer",
+    role: "Product Designer (CVMP)",
     company: "Tech Agency",
     period: "2021 – 2022",
     description:
       "Designed intuitive interfaces for e-commerce, SaaS, and fintech products. Led user research sessions, created wireframes and high-fidelity prototypes, and collaborated with engineering to ensure design implementation.",
   },
   {
-    role: "UI/UX Designer",
+    role: "UI/UX Designer (DAPSTORE)",
     company: "Digital Studio",
     period: "2020 – 2021",
     description:
@@ -212,7 +212,7 @@ const About = () => {
             <p className="text-sm font-medium tracking-widest uppercase text-muted-foreground mb-3">
               Values
             </p>
-            <h2 className="font-display text-4xl font-semibold text-foreground">
+            <h2 className="font-display text-4xl text-foreground font-extrabold">
               How I <span className="italic">Work</span>
             </h2>
           </motion.div>
@@ -236,7 +236,7 @@ const About = () => {
       {/* CTA */}
       <section className="py-20 bg-primary text-primary-foreground">
         <div className="max-w-3xl mx-auto px-6 text-center">
-          <h2 className="font-display text-3xl sm:text-4xl font-semibold mb-4">
+          <h2 className="font-display text-3xl sm:text-4xl mb-4 font-extrabold">
             Interested in working together?
           </h2>
           <p className="text-primary-foreground/60 mb-8">
