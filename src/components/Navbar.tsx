@@ -2,8 +2,6 @@ import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import ThemeToggle from "@/components/ThemeToggle";
-import logo from "@/assets/logo2.png";
-
 const navItems = [
   { label: "Home", href: "/" },
   { label: "About", href: "/about" },
@@ -21,8 +19,15 @@ const Navbar = () => {
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-background/90 backdrop-blur-md border-b border-border">
       <div className="max-w-6xl mx-auto px-6 flex items-center justify-between h-16">
-        <Link to="/" className="flex items-center">
-          <img src={logo} alt="Logo" className="h-8 w-auto" />
+        <Link to="/" className="flex items-center gap-0">
+          <div className="flex flex-col leading-none">
+            <span className="font-display text-lg font-extrabold tracking-tight text-foreground">
+              Mncconcepts
+            </span>
+            <span className="text-[10px] font-medium tracking-[0.25em] uppercase text-muted-foreground">
+              Designer &amp; Dev
+            </span>
+          </div>
         </Link>
 
         {/* Desktop */}
