@@ -8,7 +8,7 @@ import projPearlzStore from "@/assets/proj-pearlz-store.png";
 const projects = [
   {
     title: "E-Commerce Platform",
-    category: "App Design · UI Design",
+    category: "APP DESIGN · UI DESIGN - WEB DEVELOPMENT",
     description:
       "A full-featured e-commerce platform with seamless checkout, real-time inventory, and a custom CMS for product management. Built with React and Node.js.",
     year: "2025",
@@ -144,7 +144,7 @@ const Projects = () => {
       {/* CTA */}
       <section className="py-20 bg-primary text-primary-foreground">
         <div className="max-w-3xl mx-auto px-6 text-center">
-          <h2 className="font-display text-3xl sm:text-4xl font-semibold mb-4">
+          <h2 className="font-display text-3xl sm:text-4xl mb-4 font-extrabold">
             Have a project in mind?
           </h2>
           <p className="text-primary-foreground/60 mb-8">
