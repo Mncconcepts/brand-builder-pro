@@ -13,7 +13,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import heroVideo from "@/assets/hero-typing.mp4.asset.json";
+import heroVideo from "@/assets/hero-typing-v2.mp4.asset.json";
 
 const stats = [
   { value: "4+", label: "Years Experience" },
