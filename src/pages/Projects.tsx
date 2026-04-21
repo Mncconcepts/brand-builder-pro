@@ -8,21 +8,21 @@ import projStoreapp2 from "@/assets/proj-storeapp2.png";
 
 const projects = [
   {
-    title: "E-Commerce Platform",
+    title: "E-Commerce Skincare Website",
     category: "APP DESIGN · UI DESIGN - WEB DEVELOPMENT",
     description:
-      "A full-featured e-commerce platform with seamless checkout, real-time inventory, and a custom CMS for product management. Built with React and Node.js.",
+      "A full-featured e-commerce platform with seamless checkout, real-time products, and a custom CMS for product management. Built with React and Node.js.",
     year: "2025",
     tech: ["React", "Node.js", "Stripe", "PostgreSQL"],
     image: projPearlzStore,
   },
   {
-    title: "SaaS Dashboard",
-    category: "Product Design · Frontend",
+    title: "Computer Village MarketPlace(CVMP)",
+    category: "PRODUCT DESIGN · UIUX",
     description:
       "Analytics dashboard for a B2B SaaS product. Complex data visualizations made intuitive through thoughtful design and interaction patterns.",
     year: "2025",
-    tech: ["React", "TypeScript", "D3.js", "Tailwind"],
+    tech: ["Flutter", "TypeScript", "D3.js", "Tailwind"],
     image: projStoreapp2,
   },
   {
