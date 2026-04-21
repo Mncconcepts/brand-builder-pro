@@ -42,19 +42,19 @@ const featuredServices = [
 
 const featuredProjects = [
   {
-    title: "E-Commerce Platform",
-    category: "Web Development",
-    year: "2024",
+    title: "Multiple Vendor Store",
+    category: "App Design",
+    year: "2025",
   },
   {
-    title: "SaaS Dashboard",
-    category: "Product Design",
-    year: "2024",
+    title: "Visa Guard Africa Technologies",
+    category: "Product Design, Development",
+    year: "2026",
   },
   {
-    title: "Brand Identity System",
-    category: "Design System",
-    year: "2023",
+    title: "Oonsa Event Planning Webapp",
+    category: "UIUX Design",
+    year: "2025",
   },
 ];
 
@@ -276,7 +276,7 @@ const Index = () => {
             <p className="text-sm font-medium tracking-widest uppercase text-muted-foreground mb-3">
               Testimonials
             </p>
-            <h2 className="font-display text-4xl font-semibold text-foreground">
+            <h2 className="font-display text-4xl text-foreground font-extrabold">
               What Clients <span className="italic">Say</span>
             </h2>
           </motion.div>
@@ -297,7 +297,7 @@ const Index = () => {
             <p className="text-sm font-medium tracking-widest uppercase text-muted-foreground mb-3">
               FAQ
             </p>
-            <h2 className="font-display text-4xl font-semibold text-foreground">
+            <h2 className="font-display text-4xl text-foreground font-extrabold">
               Frequently Asked <span className="italic">Questions</span>
             </h2>
           </motion.div>
@@ -329,7 +329,7 @@ const Index = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
           >
-            <h2 className="font-display text-4xl sm:text-5xl font-semibold mb-6">
+            <h2 className="font-display text-4xl sm:text-5xl mb-6 font-extrabold">
               Ready To Start Your <span className="italic">Project</span>?
             </h2>
             <p className="text-primary-foreground/60 mb-10 max-w-lg mx-auto leading-relaxed">

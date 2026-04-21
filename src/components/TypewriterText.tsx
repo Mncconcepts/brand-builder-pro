@@ -15,7 +15,7 @@ const TypewriterText = ({
   text,
   speed = 55,
   startDelay = 200,
-  className = "",
+  className = "font-bold",
   caretClassName = "",
 }: TypewriterTextProps) => {
   const [shown, setShown] = useState("");
