@@ -19,25 +19,25 @@ const skills = [
 
 const experience = [
   {
-    role: "Senior Web Developer & Designer",
-    company: "Freelance",
+    role: "Senior Product Designer & Developer",
+    company: "Mncconcepts",
     period: "2022 – Present",
     description:
-      "Working with startups and established businesses to build scalable web applications and design systems. Leading end-to-end product development from research to deployment.",
+      "Leading product design for startups and established brands. Creating user-centered designs, conducting user research, building prototypes, and delivering scalable design systems that drive business outcomes.",
   },
   {
-    role: "Frontend Developer",
+    role: "Product Designer",
     company: "Tech Agency",
     period: "2021 – 2022",
     description:
-      "Built responsive, high-performance web applications for clients across e-commerce, SaaS, and fintech industries. Collaborated with design and backend teams.",
+      "Designed intuitive interfaces for e-commerce, SaaS, and fintech products. Led user research sessions, created wireframes and high-fidelity prototypes, and collaborated with engineering to ensure design implementation.",
   },
   {
-    role: "Junior Developer & Designer",
+    role: "UI/UX Designer",
     company: "Digital Studio",
     period: "2020 – 2021",
     description:
-      "Started career building WordPress sites and marketing pages. Quickly transitioned into React development and product design roles.",
+      "Started as a web designer creating marketing pages, quickly transitioned into product design roles. Built user flows, designed component libraries, and learned to code to better communicate with developers.",
   },
 ];
 
