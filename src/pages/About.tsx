@@ -143,8 +143,12 @@ const About = () => {
                 Education
               </h3>
               <div className="border border-border rounded-lg p-6">
-                <p className="font-semibold text-foreground">B.Sc. Computer Science</p>
-                <p className="text-sm text-muted-foreground mt-1">University Name · 2016 – 2020</p>
+                <p className="font-semibold text-foreground">FULL-STACK WEB DEVELOPMENT</p>
+                <p className="text-sm text-muted-foreground mt-1">Lagos state school of programming</p>
+              </div>
+              <div className="border border-border rounded-lg p-6 mt-4">
+                <p className="font-semibold text-foreground">SOFTWARE DEVELOPMENT</p>
+                <p className="text-sm text-muted-foreground mt-1">University of the People · Present</p>
               </div>
             </motion.div>
           </div>
