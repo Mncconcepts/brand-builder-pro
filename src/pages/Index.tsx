@@ -13,7 +13,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import heroImage from "@/assets/hero-abstract.jpg";
+import heroImage from "@/assets/hero-tech-design.jpg";
 
 const stats = [
   { value: "4+", label: "Years Experience" },
