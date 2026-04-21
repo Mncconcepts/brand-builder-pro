@@ -141,7 +141,7 @@ const Index = () => {
             <div className="aspect-[4/3] overflow-hidden rounded-lg">
               <img
                 src={heroImage}
-                alt="Abstract design composition"
+                alt="Tech design and development visual"
                 className="w-full h-full object-cover"
               />
             </div>
