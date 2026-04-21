@@ -6,9 +6,7 @@ const Footer = () => {
       <div className="max-w-6xl mx-auto px-6 py-16">
         <div className="grid md:grid-cols-4 gap-10 mb-12">
           <div className="md:col-span-2">
-            <Link to="/" className="font-display text-2xl font-semibold">
-              Studio
-            </Link>
+            <Link to="/" className="font-display font-bold text-xl">Mncconcepts</Link>
             <p className="mt-4 text-primary-foreground/60 max-w-sm leading-relaxed text-sm">
               A web developer and product designer helping businesses build digital 
               products that are functional, beautiful, and built to last.
@@ -20,7 +18,7 @@ const Footer = () => {
               Navigation
             </p>
             <ul className="space-y-2 text-sm">
-              {["Home", "About", "Services", "Projects", "Case Studies", "Blog", "Contact"].map((item) => (
+              {["Home", "About", "Services", "Projects", "Blog", "Contact"].map((item) => (
                 <li key={item}>
                   <Link
                     to={item === "Home" ? "/" : `/${item.toLowerCase().replace(/ /g, "-")}`}
@@ -38,7 +36,7 @@ const Footer = () => {
               Connect
             </p>
             <ul className="space-y-2 text-sm">
-              {["GitHub", "LinkedIn", "Twitter", "Dribbble"].map((item) => (
+              {["GitHub", "LinkedIn", "Twitter", "Facebook"].map((item) => (
                 <li key={item}>
                   <a href="#" className="text-primary-foreground/60 hover:text-primary-foreground transition-colors">
                     {item}
@@ -50,9 +48,7 @@ const Footer = () => {
         </div>
 
         <div className="border-t border-primary-foreground/10 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <p className="text-xs text-primary-foreground/40">
-            © {new Date().getFullYear()} Studio. All rights reserved.
-          </p>
+          <p className="text-xs text-primary-foreground/40">© {new Date().getFullYear()} Mncconcepts. All rights reserved.</p>
           <div className="flex gap-6 text-xs text-primary-foreground/40">
             <a href="#" className="hover:text-primary-foreground/60 transition-colors">Privacy Policy</a>
             <a href="#" className="hover:text-primary-foreground/60 transition-colors">Terms of Service</a>
