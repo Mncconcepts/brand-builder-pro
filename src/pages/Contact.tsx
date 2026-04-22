@@ -1,7 +1,10 @@
 import { motion } from "framer-motion";
-import { useState, FormEvent } from "react";
+import { useState, FormEvent, useRef } from "react";
+import { Calendar as CalendarIcon } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import BookCallSheet from "@/components/BookCallSheet";
+import { toast } from "sonner";
 import {
   Accordion,
   AccordionContent,
@@ -30,10 +33,31 @@ const faqs = [
 
 const Contact = () => {
   const [submitted, setSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const nameRef = useRef<HTMLInputElement>(null);
+  const emailRef = useRef<HTMLInputElement>(null);
+  const subjectRef = useRef<HTMLInputElement>(null);
+  const budgetRef = useRef<HTMLSelectElement>(null);
+  const messageRef = useRef<HTMLTextAreaElement>(null);
 
-  const handleSubmit = (e: FormEvent) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
+    const name = nameRef.current?.value || "";
+    const email = emailRef.current?.value || "";
+    const subject = subjectRef.current?.value || "";
+    const budget = budgetRef.current?.value || "";
+    const message = messageRef.current?.value || "";
+
+    setSubmitting(true);
+    toast.loading("Sending your message...", { id: "contact-form" });
+    await new Promise((r) => setTimeout(r, 400));
+
+    const body = `Name: ${name}%0D%0AEmail: ${email}%0D%0ABudget: ${budget}%0D%0A%0D%0A${encodeURIComponent(message)}`;
+    window.open(`mailto:clintonnweze111@gmail.com?subject=${encodeURIComponent(subject)}&body=${body}`, "_self");
+
+    setSubmitting(false);
     setSubmitted(true);
+    toast.success("Message ready to send! Your email client should open now.", { id: "contact-form" });
   };
 
   return (
@@ -79,14 +103,14 @@ const Contact = () => {
               <div className="space-y-6 text-sm mb-12">
                 <div>
                   <p className="text-muted-foreground mb-1">Email</p>
-                  <a href="mailto:hello@yourdomain.com" className="text-foreground font-medium hover:text-muted-foreground transition-colors">
-                    hello@yourdomain.com
+                  <a href="mailto:clintonnweze111@gmail.com" className="text-foreground font-medium hover:text-muted-foreground transition-colors">
+                    clintonnweze111@gmail.com
                   </a>
                 </div>
                 <div>
                   <p className="text-muted-foreground mb-1">Phone</p>
-                  <a href="tel:+1234567890" className="text-foreground font-medium hover:text-muted-foreground transition-colors">
-                    +1 (234) 567-890
+                  <a href="tel:+2349020495756" className="text-foreground font-medium hover:text-muted-foreground transition-colors">
+                    +234 902 049 5756
                   </a>
                 </div>
                 <div>
@@ -110,6 +134,20 @@ const Contact = () => {
                     </a>
                   ))}
                 </div>
+              </div>
+
+              <div className="mt-8">
+                <BookCallSheet
+                  trigger={
+                    <button
+                      type="button"
+                      className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-6 py-3 text-sm font-medium rounded-md hover:bg-primary/90 transition-colors"
+                    >
+                      <CalendarIcon className="h-4 w-4" />
+                      Book A Call Session
+                    </button>
+                  }
+                />
               </div>
             </motion.div>
 
@@ -146,6 +184,7 @@ const Contact = () => {
                         type="text"
                         required
                         placeholder="Your full name"
+                        ref={nameRef}
                         className="w-full bg-card border border-border rounded-md px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring"
                       />
                     </div>
@@ -157,6 +196,7 @@ const Contact = () => {
                         type="email"
                         required
                         placeholder="your@email.com"
+                        ref={emailRef}
                         className="w-full bg-card border border-border rounded-md px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring"
                       />
                     </div>
@@ -169,6 +209,7 @@ const Contact = () => {
                       type="text"
                       required
                       placeholder="Project inquiry"
+                      ref={subjectRef}
                       className="w-full bg-card border border-border rounded-md px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring"
                     />
                   </div>
@@ -176,7 +217,7 @@ const Contact = () => {
                     <label className="block text-sm font-medium text-foreground mb-1.5">
                       Budget Range
                     </label>
-                    <select className="w-full bg-card border border-border rounded-md px-4 py-3 text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-ring">
+                    <select ref={budgetRef} className="w-full bg-card border border-border rounded-md px-4 py-3 text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-ring">
                       <option value="">Select a range</option>
                       <option>Under $2,500</option>
                       <option>$2,500 – $5,000</option>
@@ -192,14 +233,16 @@ const Contact = () => {
                       required
                       rows={5}
                       placeholder="Tell me about your project, goals, and timeline..."
+                      ref={messageRef}
                       className="w-full bg-card border border-border rounded-md px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring resize-none"
                     />
                   </div>
                   <button
                     type="submit"
-                    className="w-full bg-primary text-primary-foreground py-3.5 text-sm font-medium rounded-md hover:bg-primary/90 transition-colors"
+                    disabled={submitting}
+                    className="w-full bg-primary text-primary-foreground py-3.5 text-sm font-medium rounded-md hover:bg-primary/90 transition-colors disabled:opacity-50"
                   >
-                    Send Message
+                    {submitting ? "Sending..." : "Send Message"}
                   </button>
                 </form>
               )}

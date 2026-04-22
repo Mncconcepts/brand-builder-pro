@@ -79,15 +79,21 @@ const BookCallSheet = ({ trigger }: BookCallSheetProps) => {
       return;
     }
     setSubmitting(true);
-    // Simulate request
-    await new Promise((r) => setTimeout(r, 600));
+    toast({
+      title: "Sending booking request...",
+      description: "Please wait a moment.",
+    });
+
+    await new Promise((r) => setTimeout(r, 500));
+
+    const dateStr = format(result.data.date, "PPP");
+    const body = `Call Booking Request%0D%0A%0D%0AName: ${result.data.name}%0D%0AEmail: ${result.data.email}%0D%0ADate: ${dateStr}%0D%0ATime: ${result.data.time}%0D%0ANotes: ${result.data.notes || "N/A"}`;
+    window.open(`mailto:clintonnweze111@gmail.com?subject=${encodeURIComponent(`Call Booking - ${result.data.name}`)}&body=${body}`, "_self");
+
     setSubmitting(false);
     toast({
-      title: "Call request sent",
-      description: `Thanks ${result.data.name}! I'll confirm ${format(
-        result.data.date,
-        "PPP",
-      )} at ${result.data.time} via email.`,
+      title: "Booking request sent!",
+      description: `Thanks ${result.data.name}! Your email client should open with the booking details for ${dateStr} at ${result.data.time}.`,
     });
     reset();
     setOpen(false);
