@@ -5,6 +5,7 @@ import Footer from "@/components/Footer";
 import StackingCards from "@/components/StackingCards";
 import projPearlzStore from "@/assets/proj-pearlz-store.png";
 import projStoreapp2 from "@/assets/proj-storeapp2.png";
+import projOonsa from "@/assets/proj-oonsa.png";
 
 const projects = [
   {
@@ -32,7 +33,7 @@ const projects = [
       "A modern event management app designed to simplify event discovery, ticketing, and planning. End-to-end UI/UX design from research to high-fidelity prototypes.",
     year: "2025",
     tech: ["Figma", "Adobe XD", "Illustrator", "Photoshop"],
-    image: null,
+    image: projOonsa,
   },
   {
     title: "Mobile Banking App",
