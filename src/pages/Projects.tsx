@@ -26,12 +26,12 @@ const projects = [
     image: projStoreapp2,
   },
   {
-    title: "Brand Identity System",
-    category: "Design System · Branding",
+    title: "Oonsa Event App",
+    category: "UI/UX DESIGN · BRANDING",
     description:
-      "Comprehensive design system including component library, typography guidelines, and brand assets for a fintech startup.",
+      "A modern event management app designed to simplify event discovery, ticketing, and planning. End-to-end UI/UX design from research to high-fidelity prototypes.",
     year: "2023",
-    tech: ["Figma", "Storybook", "React", "CSS"],
+    tech: ["Figma", "Adobe XD", "Illustrator", "Photoshop"],
     image: null,
   },
   {
