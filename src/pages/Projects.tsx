@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
+import { ExternalLink } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import StackingCards from "@/components/StackingCards";
@@ -17,7 +18,7 @@ const projects = [
       "A secure visa platform designed to protect Africans from visa scams. Features real-time verification, fraud detection, and a seamless application tracking system.",
     year: "COMMING SOON",
     tech: ["Figma", "React Native", "Node.js", "TypeScript", "MongoDB", "Express"],
-    image: null,
+    link: null,
   },
   {
     title: "E-Commerce Skincare Website",
@@ -27,6 +28,7 @@ const projects = [
     year: "2025",
     tech: ["React", "Node.js", "Stripe", "PostgreSQL"],
     image: projPearlzStore,
+    link: "https://pearlz-store.vercel.app",
   },
   {
     title: "Computer Village MarketPlace(CVMP)",
@@ -36,6 +38,7 @@ const projects = [
     year: "2025",
     tech: ["Flutter", "Figma", "Dart", "Firebase"],
     image: projStoreapp2,
+    link: null,
   },
   {
     title: "Oonsa Event App",
@@ -45,6 +48,7 @@ const projects = [
     year: "2025",
     tech: ["Figma", "Adobe XD", "Illustrator", "Photoshop"],
     image: projOonsa,
+    link: "https://oonsa.com",
   },
   {
     title: "OMA Crypto Mining App",
@@ -54,6 +58,7 @@ const projects = [
     year: "2023",
     tech: ["Figma", "Adobe XD", "Illustrator", "Photoshop"],
     image: projOma,
+    link: null,
   },
   {
     title: "PayWithPi",
@@ -63,6 +68,7 @@ const projects = [
     year: "2022",
     tech: ["React", "TypeScript", "Firebase", "Node.js"],
     image: projPaywithpi,
+    link: "https://paywith-pi.vercel.app",
   },
 ];
 
@@ -137,6 +143,22 @@ const Projects = () => {
                         {t}
                       </span>
                     ))}
+                  </div>
+                  <div className="mt-4">
+                    {project.link ? (
+                      <a
+                        href={project.link}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-2 bg-blue-600 text-white px-5 py-2.5 rounded-md text-sm font-medium hover:bg-blue-700 transition-colors"
+                      >
+                        View Live <ExternalLink className="w-4 h-4" />
+                      </a>
+                    ) : (
+                      <span className="inline-flex items-center gap-2 bg-blue-600/50 text-white/70 px-5 py-2.5 rounded-md text-sm font-medium cursor-not-allowed">
+                        View Live <ExternalLink className="w-4 h-4" />
+                      </span>
+                    )}
                   </div>
                 </div>
               </article>
