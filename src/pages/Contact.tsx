@@ -233,14 +233,16 @@ const Contact = () => {
                       required
                       rows={5}
                       placeholder="Tell me about your project, goals, and timeline..."
+                      ref={messageRef}
                       className="w-full bg-card border border-border rounded-md px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring resize-none"
                     />
                   </div>
                   <button
                     type="submit"
-                    className="w-full bg-primary text-primary-foreground py-3.5 text-sm font-medium rounded-md hover:bg-primary/90 transition-colors"
+                    disabled={submitting}
+                    className="w-full bg-primary text-primary-foreground py-3.5 text-sm font-medium rounded-md hover:bg-primary/90 transition-colors disabled:opacity-50"
                   >
-                    Send Message
+                    {submitting ? "Sending..." : "Send Message"}
                   </button>
                 </form>
               )}
