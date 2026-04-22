@@ -184,6 +184,7 @@ const Contact = () => {
                         type="text"
                         required
                         placeholder="Your full name"
+                        ref={nameRef}
                         className="w-full bg-card border border-border rounded-md px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring"
                       />
                     </div>
@@ -195,6 +196,7 @@ const Contact = () => {
                         type="email"
                         required
                         placeholder="your@email.com"
+                        ref={emailRef}
                         className="w-full bg-card border border-border rounded-md px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring"
                       />
                     </div>
@@ -207,6 +209,7 @@ const Contact = () => {
                       type="text"
                       required
                       placeholder="Project inquiry"
+                      ref={subjectRef}
                       className="w-full bg-card border border-border rounded-md px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring"
                     />
                   </div>
@@ -214,7 +217,7 @@ const Contact = () => {
                     <label className="block text-sm font-medium text-foreground mb-1.5">
                       Budget Range
                     </label>
-                    <select className="w-full bg-card border border-border rounded-md px-4 py-3 text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-ring">
+                    <select ref={budgetRef} className="w-full bg-card border border-border rounded-md px-4 py-3 text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-ring">
                       <option value="">Select a range</option>
                       <option>Under $2,500</option>
                       <option>$2,500 – $5,000</option>
