@@ -30,7 +30,7 @@ const projects = [
     category: "UI/UX DESIGN · BRANDING",
     description:
       "A modern event management app designed to simplify event discovery, ticketing, and planning. End-to-end UI/UX design from research to high-fidelity prototypes.",
-    year: "2023",
+    year: "2025",
     tech: ["Figma", "Adobe XD", "Illustrator", "Photoshop"],
     image: null,
   },
