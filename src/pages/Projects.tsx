@@ -15,7 +15,7 @@ const projects = [
     category: "DESIGN · DEVELOPMENT · FULL STACK",
     description:
       "A secure visa platform designed to protect Africans from visa scams. Features real-time verification, fraud detection, and a seamless application tracking system.",
-    year: "2025",
+    year: "COMMING SOON",
     tech: ["Figma", "React Native", "Node.js", "TypeScript", "MongoDB", "Express"],
     image: null,
   },
@@ -111,7 +111,7 @@ const Projects = () => {
                       className="w-full h-full object-cover"
                     />
                   ) : (
-                    <span className="font-display text-4xl font-bold text-muted-foreground/20">
+                    <span className="font-display text-4xl font-bold text-primary">
                       {project.year}
                     </span>
                   )}
