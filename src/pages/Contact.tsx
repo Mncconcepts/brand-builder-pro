@@ -80,13 +80,13 @@ const Contact = () => {
                 <div>
                   <p className="text-muted-foreground mb-1">Email</p>
                   <a href="mailto:hello@yourdomain.com" className="text-foreground font-medium hover:text-muted-foreground transition-colors">
-                    hello@yourdomain.com
+                    clintonnweze111@gmail.com
                   </a>
                 </div>
                 <div>
                   <p className="text-muted-foreground mb-1">Phone</p>
-                  <a href="tel:+1234567890" className="text-foreground font-medium hover:text-muted-foreground transition-colors">
-                    +1 (234) 567-890
+                  <a href="tel:+2349020495756" className="text-foreground font-medium hover:text-muted-foreground transition-colors">
+                    +234 902 049 5756
                   </a>
                 </div>
                 <div>
