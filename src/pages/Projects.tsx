@@ -7,6 +7,7 @@ import projPearlzStore from "@/assets/proj-pearlz-store.png";
 import projStoreapp2 from "@/assets/proj-storeapp2.png";
 import projOonsa from "@/assets/proj-oonsa.png";
 import projOma from "@/assets/proj-oma.png";
+import projPaywithpi from "@/assets/proj-paywithpi.png";
 
 const projects = [
   {
@@ -46,13 +47,13 @@ const projects = [
     image: projOma,
   },
   {
-    title: "Real Estate Platform",
-    category: "Full Stack · Product Design",
+    title: "PayWithPi",
+    category: "WEB DEVELOPMENT · FULL STACK",
     description:
-      "Property listing and management platform with map integration, virtual tours, and an intelligent search system.",
+      "A Pi Network payment platform with wallet management, fund transfers, and an admin dashboard featuring sales analytics and order statistics.",
     year: "2022",
-    tech: ["Next.js", "MongoDB", "Mapbox", "AWS"],
-    image: null,
+    tech: ["React", "TypeScript", "Firebase", "Node.js"],
+    image: projPaywithpi,
   },
   {
     title: "Health & Fitness App",
