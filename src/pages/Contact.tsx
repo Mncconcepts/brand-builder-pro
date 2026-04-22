@@ -40,9 +40,24 @@ const Contact = () => {
   const budgetRef = useRef<HTMLSelectElement>(null);
   const messageRef = useRef<HTMLTextAreaElement>(null);
 
-  const handleSubmit = (e: FormEvent) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
+    const name = nameRef.current?.value || "";
+    const email = emailRef.current?.value || "";
+    const subject = subjectRef.current?.value || "";
+    const budget = budgetRef.current?.value || "";
+    const message = messageRef.current?.value || "";
+
+    setSubmitting(true);
+    toast.loading("Sending your message...", { id: "contact-form" });
+    await new Promise((r) => setTimeout(r, 400));
+
+    const body = `Name: ${name}%0D%0AEmail: ${email}%0D%0ABudget: ${budget}%0D%0A%0D%0A${encodeURIComponent(message)}`;
+    window.open(`mailto:clintonnweze111@gmail.com?subject=${encodeURIComponent(subject)}&body=${body}`, "_self");
+
+    setSubmitting(false);
     setSubmitted(true);
+    toast.success("Message ready to send! Your email client should open now.", { id: "contact-form" });
   };
 
   return (
