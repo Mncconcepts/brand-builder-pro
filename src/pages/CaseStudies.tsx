@@ -1,7 +1,9 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
+import { Calendar as CalendarIcon } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import BookCallSheet from "@/components/BookCallSheet";
 
 const caseStudies = [
   {
@@ -199,12 +201,25 @@ const CaseStudies = () => {
           <p className="text-primary-foreground/60 mb-8">
             Let's discuss how I can deliver measurable impact for your business.
           </p>
-          <Link
-            to="/contact"
-            className="inline-block bg-primary-foreground text-primary px-8 py-3.5 text-sm font-medium rounded-md hover:bg-primary-foreground/90 transition-colors"
-          >
-            Start a Conversation
-          </Link>
+          <div className="flex flex-wrap gap-3 justify-center">
+            <Link
+              to="/contact"
+              className="inline-block bg-primary-foreground text-primary px-8 py-3.5 text-sm font-medium rounded-md hover:bg-primary-foreground/90 transition-colors"
+            >
+              Start a Conversation
+            </Link>
+            <BookCallSheet
+              trigger={
+                <button
+                  type="button"
+                  className="inline-flex items-center gap-2 border border-primary-foreground/40 text-primary-foreground px-8 py-3.5 text-sm font-medium rounded-md hover:bg-primary-foreground/10 transition-colors"
+                >
+                  <CalendarIcon className="h-4 w-4" />
+                  Book A Call Session
+                </button>
+              }
+            />
+          </div>
         </div>
       </section>
 

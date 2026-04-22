@@ -1,9 +1,10 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
-import { ExternalLink } from "lucide-react";
+import { ExternalLink, Calendar as CalendarIcon } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import StackingCards from "@/components/StackingCards";
+import BookCallSheet from "@/components/BookCallSheet";
 import projPearlzStore from "@/assets/proj-pearlz-store.png";
 import projStoreapp2 from "@/assets/proj-storeapp2.png";
 import projOonsa from "@/assets/proj-oonsa.png";
@@ -182,6 +183,17 @@ const Projects = () => {
           >
             Start a Conversation
           </Link>
+          <BookCallSheet
+            trigger={
+              <button
+                type="button"
+                className="inline-flex items-center gap-2 border border-primary-foreground/40 text-primary-foreground px-8 py-3.5 text-sm font-medium rounded-md hover:bg-primary-foreground/10 transition-colors"
+              >
+                <CalendarIcon className="h-4 w-4" />
+                Book A Call Session
+              </button>
+            }
+          />
         </div>
       </section>
 
