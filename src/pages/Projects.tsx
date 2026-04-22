@@ -11,6 +11,15 @@ import projPaywithpi from "@/assets/proj-paywithpi.png";
 
 const projects = [
   {
+    title: "Visa Guard Africa Technologies Ltd",
+    category: "DESIGN · DEVELOPMENT · FULL STACK",
+    description:
+      "A secure visa platform designed to protect Africans from visa scams. Features real-time verification, fraud detection, and a seamless application tracking system.",
+    year: "2025",
+    tech: ["Figma", "React Native", "Node.js", "TypeScript", "MongoDB", "Express"],
+    image: null,
+  },
+  {
     title: "E-Commerce Skincare Website",
     category: "APP DESIGN · UI DESIGN - WEB DEVELOPMENT",
     description:
@@ -54,15 +63,6 @@ const projects = [
     year: "2022",
     tech: ["React", "TypeScript", "Firebase", "Node.js"],
     image: projPaywithpi,
-  },
-  {
-    title: "Health & Fitness App",
-    category: "UI/UX · Frontend",
-    description:
-      "Fitness tracking application with workout plans, progress analytics, and social features for community engagement.",
-    year: "2022",
-    tech: ["React Native", "Firebase", "Chart.js"],
-    image: null,
   },
 ];
 
