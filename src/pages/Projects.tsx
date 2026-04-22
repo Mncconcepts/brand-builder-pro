@@ -6,6 +6,7 @@ import StackingCards from "@/components/StackingCards";
 import projPearlzStore from "@/assets/proj-pearlz-store.png";
 import projStoreapp2 from "@/assets/proj-storeapp2.png";
 import projOonsa from "@/assets/proj-oonsa.png";
+import projOma from "@/assets/proj-oma.png";
 
 const projects = [
   {
@@ -36,13 +37,13 @@ const projects = [
     image: projOonsa,
   },
   {
-    title: "Mobile Banking App",
-    category: "UI/UX Design · Prototype",
+    title: "OMA Crypto Mining App",
+    category: "UI/UX DESIGN · PRODUCT DESIGN",
     description:
-      "End-to-end design for a mobile banking experience. User research, wireframes, and high-fidelity prototypes tested with real users.",
+      "A custom crypto mining, gaming, and entertainment mobile app. Designed end-to-end with intuitive dashboards, growth analytics, and seamless user experiences.",
     year: "2023",
-    tech: ["Figma", "Protopie", "User Testing"],
-    image: null,
+    tech: ["Figma", "Adobe XD", "Illustrator", "Photoshop"],
+    image: projOma,
   },
   {
     title: "Real Estate Platform",
