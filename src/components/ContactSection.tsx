@@ -1,12 +1,34 @@
 import { motion } from "framer-motion";
-import { useState, FormEvent } from "react";
+import { useState, FormEvent, useRef } from "react";
+import { Calendar as CalendarIcon } from "lucide-react";
+import BookCallSheet from "@/components/BookCallSheet";
+import { toast } from "sonner";
 
 const ContactSection = () => {
   const [submitted, setSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const nameRef = useRef<HTMLInputElement>(null);
+  const emailRef = useRef<HTMLInputElement>(null);
+  const subjectRef = useRef<HTMLInputElement>(null);
+  const messageRef = useRef<HTMLTextAreaElement>(null);
 
-  const handleSubmit = (e: FormEvent) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
+    const name = nameRef.current?.value || "";
+    const email = emailRef.current?.value || "";
+    const subject = subjectRef.current?.value || "";
+    const message = messageRef.current?.value || "";
+
+    setSubmitting(true);
+    toast.loading("Sending your message...", { id: "contact-section" });
+    await new Promise((r) => setTimeout(r, 400));
+
+    const body = `Name: ${name}%0D%0AEmail: ${email}%0D%0A%0D%0A${encodeURIComponent(message)}`;
+    window.open(`mailto:clintonnweze111@gmail.com?subject=${encodeURIComponent(subject)}&body=${body}`, "_self");
+
+    setSubmitting(false);
     setSubmitted(true);
+    toast.success("Message ready to send! Your email client should open now.", { id: "contact-section" });
   };
 
   return (
@@ -35,8 +57,8 @@ const ContactSection = () => {
             <div className="space-y-4 text-sm">
               <div>
                 <p className="text-muted-foreground mb-1">Email</p>
-                <a href="mailto:hello@yourdomain.com" className="text-foreground font-medium hover:text-accent transition-colors">
-                  hello@yourdomain.com
+                <a href="mailto:clintonnweze111@gmail.com" className="text-foreground font-medium hover:text-accent transition-colors">
+                  clintonnweze111@gmail.com
                 </a>
               </div>
               <div>
@@ -60,6 +82,19 @@ const ContactSection = () => {
                   </a>
                 </div>
               </div>
+            </div>
+            <div className="mt-8">
+              <BookCallSheet
+                trigger={
+                  <button
+                    type="button"
+                    className="inline-flex items-center gap-2 bg-foreground text-background px-6 py-3 text-sm font-medium rounded-sm hover:opacity-90 transition-opacity"
+                  >
+                    <CalendarIcon className="h-4 w-4" />
+                    Book A Call Session
+                  </button>
+                }
+              />
             </div>
           </div>
 
@@ -85,6 +120,7 @@ const ContactSection = () => {
                       type="text"
                       required
                       placeholder="Your name"
+                      ref={nameRef}
                       className="w-full bg-background border border-border rounded-sm px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring"
                     />
                   </div>
@@ -96,6 +132,7 @@ const ContactSection = () => {
                       type="email"
                       required
                       placeholder="your@email.com"
+                      ref={emailRef}
                       className="w-full bg-background border border-border rounded-sm px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring"
                     />
                   </div>
@@ -108,6 +145,7 @@ const ContactSection = () => {
                     type="text"
                     required
                     placeholder="Project inquiry"
+                    ref={subjectRef}
                     className="w-full bg-background border border-border rounded-sm px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring"
                   />
                 </div>
@@ -119,14 +157,16 @@ const ContactSection = () => {
                     required
                     rows={5}
                     placeholder="Tell me about your project..."
+                    ref={messageRef}
                     className="w-full bg-background border border-border rounded-sm px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring resize-none"
                   />
                 </div>
                 <button
                   type="submit"
-                  className="w-full bg-foreground text-background py-3 text-sm font-medium rounded-sm hover:opacity-90 transition-opacity"
+                  disabled={submitting}
+                  className="w-full bg-foreground text-background py-3 text-sm font-medium rounded-sm hover:opacity-90 transition-opacity disabled:opacity-50"
                 >
-                  Send Message
+                  {submitting ? "Sending..." : "Send Message"}
                 </button>
               </form>
             )}
