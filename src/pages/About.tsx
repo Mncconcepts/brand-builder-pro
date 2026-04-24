@@ -101,7 +101,7 @@ const About = () => {
       </section>
 
       {/* Story */}
-      <section className="py-24">
+      <section className="py-20">
         <div className="max-w-6xl mx-auto px-6">
           <div className="grid lg:grid-cols-2 gap-16">
             <motion.div
@@ -184,7 +184,7 @@ const About = () => {
               >
                 <div className="flex flex-col md:flex-row md:items-start justify-between gap-2 mb-3">
                   <div>
-                    <h3 className="font-display text-xl font-semibold text-foreground">
+                    <h3 className="font-display text-xm font-semibold text-foreground">
                       {exp.role}
                     </h3>
                     <p className="text-sm text-muted-foreground">
@@ -205,7 +205,7 @@ const About = () => {
       </section>
 
      {/* Values */}
-      <section className="py-24">
+      <section className="py-20">
         <div className="max-w-6xl mx-auto px-6">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
