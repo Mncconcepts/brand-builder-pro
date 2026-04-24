@@ -17,8 +17,15 @@ const projects = [
     category: "DESIGN · DEVELOPMENT · FULL STACK",
     description:
       "A secure visa platform designed to protect Africans from visa scams. Features real-time verification, fraud detection, and a seamless application tracking system.",
-    year: "COMMING SOON",
-    tech: ["Figma", "React Native", "Node.js", "TypeScript", "MongoDB", "Express"],
+    year: "Comming Soon",
+    tech: [
+      "Figma",
+      "React Native",
+      "Node.js",
+      "TypeScript",
+      "MongoDB",
+      "Express",
+    ],
     link: null,
   },
   {
@@ -90,11 +97,12 @@ const Projects = () => {
               Projects
             </p>
             <h1 className="font-display text-5xl sm:text-6xl text-foreground leading-tight mb-6 font-extrabold">
-              Selected <span className="italic">Work</span>
+              Project-Folio.
             </h1>
-            <p className="text-lg text-muted-foreground max-w-2xl leading-relaxed">
-              A curated collection of projects showcasing my expertise in web development, 
-              product design, and user experience across various industries.
+            <p className="text-sm text-muted-foreground max-w-2xl leading-relaxed">
+              A curated collection of projects showcasing my expertise in web
+              development, product design, and user experience across various
+              industries.
             </p>
           </motion.div>
         </div>
@@ -103,14 +111,13 @@ const Projects = () => {
       {/* Projects */}
       <section className="py-24">
         <div className="max-w-6xl mx-auto px-6">
-          <StackingCards offset={24} top={100}>
+          <StackingCards offset={5} top={30}>
             {projects.map((project) => (
               <article
                 key={project.title}
                 className="group grid lg:grid-cols-[1fr_2fr] gap-8 border border-border rounded-lg p-6 lg:p-8 bg-card shadow-sm hover:shadow-md transition-shadow cursor-pointer"
               >
-                {/* Image placeholder */}
-                <div className="bg-secondary aspect-[16/10] rounded-md flex items-center justify-center overflow-hidden">
+                <div className="bg-secondary aspect-[16/12] rounded-md flex items-center justify-center overflow-hidden">
                   {project.image ? (
                     <img
                       src={project.image}
@@ -179,7 +186,7 @@ const Projects = () => {
           </p>
           <Link
             to="/contact"
-            className="inline-block bg-primary-foreground text-primary px-8 py-3.5 text-sm font-medium rounded-md hover:bg-primary-foreground/90 transition-colors"
+            className="inline-block bg-primary-foreground text-primary px-9 py-3.5 text-sm font-medium rounded-md hover:bg-primary-foreground/90 transition-colors"
           >
             Start a Conversation
           </Link>
@@ -189,7 +196,7 @@ const Projects = () => {
                 type="button"
                 className="inline-flex items-center gap-2 border border-primary-foreground/40 text-primary-foreground px-8 py-3.5 text-sm font-medium rounded-md hover:bg-primary-foreground/10 transition-colors"
               >
-                <CalendarIcon className="h-4 w-4" />
+                <CalendarIcon className="h-2.5 w-4" />
                 Book A Call Session
               </button>
             }

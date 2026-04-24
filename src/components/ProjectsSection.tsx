@@ -2,31 +2,31 @@ import { motion } from "framer-motion";
 
 const projects = [
   {
-    title: "E-Commerce Platform",
-    category: "Web Development · UI Design",
+    title: "Computer Village Marketplace",
+    category: "Web Development · UI/UX Design",
     description:
-      "A full-featured e-commerce platform with seamless checkout, real-time inventory, and a custom CMS for product management.",
+      "Designed and developed a fully responsive digital marketplace for Computer Village — Nigeria's largest technology hub. The platform features vendor storefronts, real-time product listings, smart search and filtering, secure checkout, and an admin dashboard for inventory and order management. Built to bridge the gap between Lagos' offline tech market and a modern online shopping experience.",
     year: "2024",
     color: "bg-secondary",
   },
   {
-    title: "SaaS Dashboard",
-    category: "Product Design · Frontend",
+    title: "Event Planner Management System",
+    category: "Product Design · Web Application",
     description:
-      "Analytics dashboard for a B2B SaaS product. Complex data visualizations made intuitive through thoughtful design and interaction patterns.",
+      "End-to-end design and development of an event planning management platform that streamlines the full event lifecycle — from client briefs and vendor coordination to budget tracking, guest management, and post-event reporting. Features an intuitive dashboard for planners, real-time collaboration tools, automated reminders, and a client-facing portal for seamless communication and approvals.",
     year: "2024",
     color: "bg-card",
   },
   {
-    title: "Brand Identity System",
-    category: "Design System · Branding",
+    title: "Visa Guard Africa Technologies",
+    category: "Product Management · Design & Development",
     description:
-      "Comprehensive design system including component library, typography guidelines, and brand assets for a fintech startup.",
+      "Led product management, design, and development for Visa Guard Africa — a platform simplifying visa processing and travel documentation across the African continent. Responsibilities spanned end-to-end product strategy, UX research, high-fidelity UI design, and frontend development. Delivered a secure, user-friendly application with document verification, real-time application tracking, and a multi-country visa eligibility engine.",
     year: "2023",
     color: "bg-secondary",
   },
   {
-    title: "Mobile Banking App",
+    title: "Muntipe vendor store- Dapstore",
     category: "UI/UX Design · Prototype",
     description:
       "End-to-end design for a mobile banking experience. User research, wireframes, and high-fidelity prototypes tested with real users.",

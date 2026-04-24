@@ -33,6 +33,13 @@ const services = [
       "Strategic design guidance for teams and products. Audits, design reviews, and actionable recommendations to elevate your digital presence.",
     features: ["Design Audits", "Team Mentoring", "Brand Strategy", "Process Optimization"],
   },
+  {
+    number: "05",
+    title: "Logo Design",
+    description:
+      "Distinctive, memorable logos and visual identities crafted to communicate your brand's personality. From concept to final assets, every mark is built to last.",
+    features: ["Brand Identity", "Logo Variants", "Style Guide", "Print & Digital Assets"],
+  },
 ];
 
 const process = [
@@ -97,26 +104,27 @@ const Services = () => {
               Services
             </p>
             <h1 className="font-display text-5xl sm:text-6xl text-foreground leading-tight mb-6 font-extrabold">
-              Solutions Tailored to
-              <br />
-              Your <span className="italic">Needs</span>.
+              Our Services
             </h1>
-            <p className="text-lg text-muted-foreground max-w-2xl leading-relaxed">
-              From concept to launch, I provide end-to-end services that cover every aspect of 
+            <p className="text-sm text-muted-foreground max-w-2xl leading-relaxed">
+              From concept to launch, We provide end-to-end services that cover every aspect of
               building successful digital products.
             </p>
           </motion.div>
         </div>
       </section>
 
-      {/* Services Grid */}
       <section className="py-24">
         <div className="max-w-6xl mx-auto px-6">
-          <StackingCards offset={20} top={100}>
-            {services.map((service) => (
-              <div
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {services.map((service, i) => (
+              <motion.div
                 key={service.number}
-                className="bg-card border border-border rounded-lg p-8 lg:p-10 shadow-sm"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.08 }}
+                className="bg-card border border-border rounded-lg p-8 lg:p-10 shadow-sm flex flex-col"
               >
                 <span className="text-xs font-semibold text-muted-foreground tracking-wider">
                   {service.number}
@@ -127,7 +135,7 @@ const Services = () => {
                 <p className="text-muted-foreground leading-relaxed mb-6">
                   {service.description}
                 </p>
-                <ul className="space-y-2">
+                <ul className="space-y-2 mb-8 flex-1">
                   {service.features.map((f) => (
                     <li key={f} className="text-sm text-muted-foreground flex items-center gap-2">
                       <span className="w-1 h-1 bg-foreground rounded-full" />
@@ -135,9 +143,15 @@ const Services = () => {
                     </li>
                   ))}
                 </ul>
-              </div>
+                <Link
+                  to="/contact"
+                  className="block text-center text-sm font-medium py-3 rounded-md border border-border text-foreground hover:bg-foreground hover:text-background transition-colors"
+                >
+                  Book Service
+                </Link>
+              </motion.div>
             ))}
-          </StackingCards>
+          </div>
         </div>
       </section>
 
@@ -154,7 +168,7 @@ const Services = () => {
               Process
             </p>
             <h2 className="font-display text-4xl text-foreground font-extrabold">
-              How It <span className="italic">Works</span>
+              How It Works
             </h2>
           </motion.div>
 
@@ -192,18 +206,22 @@ const Services = () => {
             <p className="text-sm font-medium tracking-widest uppercase text-muted-foreground mb-3">
               Pricing
             </p>
-            <h2 className="font-display text-4xl text-foreground font-extrabold">
-              Investment <span className="italic">Tiers</span>
+            <h2 className="font-display text-5xl text-foreground font-extrabold">
+              Investment Tiers
             </h2>
             <p className="text-muted-foreground mt-4 max-w-lg mx-auto">
               Transparent pricing to match your project scope. Every engagement includes a detailed proposal.
             </p>
           </motion.div>
 
-          <StackingCards offset={20} top={100}>
-            {pricing.map((tier) => (
-              <div
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 items-start">
+            {pricing.map((tier, i) => (
+              <motion.div
                 key={tier.name}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.1 }}
                 className={`border rounded-lg p-8 shadow-sm ${
                   tier.featured
                     ? "bg-primary text-primary-foreground border-primary"
@@ -238,9 +256,9 @@ const Services = () => {
                 >
                   Get Started
                 </Link>
-              </div>
+              </motion.div>
             ))}
-          </StackingCards>
+          </div>
         </div>
       </section>
 

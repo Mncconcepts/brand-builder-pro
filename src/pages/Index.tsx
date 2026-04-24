@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
-import { motion } from "framer-motion";
+import { motion, useInView } from "framer-motion";
+import { useRef, useEffect, useState } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import StackingCards from "@/components/StackingCards";
@@ -15,6 +16,56 @@ import {
 } from "@/components/ui/accordion";
 import heroVideo from "@/assets/hero-typing-v2.mp4.asset.json";
 
+function useCountUp(
+  target: number,
+  duration: number = 1800,
+  triggered: boolean = false,
+) {
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    if (!triggered) return;
+    let startTime: number | null = null;
+
+    const step = (timestamp: number) => {
+      if (!startTime) startTime = timestamp;
+      const progress = Math.min((timestamp - startTime) / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      setCount(Math.floor(eased * target));
+      if (progress < 1) requestAnimationFrame(step);
+      else setCount(target);
+    };
+    requestAnimationFrame(step);
+  }, [triggered, target, duration]);
+
+  return count;
+}
+
+function AnimatedStat({
+  value,
+  label,
+  triggered,
+}: {
+  value: string;
+  label: string;
+  triggered: boolean;
+}) {
+  // Parse numeric part and suffix (e.g. "4+" → 4, "+")
+  const match = value.match(/^(\d+)(.*)$/);
+  const numeric = match ? parseInt(match[1], 10) : 0;
+  const suffix = match ? match[2] : value;
+  const count = useCountUp(numeric, 1800, triggered);
+
+  return (
+    <div className="text-center">
+      <p className="font-display text-4xl font-bold text-foreground">
+        {triggered ? `${count}${suffix}` : `0${suffix}`}
+      </p>
+      <p className="text-sm text-muted-foreground mt-1">{label}</p>
+    </div>
+  );
+}
+
 const stats = [
   { value: "4+", label: "Years Experience" },
   { value: "50+", label: "Projects Delivered" },
@@ -27,16 +78,37 @@ const featuredServices = [
     number: "01",
     title: "Web Development",
     desc: "Modern, scalable web applications built with the latest technologies.",
+    image: "/proj-paywithpi.png",
+    bullets: [
+      "React / Next.js applications",
+      "TypeScript & clean architecture",
+      "API & third-party integrations",
+      "Performance optimization",
+    ],
   },
   {
     number: "02",
     title: "Product Design",
     desc: "User-centered design that drives engagement and business results.",
+    image: "/proj-storeapp2.png",
+    bullets: [
+      "End-to-end UX research",
+      "Wireframing & prototyping",
+      "High-fidelity UI design",
+      "Usability testing",
+    ],
   },
   {
     number: "03",
     title: "UI/UX Design",
     desc: "Intuitive interfaces and seamless experiences across all devices.",
+    image: "/proj-oma.png",
+    bullets: [
+      "Interface & interaction design",
+      "Design systems & component libraries",
+      "Responsive & accessible layouts",
+      "Brand-aligned visual language",
+    ],
   },
 ];
 
@@ -60,12 +132,14 @@ const featuredProjects = [
 
 const testimonials = [
   {
-    quote: "Working with this team was a game-changer for our product. The attention to detail and technical expertise exceeded our expectations.",
+    quote:
+      "Working with this team was a game-changer for our product. The attention to detail and technical expertise exceeded our expectations.",
     name: "Sarah Johnson",
     role: "CEO, TechStart",
   },
   {
-    quote: "Delivered a stunning website that perfectly captures our brand. Professional, responsive, and a pleasure to work with.",
+    quote:
+      "Delivered a stunning website that perfectly captures our brand. Professional, responsive, and a pleasure to work with.",
     name: "Michael Chen",
     role: "Founder, DesignLab",
   },
@@ -78,7 +152,7 @@ const homeFaqs = [
   },
   {
     q: "How Long Does A Typical Project Take?",
-    a: "Most engagements run 2–8 weeks depending on scope. After our intro call I'll share a detailed timeline with milestones.",
+    a: "Most engagements run 2-8 weeks depending on scope. After our intro call I'll share a detailed timeline with milestones.",
   },
   {
     q: "Do You Work With International Clients?",
@@ -91,37 +165,42 @@ const homeFaqs = [
 ];
 
 const Index = () => {
+  // Ref + inView for the stats section
+  const statsRef = useRef<HTMLDivElement>(null);
+  const statsInView = useInView(statsRef, { once: true, margin: "-80px" });
+
   return (
     <div className="min-h-screen bg-background">
       <Navbar />
 
       {/* Hero */}
-      <section className="relative min-h-screen flex items-center pt-16">
+      <section className="relative min-h-screen flex items-center pt-8">
         <div className="max-w-6xl mx-auto px-6 w-full grid lg:grid-cols-2 gap-12 lg:gap-16 items-center py-20">
           <motion.div
             initial={{ opacity: 0, y: -40 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
           >
-            <p className="text-sm font-medium tracking-widest uppercase text-muted-foreground mb-4">
-              Web Developer & Product Designer
+            <p className="text-xs font-medium tracking-widest uppercase text-muted-foreground mb-4">
+              Developer & Product Designer
             </p>
-            <h1 className="font-display text-5xl sm:text-6xl lg:text-7xl font-semibold leading-[1.1] tracking-tight text-foreground mb-6">
+            <h1 className="font-display text-5xl sm:text-6xl lg:text-7xl font-bold leading-[1.1] tracking-tight text-foreground mb-6">
               <TypewriterText
-                text="Building Digital Products That Perform."
+                text="Creating Digital Experiences That Work."
                 speed={55}
                 startDelay={250}
               />
             </h1>
-            <p className="text-lg text-muted-foreground max-w-md leading-relaxed mb-10">
-              I help businesses create powerful web applications and thoughtful digital experiences that drive growth and engagement.
+            <p className="text-sm text-muted-foreground max-w-md leading-relaxed mb-6">
+              I help businesses create powerful web applications and thoughtful
+              digital experiences that drive growth and engagement.
             </p>
             <div className="flex flex-wrap gap-4">
               <Link
                 to="/projects"
                 className="inline-block bg-primary text-primary-foreground px-7 py-3 text-sm font-medium rounded-md hover:bg-primary/90 transition-colors"
               >
-                View My Work
+                View Projects
               </Link>
               <Link
                 to="/contact"
@@ -138,23 +217,16 @@ const Index = () => {
             transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
             className="relative"
           >
-            <div className="aspect-[4/3] overflow-hidden rounded-lg">
-              <video
-                src={heroVideo.url}
-                autoPlay
-                loop
-                muted
-                playsInline
-                className="w-full h-full object-cover"
-              />
+            <div className="aspect-[4/3] h-full overflow-hidden rounded-xl">
+              <img src="/proj-oma.png" alt="" />
             </div>
           </motion.div>
         </div>
       </section>
 
-      {/* Stats */}
+      {/* Stats — count-up triggered when scrolled into view */}
       <section className="border-y border-border bg-secondary/30">
-        <div className="max-w-6xl mx-auto px-6 py-16">
+        <div ref={statsRef} className="max-w-6xl mx-auto px-6 py-16">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             {stats.map((stat, i) => (
               <motion.div
@@ -163,17 +235,19 @@ const Index = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.1 }}
-                className="text-center"
               >
-                <p className="font-display text-4xl font-bold text-foreground">{stat.value}</p>
-                <p className="text-sm text-muted-foreground mt-1">{stat.label}</p>
+                <AnimatedStat
+                  value={stat.value}
+                  label={stat.label}
+                  triggered={statsInView}
+                />
               </motion.div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Services Preview */}
+      {/* ── Services Preview ── */}
       <section className="py-24">
         <div className="max-w-6xl mx-auto px-6">
           <motion.div
@@ -184,10 +258,10 @@ const Index = () => {
           >
             <div>
               <p className="text-sm font-medium tracking-widest uppercase text-muted-foreground mb-3">
-                What I Do
+                Our Services
               </p>
               <h2 className="font-display text-4xl text-foreground font-extrabold">
-                Services & <span className="italic">Expertise</span>
+                Services & Expertise.
               </h2>
             </div>
             <Link
@@ -198,24 +272,68 @@ const Index = () => {
             </Link>
           </motion.div>
 
-          <StackingCards offset={20} top={100}>
-            {featuredServices.map((service) => (
-              <div
+          {/* 3-column grid */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {featuredServices.map((service, i) => (
+              <motion.div
                 key={service.number}
-                className="bg-card border border-border rounded-lg p-8 shadow-sm"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.1 }}
+                className="bg-card border border-border rounded-lg overflow-hidden shadow-sm flex flex-col"
               >
-                <span className="text-xs font-semibold text-muted-foreground tracking-wider">
-                  {service.number}
-                </span>
-                <h3 className="font-display text-xl font-semibold text-foreground mt-3 mb-3">
-                  {service.title}
-                </h3>
-                <p className="text-muted-foreground text-sm leading-relaxed">
-                  {service.desc}
-                </p>
-              </div>
+                <div className="w-full h-44 bg-secondary overflow-hidden">
+                  {service.image ? (
+                    <img
+                      src={service.image}
+                      alt={service.title}
+                      className="w-50 h-50 object-cover"
+                    />
+                  ) : (
+                    <div className="w-full h-full flex items-center justify-center text-muted-foreground/30 text-xs tracking-widest uppercase">
+                      {service.title}
+                    </div>
+                  )}
+                </div>
+
+                {/* Card body */}
+                <div className="p-7 flex flex-col flex-1">
+                  <span className="text-xs font-semibold text-muted-foreground tracking-wider mb-2">
+                    {service.number}
+                  </span>
+                  <h3 className="font-display text-xl font-semibold text-foreground mb-2">
+                    {service.title}
+                  </h3>
+                  <p className="text-sm text-muted-foreground leading-relaxed mb-5">
+                    {service.desc}
+                  </p>
+
+                  {/* Bullet points */}
+                  <ul className="space-y-2 mb-7 flex-1">
+                    {service.bullets.map((b) => (
+                      <li
+                        key={b}
+                        className="text-sm text-muted-foreground flex items-start gap-2"
+                      >
+                        <span className="mt-[7px] w-1 h-1 shrink-0 bg-foreground rounded-full" />
+                        {b}
+                      </li>
+                    ))}
+                  </ul>
+
+                  <Link to="/contact">
+                    <button
+                      type="button"
+                      className="w-full text-center text-sm font-medium py-3 rounded-md bg-background border border-border text-foreground hover:bg-foreground hover:text-background transition-colors"
+                    >
+                      Book Service
+                    </button>
+                  </Link>
+                </div>
+              </motion.div>
             ))}
-          </StackingCards>
+          </div>
         </div>
       </section>
 
@@ -232,8 +350,8 @@ const Index = () => {
               <p className="text-sm font-medium tracking-widest uppercase text-muted-foreground mb-3">
                 Recent Work
               </p>
-              <h2 className="font-display text-4xl font-semibold text-foreground">
-                Featured <span className="italic">Projects</span>
+              <h2 className="font-display text-4xl font-bold text-foreground">
+                Featured Projects
               </h2>
             </div>
             <Link
@@ -252,12 +370,16 @@ const Index = () => {
                 className="group flex items-center justify-between border border-border bg-card rounded-lg px-8 py-6 shadow-sm hover:shadow-md transition-shadow"
               >
                 <div>
-                  <h3 className="font-display text-xl font-semibold text-foreground group-hover:text-muted-foreground transition-colors">
+                  <h3 className="font-display text-xm font-semibold text-foreground group-hover:text-muted-foreground transition-colors">
                     {project.title}
                   </h3>
-                  <p className="text-sm text-muted-foreground mt-1">{project.category}</p>
+                  <p className="text-sm text-muted-foreground mt-1">
+                    {project.category}
+                  </p>
                 </div>
-                <span className="text-sm text-muted-foreground">{project.year}</span>
+                <span className="text-sm text-muted-foreground">
+                  {project.year}
+                </span>
               </Link>
             ))}
           </StackingCards>
@@ -277,7 +399,7 @@ const Index = () => {
               Testimonials
             </p>
             <h2 className="font-display text-4xl text-foreground font-extrabold">
-              What Clients <span className="italic">Say</span>
+              What Clients Say
             </h2>
           </motion.div>
 
@@ -298,7 +420,7 @@ const Index = () => {
               FAQ
             </p>
             <h2 className="font-display text-4xl text-foreground font-extrabold">
-              Frequently Asked <span className="italic">Questions</span>
+              Frequently Asked Questions
             </h2>
           </motion.div>
 
@@ -309,7 +431,7 @@ const Index = () => {
                 value={`home-faq-${i}`}
                 className="border-b border-border"
               >
-                <AccordionTrigger className="text-left font-semibold text-foreground hover:no-underline py-6">
+                <AccordionTrigger className="text-left font-medium text-sm text-foreground hover:no-underline py-6">
                   {faq.q}
                 </AccordionTrigger>
                 <AccordionContent className="text-sm text-muted-foreground leading-relaxed pb-6">
@@ -329,11 +451,12 @@ const Index = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
           >
-            <h2 className="font-display text-4xl sm:text-5xl mb-6 font-extrabold">
-              Ready To Start Your <span className="italic">Project</span>?
+            <h2 className="font-display text-5xl sm:text-4xl mb-3 font-extrabold">
+              Need Any Of Our Services?
             </h2>
-            <p className="text-primary-foreground/60 mb-10 max-w-lg mx-auto leading-relaxed">
-              Let's discuss how I can help bring your vision to life with clean code and thoughtful design.
+            <p className="text-primary-foreground/60 mb-10 max-w-lg mx-auto text-sm leading-relaxed">
+              Let's discuss how I can help bring your vision to life with clean
+              code and thoughtful design.
             </p>
             <div className="flex flex-wrap gap-3 justify-center">
               <Link

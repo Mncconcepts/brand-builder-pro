@@ -77,12 +77,12 @@ const Blog = () => {
             <p className="text-sm font-medium tracking-widest uppercase text-muted-foreground mb-4">
               Blog
             </p>
-            <h1 className="font-display text-5xl sm:text-6xl font-semibold text-foreground leading-tight mb-6">
-              Thoughts & <span className="italic">Insights</span>
+            <h1 className="font-display text-5xl sm:text-6xl font-extrabold text-foreground leading-tight mb-6">
+              Thoughts & Insights.
             </h1>
-            <p className="text-lg text-muted-foreground max-w-2xl leading-relaxed">
-              Writing about web development, product design, and the lessons learned
-              from building digital products for real businesses.
+            <p className="text-sm text-muted-foreground max-w-2xl leading-relaxed">
+              Writing about web development, product design, and the lessons
+              learned from building digital products for real businesses.
             </p>
           </motion.div>
         </div>
@@ -109,7 +109,7 @@ const Blog = () => {
                 <h2 className="font-display text-2xl font-semibold text-foreground mb-3 group-hover:text-muted-foreground transition-colors">
                   {post.title}
                 </h2>
-                <p className="text-muted-foreground leading-relaxed max-w-2xl">
+                <p className="text-muted-foreground text-sm leading-relaxed max-w-2xl">
                   {post.excerpt}
                 </p>
               </article>
@@ -121,11 +121,12 @@ const Blog = () => {
       {/* Newsletter CTA */}
       <section className="py-20 bg-primary text-primary-foreground">
         <div className="max-w-3xl mx-auto px-6 text-center">
-          <h2 className="font-display text-3xl sm:text-4xl font-semibold mb-4">
-            Stay In The <span className="italic">Loop</span>
+          <h2 className="font-display text-3xl sm:text-4xl font-bold mb-4">
+            Stay In The Loop
           </h2>
           <p className="text-primary-foreground/60 mb-8 max-w-md mx-auto">
-            Get occasional updates on new articles, projects, and insights. No spam, unsubscribe anytime.
+            Get occasional updates on new articles, projects, and insights. No
+            spam, unsubscribe anytime.
           </p>
           <form
             onSubmit={(e) => e.preventDefault()}

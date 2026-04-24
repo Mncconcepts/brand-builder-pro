@@ -53,11 +53,16 @@ const Contact = () => {
     await new Promise((r) => setTimeout(r, 400));
 
     const body = `Name: ${name}%0D%0AEmail: ${email}%0D%0ABudget: ${budget}%0D%0A%0D%0A${encodeURIComponent(message)}`;
-    window.open(`mailto:clintonnweze111@gmail.com?subject=${encodeURIComponent(subject)}&body=${body}`, "_self");
+    window.open(
+      `mailto:clintonnweze111@gmail.com?subject=${encodeURIComponent(subject)}&body=${body}`,
+      "_self",
+    );
 
     setSubmitting(false);
     setSubmitted(true);
-    toast.success("Message ready to send! Your email client should open now.", { id: "contact-form" });
+    toast.success("Message ready to send! Your email client should open now.", {
+      id: "contact-form",
+    });
   };
 
   return (
@@ -75,12 +80,13 @@ const Contact = () => {
             <p className="text-sm font-medium tracking-widest uppercase text-muted-foreground mb-4">
               Contact
             </p>
-            <h1 className="font-display text-5xl sm:text-6xl font-semibold text-foreground leading-tight mb-6">
-              Let's Work <span className="italic">Together</span>.
+            <h1 className="font-display text-5xl sm:text-6xl font-extrabold text-foreground leading-tight mb-6">
+              Contact Us
             </h1>
-            <p className="text-lg text-muted-foreground max-w-2xl leading-relaxed">
-              Have a project in mind or want to discuss a potential collaboration? 
-              I'd love to hear from you. Fill out the form below or reach out directly.
+            <p className="text-sm text-muted-foreground max-w-2xl leading-relaxed">
+              Have a project in mind or want to discuss a potential
+              collaboration? I'd love to hear from you. Fill out the form below
+              or reach out directly.
             </p>
           </motion.div>
         </div>
@@ -103,23 +109,33 @@ const Contact = () => {
               <div className="space-y-6 text-sm mb-12">
                 <div>
                   <p className="text-muted-foreground mb-1">Email</p>
-                  <a href="mailto:clintonnweze111@gmail.com" className="text-foreground font-medium hover:text-muted-foreground transition-colors">
+                  <a
+                    href="mailto:clintonnweze111@gmail.com"
+                    className="text-foreground font-medium hover:text-muted-foreground transition-colors"
+                  >
                     clintonnweze111@gmail.com
                   </a>
                 </div>
                 <div>
                   <p className="text-muted-foreground mb-1">Phone</p>
-                  <a href="tel:+2349020495756" className="text-foreground font-medium hover:text-muted-foreground transition-colors">
+                  <a
+                    href="tel:+2349020495756"
+                    className="text-foreground font-medium hover:text-muted-foreground transition-colors"
+                  >
                     +234 902 049 5756
                   </a>
                 </div>
                 <div>
                   <p className="text-muted-foreground mb-1">Location</p>
-                  <p className="text-foreground font-medium">Available Worldwide · Remote</p>
+                  <p className="text-foreground font-medium">
+                    Available Worldwide · Remote
+                  </p>
                 </div>
                 <div>
                   <p className="text-muted-foreground mb-1">Availability</p>
-                  <p className="text-foreground font-medium">Currently accepting new projects</p>
+                  <p className="text-foreground font-medium">
+                    Currently accepting new projects
+                  </p>
                 </div>
               </div>
 
@@ -128,8 +144,12 @@ const Contact = () => {
                   Follow Me
                 </p>
                 <div className="flex gap-4 text-sm">
-                  {["GitHub", "LinkedIn", "Twitter", "Dribbble"].map((s) => (
-                    <a key={s} href="#" className="text-muted-foreground hover:text-foreground transition-colors">
+                  {["GitHub", "LinkedIn", "Twitter", "Facebook"].map((s) => (
+                    <a
+                      key={s}
+                      href="#"
+                      className="text-muted-foreground hover:text-foreground transition-colors"
+                    >
                       {s}
                     </a>
                   ))}
@@ -164,7 +184,8 @@ const Contact = () => {
                     Message sent successfully!
                   </h3>
                   <p className="text-muted-foreground mb-6">
-                    Thank you for reaching out. I'll review your message and get back to you within 24-48 hours.
+                    Thank you for reaching out. I'll review your message and get
+                    back to you within 24-48 hours.
                   </p>
                   <button
                     onClick={() => setSubmitted(false)}
@@ -217,11 +238,14 @@ const Contact = () => {
                     <label className="block text-sm font-medium text-foreground mb-1.5">
                       Budget Range
                     </label>
-                    <select ref={budgetRef} className="w-full bg-card border border-border rounded-md px-4 py-3 text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-ring">
+                    <select
+                      ref={budgetRef}
+                      className="w-full bg-card border border-border rounded-md px-4 py-3 text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-ring"
+                    >
                       <option value="">Select a range</option>
-                      <option>Under $2,500</option>
-                      <option>$2,500 – $5,000</option>
-                      <option>$5,000 – $10,000</option>
+                      <option>$500 - $2,500</option>
+                      <option>$2,500 - $5,000</option>
+                      <option>$5,000 - $10,000</option>
                       <option>$10,000+</option>
                     </select>
                   </div>
@@ -261,10 +285,10 @@ const Contact = () => {
             className="mb-14 text-center"
           >
             <p className="text-sm font-medium tracking-widest uppercase text-muted-foreground mb-3">
-              FAQ
+              FAQs
             </p>
-            <h2 className="font-display text-4xl font-semibold text-foreground">
-              Common <span className="italic">Questions</span>
+            <h2 className="font-display text-4xl font-bold text-foreground">
+              Frequently Asked Questions
             </h2>
           </motion.div>
 

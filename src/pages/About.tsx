@@ -21,23 +21,23 @@ const skills = [
 
 const experience = [
   {
-    role: "Lead Product Designer (VISA GUARD AFRICA TECHNOLOGIES LTD)",
-    company: "Mncconcepts",
-    period: "2022 – Present",
+    role: "Lead Product Designer (PM) (VISA GUARD AFRICA TECHNOLOGIES LTD)",
+    company: "Visa Guard Africa (VGA)",
+    period: "Present",
     description:
       "Leading product design for startups and established brands. Creating user-centered designs, conducting user research, building prototypes, and delivering scalable design systems that drive business outcomes.",
   },
   {
     role: "Product Designer (CVMP)",
     company: "Tech Agency",
-    period: "2021 – 2022",
+    period: "2025",
     description:
       "Designed intuitive interfaces for e-commerce, SaaS, and fintech products. Led user research sessions, created wireframes and high-fidelity prototypes, and collaborated with engineering to ensure design implementation.",
   },
   {
     role: "UI/UX Designer (DAPSTORE)",
     company: "Digital Studio",
-    period: "2020 – 2021",
+    period: "2024 - 2025",
     description:
       "Started as a web designer creating marketing pages, quickly transitioned into product design roles. Built user flows, designed component libraries, and learned to code to better communicate with developers.",
   },
@@ -46,19 +46,23 @@ const experience = [
 const values = [
   {
     title: "Quality Over Quantity",
-    description: "Every project gets my full attention. I don't take on more than I can deliver at the highest standard.",
+    description:
+      "Every project gets my full attention. I don't take on more than I can deliver at the highest standard.",
   },
   {
     title: "Transparent Communication",
-    description: "Regular updates, honest timelines, and clear documentation. No surprises, no jargon.",
+    description:
+      "Regular updates, honest timelines, and clear documentation. No surprises, no jargon.",
   },
   {
     title: "User-First Thinking",
-    description: "Good design starts with understanding the people who will use it. Research and empathy drive every decision.",
+    description:
+      "Good design starts with understanding the people who will use it. Research and empathy drive every decision.",
   },
   {
     title: "Clean, Maintainable Code",
-    description: "Code that's easy to read, test, and extend. Built for the long term, not just the deadline.",
+    description:
+      "Code that's easy to read, test, and extend. Built for the long term, not just the deadline.",
   },
 ];
 
@@ -75,18 +79,16 @@ const About = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
           >
-            <p className="text-sm font-medium tracking-widest uppercase text-muted-foreground mb-4">
-              About Me
+            <p className="text-sm font-small tracking-widest uppercase text-muted-foreground mb-4">
+              About Us
             </p>
-            <h1 className="font-display text-5xl sm:text-6xl font-semibold text-foreground leading-tight mb-6">
-              Designer who codes,
-              <br />
-              Developer Who <span className="italic">Designs</span>.
+            <h1 className="font-display text-5xl sm:text-6xl font-extrabold text-foreground leading-tight mb-6">
+            About Us.
             </h1>
-            <p className="text-lg text-muted-foreground max-w-2xl leading-relaxed">
-              I'm a multidisciplinary creative with over 4 years of experience bridging the gap 
-              between design and development. I work with startups and established brands to 
-              craft digital products that are visually compelling and technically robust.
+            <p className="text-sm text-muted-foreground max-w-2xl leading-relaxed">
+              We are a multidisciplinary creative team with over 4 years of experience 
+              bridging the gap between design and development. We collaborate with startups 
+              and established brands to craft digital products that are both visually compelling and technically robust.
             </p>
           </motion.div>
         </div>
@@ -101,22 +103,24 @@ const About = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
             >
-              <h2 className="font-display text-3xl font-semibold text-foreground mb-6">
-                My <span className="italic">Approach</span>
+              <h2 className="font-display text-3xl font-bold text-foreground mb-6">
+                Our Approach
               </h2>
-              <div className="space-y-4 text-muted-foreground leading-relaxed">
+              <div className="space-y-4 text-muted-foreground text-sm leading-relaxed">
                 <p>
-                  My approach combines design thinking with clean, maintainable code. I believe 
-                  great products emerge when aesthetics and engineering work in harmony — not 
-                  in opposition.
+                  Our approach combines design thinking with clean, maintainable
+                  code. We believe great products emerge when aesthetics and
+                  engineering work in harmony not in opposition.
                 </p>
                 <p>
-                  Every pixel has a purpose, every line of code tells a story. I focus on creating 
-                  digital experiences that not only look beautiful but perform flawlessly under real-world conditions.
+                  Every pixel has a purpose, every line of code tells a story. We
+                  focus on creating digital experiences that not only look
+                  beautiful but perform flawlessly under real-world conditions.
                 </p>
                 <p>
-                  Whether it's a complex web application, a brand identity, or a product prototype, 
-                  I bring the same level of care and craftsmanship to every project.
+                  Whether it's a complex web application, a brand identity, or a
+                  product prototype, we bring the same level of care and
+                  craftsmanship to every project.
                 </p>
               </div>
             </motion.div>
@@ -145,12 +149,20 @@ const About = () => {
                 Education
               </h3>
               <div className="border border-border rounded-lg p-6">
-                <p className="font-semibold text-foreground">FULL-STACK WEB DEVELOPMENT</p>
-                <p className="text-sm text-muted-foreground mt-1">Lagos state school of programming</p>
+                <p className="font-semibold text-foreground">
+                  FULL-STACK WEB DEVELOPMENT
+                </p>
+                <p className="text-sm text-muted-foreground mt-1">
+                  Lagos state school of programming
+                </p>
               </div>
               <div className="border border-border rounded-lg p-6 mt-4">
-                <p className="font-semibold text-foreground">SOFTWARE DEVELOPMENT</p>
-                <p className="text-sm text-muted-foreground mt-1">University of the People · Present</p>
+                <p className="font-semibold text-foreground">
+                  SOFTWARE DEVELOPMENT
+                </p>
+                <p className="text-sm text-muted-foreground mt-1">
+                  University of the People · Present
+                </p>
               </div>
             </motion.div>
           </div>
@@ -169,8 +181,8 @@ const About = () => {
             <p className="text-sm font-medium tracking-widest uppercase text-muted-foreground mb-3">
               Experience
             </p>
-            <h2 className="font-display text-4xl font-semibold text-foreground">
-              Work <span className="italic">History</span>
+            <h2 className="font-display text-4xl font-bold text-foreground">
+              Work History
             </h2>
           </motion.div>
 
@@ -189,11 +201,15 @@ const About = () => {
                     <h3 className="font-display text-xl font-semibold text-foreground">
                       {exp.role}
                     </h3>
-                    <p className="text-sm text-muted-foreground">{exp.company}</p>
+                    <p className="text-sm text-muted-foreground">
+                      {exp.company}
+                    </p>
                   </div>
-                  <span className="text-sm text-muted-foreground">{exp.period}</span>
+                  <span className="text-sm text-muted-foreground">
+                    {exp.period}
+                  </span>
                 </div>
-                <p className="text-muted-foreground leading-relaxed max-w-2xl">
+                <p className="text-muted-foreground text-sm leading-relaxed max-w-2xl">
                   {exp.description}
                 </p>
               </motion.div>
@@ -215,7 +231,7 @@ const About = () => {
               Values
             </p>
             <h2 className="font-display text-4xl text-foreground font-extrabold">
-              How I <span className="italic">Work</span>
+              How We Work
             </h2>
           </motion.div>
 
@@ -228,7 +244,9 @@ const About = () => {
                 <h3 className="font-display text-lg font-semibold text-foreground mb-2">
                   {v.title}
                 </h3>
-                <p className="text-muted-foreground text-sm leading-relaxed">{v.description}</p>
+                <p className="text-muted-foreground text-sm leading-relaxed">
+                  {v.description}
+                </p>
               </div>
             ))}
           </StackingCards>

@@ -32,7 +32,7 @@ const AnimatedRoutes = () => {
           <Route path="/contact" element={<Contact />} />
           <Route path="/blog" element={<Blog />} />
           <Route path="/case-studies" element={<CaseStudies />} />
-          <Route path="*" element={<NotFound />} />
+          <Route path="/notfount" element={<NotFound />} />
         </Routes>
       </PageTransition>
     </AnimatePresence>

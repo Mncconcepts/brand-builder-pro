@@ -16,12 +16,6 @@ interface TestimonialsCarouselProps {
   items: Testimonial[];
 }
 
-/**
- * Swipeable testimonials carousel.
- * - Mobile: 1 card per view, full width.
- * - Desktop: 2 cards per view.
- * - Navigation dots below indicate position.
- */
 const TestimonialsCarousel = ({ items }: TestimonialsCarouselProps) => {
   const [api, setApi] = useState<CarouselApi>();
   const [count, setCount] = useState(0);
@@ -56,11 +50,11 @@ const TestimonialsCarousel = ({ items }: TestimonialsCarouselProps) => {
               className="pl-4 basis-full md:basis-1/2"
             >
               <blockquote className="bg-card border border-border rounded-lg p-8 h-full flex flex-col">
-                <p className="text-foreground leading-relaxed mb-6 italic flex-1 text-sm font-normal">
+                <p className="text-foreground leading-relaxed mb-6 flex-1 text-sm font-normal">
                   "{t.quote}"
                 </p>
                 <footer>
-                  <p className="font-semibold text-foreground text-sm">{t.name}</p>
+                  <p className="font-semibold text-uppercase text-foreground text-sm">{t.name}</p>
                   <p className="text-muted-foreground text-sm">{t.role}</p>
                 </footer>
               </blockquote>

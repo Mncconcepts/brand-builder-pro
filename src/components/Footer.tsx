@@ -50,8 +50,8 @@ const Footer = () => {
         <div className="border-t border-primary-foreground/10 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4">
           <p className="text-xs text-primary-foreground/40">© {new Date().getFullYear()} Mncconcepts. All rights reserved.</p>
           <div className="flex gap-6 text-xs text-primary-foreground/40">
-            <a href="#" className="hover:text-primary-foreground/60 transition-colors">Privacy Policy</a>
-            <a href="#" className="hover:text-primary-foreground/60 transition-colors">Terms of Service</a>
+            <a href="/notfound" className="hover:text-primary-foreground/60 transition-colors">Privacy Policy</a>
+            <a href="" className="hover:text-primary-foreground/60 transition-colors">Terms of Service</a>
           </div>
         </div>
       </div>

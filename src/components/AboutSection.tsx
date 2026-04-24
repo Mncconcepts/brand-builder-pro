@@ -28,9 +28,9 @@ const AboutSection = () => {
               About
             </p>
             <h2 className="font-display text-4xl font-semibold text-foreground leading-tight">
-              Designer who codes,
+              Designer Who Codes,
               <br />
-              developer who <span className="italic text-accent">designs</span>.
+              Developer Who <span className="italic text-accent">Designs</span>.
             </h2>
           </div>
 

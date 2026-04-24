@@ -1,7 +1,8 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { format } from "date-fns";
-import { CalendarIcon, Clock, Mail, User, MessageSquare } from "lucide-react";
+import { CalendarIcon, Clock, Mail, User, MessageSquare, X } from "lucide-react";
 import { z } from "zod";
+import { useForm as useFormspree } from "@formspree/react";
 
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
@@ -9,14 +10,6 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Calendar } from "@/components/ui/calendar";
-import {
-  Sheet,
-  SheetContent,
-  SheetDescription,
-  SheetHeader,
-  SheetTitle,
-  SheetTrigger,
-} from "@/components/ui/sheet";
 import {
   Popover,
   PopoverContent,
@@ -38,7 +31,7 @@ interface BookCallSheetProps {
 const TIME_SLOTS = [
   "09:00", "09:30", "10:00", "10:30", "11:00", "11:30",
   "13:00", "13:30", "14:00", "14:30", "15:00", "15:30",
-  "16:00", "16:30", "17:00",
+  "16:00", "16:30", "17:00", "17:30", "18:00", "18:30", "19:00", "19:30", "20:00",
 ];
 
 const bookingSchema = z.object({
@@ -58,6 +51,7 @@ const BookCallSheet = ({ trigger }: BookCallSheetProps) => {
   const [date, setDate] = useState<Date | undefined>();
   const [time, setTime] = useState("");
   const [notes, setNotes] = useState("");
+  const [formspreeState, submitToFormspree] = useFormspree("xqewyonl");
 
   const reset = () => {
     setName("");
@@ -66,6 +60,40 @@ const BookCallSheet = ({ trigger }: BookCallSheetProps) => {
     setTime("");
     setNotes("");
   };
+
+  // Lock body scroll when open
+  useEffect(() => {
+    if (open) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => { document.body.style.overflow = ""; };
+  }, [open]);
+
+  // React to Formspree response after submission
+  useEffect(() => {
+    if (formspreeState.succeeded) {
+      setSubmitting(false);
+      toast({
+        title: "Booking request sent!",
+        description: `Thanks ${name}! I'll confirm your slot shortly via email.`,
+      });
+      reset();
+      setOpen(false);
+    } else if (
+      formspreeState.errors &&
+      Array.isArray(formspreeState.errors) &&
+      formspreeState.errors.length > 0
+    ) {
+      setSubmitting(false);
+      toast({
+        title: "Failed to send booking",
+        description: "Please try again or email me directly.",
+        variant: "destructive",
+      });
+    }
+  }, [formspreeState.succeeded, formspreeState.errors]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -78,172 +106,200 @@ const BookCallSheet = ({ trigger }: BookCallSheetProps) => {
       });
       return;
     }
+
     setSubmitting(true);
     toast({
       title: "Sending booking request...",
       description: "Please wait a moment.",
     });
 
-    await new Promise((r) => setTimeout(r, 500));
-
     const dateStr = format(result.data.date, "PPP");
-    const body = `Call Booking Request%0D%0A%0D%0AName: ${result.data.name}%0D%0AEmail: ${result.data.email}%0D%0ADate: ${dateStr}%0D%0ATime: ${result.data.time}%0D%0ANotes: ${result.data.notes || "N/A"}`;
-    window.open(`mailto:clintonnweze111@gmail.com?subject=${encodeURIComponent(`Call Booking - ${result.data.name}`)}&body=${body}`, "_self");
 
-    setSubmitting(false);
-    toast({
-      title: "Booking request sent!",
-      description: `Thanks ${result.data.name}! Your email client should open with the booking details for ${dateStr} at ${result.data.time}.`,
+    await submitToFormspree({
+      name: result.data.name,
+      email: result.data.email,
+      date: dateStr,
+      time: result.data.time,
+      notes: result.data.notes || "N/A",
+      _subject: `Call Booking - ${result.data.name} on ${dateStr} at ${result.data.time}`,
     });
-    reset();
-    setOpen(false);
   };
 
   return (
-    <Sheet open={open} onOpenChange={setOpen}>
-      <SheetTrigger asChild>{trigger}</SheetTrigger>
-      <SheetContent
-        side="bottom"
-        className="h-[85vh] sm:h-[80vh] rounded-t-2xl p-0 flex flex-col bg-background"
-      >
-        <div className="mx-auto mt-3 h-1.5 w-12 rounded-full bg-muted-foreground/30 shrink-0" />
-        <SheetHeader className="px-6 pt-4 pb-2 text-left shrink-0">
-          <SheetTitle className="font-display text-2xl font-semibold text-foreground">
-            Book A Call Session
-          </SheetTitle>
-          <SheetDescription className="text-muted-foreground">
-            Pick a day and time that works for you. I'll confirm shortly via email.
-          </SheetDescription>
-        </SheetHeader>
+    <>
+      <span onClick={() => setOpen(true)} className="contents">
+        {trigger}
+      </span>
 
-        <form
-          onSubmit={handleSubmit}
-          className="flex-1 overflow-y-auto px-6 pb-6 pt-2 space-y-5"
+      {open && (
+        <div
+          className="fixed inset-0 z-50 flex items-end sm:items-center justify-center"
+          aria-modal="true"
+          role="dialog"
         >
-          <div className="space-y-2">
-            <Label htmlFor="bc-name" className="flex items-center gap-2">
-              <User className="h-3.5 w-3.5" /> Full Name
-            </Label>
-            <Input
-              id="bc-name"
-              placeholder="Jane Doe"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              maxLength={100}
-              required
-            />
-          </div>
+          <div
+            className="absolute inset-0 bg-black/60 backdrop-blur-sm"
+            onClick={() => setOpen(false)}
+          />
 
-          <div className="space-y-2">
-            <Label htmlFor="bc-email" className="flex items-center gap-2">
-              <Mail className="h-3.5 w-3.5" /> Email Address
-            </Label>
-            <Input
-              id="bc-email"
-              type="email"
-              placeholder="jane@company.com"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              maxLength={255}
-              required
-            />
-          </div>
+          <div className="relative z-10 w-full sm:max-w-lg sm:mx-4 bg-background sm:rounded-2xl rounded-t-2xl shadow-2xl flex flex-col max-h-[90vh] sm:max-h-[85vh]">
+            {/* Drag handle (mobile) */}
+            <div className="mx-auto mt-3 h-1.5 w-12 rounded-full bg-muted-foreground/30 shrink-0 sm:hidden" />
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div className="space-y-2">
-              <Label className="flex items-center gap-2">
-                <CalendarIcon className="h-3.5 w-3.5" /> Preferred Date
-              </Label>
-              <Popover>
-                <PopoverTrigger asChild>
-                  <Button
-                    type="button"
-                    variant="outline"
-                    className={cn(
-                      "w-full justify-start text-left font-normal",
-                      !date && "text-muted-foreground",
-                    )}
-                  >
-                    <CalendarIcon className="mr-2 h-4 w-4" />
-                    {date ? format(date, "PPP") : "Pick a date"}
-                  </Button>
-                </PopoverTrigger>
-                <PopoverContent className="w-auto p-0" align="start">
-                  <Calendar
-                    mode="single"
-                    selected={date}
-                    onSelect={setDate}
-                    disabled={(d) => {
-                      const today = new Date();
-                      today.setHours(0, 0, 0, 0);
-                      const day = d.getDay();
-                      return d < today || day === 0 || day === 6;
-                    }}
-                    initialFocus
-                    className={cn("p-3 pointer-events-auto")}
-                  />
-                </PopoverContent>
-              </Popover>
+            {/* Header */}
+            <div className="px-6 pt-5 pb-3 shrink-0 flex items-start justify-between">
+              <div>
+                <h2 className="font-display text-2xl font-bold text-foreground">
+                  Book A Call Session
+                </h2>
+                <p className="text-sm text-muted-foreground mt-1">
+                  Pick a day and time that works for you. I'll confirm shortly via email.
+                </p>
+              </div>
+              <button
+                type="button"
+                onClick={() => setOpen(false)}
+                className="ml-4 mt-0.5 p-1.5 rounded-md text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors shrink-0"
+                aria-label="Close"
+              >
+                <X className="h-4 w-4" />
+              </button>
             </div>
 
-            <div className="space-y-2">
-              <Label className="flex items-center gap-2">
-                <Clock className="h-3.5 w-3.5" /> Preferred Time
-              </Label>
-              <Select value={time} onValueChange={setTime}>
-                <SelectTrigger>
-                  <SelectValue placeholder="Pick a time" />
-                </SelectTrigger>
-                <SelectContent className="max-h-60">
-                  {TIME_SLOTS.map((slot) => (
-                    <SelectItem key={slot} value={slot}>
-                      {slot}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            </div>
-          </div>
-
-          <div className="space-y-2">
-            <Label htmlFor="bc-notes" className="flex items-center gap-2">
-              <MessageSquare className="h-3.5 w-3.5" /> What would you like to discuss?{" "}
-              <span className="text-muted-foreground font-normal">(optional)</span>
-            </Label>
-            <Textarea
-              id="bc-notes"
-              placeholder="Briefly describe your project or goals..."
-              value={notes}
-              onChange={(e) => setNotes(e.target.value)}
-              rows={3}
-              maxLength={500}
-            />
-          </div>
-
-          <div className="pt-2 flex flex-col sm:flex-row gap-3">
-            <Button
-              type="submit"
-              disabled={submitting}
-              className="flex-1 h-11"
+            {/* Scrollable form body */}
+            <form
+              onSubmit={handleSubmit}
+              className="flex-1 overflow-y-auto px-6 pb-6 pt-2 space-y-5"
             >
-              {submitting ? "Sending..." : "Confirm Booking"}
-            </Button>
-            <Button
-              type="button"
-              variant="outline"
-              onClick={() => setOpen(false)}
-              className="h-11"
-            >
-              Cancel
-            </Button>
-          </div>
+              <div className="space-y-2">
+                <Label htmlFor="bc-name" className="flex items-center gap-2 text-white">
+                  <User className="h-3.5 w-3.5 text-white"/> Full Name
+                </Label>
+                <Input
+                  id="bc-name"
+                  placeholder="Jane Doe"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  maxLength={100}
+                  required
+                  className="text-white"
+                />
+              </div>
 
-          <p className="text-xs text-muted-foreground text-center pt-1">
-            You'll receive a calendar invite once the slot is confirmed.
-          </p>
-        </form>
-      </SheetContent>
-    </Sheet>
+              <div className="space-y-2">
+                <Label htmlFor="bc-email" className="flex items-center gap-2 text-white">
+                  <Mail className="h-3.5 w-3.5" text-white /> Email Address
+                </Label>
+                <Input
+                  id="bc-email"
+                  type="email"
+                  placeholder="jane@company.com"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  maxLength={255}
+                  required
+                  className="text-white"
+                />
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div className="space-y-2">
+                  <Label className="flex items-center gap-2 text-white">
+                    <CalendarIcon className="h-3.5 w-3.5" /> Preferred Date
+                  </Label>
+                  <Popover>
+                    <PopoverTrigger asChild>
+                      <Button
+                        type="button"
+                        variant="outline"
+                        className={cn(
+                          "w-full justify-start text-left font-normal text-white",
+                          !date && "text-muted-foreground",
+                        )}
+                      >
+                        <CalendarIcon className="mr-2 h-4 w-4" />
+                        {date ? format(date, "PPP") : "Pick a date"}
+                      </Button>
+                    </PopoverTrigger>
+                    <PopoverContent className="w-auto p-0" align="start">
+                      <Calendar
+                        mode="single"
+                        selected={date}
+                        onSelect={setDate}
+                        disabled={(d) => {
+                          const today = new Date();
+                          today.setHours(0, 0, 0, 0);
+                          const day = d.getDay();
+                          return d < today || day === 0 || day === 6;
+                        }}
+                        initialFocus
+                        className={cn("p-3 pointer-events-auto")}
+                      />
+                    </PopoverContent>
+                  </Popover>
+                </div>
+
+                <div className="space-y-2">
+                  <Label className="flex items-center gap-2 text-white">
+                    <Clock className="h-3.5 w-3.5 text-white"/> Preferred Time
+                  </Label>
+                  <Select value={time} onValueChange={setTime}>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Pick a time" />
+                    </SelectTrigger>
+                    <SelectContent className="max-h-60 text-white">
+                      {TIME_SLOTS.map((slot) => (
+                        <SelectItem className="text-white" key={slot} value={slot}>
+                          {slot}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="bc-notes" className="flex items-center gap-2 text-white">
+                  <MessageSquare className="h-3.5 w-3.5" /> What would you like to discuss?{" "}
+                  <span className="text-muted-foreground font-normal text-gray-400">(optional)</span>
+                </Label>
+                <Textarea
+                  id="bc-notes"
+                  placeholder="Briefly describe your project or goals..."
+                  value={notes}
+                  onChange={(e) => setNotes(e.target.value)}
+                  rows={3}
+                  maxLength={500}
+                  className="text-white"
+                />
+              </div>
+
+              <div className="pt-2 flex flex-col sm:flex-row gap-3">
+                <Button
+                  type="submit"
+                  disabled={submitting || formspreeState.submitting}
+                  className="flex-1 h-11"
+                >
+                  {submitting || formspreeState.submitting ? "Sending..." : "Confirm Booking"}
+                </Button>
+                <Button
+                  type="button"
+                  variant="outline"
+                  onClick={() => setOpen(false)}
+                  className="h-11 text-white"
+                >
+                  Cancel
+                </Button>
+              </div>
+
+              <p className="text-xs text-muted-foreground text-center pt-1">
+                You'll receive a calendar invite once the slot is confirmed.
+              </p>
+            </form>
+          </div>
+        </div>
+      )}
+    </>
   );
 };
 

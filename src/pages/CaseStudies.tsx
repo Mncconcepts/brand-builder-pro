@@ -7,69 +7,70 @@ import BookCallSheet from "@/components/BookCallSheet";
 
 const caseStudies = [
   {
-    slug: "ecommerce-platform-redesign",
-    title: "E-Commerce Platform Redesign",
-    client: "RetailCo",
-    industry: "E-Commerce",
-    duration: "12 Weeks",
-    year: "2024",
+    slug: "computer-village-marketplace",
+    title: "Computer Village Marketplace",
+    client: "Computer Village Lagos",
+    industry: "E-Commerce · Tech Retail",
+    duration: "14 Weeks",
+    year: "2024-2025",
     summary:
-      "A complete redesign and rebuild of a legacy e-commerce platform, resulting in a 40% increase in conversion rates and 60% improvement in page load times.",
+      "Designed a fully responsive digital marketplace for Computer Village Nigeria's largest technology hub bridging the gap between Lagos' bustling offline tech market and a modern, seamless online shopping experience.",
     challenge:
-      "The client's existing platform was built on outdated technology with poor mobile experience. Cart abandonment was at 78% and page load times averaged 6 seconds.",
+      "Computer Village operated entirely offline, with thousands of vendors and no unified digital presence. Buyers had no way to browse, compare, or purchase products online. Vendor management was manual, inconsistent, and hard to scale.",
     solution:
-      "Built a modern React-based storefront with server-side rendering, optimized checkout flow, and real-time inventory management. Implemented a component-driven design system for consistency.",
+      "Built a multi-vendor marketplace with individual vendor storefronts, real-time product listings, smart search and category filtering, a secure checkout flow, and an admin dashboard for inventory and order management. Designed a clean, accessible UI optimised for both desktop and mobile users across Nigeria.",
     results: [
-      { metric: "Conversion Rate", value: "+40%" },
-      { metric: "Page Load Time", value: "1.2s" },
-      { metric: "Cart Abandonment", value: "-35%" },
-      { metric: "Mobile Revenue", value: "+65%" },
+      { metric: "Vendors Onboarded", value: "200+" },
+      { metric: "Mobile Experience", value: "100%" },
+      { metric: "Search Accuracy", value: "+85%" },
+      { metric: "Checkout Time", value: "-60%" },
     ],
-    tech: ["React", "Next.js", "Stripe", "PostgreSQL", "Tailwind CSS"],
+    tech: ["Figma", "FigJam", "Prototyping", "Design System", "User Research"],
   },
   {
-    slug: "saas-analytics-dashboard",
-    title: "SaaS Analytics Dashboard",
-    client: "DataFlow Inc.",
-    industry: "B2B SaaS",
-    duration: "8 Weeks",
-    year: "2024",
+    slug: "oonsa-event-discovery-planning",
+    title: "Oonsa Event Discovery & Planning",
+    client: "Oonsa",
+    industry: "Events · SaaS",
+    duration: "10 Weeks",
+    year: "2025",
     summary:
-      "Designed and developed a real-time analytics dashboard that simplified complex data into actionable insights, reducing user onboarding time by 50%.",
+      "Led the end-to-end product design for Oonsa an event discovery and planning management platform for the web. Designed an intuitive experience that empowers both event planners and attendees to discover, manage, and attend events seamlessly.",
     challenge:
-      "Users were overwhelmed by the volume of data and couldn't find the metrics that mattered. The existing interface required extensive training to navigate.",
+      "Event planners lacked a centralised tool to manage the full event lifecycle from creation and promotion to ticketing and guest coordination. Attendees struggled to discover relevant events in one place. Existing solutions were either too complex or too basic.",
     solution:
-      "Conducted user research to identify key workflows, then designed an intuitive dashboard with customizable widgets, smart defaults, and guided onboarding flows.",
+      "Conducted user research and competitive analysis, then designed the complete web product from wireframes to high-fidelity UI. Delivered a clean planner dashboard covering event creation, vendor coordination, guest management, budget tracking, and real-time analytics alongside a polished public-facing event discovery interface for attendees.",
     results: [
-      { metric: "Onboarding Time", value: "-50%" },
-      { metric: "Daily Active Users", value: "+80%" },
-      { metric: "Support Tickets", value: "-45%" },
-      { metric: "NPS Score", value: "72" },
+      { metric: "Design Screens", value: "60+" },
+      { metric: "Planner Efficiency", value: "+70%" },
+      { metric: "User Onboarding", value: "-55%" },
+      { metric: "Design-Dev Handoff", value: "Seamless" },
     ],
-    tech: ["React", "TypeScript", "D3.js", "WebSocket", "Figma"],
+    tech: ["Figma", "FigJam", "Prototyping", "Design System", "User Research"],
   },
   {
-    slug: "fintech-design-system",
-    title: "Fintech Design System",
-    client: "PaySecure",
-    industry: "Fintech",
-    duration: "16 Weeks",
-    year: "2023",
+    slug: "visa-guard-africa",
+    title: "Visa Guard Africa Technologies LTD",
+    client: "Visa Guard Africa",
+    industry: "Travel Tech · Fintech",
+    duration: "20 Weeks",
+    year: "2026",
     summary:
-      "Created a comprehensive design system and component library that unified the product experience across 4 applications and reduced design-to-dev handoff time by 70%.",
+      "Serving as Product Manager and Product Designer, I led Visa Guard Africa from concept to launch working hands-on with my development team across strategy, UX research, UI design, and full product development to simplify visa processing across the African continent.",
     challenge:
-      "Four product teams working independently with inconsistent UI patterns, duplicated components, and no shared design language. Design debt was slowing feature delivery.",
+      "Visa applicants across Africa faced fragmented, opaque, and stressful application processes with no unified platform for tracking status, verifying documents, or understanding eligibility. The market had no trusted, Africa-focused visa technology solution.",
     solution:
-      "Audited all existing interfaces, established design tokens, built a Storybook-powered component library, and created documentation for designers and developers.",
+      "Owned the full product lifecycle from market research and product strategy to UI/UX design and development oversight. Shipped a secure platform with a multi-country visa eligibility engine, document verification, real-time application tracking, and an applicant dashboard. Coordinated the development team sprint by sprint from design handoff through to launch.",
     results: [
-      { metric: "Handoff Time", value: "-70%" },
-      { metric: "UI Consistency", value: "95%" },
-      { metric: "Dev Velocity", value: "+40%" },
-      { metric: "Components", value: "120+" },
+      { metric: "Countries Covered", value: "5+" },
+      { metric: "Application Time", value: "-65%" },
+      { metric: "Doc Accuracy", value: "+90%" },
+      { metric: "Product Launch", value: "On Time" },
     ],
-    tech: ["Figma", "React", "Storybook", "CSS Variables", "Jest"],
+    tech: ["Figma", "React", "Node.js", "PostgreSQL", "Tailwind CSS", "REST API"],
   },
 ];
+
 
 const CaseStudies = () => {
   return (
@@ -87,11 +88,11 @@ const CaseStudies = () => {
             <p className="text-sm font-medium tracking-widest uppercase text-muted-foreground mb-4">
               Case Studies
             </p>
-            <h1 className="font-display text-5xl sm:text-6xl font-semibold text-foreground leading-tight mb-6">
-              Results That <span className="italic">Speak</span>
+            <h1 className="font-display text-5xl sm:text-6xl font-extrabold text-foreground leading-tight mb-6">
+              Results That Speaks.
             </h1>
-            <p className="text-lg text-muted-foreground max-w-2xl leading-relaxed">
-              In-depth look at select projects — the challenges, the process, and
+            <p className="text-sm text-muted-foreground max-w-2xl leading-relaxed">
+              In-depth look at select projects the challenges, the process, and
               the measurable outcomes delivered for each client.
             </p>
           </motion.div>
@@ -195,8 +196,8 @@ const CaseStudies = () => {
       {/* CTA */}
       <section className="py-20 bg-primary text-primary-foreground">
         <div className="max-w-3xl mx-auto px-6 text-center">
-          <h2 className="font-display text-3xl sm:text-4xl font-semibold mb-4">
-            Want similar results?
+          <h2 className="font-display text-4xl sm:text-4xl font-extrabold mb-4">
+            Want Similar Results?
           </h2>
           <p className="text-primary-foreground/60 mb-8">
             Let's discuss how I can deliver measurable impact for your business.

@@ -1,34 +1,41 @@
 import { motion } from "framer-motion";
-import { useState, FormEvent, useRef } from "react";
+import { useState, FormEvent, useRef, useEffect } from "react";
 import { Calendar as CalendarIcon } from "lucide-react";
 import BookCallSheet from "@/components/BookCallSheet";
 import { toast } from "sonner";
+import { useForm, ValidationError } from "@formspree/react";
 
 const ContactSection = () => {
-  const [submitted, setSubmitted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
+  const [state, handleFormspreeSubmit] = useForm("xqewyonl");
   const nameRef = useRef<HTMLInputElement>(null);
   const emailRef = useRef<HTMLInputElement>(null);
   const subjectRef = useRef<HTMLInputElement>(null);
   const messageRef = useRef<HTMLTextAreaElement>(null);
 
-  const handleSubmit = async (e: FormEvent) => {
-    e.preventDefault();
-    const name = nameRef.current?.value || "";
-    const email = emailRef.current?.value || "";
-    const subject = subjectRef.current?.value || "";
-    const message = messageRef.current?.value || "";
+  useEffect(() => {
+    if (state.succeeded) {
+      setSubmitting(false);
+      toast.success("Message sent! I'll get back to you soon.", {
+        id: "contact-section",
+      });
+    } else if (
+      state.errors &&
+      Array.isArray(state.errors) &&
+      state.errors.length > 0
+    ) {
+      setSubmitting(false);
+      toast.error("Failed to send message. Please try again.", {
+        id: "contact-section",
+      });
+    }
+  }, [state.succeeded, state.errors]);
 
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
     setSubmitting(true);
     toast.loading("Sending your message...", { id: "contact-section" });
-    await new Promise((r) => setTimeout(r, 400));
-
-    const body = `Name: ${name}%0D%0AEmail: ${email}%0D%0A%0D%0A${encodeURIComponent(message)}`;
-    window.open(`mailto:clintonnweze111@gmail.com?subject=${encodeURIComponent(subject)}&body=${body}`, "_self");
-
-    setSubmitting(false);
-    setSubmitted(true);
-    toast.success("Message ready to send! Your email client should open now.", { id: "contact-section" });
+    await handleFormspreeSubmit(e);
   };
 
   return (
@@ -46,39 +53,56 @@ const ContactSection = () => {
             <p className="text-sm font-medium tracking-widest uppercase text-muted-foreground mb-3">
               Contact
             </p>
-            <h2 className="font-display text-4xl font-semibold text-foreground mb-6">
+            <h2 className="font-display text-5xl font-extrabold text-foreground mb-6">
               Let's work <span className="italic">together</span>.
             </h2>
             <p className="text-muted-foreground leading-relaxed mb-10 max-w-md">
-              Have a project in mind or just want to chat? I'm always open to discussing 
-              new opportunities, collaborations, or creative ideas.
+              Have a project in mind or just want to chat? I'm always open to
+              discussing new opportunities, collaborations, or creative ideas.
             </p>
 
             <div className="space-y-4 text-sm">
               <div>
                 <p className="text-muted-foreground mb-1">Email</p>
-                <a href="mailto:clintonnweze111@gmail.com" className="text-foreground font-medium hover:text-accent transition-colors">
-                  clintonnweze111@gmail.com
+                <a
+                  href="mailto:nwezeclinton112@gmail.com"
+                  className="text-foreground font-medium hover:text-accent transition-colors"
+                >
+                  nwezeclinton112@gmail.com
                 </a>
               </div>
               <div>
                 <p className="text-muted-foreground mb-1">Location</p>
-                <p className="text-foreground font-medium">Available Worldwide · Remote</p>
+                <p className="text-foreground font-medium">
+                  Available Worldwide · Remote
+                </p>
               </div>
               <div>
                 <p className="text-muted-foreground mb-1">Social</p>
                 <div className="flex gap-4">
-                  <a href="#" className="text-foreground font-medium hover:text-accent transition-colors">
+                  <a
+                    href="#"
+                    className="text-foreground font-medium hover:text-accent transition-colors"
+                  >
                     GitHub
                   </a>
-                  <a href="#" className="text-foreground font-medium hover:text-accent transition-colors">
+                  <a
+                    href="#"
+                    className="text-foreground font-medium hover:text-accent transition-colors"
+                  >
                     LinkedIn
                   </a>
-                  <a href="#" className="text-foreground font-medium hover:text-accent transition-colors">
+                  <a
+                    href="#"
+                    className="text-foreground font-medium hover:text-accent transition-colors"
+                  >
                     Twitter
                   </a>
-                  <a href="#" className="text-foreground font-medium hover:text-accent transition-colors">
-                    Dribbble
+                  <a
+                    href="#"
+                    className="text-foreground font-medium hover:text-accent transition-colors"
+                  >
+                    Facebook
                   </a>
                 </div>
               </div>
@@ -100,7 +124,7 @@ const ContactSection = () => {
 
           {/* Right - Form */}
           <div>
-            {submitted ? (
+            {state.succeeded ? (
               <div className="bg-background border border-border rounded-sm p-10 text-center">
                 <h3 className="font-display text-2xl font-semibold text-foreground mb-2">
                   Message sent!
@@ -118,10 +142,17 @@ const ContactSection = () => {
                     </label>
                     <input
                       type="text"
+                      name="name"
                       required
                       placeholder="Your name"
                       ref={nameRef}
                       className="w-full bg-background border border-border rounded-sm px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring"
+                    />
+                    <ValidationError
+                      prefix="Name"
+                      field="name"
+                      errors={state.errors}
+                      className="text-red-500 text-xs mt-1"
                     />
                   </div>
                   <div>
@@ -130,10 +161,17 @@ const ContactSection = () => {
                     </label>
                     <input
                       type="email"
+                      name="email"
                       required
                       placeholder="your@email.com"
                       ref={emailRef}
                       className="w-full bg-background border border-border rounded-sm px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring"
+                    />
+                    <ValidationError
+                      prefix="Email"
+                      field="email"
+                      errors={state.errors}
+                      className="text-red-500 text-xs mt-1"
                     />
                   </div>
                 </div>
@@ -143,10 +181,17 @@ const ContactSection = () => {
                   </label>
                   <input
                     type="text"
+                    name="subject"
                     required
                     placeholder="Project inquiry"
                     ref={subjectRef}
                     className="w-full bg-background border border-border rounded-sm px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring"
+                  />
+                  <ValidationError
+                    prefix="Subject"
+                    field="subject"
+                    errors={state.errors}
+                    className="text-red-500 text-xs mt-1"
                   />
                 </div>
                 <div>
@@ -154,19 +199,28 @@ const ContactSection = () => {
                     Message
                   </label>
                   <textarea
+                    name="message"
                     required
                     rows={5}
                     placeholder="Tell me about your project..."
                     ref={messageRef}
                     className="w-full bg-background border border-border rounded-sm px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring resize-none"
                   />
+                  <ValidationError
+                    prefix="Message"
+                    field="message"
+                    errors={state.errors}
+                    className="text-red-500 text-xs mt-1"
+                  />
                 </div>
                 <button
                   type="submit"
-                  disabled={submitting}
+                  disabled={submitting || state.submitting}
                   className="w-full bg-foreground text-background py-3 text-sm font-medium rounded-sm hover:opacity-90 transition-opacity disabled:opacity-50"
                 >
-                  {submitting ? "Sending..." : "Send Message"}
+                  {submitting || state.submitting
+                    ? "Sending..."
+                    : "Send Message"}
                 </button>
               </form>
             )}
