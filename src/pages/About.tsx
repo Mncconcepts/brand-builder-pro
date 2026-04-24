@@ -8,9 +8,17 @@ import BookCallSheet from "@/components/BookCallSheet";
 
 const skills = [
   "React / Next.js",
+  "React Native",
+  "Flutter",
+  "Dart",
   "TypeScript",
   "Tailwind CSS",
   "Node.js",
+  "Express",
+  "MongoDB",
+  "PostgreSQL",
+  "Firebase",
+  "Python",
   "Figma",
   "UI/UX Design",
   "Responsive Design",
@@ -29,14 +37,14 @@ const experience = [
   },
   {
     role: "Product Designer (CVMP)",
-    company: "Tech Agency",
+    company: "Computer Village Marketplace",
     period: "2025",
     description:
       "Designed intuitive interfaces for e-commerce, SaaS, and fintech products. Led user research sessions, created wireframes and high-fidelity prototypes, and collaborated with engineering to ensure design implementation.",
   },
   {
     role: "UI/UX Designer (DAPSTORE)",
-    company: "Digital Studio",
+    company: "Multiple Vendor Store",
     period: "2024 - 2025",
     description:
       "Started as a web designer creating marketing pages, quickly transitioned into product design roles. Built user flows, designed component libraries, and learned to code to better communicate with developers.",
@@ -47,10 +55,10 @@ const values = [
   {
     title: "Quality Over Quantity",
     description:
-      "Every project gets my full attention. I don't take on more than I can deliver at the highest standard.",
+      "Every project gets our full attention. we don't take on more than we can deliver at the highest standard.",
   },
   {
-    title: "Transparent Communication",
+    title: "Good Communication",
     description:
       "Regular updates, honest timelines, and clear documentation. No surprises, no jargon.",
   },
@@ -79,16 +87,14 @@ const About = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
           >
-            <p className="text-sm font-small tracking-widest uppercase text-muted-foreground mb-4">
-              About Us
-            </p>
             <h1 className="font-display text-5xl sm:text-6xl font-extrabold text-foreground leading-tight mb-6">
-            About Us.
+              About Us.
             </h1>
             <p className="text-sm text-muted-foreground max-w-2xl leading-relaxed">
-              We are a multidisciplinary creative team with over 4 years of experience 
-              bridging the gap between design and development. We collaborate with startups 
-              and established brands to craft digital products that are both visually compelling and technically robust.
+              We are a multidisciplinary creative team with over 4 years of
+              experience bridging the gap between design and development. We
+              collaborate with startups and established brands to craft digital
+              products that are both visually compelling and technically robust.
             </p>
           </motion.div>
         </div>
@@ -113,8 +119,8 @@ const About = () => {
                   engineering work in harmony not in opposition.
                 </p>
                 <p>
-                  Every pixel has a purpose, every line of code tells a story. We
-                  focus on creating digital experiences that not only look
+                  Every pixel has a purpose, every line of code tells a story.
+                  We focus on creating digital experiences that not only look
                   beautiful but perform flawlessly under real-world conditions.
                 </p>
                 <p>
@@ -144,33 +150,13 @@ const About = () => {
                   </span>
                 ))}
               </div>
-
-              <h3 className="text-sm font-semibold text-foreground mb-6 uppercase tracking-wider">
-                Education
-              </h3>
-              <div className="border border-border rounded-lg p-6">
-                <p className="font-semibold text-foreground">
-                  FULL-STACK WEB DEVELOPMENT
-                </p>
-                <p className="text-sm text-muted-foreground mt-1">
-                  Lagos state school of programming
-                </p>
-              </div>
-              <div className="border border-border rounded-lg p-6 mt-4">
-                <p className="font-semibold text-foreground">
-                  SOFTWARE DEVELOPMENT
-                </p>
-                <p className="text-sm text-muted-foreground mt-1">
-                  University of the People · Present
-                </p>
-              </div>
             </motion.div>
           </div>
         </div>
       </section>
 
       {/* Experience */}
-      <section className="py-24 bg-secondary/30 border-y border-border">
+      <section className="py-20 bg-secondary/30 border-y border-border">
         <div className="max-w-6xl mx-auto px-6">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -178,7 +164,7 @@ const About = () => {
             viewport={{ once: true }}
             className="mb-14"
           >
-            <p className="text-sm font-medium tracking-widest uppercase text-muted-foreground mb-3">
+            <p className="text-xs font-medium tracking-widest uppercase text-muted-foreground mb-3">
               Experience
             </p>
             <h2 className="font-display text-4xl font-bold text-foreground">
@@ -205,11 +191,11 @@ const About = () => {
                       {exp.company}
                     </p>
                   </div>
-                  <span className="text-sm text-muted-foreground">
+                  <span className="text-sm text-semibold text-muted-foreground">
                     {exp.period}
                   </span>
                 </div>
-                <p className="text-muted-foreground text-sm leading-relaxed max-w-2xl">
+                <p className="text-muted-foreground text-xs leading-relaxed max-w-2xl">
                   {exp.description}
                 </p>
               </motion.div>
@@ -218,7 +204,7 @@ const About = () => {
         </div>
       </section>
 
-      {/* Values */}
+     {/* Values */}
       <section className="py-24">
         <div className="max-w-6xl mx-auto px-6">
           <motion.div
@@ -235,32 +221,46 @@ const About = () => {
             </h2>
           </motion.div>
 
-          <StackingCards offset={20} top={100}>
-            {values.map((v) => (
-              <div
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {values.map((v, i) => (
+              <motion.div
                 key={v.title}
-                className="bg-card border border-border rounded-lg p-8 shadow-sm"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.1 }}
+                className="relative bg-card border border-border rounded-xl p-7 shadow-sm flex flex-col gap-4 hover:shadow-xs transition-shadow group"
               >
-                <h3 className="font-display text-lg font-semibold text-foreground mb-2">
-                  {v.title}
-                </h3>
-                <p className="text-muted-foreground text-sm leading-relaxed">
-                  {v.description}
-                </p>
-              </div>
+                {/* Number badge */}
+                <span className="inline-flex items-center justify-center w-9 h-9 rounded-md bg-foreground/5 border border-border text-xs font-bold text-muted-foreground group-hover:bg-foreground group-hover:text-background transition-colors shrink-0">
+                  {String(i + 1).padStart(2, "0")}
+                </span>
+
+                <div>
+                  <h3 className="font-display text-base sm:text-2sm font-semibold text-foreground mb-2 leading-snug">
+                    {v.title}
+                  </h3>
+                  <p className="text-muted-foreground text-xs leading-relaxed">
+                    {v.description}
+                  </p>
+                </div>
+
+                {/* Subtle accent line at bottom */}
+                <span className="absolute bottom-0 left-6 right-6 h-px bg-border group-hover:bg-foreground/10 transition-colors rounded-full" />
+              </motion.div>
             ))}
-          </StackingCards>
+          </div>
         </div>
       </section>
 
       {/* CTA */}
       <section className="py-20 bg-primary text-primary-foreground">
         <div className="max-w-3xl mx-auto px-6 text-center">
-          <h2 className="font-display text-3xl sm:text-4xl mb-4 font-extrabold">
-            Interested in working together?
+          <h2 className="font-display text-4xl sm:text-4xl mb-4 font-extrabold">
+            Interested In Working With Us?
           </h2>
           <p className="text-primary-foreground/60 mb-8">
-            I'm always open to new opportunities and collaborations.
+            We are always open to new opportunities and collaborations.
           </p>
           <div className="flex flex-wrap gap-3 justify-center">
             <Link

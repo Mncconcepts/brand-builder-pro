@@ -143,26 +143,32 @@ const testimonials = [
     name: "Michael Chen",
     role: "Founder, DesignLab",
   },
+  {
+    quote:
+      "Working with this team was a game-changer for our product. The attention to detail and technical expertise exceeded our expectations.",
+    name: "Sarah Johnson",
+    role: "CEO, TechStart",
+  },
 ];
 
-const homeFaqs = [
-  {
-    q: "What Services Do You Offer?",
-    a: "I specialize in web development, product design, and UI/UX design — from initial strategy and wireframes to fully shipped, production-ready applications.",
-  },
-  {
-    q: "How Long Does A Typical Project Take?",
-    a: "Most engagements run 2-8 weeks depending on scope. After our intro call I'll share a detailed timeline with milestones.",
-  },
-  {
-    q: "Do You Work With International Clients?",
-    a: "Yes — I collaborate remotely with clients worldwide and adapt comfortably to different time zones.",
-  },
-  {
-    q: "What Is Your Pricing Model?",
-    a: "Projects are typically scoped as fixed-price engagements. For ongoing work, monthly retainers are also available.",
-  },
-];
+// const homeFaqs = [
+//   {
+//     q: "What Services Do You Offer?",
+//     a: "I specialize in web development, product design, and UI/UX design — from initial strategy and wireframes to fully shipped, production-ready applications.",
+//   },
+//   {
+//     q: "How Long Does A Typical Project Take?",
+//     a: "Most engagements run 2-8 weeks depending on scope. After our intro call I'll share a detailed timeline with milestones.",
+//   },
+//   {
+//     q: "Do You Work With International Clients?",
+//     a: "Yes — I collaborate remotely with clients worldwide and adapt comfortably to different time zones.",
+//   },
+//   {
+//     q: "What Is Your Pricing Model?",
+//     a: "Projects are typically scoped as fixed-price engagements. For ongoing work, monthly retainers are also available.",
+//   },
+// ];
 
 const Index = () => {
   // Ref + inView for the stats section
@@ -181,8 +187,8 @@ const Index = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
           >
-            <p className="text-xs font-medium tracking-widest uppercase text-muted-foreground mb-4">
-              Developer & Product Designer
+            <p className="text-xs sm:text-2xs font-medium tracking-widest uppercase text-muted-foreground mb-2">
+              Development-Design
             </p>
             <h1 className="font-display text-5xl sm:text-6xl lg:text-7xl font-bold leading-[1.1] tracking-tight text-foreground mb-6">
               <TypewriterText
@@ -192,8 +198,8 @@ const Index = () => {
               />
             </h1>
             <p className="text-sm text-muted-foreground max-w-md leading-relaxed mb-6">
-              I help businesses create powerful web applications and thoughtful
-              digital experiences that drive growth and engagement.
+              Mncconcepts help businesses create powerful web applications and
+              thoughtful digital experiences that drive growth and engagement.
             </p>
             <div className="flex flex-wrap gap-4">
               <Link
@@ -257,7 +263,7 @@ const Index = () => {
             className="flex flex-col md:flex-row md:items-end justify-between mb-14 gap-4"
           >
             <div>
-              <p className="text-sm font-medium tracking-widest uppercase text-muted-foreground mb-3">
+              <p className="text-xs font-medium tracking-widest uppercase text-muted-foreground mb-1">
                 Our Services
               </p>
               <h2 className="font-display text-4xl text-foreground font-extrabold">
@@ -305,7 +311,7 @@ const Index = () => {
                   <h3 className="font-display text-xl font-semibold text-foreground mb-2">
                     {service.title}
                   </h3>
-                  <p className="text-sm text-muted-foreground leading-relaxed mb-5">
+                  <p className="text-xs text-muted-foreground leading-relaxed mb-5">
                     {service.desc}
                   </p>
 
@@ -316,7 +322,7 @@ const Index = () => {
                         key={b}
                         className="text-sm text-muted-foreground flex items-start gap-2"
                       >
-                        <span className="mt-[7px] w-1 h-1 shrink-0 bg-foreground rounded-full" />
+                        <span className="mt-[7px] text-xs w-1 h-1 shrink-0 bg-foreground rounded-full" />
                         {b}
                       </li>
                     ))}
@@ -337,7 +343,7 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Featured Projects */}
+   
       <section className="py-24 bg-secondary/30 border-y border-border">
         <div className="max-w-6xl mx-auto px-6">
           <motion.div
@@ -347,7 +353,7 @@ const Index = () => {
             className="flex flex-col md:flex-row md:items-end justify-between mb-14 gap-4"
           >
             <div>
-              <p className="text-sm font-medium tracking-widest uppercase text-muted-foreground mb-3">
+              <p className="text-xs font-medium tracking-widest uppercase text-muted-foreground mb-1">
                 Recent Work
               </p>
               <h2 className="font-display text-4xl font-bold text-foreground">
@@ -356,7 +362,7 @@ const Index = () => {
             </div>
             <Link
               to="/projects"
-              className="text-sm font-medium text-foreground border-b border-foreground/30 pb-0.5 hover:border-foreground transition-colors self-start md:self-auto"
+              className="text-sm font-medium text-foreground border-b border-foreground/30 pb-0.5 transition-colors self-start xs:self-auto"
             >
               View All Projects →
             </Link>
@@ -395,67 +401,30 @@ const Index = () => {
             viewport={{ once: true }}
             className="mb-14"
           >
-            <p className="text-sm font-medium tracking-widest uppercase text-muted-foreground mb-3">
+            <p className="text-xs font-medium tracking-widest uppercase text-muted-foreground mb-1">
               Testimonials
             </p>
             <h2 className="font-display text-4xl text-foreground font-extrabold">
-              What Clients Say
+              Testimonials
             </h2>
           </motion.div>
-
           <TestimonialsCarousel items={testimonials} />
         </div>
       </section>
 
-      {/* FAQ */}
-      <section className="py-24 bg-secondary/30 border-y border-border">
-        <div className="max-w-3xl mx-auto px-6">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="mb-12 text-center"
-          >
-            <p className="text-sm font-medium tracking-widest uppercase text-muted-foreground mb-3">
-              FAQ
-            </p>
-            <h2 className="font-display text-4xl text-foreground font-extrabold">
-              Frequently Asked Questions
-            </h2>
-          </motion.div>
-
-          <Accordion type="single" collapsible className="w-full">
-            {homeFaqs.map((faq, i) => (
-              <AccordionItem
-                key={faq.q}
-                value={`home-faq-${i}`}
-                className="border-b border-border"
-              >
-                <AccordionTrigger className="text-left font-medium text-sm text-foreground hover:no-underline py-6">
-                  {faq.q}
-                </AccordionTrigger>
-                <AccordionContent className="text-sm text-muted-foreground leading-relaxed pb-6">
-                  {faq.a}
-                </AccordionContent>
-              </AccordionItem>
-            ))}
-          </Accordion>
-        </div>
-      </section>
-
       {/* CTA */}
-      <section className="py-24 bg-primary text-primary-foreground">
+      <section className="py-20 bg-primary text-primary-foreground">
         <div className="max-w-3xl mx-auto px-6 text-center">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
           >
-            <h2 className="font-display text-5xl sm:text-4xl mb-3 font-extrabold">
+            <h2 className="font-display text-3xl sm:text-4xl mb-3 font-extrabold">
               Need Any Of Our Services?
             </h2>
             <p className="text-primary-foreground/60 mb-10 max-w-lg mx-auto text-sm leading-relaxed">
-              Let's discuss how I can help bring your vision to life with clean
+              Let's discuss how we can help bring your vision to life with clean
               code and thoughtful design.
             </p>
             <div className="flex flex-wrap gap-3 justify-center">

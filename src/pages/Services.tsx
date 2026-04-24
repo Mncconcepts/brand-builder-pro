@@ -7,24 +7,24 @@ import StackingCards from "@/components/StackingCards";
 const services = [
   {
     number: "01",
-    title: "Web Development",
+    title: "Web & App Development",
     description:
       "Full-stack web applications built with modern frameworks. Clean architecture, responsive layouts, and performant code that scales with your business.",
-    features: ["React / Next.js", "TypeScript", "API Integration", "Performance Optimization"],
+    features: ["React / Next.js", "Nodejs", "Expressjs", "Flutter-React Native", "Dart", "TypeScript", "API Integration", "Performance Optimization"],
   },
   {
     number: "02",
     title: "Product Design",
     description:
       "End-to-end product design from research and wireframing to high-fidelity prototypes. User-centered design that drives engagement and conversion.",
-    features: ["User Research", "Wireframing", "Prototyping", "Usability Testing"],
+    features: ["User Research", "Discovery", "Userflows", "Info Archetecture", "Wireframing", "Prototyping", "Usability Testing"],
   },
   {
     number: "03",
     title: "UI/UX Design",
     description:
       "Intuitive interfaces and seamless user experiences. Design systems, component libraries, and interaction design that feels natural and delightful.",
-    features: ["Interface Design", "Design Systems", "Interaction Design", "Accessibility"],
+    features: ["Interface Design", "Design Systems", "Info Archetecture", "Wireframing", "Prototyping", "Interaction Design", "Accessibility"],
   },
   {
     number: "04",
@@ -100,10 +100,7 @@ const Services = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
           >
-            <p className="text-sm font-medium tracking-widest uppercase text-muted-foreground mb-4">
-              Services
-            </p>
-            <h1 className="font-display text-5xl sm:text-6xl text-foreground leading-tight mb-6 font-extrabold">
+            <h1 className="font-display text-5xl sm:text-6xl text-foreground leading-tight mb-4 font-extrabold">
               Our Services
             </h1>
             <p className="text-sm text-muted-foreground max-w-2xl leading-relaxed">
@@ -114,7 +111,7 @@ const Services = () => {
         </div>
       </section>
 
-      <section className="py-24">
+      <section className="py-20">
         <div className="max-w-6xl mx-auto px-6">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {services.map((service, i) => (
@@ -126,13 +123,13 @@ const Services = () => {
                 transition={{ delay: i * 0.08 }}
                 className="bg-card border border-border rounded-lg p-8 lg:p-10 shadow-sm flex flex-col"
               >
-                <span className="text-xs font-semibold text-muted-foreground tracking-wider">
+                <span className="text-XL font-medium text-muted-foreground tracking-wider">
                   {service.number}
                 </span>
-                <h3 className="font-display text-2xl font-semibold text-foreground mt-3 mb-4">
+                <h3 className="font-display text-1xl font-bold text-foreground mt-3 mb-4">
                   {service.title}
                 </h3>
-                <p className="text-muted-foreground leading-relaxed mb-6">
+                <p className="text-muted-foreground text-xs leading-relaxed mb-6">
                   {service.description}
                 </p>
                 <ul className="space-y-2 mb-8 flex-1">
@@ -182,10 +179,10 @@ const Services = () => {
                 transition={{ delay: i * 0.1 }}
               >
                 <span className="font-display text-5xl font-bold text-border">{p.step}</span>
-                <h3 className="font-display text-lg font-semibold text-foreground mt-4 mb-2">
+                <h3 className="font-display text-lg font-bold text-foreground mt-4 mb-2">
                   {p.title}
                 </h3>
-                <p className="text-sm text-muted-foreground leading-relaxed">
+                <p className="text-xs text-muted-foreground leading-relaxed">
                   {p.description}
                 </p>
               </motion.div>
@@ -209,7 +206,7 @@ const Services = () => {
             <h2 className="font-display text-5xl text-foreground font-extrabold">
               Investment Tiers
             </h2>
-            <p className="text-muted-foreground mt-4 max-w-lg mx-auto">
+            <p className="text-muted-foreground text-xs mt-4 max-w-lg mx-auto">
               Transparent pricing to match your project scope. Every engagement includes a detailed proposal.
             </p>
           </motion.div>
@@ -228,7 +225,7 @@ const Services = () => {
                     : "bg-card border-border"
                 }`}
               >
-                <h3 className="font-display text-xl font-semibold mb-1">{tier.name}</h3>
+                <h3 className="font-display text-xm text-uppercase font-bold mb-1">{tier.name}</h3>
                 <p className="font-display text-3xl font-bold mb-3">{tier.price}</p>
                 <p className={`text-sm mb-6 leading-relaxed ${tier.featured ? "text-primary-foreground/60" : "text-muted-foreground"}`}>
                   {tier.description}

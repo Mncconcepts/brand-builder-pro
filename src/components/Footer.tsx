@@ -38,7 +38,7 @@ const Footer = () => {
             <ul className="space-y-2 text-sm">
               {["GitHub", "LinkedIn", "Twitter", "Facebook"].map((item) => (
                 <li key={item}>
-                  <a href="#" className="text-primary-foreground/60 hover:text-primary-foreground transition-colors">
+                  <a href="" className="text-primary-foreground/60 hover:text-primary-foreground transition-colors">
                     {item}
                   </a>
                 </li>
@@ -47,7 +47,7 @@ const Footer = () => {
           </div>
         </div>
 
-        <div className="border-t border-primary-foreground/10 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div className="border-t border-primary-foreground/10 pt-5 flex flex-col sm:flex-row items-center justify-between gap-4">
           <p className="text-xs text-primary-foreground/40">© {new Date().getFullYear()} Mncconcepts. All rights reserved.</p>
           <div className="flex gap-6 text-xs text-primary-foreground/40">
             <a href="/notfound" className="hover:text-primary-foreground/60 transition-colors">Privacy Policy</a>

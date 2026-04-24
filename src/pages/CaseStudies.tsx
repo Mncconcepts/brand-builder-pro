@@ -85,11 +85,8 @@ const CaseStudies = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
           >
-            <p className="text-sm font-medium tracking-widest uppercase text-muted-foreground mb-4">
-              Case Studies
-            </p>
-            <h1 className="font-display text-5xl sm:text-6xl font-extrabold text-foreground leading-tight mb-6">
-              Results That Speaks.
+            <h1 className="font-display text-5xl sm:text-6xl font-extrabold text-foreground leading-tight mb-3">
+              Project Case-Study.
             </h1>
             <p className="text-sm text-muted-foreground max-w-2xl leading-relaxed">
               In-depth look at select projects the challenges, the process, and
@@ -100,7 +97,7 @@ const CaseStudies = () => {
       </section>
 
       {/* Case Studies */}
-      <section className="py-24">
+      <section className="py-20">
         <div className="max-w-6xl mx-auto px-6">
           <div className="space-y-10">
           {caseStudies.map((cs, idx) => (
@@ -115,21 +112,21 @@ const CaseStudies = () => {
               {/* Top bar */}
               <div className="bg-secondary/50 border-b border-border px-8 py-5 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                 <div>
-                  <h2 className="font-display text-2xl font-semibold text-foreground">
+                  <h2 className="font-display text-2xl font-bold text-foreground">
                     {cs.title}
                   </h2>
-                  <p className="text-sm text-muted-foreground mt-1">
+                  <p className="text-xs text-muted-foreground mt-1">
                     {cs.client} · {cs.industry} · {cs.duration}
                   </p>
                 </div>
-                <span className="text-sm font-medium text-muted-foreground">
+                <span className="text-xs font-medium text-muted-foreground">
                   {cs.year}
                 </span>
               </div>
 
               <div className="p-8 lg:p-10 space-y-10">
                 {/* Summary */}
-                <p className="text-foreground leading-relaxed text-lg max-w-3xl">
+                <p className="text-foreground leading-relaxed text-sl max-w-3xl">
                   {cs.summary}
                 </p>
 
@@ -139,7 +136,7 @@ const CaseStudies = () => {
                     <h3 className="text-sm font-semibold uppercase tracking-wider text-muted-foreground mb-3">
                       The Challenge
                     </h3>
-                    <p className="text-muted-foreground leading-relaxed">
+                    <p className="text-muted-foreground text-xs leading-relaxed">
                       {cs.challenge}
                     </p>
                   </div>
@@ -147,7 +144,7 @@ const CaseStudies = () => {
                     <h3 className="text-sm font-semibold uppercase tracking-wider text-muted-foreground mb-3">
                       The Solution
                     </h3>
-                    <p className="text-muted-foreground leading-relaxed">
+                    <p className="text-muted-foreground text-xs leading-relaxed">
                       {cs.solution}
                     </p>
                   </div>

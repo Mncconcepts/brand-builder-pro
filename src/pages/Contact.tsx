@@ -1,10 +1,19 @@
 import { motion } from "framer-motion";
-import { useState, FormEvent, useRef } from "react";
-import { Calendar as CalendarIcon } from "lucide-react";
+import { useState, useEffect } from "react";
+import {
+  Calendar as CalendarIcon,
+  Mail,
+  Phone,
+  MapPin,
+  Clock,
+  ArrowRight,
+  Send,
+} from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import BookCallSheet from "@/components/BookCallSheet";
 import { toast } from "sonner";
+import { useForm } from "@formspree/react"; // Added Formspree hook
 import {
   Accordion,
   AccordionContent,
@@ -31,59 +40,54 @@ const faqs = [
   },
 ];
 
+// Define your social media links here
+const socials = [
+  { name: "GitHub", url: "https://github.com/Mncconcepts" },
+  { name: "LinkedIn", url: "https://linkedin.com/in/miracle-nweze-52aab330b" },
+  { name: "Facebook", url: "https://facebook.com/miracle.nweze.524" },
+];
+
 const Contact = () => {
-  const [submitted, setSubmitted] = useState(false);
-  const [submitting, setSubmitting] = useState(false);
-  const nameRef = useRef<HTMLInputElement>(null);
-  const emailRef = useRef<HTMLInputElement>(null);
-  const subjectRef = useRef<HTMLInputElement>(null);
-  const budgetRef = useRef<HTMLSelectElement>(null);
-  const messageRef = useRef<HTMLTextAreaElement>(null);
+  // Formspree Integration
+  const [state, handleSubmit] = useForm("xqewyonl");
+  const [isSuccessfullySubmitted, setIsSuccessfullySubmitted] = useState(false);
 
-  const handleSubmit = async (e: FormEvent) => {
-    e.preventDefault();
-    const name = nameRef.current?.value || "";
-    const email = emailRef.current?.value || "";
-    const subject = subjectRef.current?.value || "";
-    const budget = budgetRef.current?.value || "";
-    const message = messageRef.current?.value || "";
+  // Handle toast notifications based on Formspree state
+  useEffect(() => {
+    if (state.submitting) {
+      toast.loading("Sending your message...", { id: "contact-form" });
+    }
 
-    setSubmitting(true);
-    toast.loading("Sending your message...", { id: "contact-form" });
-    await new Promise((r) => setTimeout(r, 400));
+    if (state.succeeded) {
+      toast.success("Message sent successfully!", { id: "contact-form" });
+      setIsSuccessfullySubmitted(true);
+    }
 
-    const body = `Name: ${name}%0D%0AEmail: ${email}%0D%0ABudget: ${budget}%0D%0A%0D%0A${encodeURIComponent(message)}`;
-    window.open(
-      `mailto:clintonnweze111@gmail.com?subject=${encodeURIComponent(subject)}&body=${body}`,
-      "_self",
-    );
-
-    setSubmitting(false);
-    setSubmitted(true);
-    toast.success("Message ready to send! Your email client should open now.", {
-      id: "contact-form",
-    });
-  };
+    if (state.errors) {
+      toast.error("Failed to send message. Please try again.", {
+        id: "contact-form",
+      });
+    }
+  }, [state.submitting, state.succeeded, state.errors]);
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background selection:bg-primary/20">
       <Navbar />
 
       {/* Header */}
-      <section className="pt-32 pb-20 border-b border-border">
+      <section className="pt-36 pb-16">
         <div className="max-w-6xl mx-auto px-6">
           <motion.div
-            initial={{ opacity: 0, y: -40 }}
+            initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
+            transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+            className="max-w-3xl"
           >
-            <p className="text-sm font-medium tracking-widest uppercase text-muted-foreground mb-4">
-              Contact
-            </p>
-            <h1 className="font-display text-5xl sm:text-6xl font-extrabold text-foreground leading-tight mb-6">
+            <h1 className="font-display text-4xl sm:text-6xl font-extrabold text-foreground tracking-tight mb-6">
               Contact Us
+              <br className="hidden sm:block" />
             </h1>
-            <p className="text-sm text-muted-foreground max-w-2xl leading-relaxed">
+            <p className="text-xs text-muted-foreground leading-relaxed max-w-2xl">
               Have a project in mind or want to discuss a potential
               collaboration? I'd love to hear from you. Fill out the form below
               or reach out directly.
@@ -93,221 +97,237 @@ const Contact = () => {
       </section>
 
       {/* Contact Form + Info */}
-      <section className="py-24">
+      <section className="pb-20 pt-8">
         <div className="max-w-6xl mx-auto px-6">
-          <div className="grid lg:grid-cols-[1fr_1.2fr] gap-16">
-            {/* Info */}
+          <div className="grid lg:grid-cols-[1fr_1.3fr] gap-12 lg:gap-20">
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
+              className="flex flex-col justify-between"
             >
-              <h2 className="font-display text-2xl font-semibold text-foreground mb-8">
-                Contact Information
-              </h2>
-
-              <div className="space-y-6 text-sm mb-12">
-                <div>
-                  <p className="text-muted-foreground mb-1">Email</p>
-                  <a
-                    href="mailto:clintonnweze111@gmail.com"
-                    className="text-foreground font-medium hover:text-muted-foreground transition-colors"
-                  >
-                    clintonnweze111@gmail.com
-                  </a>
-                </div>
-                <div>
-                  <p className="text-muted-foreground mb-1">Phone</p>
-                  <a
-                    href="tel:+2349020495756"
-                    className="text-foreground font-medium hover:text-muted-foreground transition-colors"
-                  >
-                    +234 902 049 5756
-                  </a>
-                </div>
-                <div>
-                  <p className="text-muted-foreground mb-1">Location</p>
-                  <p className="text-foreground font-medium">
-                    Available Worldwide · Remote
-                  </p>
-                </div>
-                <div>
-                  <p className="text-muted-foreground mb-1">Availability</p>
-                  <p className="text-foreground font-medium">
-                    Currently accepting new projects
-                  </p>
-                </div>
-              </div>
-
               <div>
-                <p className="text-sm font-semibold text-foreground mb-4 uppercase tracking-wider">
-                  Follow Me
-                </p>
-                <div className="flex gap-4 text-sm">
-                  {["GitHub", "LinkedIn", "Twitter", "Facebook"].map((s) => (
-                    <a
-                      key={s}
-                      href="#"
-                      className="text-muted-foreground hover:text-foreground transition-colors"
-                    >
-                      {s}
-                    </a>
-                  ))}
+                <h2 className="text-xl font-semibold text-foreground mb-8">
+                  Contact Information
+                </h2>
+
+                <div className="space-y-8 mb-12">
+                  <div className="flex items-start gap-4 group">
+                    <div className="p-3 bg-secondary rounded-lg text-foreground group-hover:bg-primary group-hover:text-primary-foreground transition-colors">
+                      <Mail className="w-5 h-5" />
+                    </div>
+                    <div>
+                      <p className="text-sm text-muted-foreground mb-1">
+                        Email
+                      </p>
+                      <a
+                        href="mailto:clintonnweze111@gmail.com"
+                        className="text-foreground font-medium hover:text-primary transition-colors text-base"
+                      >
+                        clintonnweze111@gmail.com
+                      </a>
+                    </div>
+                  </div>
+
+                  <div className="flex items-start gap-4 group">
+                    <div className="p-3 bg-secondary rounded-lg text-foreground group-hover:bg-primary group-hover:text-primary-foreground transition-colors">
+                      <Phone className="w-5 h-5" />
+                    </div>
+                    <div>
+                      <p className="text-sm text-muted-foreground mb-1">
+                        Phone
+                      </p>
+                      <a
+                        href="tel:+2349020495756"
+                        className="text-foreground font-medium hover:text-primary transition-colors text-base"
+                      >
+                        +234 902 049 5756
+                      </a>
+                    </div>
+                  </div>
+
+                  <div className="flex items-start gap-4 group">
+                    <div className="p-3 bg-secondary rounded-lg text-foreground group-hover:bg-primary group-hover:text-primary-foreground transition-colors">
+                      <MapPin className="w-5 h-5" />
+                    </div>
+                    <div>
+                      <p className="text-sm text-muted-foreground mb-1">
+                        Location
+                      </p>
+                      <p className="text-foreground font-medium text-base">
+                        Available Worldwide · Remote
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-start gap-4 group">
+                    <div className="p-3 bg-secondary rounded-lg text-foreground group-hover:bg-primary group-hover:text-primary-foreground transition-colors">
+                      <Clock className="w-5 h-5" />
+                    </div>
+                    <div>
+                      <p className="text-sm text-muted-foreground mb-1">
+                        Availability
+                      </p>
+                      <p className="text-foreground font-medium text-base">
+                        Currently accepting new projects
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="pt-8 border-t border-border">
+                  <p className="text-sm font-semibold text-foreground mb-4 uppercase tracking-wider">
+                    Follow Me
+                  </p>
+                  <div className="flex flex-wrap gap-2">
+                    {socials.map((s) => (
+                      <a
+                        key={s.name}
+                        href={s.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="px-4 py-2 rounded-full bg-secondary text-sm font-medium text-muted-foreground hover:bg-foreground hover:text-background transition-all duration-300"
+                      >
+                        {s.name}
+                      </a>
+                    ))}
+                  </div>
                 </div>
               </div>
 
-              <div className="mt-8">
+              <div className="mt-12">
                 <BookCallSheet
                   trigger={
                     <button
                       type="button"
-                      className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-6 py-3 text-sm font-medium rounded-md hover:bg-primary/90 transition-colors"
+                      className="group inline-flex items-center justify-between w-full sm:w-auto gap-4 bg-foreground text-background px-6 py-4 text-sm font-semibold rounded-xl hover:bg-foreground/90 transition-all duration-300"
                     >
-                      <CalendarIcon className="h-4 w-4" />
-                      Book A Call Session
+                      <span className="flex items-center gap-2">
+                        <CalendarIcon className="h-4 w-4" />
+                        Book A Call Session
+                      </span>
+                      <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
                     </button>
                   }
                 />
               </div>
             </motion.div>
 
-            {/* Form */}
+            {/* Right Column: Form */}
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              initial={{ opacity: 0, x: 20 }}
+              whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.1 }}
             >
-              {submitted ? (
-                <div className="bg-card border border-border rounded-lg p-12 text-center">
-                  <h3 className="font-display text-2xl font-semibold text-foreground mb-3">
-                    Message sent successfully!
-                  </h3>
-                  <p className="text-muted-foreground mb-6">
-                    Thank you for reaching out. I'll review your message and get
-                    back to you within 24-48 hours.
-                  </p>
-                  <button
-                    onClick={() => setSubmitted(false)}
-                    className="text-sm font-medium text-foreground border-b border-foreground/30 pb-0.5 hover:border-foreground transition-colors"
-                  >
-                    Send another message
-                  </button>
-                </div>
-              ) : (
-                <form onSubmit={handleSubmit} className="space-y-5">
-                  <div className="grid sm:grid-cols-2 gap-5">
+              <div className="bg-card border border-border/25 rounded-3xl p-8 sm:p-10 shadow-sm">
+                {isSuccessfullySubmitted ? (
+                  <div className="h-full min-h-[400px] flex flex-col items-center justify-center text-center space-y-6">
+                    <div className="w-16 h-16 bg-primary/10 text-primary rounded-full flex items-center justify-center mb-2">
+                      <Send className="w-8 h-8 ml-1" />
+                    </div>
                     <div>
-                      <label className="block text-sm font-medium text-foreground mb-1.5">
-                        Name
+                      <h3 className="font-display text-2xl font-bold text-foreground mb-3">
+                        Message Sent!
+                      </h3>
+                      <p className="text-muted-foreground max-w-sm mx-auto mb-8">
+                        Thank you for reaching out. I've received your message
+                        and will get back to you as soon as possible.
+                      </p>
+                    </div>
+                    <button
+                      onClick={() => setIsSuccessfullySubmitted(false)}
+                      className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors underline underline-offset-4"
+                    >
+                      Send another message
+                    </button>
+                  </div>
+                ) : (
+                  <form onSubmit={handleSubmit} className="space-y-6">
+                    <div className="grid sm:grid-cols-2 gap-6">
+                      <div className="space-y-2">
+                        <label className="text-sm font-medium text-foreground">
+                          Name
+                        </label>
+                        <input
+                          type="text"
+                          name="name"
+                          required
+                          placeholder="John Doe"
+                          className="w-full bg-background rounded-xl px-4 py-3.5 text-sm text-foreground placeholder:text-muted-foreground/60 focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all"
+                        />
+                      </div>
+                      <div className="space-y-2">
+                        <label className="text-sm font-medium text-foreground">
+                          Email
+                        </label>
+                        <input
+                          type="email"
+                          name="email"
+                          required
+                          placeholder="john@example.com"
+                          className="w-full bg-background border border-border rounded-xl px-4 py-3.5 text-sm text-foreground placeholder:text-muted-foreground/60 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all"
+                        />
+                      </div>
+                    </div>
+
+                    <div className="space-y-2">
+                      <label className="text-sm font-medium text-foreground">
+                        Subject
                       </label>
                       <input
                         type="text"
+                        name="subject"
                         required
-                        placeholder="Your full name"
-                        ref={nameRef}
-                        className="w-full bg-card border border-border rounded-md px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring"
+                        placeholder="What is this regarding?"
+                        className="w-full bg-background border border-border rounded-xl px-4 py-3.5 text-sm text-foreground placeholder:text-muted-foreground/60 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all"
                       />
                     </div>
-                    <div>
-                      <label className="block text-sm font-medium text-foreground mb-1.5">
-                        Email
+
+                    <div className="space-y-2">
+                      <label className="text-sm font-medium text-foreground">
+                        Budget Range{" "}
+                        <span className="text-muted-foreground font-normal">
+                          (Optional)
+                        </span>
                       </label>
-                      <input
-                        type="email"
+                      <select
+                        name="budget"
+                        className="w-full bg-background border border-border rounded-xl px-4 py-3.5 text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all appearance-none cursor-pointer"
+                      >
+                        <option value="">Select a range</option>
+                        <option>$500 - $2,500</option>
+                        <option>$2,500 - $5,000</option>
+                        <option>$5,000 - $10,000</option>
+                        <option>$10,000+</option>
+                      </select>
+                    </div>
+
+                    <div className="space-y-2">
+                      <label className="text-sm font-medium text-foreground">
+                        Message
+                      </label>
+                      <textarea
+                        name="message"
                         required
-                        placeholder="your@email.com"
-                        ref={emailRef}
-                        className="w-full bg-card border border-border rounded-md px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring"
+                        rows={5}
+                        placeholder="Tell me about your project, goals, and timeline..."
+                        className="w-full bg-background border border-border rounded-xl px-4 py-3.5 text-sm text-foreground placeholder:text-muted-foreground/60 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all resize-none"
                       />
                     </div>
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-foreground mb-1.5">
-                      Subject
-                    </label>
-                    <input
-                      type="text"
-                      required
-                      placeholder="Project inquiry"
-                      ref={subjectRef}
-                      className="w-full bg-card border border-border rounded-md px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-foreground mb-1.5">
-                      Budget Range
-                    </label>
-                    <select
-                      ref={budgetRef}
-                      className="w-full bg-card border border-border rounded-md px-4 py-3 text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-ring"
+
+                    <button
+                      type="submit"
+                      disabled={state.submitting}
+                      className="w-full flex justify-center items-center gap-2 bg-primary text-primary-foreground py-4 text-sm font-semibold rounded-xl hover:bg-primary/90 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
                     >
-                      <option value="">Select a range</option>
-                      <option>$500 - $2,500</option>
-                      <option>$2,500 - $5,000</option>
-                      <option>$5,000 - $10,000</option>
-                      <option>$10,000+</option>
-                    </select>
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-foreground mb-1.5">
-                      Message
-                    </label>
-                    <textarea
-                      required
-                      rows={5}
-                      placeholder="Tell me about your project, goals, and timeline..."
-                      ref={messageRef}
-                      className="w-full bg-card border border-border rounded-md px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring resize-none"
-                    />
-                  </div>
-                  <button
-                    type="submit"
-                    disabled={submitting}
-                    className="w-full bg-primary text-primary-foreground py-3.5 text-sm font-medium rounded-md hover:bg-primary/90 transition-colors disabled:opacity-50"
-                  >
-                    {submitting ? "Sending..." : "Send Message"}
-                  </button>
-                </form>
-              )}
+                      {state.submitting ? "Sending..." : "Send Message"}
+                    </button>
+                  </form>
+                )}
+              </div>
             </motion.div>
           </div>
-        </div>
-      </section>
-
-      {/* FAQ */}
-      <section className="py-24 bg-secondary/30 border-t border-border">
-        <div className="max-w-4xl mx-auto px-6">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="mb-14 text-center"
-          >
-            <p className="text-sm font-medium tracking-widest uppercase text-muted-foreground mb-3">
-              FAQs
-            </p>
-            <h2 className="font-display text-4xl font-bold text-foreground">
-              Frequently Asked Questions
-            </h2>
-          </motion.div>
-
-          <Accordion type="single" collapsible className="w-full">
-            {faqs.map((faq, i) => (
-              <AccordionItem
-                key={faq.q}
-                value={`item-${i}`}
-                className="border-b border-border"
-              >
-                <AccordionTrigger className="text-left font-semibold text-foreground hover:no-underline py-6">
-                  {faq.q}
-                </AccordionTrigger>
-                <AccordionContent className="text-sm text-muted-foreground leading-relaxed pb-6">
-                  {faq.a}
-                </AccordionContent>
-              </AccordionItem>
-            ))}
-          </Accordion>
         </div>
       </section>
 

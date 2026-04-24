@@ -24,7 +24,7 @@ const Navbar = () => {
             <span className="font-display text-lg font-extrabold tracking-tight text-foreground">
               Mncconcepts
             </span>
-            <span className="text-[10px] font-medium tracking-[0.25em] uppercase text-muted-foreground">DESIGNER & DEV</span>
+            <span className="text-[7px] font-extrabold tracking-[0.25em] uppercase text-muted-foreground">DEVelopment & Design</span>
           </div>
         </Link>
 
