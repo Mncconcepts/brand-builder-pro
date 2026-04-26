@@ -7,7 +7,7 @@ const Footer = () => {
         <div className="grid md:grid-cols-4 gap-10 mb-12">
           <div className="md:col-span-2">
             <Link to="/" className="font-display font-bold text-xl">Mncconcepts</Link>
-            <p className="mt-4 text-primary-foreground/60 max-w-sm leading-relaxed text-sm">
+            <p className="mt-4 text-primary-foreground/60 max-w-sm leading-relaxed text-xs">
               A web developer and product designer helping businesses build digital 
               products that are functional, beautiful, and built to last.
             </p>
@@ -17,7 +17,7 @@ const Footer = () => {
             <p className="text-sm font-semibold mb-4 uppercase tracking-wider text-primary-foreground/40">
               Navigation
             </p>
-            <ul className="space-y-2 text-sm">
+            <ul className="space-y-2 text-xs">
               {["Home", "About", "Services", "Projects", "Blog", "Contact"].map((item) => (
                 <li key={item}>
                   <Link
@@ -32,10 +32,10 @@ const Footer = () => {
           </div>
 
           <div>
-            <p className="text-sm font-semibold mb-4 uppercase tracking-wider text-primary-foreground/40">
+            <p className="text-xs font-semibold mb-4 uppercase tracking-wider text-primary-foreground/40">
               Connect
             </p>
-            <ul className="space-y-2 text-sm">
+            <ul className="space-y-2 text-xs">
               {["GitHub", "LinkedIn", "Twitter", "Facebook"].map((item) => (
                 <li key={item}>
                   <a href="" className="text-primary-foreground/60 hover:text-primary-foreground transition-colors">

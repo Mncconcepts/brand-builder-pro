@@ -49,7 +49,7 @@ const Navbar = () => {
           <li>
             <Link
               to="/contact"
-              className="text-sm font-medium bg-primary text-primary-foreground px-5 py-2 rounded-md hover:bg-primary/90 transition-colors"
+              className="text-sm font-bold bg-primary text-primary-foreground px-5 py-2 rounded-md hover:bg-primary/90 transition-colors"
             >
               Get Started
             </Link>

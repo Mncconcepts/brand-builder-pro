@@ -132,10 +132,10 @@ const Blog = () => {
       {/* Newsletter CTA */}
       <section className="py-20 bg-primary text-primary-foreground">
         <div className="max-w-3xl mx-auto px-6 text-center">
-          <h2 className="font-display text-4xl sm:text-4xl font-extrabold mb-4">
+          <h2 className="font-display text-4xl sm:text-5xl font-extrabold mb-4">
             Stay In The Loop
           </h2>
-          <p className="text-primary-foreground/60 mb-8 max-w-md mx-auto">
+          <p className="text-primary-foreground/60 text-sm mb-8 max-w-md mx-auto">
             Get occasional updates on new articles, projects, and insights. No
             spam, unsubscribe anytime.
           </p>

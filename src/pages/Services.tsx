@@ -70,13 +70,13 @@ const pricing = [
     name: "Starter",
     price: "From $900",
     description: "Perfect for small businesses needing a professional web presence.",
-    features: ["Single page website", "Responsive design", "Basic SEO", "1 round of revisions", "3 week delivery"],
+    features: ["Single page website", "Responsive design", "Figma-Custom design", "Basic SEO", "1 round of revisions", "3 weeks delivery"],
   },
   {
     name: "Professional",
     price: "From $3,000",
     description: "For growing businesses that need a comprehensive digital solution.",
-    features: ["Multi-page website", "Custom design", "Advanced SEO", "CMS integration", "3 rounds of revisions", "12 week delivery"],
+    features: ["Multi-page website", "Figma-Custom design", "Advanced SEO", "CMS integration", "3 rounds of revisions", "12 weeks delivery"],
     featured: true,
   },
   {
@@ -161,7 +161,7 @@ const Services = () => {
             viewport={{ once: true }}
             className="mb-14"
           >
-            <p className="text-sm font-medium tracking-widest uppercase text-muted-foreground mb-3">
+            <p className="text-xs font-medium tracking-widest uppercase text-muted-foreground mb-2">
               Process
             </p>
             <h2 className="font-display text-4xl text-foreground font-extrabold">

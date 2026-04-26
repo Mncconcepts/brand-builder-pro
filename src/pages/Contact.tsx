@@ -89,7 +89,7 @@ const Contact = () => {
             </h1>
             <p className="text-sm text-muted-foreground leading-relaxed max-w-2xl">
               Have a project in mind or want to discuss a potential
-              collaboration? I'd love to hear from you. Fill out the form below
+              collaboration? we would love to hear from you. Fill out the form below
               or reach out directly.
             </p>
           </motion.div>
@@ -107,7 +107,7 @@ const Contact = () => {
               className="flex flex-col justify-between"
             >
               <div>
-                <h2 className="text-xl font-semibold text-foreground mb-8">
+                <h2 className="text-xm font-bold text-foreground mb-8">
                   Contact Information
                 </h2>
 
@@ -122,7 +122,7 @@ const Contact = () => {
                       </p>
                       <a
                         href="mailto:clintonnweze111@gmail.com"
-                        className="text-foreground font-medium hover:text-primary transition-colors text-base"
+                        className="text-foreground text-sm font-medium hover:text-primary transition-colors "
                       >
                         clintonnweze111@gmail.com
                       </a>
@@ -139,7 +139,7 @@ const Contact = () => {
                       </p>
                       <a
                         href="tel:+2349020495756"
-                        className="text-foreground font-medium hover:text-primary transition-colors text-base"
+                        className="text-foreground font-medium hover:text-primary transition-colors text-sm"
                       >
                         +234 902 049 5756
                       </a>
@@ -154,7 +154,7 @@ const Contact = () => {
                       <p className="text-sm text-muted-foreground mb-1">
                         Location
                       </p>
-                      <p className="text-foreground font-medium text-base">
+                      <p className="text-foreground font-medium text-sm">
                         Available Worldwide · Remote
                       </p>
                     </div>
@@ -168,7 +168,7 @@ const Contact = () => {
                       <p className="text-sm text-muted-foreground mb-1">
                         Availability
                       </p>
-                      <p className="text-foreground font-medium text-base">
+                      <p className="text-foreground font-medium text-sm">
                         Currently accepting new projects
                       </p>
                     </div>
@@ -176,8 +176,8 @@ const Contact = () => {
                 </div>
 
                 <div className="pt-8 border-t border-border">
-                  <p className="text-sm font-semibold text-foreground mb-4 uppercase tracking-wider">
-                    Follow Me
+                  <p className="text-xs font-extrabold text-foreground mb-4 uppercase tracking-wider">
+                    Follow Us
                   </p>
                   <div className="flex flex-wrap gap-2">
                     {socials.map((s) => (
@@ -186,7 +186,7 @@ const Contact = () => {
                         href={s.url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="px-4 py-2 rounded-full bg-secondary text-sm font-medium text-muted-foreground hover:bg-foreground hover:text-background transition-all duration-300"
+                        className="px-4 py-2 rounded-full bg-secondary text-xs font-semibold text-muted-foreground hover:bg-foreground hover:text-background transition-all duration-300"
                       >
                         {s.name}
                       </a>
@@ -231,7 +231,7 @@ const Contact = () => {
                         Message Sent!
                       </h3>
                       <p className="text-muted-foreground max-w-sm mx-auto mb-8">
-                        Thank you for reaching out. I've received your message
+                        Thank you for reaching out. we have received your message
                         and will get back to you as soon as possible.
                       </p>
                     </div>

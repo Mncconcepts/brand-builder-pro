@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
-import { ExternalLink, Calendar as CalendarIcon } from "lucide-react";
+import { ExternalLink, Calendar as CalendarIcon, BookOpen } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import StackingCards from "@/components/StackingCards";
@@ -27,6 +27,7 @@ const projects = [
       "Express",
     ],
     link: null,
+    caseStudySlug: "visa-guard-africa",
   },
   {
     title: "Oonsa Event App",
@@ -37,6 +38,7 @@ const projects = [
     tech: ["Figma", "Adobe XD", "Illustrator", "Photoshop"],
     image: projOonsa,
     link: "https://oonsa.com",
+    caseStudySlug: "oonsa-event-app",
   },
   {
     title: "E-Commerce Skincare Website",
@@ -47,6 +49,7 @@ const projects = [
     tech: ["React", "Node.js", "Stripe", "PostgreSQL"],
     image: projPearlzStore,
     link: "https://pearlz-store.vercel.app",
+    caseStudySlug: "pearlz-store",
   },
   {
     title: "Computer Village MarketPlace(CVMP)",
@@ -57,8 +60,8 @@ const projects = [
     tech: ["Flutter", "Figma", "Dart", "Firebase"],
     image: projStoreapp2,
     link: null,
+    caseStudySlug: "cvmp",
   },
-
   {
     title: "OMA Crypto Mining App",
     category: "UI/UX DESIGN · PRODUCT DESIGN · APP",
@@ -68,6 +71,7 @@ const projects = [
     tech: ["Figma", "Adobe XD", "Illustrator", "Photoshop"],
     image: projOma,
     link: null,
+    caseStudySlug: "oma-crypto",
   },
   {
     title: "PayWithPi",
@@ -78,6 +82,7 @@ const projects = [
     tech: ["React", "TypeScript", "Firebase", "Node.js"],
     image: projPaywithpi,
     link: "https://paywith-pi.vercel.app",
+    caseStudySlug: "paywithpi",
   },
 ];
 
@@ -109,7 +114,7 @@ const Projects = () => {
       {/* Projects */}
       <section className="py-20">
         <div className="max-w-6xl mx-auto px-6">
-          <StackingCards offset={5} top={30}>
+          <StackingCards offset={5} top={10}>
             {projects.map((project) => (
               <article
                 key={project.title}
@@ -134,10 +139,10 @@ const Projects = () => {
                   <p className="text-xs font-semibold tracking-widest uppercase text-muted-foreground mb-2">
                     {project.category}
                   </p>
-                  <h3 className="font-display text-2xl lg:text-2xl font-bold text-foreground mb-3">
+                  <h3 className="font-display text-1xl lg:text-1xl font-bold text-foreground mb-3">
                     {project.title}
                   </h3>
-                  <p className="text-muted-foreground text-sm leading-relaxed max-w-lg mb-4">
+                  <p className="text-muted-foreground text-xs leading-relaxed max-w-lg mb-4">
                     {project.description}
                   </p>
                   <div className="flex flex-wrap gap-2">
@@ -150,7 +155,8 @@ const Projects = () => {
                       </span>
                     ))}
                   </div>
-                  <div className="mt-4">
+                  <div className="mt-4 flex flex-wrap gap-3">
+                    {/* View Live */}
                     {project.link ? (
                       <a
                         href={project.link}
@@ -165,6 +171,14 @@ const Projects = () => {
                         View Live <ExternalLink className="w-4 h-4" />
                       </span>
                     )}
+
+                    {/* View Case Study → navigates to /projects/case-study/:slug */}
+                    <Link
+                      to={`/projects/case-study/${project.caseStudySlug}`}
+                      className="inline-flex items-center gap-2 border border-border text-foreground/80 hover:text-foreground hover:bg-secondary px-5 py-2.5 rounded-md text-xs font-medium transition-colors"
+                    >
+                      View Case Study
+                    </Link>
                   </div>
                 </div>
               </article>

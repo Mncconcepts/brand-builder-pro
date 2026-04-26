@@ -15,6 +15,7 @@ import Contact from "./pages/Contact";
 import Blog from "./pages/Blog";
 import CaseStudies from "./pages/CaseStudies";
 import NotFound from "./pages/NotFound";
+import CaseStudySheet from "./components/CaseStudySheet";
 
 const queryClient = new QueryClient();
 
@@ -32,7 +33,8 @@ const AnimatedRoutes = () => {
           <Route path="/contact" element={<Contact />} />
           <Route path="/blog" element={<Blog />} />
           <Route path="/case-studies" element={<CaseStudies />} />
-          <Route path="/notfount" element={<NotFound />} />
+          <Route path="/projects/case-study/:slug" element={<CaseStudySheet />} />
+          <Route path="/notfound" element={<NotFound />} />
         </Routes>
       </PageTransition>
     </AnimatePresence>

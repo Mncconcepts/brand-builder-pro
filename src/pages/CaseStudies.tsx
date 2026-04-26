@@ -92,7 +92,7 @@ const CaseStudies = () => {
             transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
           >
             <h1 className="font-display text-5xl sm:text-6xl font-extrabold text-foreground leading-tight mb-3">
-              Project Case-Study.
+              General Case-Study.
             </h1>
             <p className="text-sm text-muted-foreground max-w-2xl leading-relaxed">
               In-depth look at select projects the challenges, the process, and
@@ -206,8 +206,9 @@ const CaseStudies = () => {
           <h2 className="font-display text-4xl sm:text-4xl font-extrabold mb-4">
             Want Similar Results?
           </h2>
-          <p className="text-primary-foreground/60 mb-8">
-            Let's discuss how we can deliver measurable impact for your business.
+          <p className="text-sm text-primary-foreground/60 mb-8">
+            Let's discuss how we can deliver measurable impact for your
+            business.
           </p>
           <div className="flex flex-wrap gap-3 justify-center">
             <Link
