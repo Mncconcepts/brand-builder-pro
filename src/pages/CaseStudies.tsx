@@ -67,10 +67,16 @@ const caseStudies = [
       { metric: "Doc Accuracy", value: "+90%" },
       { metric: "Product Launch", value: "On Time" },
     ],
-    tech: ["Figma", "React", "Node.js", "PostgreSQL", "Tailwind CSS", "REST API"],
+    tech: [
+      "Figma",
+      "React",
+      "Node.js",
+      "PostgreSQL",
+      "Tailwind CSS",
+      "REST API",
+    ],
   },
 ];
-
 
 const CaseStudies = () => {
   return (
@@ -100,92 +106,96 @@ const CaseStudies = () => {
       <section className="py-20">
         <div className="max-w-6xl mx-auto px-6">
           <div className="space-y-10">
-          {caseStudies.map((cs, idx) => (
-            <motion.article
-              key={cs.slug}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-80px" }}
-              transition={{ duration: 0.6, delay: idx * 0.05, ease: [0.22, 1, 0.36, 1] }}
-              className="border border-border rounded-lg overflow-hidden bg-card shadow-sm"
-            >
-              {/* Top bar */}
-              <div className="bg-secondary/50 border-b border-border px-8 py-5 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-                <div>
-                  <h2 className="font-display text-2xl font-bold text-foreground">
-                    {cs.title}
-                  </h2>
-                  <p className="text-xs text-muted-foreground mt-1">
-                    {cs.client} · {cs.industry} · {cs.duration}
+            {caseStudies.map((cs, idx) => (
+              <motion.article
+                key={cs.slug}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-80px" }}
+                transition={{
+                  duration: 0.6,
+                  delay: idx * 0.05,
+                  ease: [0.22, 1, 0.36, 1],
+                }}
+                className="border border-border rounded-lg overflow-hidden bg-card shadow-sm"
+              >
+                {/* Top bar */}
+                <div className="bg-secondary/50 border-b border-border px-8 py-5 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                  <div>
+                    <h2 className="font-display text-2xm font-bold text-foreground">
+                      {cs.title}
+                    </h2>
+                    <p className="text-xs text-muted-foreground mt-1">
+                      {cs.client} · {cs.industry} · {cs.duration}
+                    </p>
+                  </div>
+                  <span className="text-xs font-medium text-muted-foreground">
+                    {cs.year}
+                  </span>
+                </div>
+
+                <div className="p-8 lg:p-10 space-y-10">
+                  {/* Summary */}
+                  <p className="text-foreground leading-relaxed text-sm max-w-3xl">
+                    {cs.summary}
                   </p>
-                </div>
-                <span className="text-xs font-medium text-muted-foreground">
-                  {cs.year}
-                </span>
-              </div>
 
-              <div className="p-8 lg:p-10 space-y-10">
-                {/* Summary */}
-                <p className="text-foreground leading-relaxed text-sl max-w-3xl">
-                  {cs.summary}
-                </p>
-
-                {/* Challenge & Solution */}
-                <div className="grid md:grid-cols-2 gap-8">
-                  <div>
-                    <h3 className="text-sm font-semibold uppercase tracking-wider text-muted-foreground mb-3">
-                      The Challenge
-                    </h3>
-                    <p className="text-muted-foreground text-xs leading-relaxed">
-                      {cs.challenge}
-                    </p>
+                  {/* Challenge & Solution */}
+                  <div className="grid md:grid-cols-2 gap-8">
+                    <div>
+                      <h3 className="text-sm font-semibold uppercase tracking-wider text-muted-foreground mb-3">
+                        The Challenge
+                      </h3>
+                      <p className="text-muted-foreground text-xs leading-relaxed">
+                        {cs.challenge}
+                      </p>
+                    </div>
+                    <div>
+                      <h3 className="text-sm font-semibold uppercase tracking-wider text-muted-foreground mb-3">
+                        The Solution
+                      </h3>
+                      <p className="text-muted-foreground text-xs leading-relaxed">
+                        {cs.solution}
+                      </p>
+                    </div>
                   </div>
-                  <div>
-                    <h3 className="text-sm font-semibold uppercase tracking-wider text-muted-foreground mb-3">
-                      The Solution
-                    </h3>
-                    <p className="text-muted-foreground text-xs leading-relaxed">
-                      {cs.solution}
-                    </p>
-                  </div>
-                </div>
 
-                {/* Results */}
-                <div>
-                  <h3 className="text-sm font-semibold uppercase tracking-wider text-muted-foreground mb-4">
-                    Key Results
-                  </h3>
-                  <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                    {cs.results.map((r) => (
-                      <div
-                        key={r.metric}
-                        className="bg-secondary/40 rounded-md p-4 text-center"
+                  {/* Results */}
+                  <div>
+                    <h3 className="text-sm font-semibold uppercase tracking-wider text-muted-foreground mb-4">
+                      Key Results
+                    </h3>
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                      {cs.results.map((r) => (
+                        <div
+                          key={r.metric}
+                          className="bg-secondary/40 rounded-md p-4 text-center"
+                        >
+                          <p className="font-display text-2xl font-bold text-foreground">
+                            {r.value}
+                          </p>
+                          <p className="text-xs text-muted-foreground mt-1">
+                            {r.metric}
+                          </p>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Tech */}
+                  <div className="flex flex-wrap gap-2">
+                    {cs.tech.map((t) => (
+                      <span
+                        key={t}
+                        className="text-xs text-muted-foreground border border-border px-3 py-1 rounded-md"
                       >
-                        <p className="font-display text-2xl font-bold text-foreground">
-                          {r.value}
-                        </p>
-                        <p className="text-xs text-muted-foreground mt-1">
-                          {r.metric}
-                        </p>
-                      </div>
+                        {t}
+                      </span>
                     ))}
                   </div>
                 </div>
-
-                {/* Tech */}
-                <div className="flex flex-wrap gap-2">
-                  {cs.tech.map((t) => (
-                    <span
-                      key={t}
-                      className="text-xs text-muted-foreground border border-border px-3 py-1 rounded-md"
-                    >
-                      {t}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            </motion.article>
-          ))}
+              </motion.article>
+            ))}
           </div>
         </div>
       </section>
@@ -197,7 +207,7 @@ const CaseStudies = () => {
             Want Similar Results?
           </h2>
           <p className="text-primary-foreground/60 mb-8">
-            Let's discuss how I can deliver measurable impact for your business.
+            Let's discuss how we can deliver measurable impact for your business.
           </p>
           <div className="flex flex-wrap gap-3 justify-center">
             <Link

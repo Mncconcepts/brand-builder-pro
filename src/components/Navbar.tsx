@@ -22,9 +22,11 @@ const Navbar = () => {
         <Link to="/" className="flex items-center gap-0">
           <div className="flex flex-col leading-none">
             <span className="font-display text-lg font-extrabold tracking-tight text-foreground">
-              Mncconcepts
+              Mncconcepts.
             </span>
-            <span className="text-[7px] font-extrabold tracking-[0.25em] uppercase text-muted-foreground">DEVelopment & Design</span>
+            <span className="text-[7px] font-extrabold tracking-[0.25em] uppercase text-muted-foreground">
+              Development & Design
+            </span>
           </div>
         </Link>
 
@@ -60,16 +62,22 @@ const Navbar = () => {
         {/* Mobile actions */}
         <div className="md:hidden flex items-center gap-1">
           <ThemeToggle />
-        {/* Mobile toggle */}
-        <button
-          onClick={() => setMobileOpen(!mobileOpen)}
-          className="flex flex-col gap-1.5 p-2"
-          aria-label="Toggle menu"
-        >
-          <span className={`block w-5 h-px bg-foreground transition-transform ${mobileOpen ? "rotate-45 translate-y-[3.5px]" : ""}`} />
-          <span className={`block w-5 h-px bg-foreground transition-opacity ${mobileOpen ? "opacity-0" : ""}`} />
-          <span className={`block w-5 h-px bg-foreground transition-transform ${mobileOpen ? "-rotate-45 -translate-y-[3.5px]" : ""}`} />
-        </button>
+          {/* Mobile toggle */}
+          <button
+            onClick={() => setMobileOpen(!mobileOpen)}
+            className="flex flex-col gap-1.5 p-2"
+            aria-label="Toggle menu"
+          >
+            <span
+              className={`block w-5 h-px bg-foreground transition-transform ${mobileOpen ? "rotate-45 translate-y-[3.5px]" : ""}`}
+            />
+            <span
+              className={`block w-5 h-px bg-foreground transition-opacity ${mobileOpen ? "opacity-0" : ""}`}
+            />
+            <span
+              className={`block w-5 h-px bg-foreground transition-transform ${mobileOpen ? "-rotate-45 -translate-y-[3.5px]" : ""}`}
+            />
+          </button>
         </div>
       </div>
 

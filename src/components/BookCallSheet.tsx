@@ -60,7 +60,7 @@ const TIME_SLOTS = [
 ];
 
 const bookingSchema = z.object({
-  name: z.string().trim().min(2, "Name must be at least 2 characters"),
+  name: z.string().trim().min(2, "incorrect details, Please enter a valid name"),
   email: z.string().trim().email("Please enter a valid email"),
   date: z.date({ required_error: "Please select a date" }),
   time: z.string().min(1, "Please select a time"),
@@ -199,7 +199,7 @@ const BookCallSheet = ({ trigger }: BookCallSheetProps) => {
                           </Label>
                           <Input
                             id="name"
-                            placeholder="Your Name"
+                            placeholder="Your name"
                             value={name}
                             onChange={(e) => setName(e.target.value)}
                             className="h-12 rounded-xl bg-muted/40 border-border text-foreground focus-visible:ring-primary"

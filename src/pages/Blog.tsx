@@ -8,12 +8,12 @@ import StackingCards from "@/components/StackingCards";
 
 const posts = [
   {
-    slug: "modern-web-architecture-2024",
-    title: "Modern Web Architecture: What Actually Matters in 2024",
+    slug: "modern-web-architecture-2026",
+    title: "Modern Web Architecture: What Actually Matters in 2026",
     excerpt:
       "An opinionated guide to choosing the right tools, patterns, and trade-offs when building production web applications today.",
     category: "Engineering",
-    date: "Mar 12, 2024",
+    date: "Mar 12, 2026",
     readTime: "8 min read",
   },
   {
@@ -22,7 +22,7 @@ const posts = [
     excerpt:
       "You don't need a 500-component library. Here's how to create a pragmatic, lightweight design system that actually ships.",
     category: "Design",
-    date: "Feb 28, 2024",
+    date: "Feb 28, 2026",
     readTime: "6 min read",
   },
   {
@@ -31,7 +31,7 @@ const posts = [
     excerpt:
       "Failure is the best teacher. A candid look at the design mistakes I've made — and what I'd do differently today.",
     category: "UX",
-    date: "Feb 10, 2024",
+    date: "Feb 10, 2026",
     readTime: "7 min read",
   },
   {
@@ -40,7 +40,7 @@ const posts = [
     excerpt:
       "Practical type patterns, utility types, and conventions that reduce bugs and improve developer experience in React projects.",
     category: "Engineering",
-    date: "Jan 22, 2024",
+    date: "Jan 22, 2026",
     readTime: "10 min read",
   },
   {
@@ -49,7 +49,7 @@ const posts = [
     excerpt:
       "Frameworks and templates I use for proposals, check-ins, and change requests that keep projects on track and profitable.",
     category: "Business",
-    date: "Jan 5, 2024",
+    date: "Jan 5, 2026",
     readTime: "5 min read",
   },
   {
@@ -58,7 +58,7 @@ const posts = [
     excerpt:
       "How to set, measure, and enforce performance budgets without slowing down your team or sacrificing user experience.",
     category: "Engineering",
-    date: "Dec 18, 2023",
+    date: "Dec 18, 2026",
     readTime: "9 min read",
   },
 ];
@@ -117,7 +117,7 @@ const Blog = () => {
                   <span>·</span>
                   <span>{post.readTime}</span>
                 </div>
-                <h2 className="font-display text-2xl font-semibold text-foreground mb-3 group-hover:text-muted-foreground transition-colors">
+                <h2 className="font-display text-2xm font-semibold text-foreground mb-3 group-hover:text-muted-foreground transition-colors">
                   {post.title}
                 </h2>
                 <p className="text-muted-foreground text-sm leading-relaxed max-w-2xl">

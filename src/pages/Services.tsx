@@ -200,7 +200,7 @@ const Services = () => {
             viewport={{ once: true }}
             className="mb-14 text-center"
           >
-            <p className="text-sm font-medium tracking-widest uppercase text-muted-foreground mb-3">
+            <p className="text-xs font-medium tracking-widest uppercase text-muted-foreground mb-1">
               Pricing
             </p>
             <h2 className="font-display text-5xl text-foreground font-extrabold">

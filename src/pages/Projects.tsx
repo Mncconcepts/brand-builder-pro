@@ -98,9 +98,9 @@ const Projects = () => {
               Project-Folio.
             </h1>
             <p className="text-sm text-muted-foreground max-w-2xl leading-relaxed">
-              A curated collection of projects showcasing our expertise in web & app
-              development, product design, and user experience across various
-              industries.
+              A curated collection of projects showcasing our expertise in web &
+              app development, product design, and user experience across
+              various industries.
             </p>
           </motion.div>
         </div>
@@ -176,30 +176,38 @@ const Projects = () => {
       {/* CTA */}
       <section className="py-20 bg-primary text-primary-foreground">
         <div className="max-w-3xl mx-auto px-6 text-center">
-          <h2 className="font-display text-4xl sm:text-5xl mb-4 font-extrabold">
-            Have a Project In Mind?
-          </h2>
-          <p className="text-primary-foreground/60 mb-8">
-            Let's discuss how we can help bring your vision to life with clean
-            code and thoughtful design.
-          </p>
-          <Link
-            to="/contact"
-            className="inline-block bg-primary-foreground text-primary px-9 py-3.5 text-sm font-medium rounded-md hover:bg-primary-foreground/90 transition-colors"
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
           >
-            Start a Conversation
-          </Link>
-          <BookCallSheet
-            trigger={
-              <button
-                type="button"
-                className="inline-flex items-center gap-2 border border-primary-foreground/40 text-primary-foreground px-8 py-3.5 text-sm font-medium rounded-md hover:bg-primary-foreground/10 transition-colors"
+            <h2 className="font-display text-3xl sm:text-4xl mb-3 font-extrabold">
+              Have a Project In Mind ?
+            </h2>
+            <p className="text-primary-foreground/60 mb-10 max-w-lg mx-auto text-sm leading-relaxed">
+              Let's discuss how we can help bring your vision to life with clean
+              code and thoughtful design.
+            </p>
+            <div className="flex flex-wrap gap-3 justify-center">
+              <Link
+                to="/contact"
+                className="inline-block bg-primary-foreground text-primary px-8 py-3.5 text-sm font-medium rounded-md hover:bg-primary-foreground/90 transition-colors"
               >
-                <CalendarIcon className="h-2.5 w-4" />
-                Book A Call Session
-              </button>
-            }
-          />
+                Start A Conversation
+              </Link>
+              <BookCallSheet
+                trigger={
+                  <button
+                    type="button"
+                    className="inline-flex items-center gap-2 border border-primary-foreground/40 text-primary-foreground px-8 py-3.5 text-sm font-medium rounded-md hover:bg-primary-foreground/10 transition-colors"
+                  >
+                    <CalendarIcon className="h-4 w-4" />
+                    Book A Call Session
+                  </button>
+                }
+              />
+            </div>
+          </motion.div>
         </div>
       </section>
 

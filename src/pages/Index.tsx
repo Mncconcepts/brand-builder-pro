@@ -76,11 +76,12 @@ const stats = [
 const featuredServices = [
   {
     number: "01",
-    title: "Web Development",
-    desc: "Modern, scalable web applications built with the latest technologies.",
+    title: "Web & App Development",
+    desc: "Modern, scalable websites & applications built with the latest technologies.",
     image: "/proj-paywithpi.png",
     bullets: [
       "React / Next.js applications",
+      "ReactNative / flutter-Dart",
       "TypeScript & clean architecture",
       "API & third-party integrations",
       "Performance optimization",
@@ -187,7 +188,7 @@ const Index = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
           >
-            <p className="text-xs sm:text-2xs font-medium tracking-widest uppercase text-muted-foreground mb-2">
+            <p className="text-xs sm:text-2xs font-medium tracking-widest uppercase text-muted-foreground mb-1">
               Development-Design
             </p>
             <h1 className="font-display text-5xl sm:text-6xl lg:text-7xl font-bold leading-[1.1] tracking-tight text-foreground mb-6">

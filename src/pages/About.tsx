@@ -184,7 +184,7 @@ const About = () => {
               >
                 <div className="flex flex-col md:flex-row md:items-start justify-between gap-2 mb-3">
                   <div>
-                    <h3 className="font-display text-xm font-semibold text-foreground">
+                    <h3 className="font-display text-xm font-bold text-foreground">
                       {exp.role}
                     </h3>
                     <p className="text-sm text-muted-foreground">
@@ -204,7 +204,7 @@ const About = () => {
         </div>
       </section>
 
-     {/* Values */}
+      {/* Values */}
       <section className="py-20">
         <div className="max-w-6xl mx-auto px-6">
           <motion.div

@@ -13,7 +13,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import BookCallSheet from "@/components/BookCallSheet";
 import { toast } from "sonner";
-import { useForm } from "@formspree/react"; // Added Formspree hook
+import { useForm } from "@formspree/react";
 import {
   Accordion,
   AccordionContent,
@@ -83,11 +83,11 @@ const Contact = () => {
             transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
             className="max-w-3xl"
           >
-            <h1 className="font-display text-4xl sm:text-6xl font-extrabold text-foreground tracking-tight mb-6">
+            <h1 className="font-display text-4xl sm:text-6xl font-extrabold text-foreground tracking-tight mb-3">
               Contact Us
               <br className="hidden sm:block" />
             </h1>
-            <p className="text-xs text-muted-foreground leading-relaxed max-w-2xl">
+            <p className="text-sm text-muted-foreground leading-relaxed max-w-2xl">
               Have a project in mind or want to discuss a potential
               collaboration? I'd love to hear from you. Fill out the form below
               or reach out directly.
