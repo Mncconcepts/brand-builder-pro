@@ -48,7 +48,7 @@ const caseStudies: CaseStudyData[] = [
     title: "Visa Guard Africa Technologies Ltd",
     category: "DESIGN · DEVELOPMENT · FULL STACK · APP",
     tagline:
-      "Protecting Africans from visa fraud — one verified application at a time.",
+      "Protecting Africans from visa fraud one verified application at a time.",
     year: "Coming Soon",
     accentColor: "text-blue-600",
     accentBg: "bg-blue-600",
@@ -61,10 +61,10 @@ const caseStudies: CaseStudyData[] = [
       "Express",
     ],
     overview:
-      "Visa scams are rampant across Africa, costing applicants thousands of dollars and devastating life opportunities. Visa Guard Africa is our most ambitious undertaking — a secure, full-stack platform built to verify travel visa agencies, track applications in real time, and flag fraudulent actors before any damage is done.",
+      "Visa scams are rampant across Africa, costing applicants thousands of dollars and devastating life opportunities. Visa Guard Africa is our most ambitious undertaking a secure, full-stack platform built to verify travel visa agencies, track applications in real time, and flag fraudulent actors before any damage is done.",
     role: "Product Design · Full Stack Development",
     duration: "Ongoing (2025 - Present)",
-    team: "3 Engineers · 2 Designers · 1 Product Manager",
+    team: "3 Engineers · 1 Designers · 1 Product Manager",
     problem:
       "Millions of Africans fall victim to visa scams annually. Fake agencies collect fees, submit falsified documents, and vanish — leaving applicants banned, broke, and without recourse. There was no centralised, trustworthy platform that could verify agencies, track applications, and alert users in real time.",
     solution:
@@ -83,7 +83,7 @@ const caseStudies: CaseStudyData[] = [
       {
         phase: "Design System",
         description:
-          "We built a trust-first design system in Figma — using deep blues and institutional greens to evoke security and credibility. Every component was stress-tested for accessibility and low-bandwidth environments common across Africa.",
+          "We built a trust-first design system in Figma using deep blues and institutional greens to evoke security and credibility. Every component was stress-tested for accessibility and low-bandwidth environments common across Africa.",
       },
       {
         phase: "Development (In Progress)",
@@ -117,7 +117,7 @@ const caseStudies: CaseStudyData[] = [
       "Oonsa is a modern event management platform designed to simplify how people discover, book, and experience events across Nigeria and beyond. We led the full UI/UX design — from initial research through high-fidelity prototypes and developer handoff.",
     role: "UI/UX Design · Branding · Website Design",
     duration: "4 months (2025)",
-    team: "2 Designers · 1 Brand Strategist",
+    team: "1 Designers · 1 FullStack-Developer",
     problem:
       "Event discovery in Nigeria was fragmented — spread across WhatsApp broadcasts, Instagram flyers, and word-of-mouth. There was no unified platform with reliable ticketing, event details, and post-event engagement. Users were frustrated by last-minute information and failed payments.",
     solution:
@@ -152,9 +152,9 @@ const caseStudies: CaseStudyData[] = [
       "App launched at oonsa.com with active users",
     ],
     challenges:
-      "Designing for a multi-stakeholder product — where attendees, organisers, and admins all have conflicting needs — required constant prioritisation. We used jobs-to-be-done frameworks to ensure every screen served at least one clear user goal.",
+      "Designing for a multi-stakeholder product where attendees, organisers, and admins all have conflicting needs — required constant prioritisation. We used jobs-to-be-done frameworks to ensure every screen served at least one clear user goal.",
     learnings:
-      "Cultural context is everything in product design. Nigerian events have unique social dynamics — group ticket purchases, last-minute RSVPs, and organiser reputation systems — that don't exist in Western event apps. We had to unlearn global patterns and design locally.",
+      "Cultural context is everything in product design. Nigerian events have unique social dynamics group ticket purchases, last-minute RSVPs, and organiser reputation systems — that don't exist in Western event apps. We had to unlearn global patterns and design locally.",
     link: "https://oonsa.com",
   },
   {
@@ -279,7 +279,7 @@ const caseStudies: CaseStudyData[] = [
     duration: "6 months (2023)",
     team: "2 Designers",
     problem:
-      "Crypto mining apps are notoriously complex — filled with technical jargon, confusing interfaces, and anxiety-inducing dashboards. OMA's target audience was everyday users with little crypto experience. The challenge was making mining feel accessible, rewarding, and even fun.",
+      "Crypto mining apps are notoriously complex filled with technical jargon, confusing interfaces, and anxiety-inducing dashboards. OMA's target audience was everyday users with little crypto experience. The challenge was making mining feel accessible, rewarding, and even fun.",
     solution:
       "We built OMA's design around three emotions: curiosity, progress, and reward. Animated mining visualisations show users their rigs working in real time. Progress bars and milestone systems gamify the earning process. A clean analytics dashboard makes performance data legible even to crypto newcomers.",
     process: [
@@ -291,7 +291,7 @@ const caseStudies: CaseStudyData[] = [
       {
         phase: "Gamification Strategy",
         description:
-          "We integrated gaming mechanics — streaks, badges, mining milestones, and referral rewards — to drive daily active usage. The reward system was designed to feel generous and motivating without misleading users about expected returns.",
+          "We integrated gaming mechanics streaks, badges, mining milestones, and referral rewards to drive daily active usage. The reward system was designed to feel generous and motivating without misleading users about expected returns.",
       },
       {
         phase: "Dashboard Design",
@@ -301,20 +301,20 @@ const caseStudies: CaseStudyData[] = [
       {
         phase: "Motion & Microinteractions",
         description:
-          "Mining is inherently invisible — it happens on servers, not in the user's hands. We made it visible through custom Lottie animations and particle effects that react to mining intensity, creating a sense of activity and momentum.",
+          "Mining is inherently invisible it happens on servers, not in the user's hands. We made it visible through custom Lottie animations and particle effects that react to mining intensity, creating a sense of activity and momentum.",
       },
     ],
     outcomes: [
       "Complete product design across 90+ screens",
       "Gamification system with 12 milestone tiers and badge rewards",
       "Custom animated mining visualisations in Lottie format",
-      "Analytics dashboard tested with 30 users — 94% comprehension rate",
+      "Analytics dashboard tested with 30 users 94% comprehension rate",
       "Design handed off with full Figma component library and spec documentation",
     ],
     challenges:
       "Balancing transparency with excitement was a constant tension. Crypto returns are unpredictable, so we had to design engaging, optimistic interfaces without making promises the platform couldn't keep. Every growth metric was carefully framed to be accurate, not aspirational.",
     learnings:
-      "Designing for crypto taught us that emotion drives adoption more than information. Users don't need to understand how mining works — they need to feel that it's working for them. Simplicity, visibility, and reward loops do more than any technical explanation.",
+      "Designing for crypto taught us that emotion drives adoption more than information. Users don't need to understand how mining works they need to feel that it's working for them. Simplicity, visibility, and reward loops do more than any technical explanation.",
     link: null,
   },
   {
@@ -339,7 +339,7 @@ const caseStudies: CaseStudyData[] = [
       {
         phase: "Platform Architecture",
         description:
-          "We designed a dual-interface system from the ground up — a lightweight consumer PWA optimised for mobile use, and a full desktop admin dashboard for merchants and platform administrators.",
+          "We designed a dual-interface system from the ground up a lightweight consumer PWA optimised for mobile use, and a full desktop admin dashboard for merchants and platform administrators.",
       },
       {
         phase: "Wallet & Payment UX",
@@ -365,9 +365,9 @@ const caseStudies: CaseStudyData[] = [
       "Pi SDK integration with end-to-end payment verification",
     ],
     challenges:
-      "The Pi Network SDK was still in early development during our build, with limited documentation and frequent API changes. We built abstraction layers around all SDK calls to isolate our codebase from upstream changes — a decision that saved weeks of rework.",
+      "The Pi Network SDK was still in early development during our build, with limited documentation and frequent API changes. We built abstraction layers around all SDK calls to isolate our codebase from upstream changes a decision that saved weeks of rework.",
     learnings:
-      "Building on emerging blockchain ecosystems requires exceptional flexibility. We learned to architect for change — loose coupling, clear abstraction boundaries, and thorough internal documentation became non-negotiable practices that we now apply to every project.",
+      "Building on emerging blockchain ecosystems requires exceptional flexibility. We learned to architect for change loose coupling, clear abstraction boundaries, and thorough internal documentation became non-negotiable practices that we now apply to every project.",
     link: "https://paywith-pi.vercel.app",
   },
 ];
@@ -560,7 +560,7 @@ const CaseStudySheet = () => {
               className="rounded-xl border border-border bg-secondary/30 p-5"
             >
               <div className="flex items-center gap-2 mb-3">
-                <Target className="w-4 h-4 text-red-500" />
+                <Target className="w-4 h-4 text-black-500" />
                 <h3 className="text-xs font-bold text-foreground tracking-wide uppercase">
                   The Problem
                 </h3>
@@ -579,7 +579,7 @@ const CaseStudySheet = () => {
               className="rounded-xl border border-border bg-secondary/30 p-5"
             >
               <div className="flex items-center gap-2 mb-3">
-                <Lightbulb className={`w-4 h-4 ${study.accentColor}`} />
+                <Lightbulb className={`w-4 h-4 text-black`} />
                 <h3 className="text-xs font-bold text-foreground tracking-wide uppercase">
                   Our Solution
                 </h3>
