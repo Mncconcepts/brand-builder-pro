@@ -41,7 +41,6 @@ interface CaseStudyData {
   accentBg: string;
 }
 
-
 const caseStudies: CaseStudyData[] = [
   {
     slug: "visa-guard-africa",
@@ -66,9 +65,9 @@ const caseStudies: CaseStudyData[] = [
     duration: "Ongoing (2025 - Present)",
     team: "3 Engineers · 1 Designers · 1 Product Manager",
     problem:
-      "Millions of Africans fall victim to visa scams annually. Fake agencies collect fees, submit falsified documents, and vanish — leaving applicants banned, broke, and without recourse. There was no centralised, trustworthy platform that could verify agencies, track applications, and alert users in real time.",
+      "Millions of Africans fall victim to visa scams annually. Fake agencies collect fees, submit falsified documents, and vanish leaving applicants banned, broke, and without recourse. There was no centralised, trustworthy platform that could verify agencies, track applications, and alert users in real time.",
     solution:
-      "We designed and are building a platform with three core pillars: (1) Agency Verification — a government-linked database of licensed visa consultants; (2) Real-Time Application Tracking — applicants get live status updates at every embassy stage; (3) Fraud Detection Engine — ML-assisted flagging of suspicious agency patterns, combined with a community-driven report system.",
+      "We designed and are building a platform with three core pillars: (1) Agency Verification a government-linked database of licensed visa consultants; (2) Real-Time Application Tracking applicants get live status updates at every embassy stage; (3) Fraud Detection Engine ML-assisted flagging of suspicious agency patterns, combined with a community-driven report system.",
     process: [
       {
         phase: "Discovery & Research",
@@ -370,6 +369,60 @@ const caseStudies: CaseStudyData[] = [
       "Building on emerging blockchain ecosystems requires exceptional flexibility. We learned to architect for change loose coupling, clear abstraction boundaries, and thorough internal documentation became non-negotiable practices that we now apply to every project.",
     link: "https://paywith-pi.vercel.app",
   },
+
+  {
+    slug: "dapstore",
+    title: "Multiple Vendor Store (DAPSTORE)",
+    category: "PRODUCT DESIGN · UIUX · APP",
+    tagline: "One secure platform, connecting both buyers and sellers",
+    year: "2025",
+    accentColor: "text-blue-500",
+    accentBg: "bg-blue-600",
+    tech: ["Figma", "FigJam", "Flutter", "Firebase"],
+    overview:
+      "DAPSTORE is a multi-vendor marketplace platform that connects buyers with sellers in one seamless experience. Sellers can open a digital shop, list products, and reach customers directly, while buyers can browse, discover, and connect with vendors all in one place. From research to wireframes and high-fidelity prototypes, every screen was crafted to make commerce simple for both sides.",
+    role: "Product Design · UI/UX",
+    duration: "5 months (2025)",
+    team: "2 Designers · 2 Flutter Developers",
+    problem:
+      "Sellers had no unified digital space to showcase their products and reach buyers beyond their immediate network. Buyers had no reliable way to discover vendors, compare offerings, or initiate contact before making a purchase decision. Commerce was fragmented, slow, and dependent on word of mouth.",
+    solution:
+      "We designed DAPSTORE — a platform where any seller can open a shop, list their products, and be discovered by buyers. Buyers can browse by category, view seller profiles, and reach out directly, making the entire buying journey faster and more informed.",
+    process: [
+      {
+        phase: "Research & Discovery",
+        description:
+          "We conducted interviews with both buyers and sellers to understand pain points, shopping behaviours, and what trust looks like in a digital marketplace. These insights shaped every design decision that followed.",
+      },
+      {
+        phase: "User Flows & Information Architecture",
+        description:
+          "Using FigJam, we mapped out separate flows for buyers and sellers, ensuring each user type had a clear, friction-free path from onboarding to their core goal — whether that's listing a product or finding one.",
+      },
+      {
+        phase: "Wireframing & Prototyping",
+        description:
+          "We moved from low-fidelity wireframes to interactive prototypes in Figma, iterating based on feedback at each stage. Special attention was given to the seller shop setup and product listing flows to keep them as simple as possible.",
+      },
+      {
+        phase: "UI Design",
+        description:
+          "The final UI was designed with a clean, trust-building aesthetic — clear product cards, seller profiles with ratings, and intuitive navigation that works for both first-time and returning users.",
+      },
+    ],
+    outcomes: [
+      "End-to-end product design for both buyer and seller experiences",
+      "Seller onboarding flow designed for simplicity and fast shop setup",
+      "Product listing and discovery system with category-based browsing",
+      "Buyer-to-seller direct contact flow integrated into the platform",
+      "High-fidelity prototype delivered and handed off for development",
+    ],
+    challenges:
+      "Balancing the needs of two distinct user types — sellers who want visibility and buyers who want trust — required careful design decisions. Every feature had to serve both sides without adding friction to either experience.",
+    learnings:
+      "Designing a two-sided marketplace taught us the importance of designing for both ends of a transaction simultaneously. A great seller experience drives supply; a great buyer experience drives demand. Both have to work together.",
+    link: null,
+  },
 ];
 
 const fadeUp = {
@@ -579,7 +632,7 @@ const CaseStudySheet = () => {
               className="rounded-xl border border-border bg-secondary/30 p-5"
             >
               <div className="flex items-center gap-2 mb-3">
-                <Lightbulb className={`w-4 h-4 text-black`} />
+                <Lightbulb className={`w-4 h-4`} />
                 <h3 className="text-xs font-bold text-foreground tracking-wide uppercase">
                   Our Solution
                 </h3>

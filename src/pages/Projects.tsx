@@ -10,6 +10,8 @@ import projStoreapp2 from "@/assets/proj-storeapp2.png";
 import projOonsa from "@/assets/proj-oonsa.png";
 import projOma from "@/assets/proj-oma.png";
 import projPaywithpi from "@/assets/proj-paywithpi.png";
+import post2dap from "@/assets/post-2dap.png";
+
 
 const projects = [
   {
@@ -30,7 +32,7 @@ const projects = [
     caseStudySlug: "visa-guard-africa",
   },
   {
-    title: "Oonsa Event App",
+    title: "Oonsa Event WebApp",
     category: "UI/UX DESIGN · BRANDING · WEBSITE ",
     description:
       "A modern event management app designed to simplify event discovery, ticketing, and planning. End-to-end UI/UX design from research to high-fidelity prototypes.",
@@ -78,11 +80,22 @@ const projects = [
     category: "WEB DEVELOPMENT · FULL STACK · WEBSITE",
     description:
       "A Pi Network payment platform with wallet management, fund transfers, and an admin dashboard featuring sales analytics and order statistics.",
-    year: "2022",
+    year: "2024",
     tech: ["React", "TypeScript", "Firebase", "Node.js"],
     image: projPaywithpi,
     link: "https://paywith-pi.vercel.app",
     caseStudySlug: "paywithpi",
+  },
+  {
+    title: "Multiple Vendor Store (DAPSTORE)",
+    category: "PRODUCT DESIGN · UIUX · APP",
+    description:
+      "A multiple vendor store, mobile marketplace app connecting buyers and sellers . Designed in Figma and built with Flutter for a seamless cross-platform experience.",
+    year: "2025",
+    tech: ["Flutter", "Figma", "Dart", "Firebase"],
+    image: post2dap,
+    link: null,
+    caseStudySlug: "dapstore",
   },
 ];
 
@@ -125,6 +138,8 @@ const Projects = () => {
                     <img
                       src={project.image}
                       alt={project.title}
+                      loading="lazy"
+                      decoding="async"
                       className="w-full h-full object-cover"
                     />
                   ) : (
@@ -196,7 +211,7 @@ const Projects = () => {
             viewport={{ once: true }}
           >
             <h2 className="font-display text-3xl sm:text-4xl mb-3 font-extrabold">
-              Have a Project In Mind ?
+              Have a Project In Mind?
             </h2>
             <p className="text-primary-foreground/60 mb-10 max-w-lg mx-auto text-sm leading-relaxed">
               Let's discuss how we can help bring your vision to life with clean
