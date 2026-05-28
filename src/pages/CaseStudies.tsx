@@ -7,6 +7,34 @@ import BookCallSheet from "@/components/BookCallSheet";
 
 const caseStudies = [
   {
+    slug: "visa-guard-africa",
+    title: "Visa Guard Africa Technologies LTD",
+    client: "Visa Guard Africa",
+    industry: "Travel Tech · Fintech",
+    duration: "20 Weeks",
+    year: "2026",
+    summary:
+      "Serving as Product Manager and Product Designer, I led Visa Guard Africa from concept to launch working hands-on with my development team across strategy, UX research, UI design, and full product development to simplify visa processing across the African continent.",
+    challenge:
+      "Visa applicants across Africa faced fragmented, opaque, and stressful application processes with no unified platform for tracking status, verifying documents, or understanding eligibility. The market had no trusted, Africa-focused visa technology solution.",
+    solution:
+      "Owned the full product lifecycle from market research and product strategy to UI/UX design and development oversight. Shipped a secure platform with a multi-country visa eligibility engine, document verification, real-time application tracking, and an applicant dashboard. Coordinated the development team sprint by sprint from design handoff through to launch.",
+    results: [
+      { metric: "Countries Covered", value: "5+" },
+      { metric: "Application Time", value: "-65%" },
+      { metric: "Doc Accuracy", value: "+90%" },
+      { metric: "Product Launch", value: "On Time" },
+    ],
+    tech: [
+      "Figma",
+      "React",
+      "Node.js",
+      "PostgreSQL",
+      "Tailwind CSS",
+      "REST API",
+    ],
+  },
+  {
     slug: "computer-village-marketplace",
     title: "Computer Village Marketplace",
     client: "Computer Village Lagos",
@@ -47,34 +75,6 @@ const caseStudies = [
       { metric: "Design-Dev Handoff", value: "Seamless" },
     ],
     tech: ["Figma", "FigJam", "Prototyping", "Design System", "User Research"],
-  },
-  {
-    slug: "visa-guard-africa",
-    title: "Visa Guard Africa Technologies LTD",
-    client: "Visa Guard Africa",
-    industry: "Travel Tech · Fintech",
-    duration: "20 Weeks",
-    year: "2026",
-    summary:
-      "Serving as Product Manager and Product Designer, I led Visa Guard Africa from concept to launch working hands-on with my development team across strategy, UX research, UI design, and full product development to simplify visa processing across the African continent.",
-    challenge:
-      "Visa applicants across Africa faced fragmented, opaque, and stressful application processes with no unified platform for tracking status, verifying documents, or understanding eligibility. The market had no trusted, Africa-focused visa technology solution.",
-    solution:
-      "Owned the full product lifecycle from market research and product strategy to UI/UX design and development oversight. Shipped a secure platform with a multi-country visa eligibility engine, document verification, real-time application tracking, and an applicant dashboard. Coordinated the development team sprint by sprint from design handoff through to launch.",
-    results: [
-      { metric: "Countries Covered", value: "5+" },
-      { metric: "Application Time", value: "-65%" },
-      { metric: "Doc Accuracy", value: "+90%" },
-      { metric: "Product Launch", value: "On Time" },
-    ],
-    tech: [
-      "Figma",
-      "React",
-      "Node.js",
-      "PostgreSQL",
-      "Tailwind CSS",
-      "REST API",
-    ],
   },
 ];
 

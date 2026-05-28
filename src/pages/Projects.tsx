@@ -12,7 +12,6 @@ import projOma from "@/assets/proj-oma.png";
 import projPaywithpi from "@/assets/proj-paywithpi.png";
 import post2dap from "@/assets/post-2dap.png";
 
-
 const projects = [
   {
     title: "Visa Guard Africa Technologies Ltd",
@@ -76,17 +75,6 @@ const projects = [
     caseStudySlug: "oma-crypto",
   },
   {
-    title: "PayWithPi",
-    category: "WEB DEVELOPMENT · FULL STACK · WEBSITE",
-    description:
-      "A Pi Network payment platform with wallet management, fund transfers, and an admin dashboard featuring sales analytics and order statistics.",
-    year: "2024",
-    tech: ["React", "TypeScript", "Firebase", "Node.js"],
-    image: projPaywithpi,
-    link: "https://paywith-pi.vercel.app",
-    caseStudySlug: "paywithpi",
-  },
-  {
     title: "Multiple Vendor Store (DAPSTORE)",
     category: "PRODUCT DESIGN · UIUX · APP",
     description:
@@ -96,6 +84,17 @@ const projects = [
     image: post2dap,
     link: null,
     caseStudySlug: "dapstore",
+  },
+  {
+    title: "PayWithPi",
+    category: "WEB DEVELOPMENT · FULL STACK · WEBSITE",
+    description:
+      "A Pi Network payment platform with wallet management, fund transfers, and an admin dashboard featuring sales analytics and order statistics.",
+    year: "2024",
+    tech: ["React", "TypeScript", "Firebase", "Node.js"],
+    image: projPaywithpi,
+    link: null,
+    caseStudySlug: "paywithpi",
   },
 ];
 
