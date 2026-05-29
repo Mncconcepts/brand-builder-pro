@@ -43,7 +43,7 @@ interface CaseStudyData {
 
 const caseStudies: CaseStudyData[] = [
   {
-    slug: "visa-guard-africa",
+    slug: "Visa-guard-africa App-Landing",
     title: "Visa Guard Africa Technologies Ltd",
     category: "DESIGN · DEVELOPMENT · FULL STACK · APP",
     tagline:
@@ -104,8 +104,8 @@ const caseStudies: CaseStudyData[] = [
     link: null,
   },
   {
-    slug: "oonsa-event-app",
-    title: "Oonsa Event App",
+    slug: "Oonsa-event-Webapp",
+    title: "Oonsa Event WebApp",
     category: "UI/UX DESIGN · BRANDING · WEBSITE",
     tagline: "Making event discovery and ticketing feel effortless.",
     year: "2025",
@@ -113,24 +113,24 @@ const caseStudies: CaseStudyData[] = [
     accentBg: "bg-blue-600",
     tech: ["Figma", "Adobe XD", "Illustrator", "Photoshop"],
     overview:
-      "Oonsa is a modern event management platform designed to simplify how people discover, book, and experience events across Nigeria and beyond. We led the full UI/UX design — from initial research through high-fidelity prototypes and developer handoff.",
+      "Oonsa is a modern event management platform designed to simplify how people discover, book, and experience events across Austraila and beyond. We led the full UI/UX design — from initial research through high-fidelity prototypes and developer handoff.",
     role: "UI/UX Design · Branding · Website Design",
     duration: "4 months (2025)",
     team: "1 Designers · 1 FullStack-Developer",
     problem:
-      "Event discovery in Nigeria was fragmented — spread across WhatsApp broadcasts, Instagram flyers, and word-of-mouth. There was no unified platform with reliable ticketing, event details, and post-event engagement. Users were frustrated by last-minute information and failed payments.",
+      "Event discovery in Austraila was fragmented — spread across WhatsApp broadcasts, Instagram flyers, and word-of-mouth. There was no unified platform with reliable ticketing, event details, and post-event engagement. Users were frustrated by last-minute information and failed payments.",
     solution:
       "We designed Oonsa as a one-stop event companion: browse curated events by category, purchase tickets with one tap, get QR-code entry passes, and follow your favourite organisers. The design prioritises speed and trust — two things users told us they needed most.",
     process: [
       {
         phase: "User Research",
         description:
-          "We ran 25 user interviews and 3 focus groups across Lagos and Abuja. Key insight: users trust events more when they can see attendee counts and organiser reputation scores in real time.",
+          "We ran 25 user interviews and 3 focus groups across Austrailia. Key insight: users trust events more when they can see attendee counts and organiser reputation scores in real time.",
       },
       {
         phase: "Competitive Analysis",
         description:
-          "We audited Eventbrite, Eventbee, and local alternatives. Our opportunity was clear: no competitor offered a mobile-first experience tailored to the cultural nuances of Nigerian events.",
+          "We audited Eventbrite, Eventbee, and local alternatives. Our opportunity was clear: no competitor offered a mobile-first experience tailored to the cultural nuances of Austrailian events.",
       },
       {
         phase: "Wireframing & Prototyping",
@@ -153,11 +153,11 @@ const caseStudies: CaseStudyData[] = [
     challenges:
       "Designing for a multi-stakeholder product where attendees, organisers, and admins all have conflicting needs — required constant prioritisation. We used jobs-to-be-done frameworks to ensure every screen served at least one clear user goal.",
     learnings:
-      "Cultural context is everything in product design. Nigerian events have unique social dynamics group ticket purchases, last-minute RSVPs, and organiser reputation systems — that don't exist in Western event apps. We had to unlearn global patterns and design locally.",
+      "Cultural context is everything in product design. Austrailian events have unique social dynamics group ticket purchases, last-minute RSVPs, and organiser reputation systems — that don't exist in Western event apps. We had to unlearn global patterns and design locally.",
     link: "https://oonsa.com",
   },
   {
-    slug: "pearlz-store",
+    slug: "Pearlz-store Website",
     title: "E-Commerce Skincare Website",
     category: "APP DESIGN · UI DESIGN · WEB DEVELOPMENT",
     tagline:
@@ -211,7 +211,7 @@ const caseStudies: CaseStudyData[] = [
     link: "https://pearlz-store.vercel.app",
   },
   {
-    slug: "cvmp",
+    slug: "CVMP App",
     title: "Computer Village MarketPlace (CVMP)",
     category: "PRODUCT DESIGN · UIUX · APP",
     tagline: "Bringing Nigeria's largest tech market to your fingertips.",
@@ -264,7 +264,7 @@ const caseStudies: CaseStudyData[] = [
     link: null,
   },
   {
-    slug: "oma-crypto",
+    slug: "Oma-crypto App",
     title: "OMA Crypto Mining App",
     category: "UI/UX DESIGN · PRODUCT DESIGN · APP",
     tagline: "Making crypto mining accessible, visual, and rewarding.",
@@ -317,7 +317,7 @@ const caseStudies: CaseStudyData[] = [
     link: null,
   },
   {
-    slug: "paywithpi",
+    slug: "Paywithpi Website",
     title: "PayWithPi",
     category: "WEB DEVELOPMENT · FULL STACK · WEBSITE",
     tagline: "Bringing real-world utility to the Pi Network ecosystem.",
@@ -367,11 +367,11 @@ const caseStudies: CaseStudyData[] = [
       "The Pi Network SDK was still in early development during our build, with limited documentation and frequent API changes. We built abstraction layers around all SDK calls to isolate our codebase from upstream changes a decision that saved weeks of rework.",
     learnings:
       "Building on emerging blockchain ecosystems requires exceptional flexibility. We learned to architect for change loose coupling, clear abstraction boundaries, and thorough internal documentation became non-negotiable practices that we now apply to every project.",
-    link: "https://paywith-pi.vercel.app",
+    link: null,
   },
 
   {
-    slug: "dapstore",
+    slug: "Dapstore App",
     title: "Multiple Vendor Store (DAPSTORE)",
     category: "PRODUCT DESIGN · UIUX · APP",
     tagline: "One secure platform, connecting both buyers and sellers",

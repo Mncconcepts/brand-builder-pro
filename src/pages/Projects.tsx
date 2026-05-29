@@ -7,10 +7,13 @@ import StackingCards from "@/components/StackingCards";
 import BookCallSheet from "@/components/BookCallSheet";
 import projPearlzStore from "@/assets/proj-pearlz-store.png";
 import projStoreapp2 from "@/assets/proj-storeapp2.png";
-import projOonsa from "@/assets/proj-oonsa.png";
+import Oonsa from "@/assets/Oonsa.png";
 import projOma from "@/assets/proj-oma.png";
 import projPaywithpi from "@/assets/proj-paywithpi.png";
 import post2dap from "@/assets/post-2dap.png";
+import visaguard from "@/assets/visaguard.jpg";
+import vgalanding from "@/assets/vgalanding.jpg";
+
 
 const projects = [
   {
@@ -27,8 +30,27 @@ const projects = [
       "MongoDB",
       "Express",
     ],
+    image: visaguard,
     link: null,
-    caseStudySlug: "visa-guard-africa",
+    caseStudySlug: "Visa-guard-africa App-Landing",
+  },
+  {
+    title: "Visa Guard Landing Page",
+    category: "DESIGN · DEVELOPMENT · FULL STACK · APP LANDING",
+    description:
+      "A secure visa platform designed to protect Africans from visa scams. Features real-time verification, fraud detection, and a seamless application tracking system.",
+    year: "Comming Soon",
+    tech: [
+      "Figma",
+      "React",
+      "Node.js",
+      "TypeScript",
+      "MongoDB",
+      "Express",
+    ],
+    image: vgalanding,
+    link: null,
+    caseStudySlug: "Visa-guard-africa App-Landing",
   },
   {
     title: "Oonsa Event WebApp",
@@ -37,22 +59,11 @@ const projects = [
       "A modern event management app designed to simplify event discovery, ticketing, and planning. End-to-end UI/UX design from research to high-fidelity prototypes.",
     year: "2025",
     tech: ["Figma", "Adobe XD", "Illustrator", "Photoshop"],
-    image: projOonsa,
+    image: Oonsa,
     link: "https://oonsa.com",
-    caseStudySlug: "oonsa-event-app",
+    caseStudySlug: "Oonsa-event-Webapp",
   },
-  {
-    title: "E-Commerce Skincare Website",
-    category: "APP DESIGN · UI DESIGN - WEB DEVELOPMENT",
-    description:
-      "A full-featured e-commerce platform with seamless checkout, real-time products, and a custom CMS for product management. Built with React and Node.js.",
-    year: "2025",
-    tech: ["React", "Node.js", "Stripe", "PostgreSQL"],
-    image: projPearlzStore,
-    link: "https://pearlz-store.vercel.app",
-    caseStudySlug: "pearlz-store",
-  },
-  {
+   {
     title: "Computer Village MarketPlace(CVMP)",
     category: "PRODUCT DESIGN · UIUX · APP",
     description:
@@ -61,7 +72,7 @@ const projects = [
     tech: ["Flutter", "Figma", "Dart", "Firebase"],
     image: projStoreapp2,
     link: null,
-    caseStudySlug: "cvmp",
+    caseStudySlug: "CVMP App",
   },
   {
     title: "OMA Crypto Mining App",
@@ -72,8 +83,20 @@ const projects = [
     tech: ["Figma", "Adobe XD", "Illustrator", "Photoshop"],
     image: projOma,
     link: null,
-    caseStudySlug: "oma-crypto",
+    caseStudySlug: "Oma-crypto App",
   },
+  {
+    title: "E-Commerce Skincare Website",
+    category: "APP DESIGN · UI DESIGN - WEB DEVELOPMENT",
+    description:
+      "A full-featured e-commerce platform with seamless checkout, real-time products, and a custom CMS for product management. Built with React and Node.js.",
+    year: "2025",
+    tech: ["React", "Node.js", "Stripe", "PostgreSQL"],
+    image: projPearlzStore,
+    link: "https://pearlz-store.vercel.app",
+    caseStudySlug: "Pearlz-store Website",
+  },
+ 
   {
     title: "Multiple Vendor Store (DAPSTORE)",
     category: "PRODUCT DESIGN · UIUX · APP",
@@ -83,7 +106,7 @@ const projects = [
     tech: ["Flutter", "Figma", "Dart", "Firebase"],
     image: post2dap,
     link: null,
-    caseStudySlug: "dapstore",
+    caseStudySlug: "Dapstore App",
   },
   {
     title: "PayWithPi",
@@ -94,7 +117,7 @@ const projects = [
     tech: ["React", "TypeScript", "Firebase", "Node.js"],
     image: projPaywithpi,
     link: null,
-    caseStudySlug: "paywithpi",
+    caseStudySlug: "Paywithpi Website",
   },
 ];
 

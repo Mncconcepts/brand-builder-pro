@@ -78,7 +78,7 @@ const featuredServices = [
     number: "01",
     title: "Web & App Development",
     desc: "Modern, scalable websites & applications built with the latest technologies.",
-    image: "/proj-paywithpi.png",
+    image: "/vgalanding2.jpg",
     bullets: [
       "React / Next.js applications",
       "ReactNative / flutter-Dart",
