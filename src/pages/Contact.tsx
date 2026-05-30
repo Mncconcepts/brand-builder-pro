@@ -83,7 +83,7 @@ const Contact = () => {
             transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
             className="max-w-3xl"
           >
-            <h1 className="font-display text-4xl sm:text-6xl font-extrabold text-foreground tracking-tight mb-3">
+            <h1 className="font-barlow text-4xl sm:text-6xl font-extrabold text-foreground tracking-tight mb-3">
               Contact Us
               <br className="hidden sm:block" />
             </h1>

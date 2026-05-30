@@ -91,7 +91,7 @@ const CaseStudies = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
           >
-            <h1 className="font-display text-5xl sm:text-6xl font-extrabold text-foreground leading-tight mb-3">
+            <h1 className="font-barlow text-5xl sm:text-6xl font-extrabold text-foreground leading-tight mb-3">
               General Case-Study.
             </h1>
             <p className="text-sm text-muted-foreground max-w-2xl leading-relaxed">
@@ -122,7 +122,7 @@ const CaseStudies = () => {
                 {/* Top bar */}
                 <div className="bg-secondary/50 border-b border-border px-8 py-5 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                   <div>
-                    <h2 className="font-display text-2xm font-bold text-foreground">
+                    <h2 className="font-barlow text-2xm font-bold text-foreground">
                       {cs.title}
                     </h2>
                     <p className="text-xs text-muted-foreground mt-1">

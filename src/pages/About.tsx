@@ -87,10 +87,10 @@ const About = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
           >
-            <h1 className="font-display text-5xl sm:text-6xl font-extrabold text-foreground leading-tight mb-6">
+            <h1 className="font-barlow text-5xl sm:text-6xl font-extrabold text-foreground leading-tight mb-6">
               About Us.
             </h1>
-            <p className="text-sm text-muted-foreground max-w-2xl leading-relaxed">
+            <p className="text-xs text-muted-foreground max-w-2xl leading-relaxed">
               We are a multidisciplinary creative team with over 4 years of
               experience bridging the gap between design and development. We
               collaborate with startups and established brands to craft digital
@@ -109,7 +109,7 @@ const About = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
             >
-              <h2 className="font-display text-3xl font-bold text-foreground mb-6">
+              <h2 className="font-barlow tracking-tighter text-3xl font-bold text-foreground mb-6">
                 Our Approach
               </h2>
               <div className="space-y-4 text-muted-foreground text-sm leading-relaxed">
@@ -137,7 +137,7 @@ const About = () => {
               viewport={{ once: true }}
               transition={{ delay: 0.1 }}
             >
-              <h3 className="text-sm font-semibold text-foreground mb-6 uppercase tracking-wider">
+              <h3 className="font-barlow text-sm font-semibold text-foreground mb-6 uppercase tracking-wider">
                 Core Skills
               </h3>
               <div className="flex flex-wrap gap-2 mb-12">
@@ -164,10 +164,10 @@ const About = () => {
             viewport={{ once: true }}
             className="mb-14"
           >
-            <p className="text-xs font-medium tracking-widest uppercase text-muted-foreground mb-3">
+            <p className=" font-barlow text-xs tracking-widest uppercase text-muted-foreground mb-3">
               Experience
             </p>
-            <h2 className="font-display text-4xl font-bold text-foreground">
+            <h2 className="font-barlow text-4xl tracking-tighter font-bold text-foreground">
               Work History
             </h2>
           </motion.div>
@@ -184,10 +184,10 @@ const About = () => {
               >
                 <div className="flex flex-col md:flex-row md:items-start justify-between gap-2 mb-3">
                   <div>
-                    <h3 className="font-display text-xm font-bold text-foreground">
+                    <h3 className="font-Display text-xm font-bold text-foreground">
                       {exp.role}
                     </h3>
-                    <p className="text-sm text-muted-foreground">
+                    <p className="text-s text-muted-foreground">
                       {exp.company}
                     </p>
                   </div>
@@ -195,7 +195,7 @@ const About = () => {
                     {exp.period}
                   </span>
                 </div>
-                <p className="text-muted-foreground text-xs leading-relaxed max-w-2xl">
+                <p className="text-muted-foreground text-sm leading-relaxed max-w-2xl">
                   {exp.description}
                 </p>
               </motion.div>
@@ -213,10 +213,10 @@ const About = () => {
             viewport={{ once: true }}
             className="mb-14"
           >
-            <p className="text-sm font-medium tracking-widest uppercase text-muted-foreground mb-3">
+            <p className="text-xs font-medium tracking-widest uppercase text-muted-foreground mb-3">
               Values
             </p>
-            <h2 className="font-display text-4xl text-foreground font-extrabold">
+            <h2 className="font-barlow text-4xl text-foreground font-extrabold">
               How We Work
             </h2>
           </motion.div>
@@ -256,10 +256,10 @@ const About = () => {
       {/* CTA */}
       <section className="py-20 bg-primary text-primary-foreground">
         <div className="max-w-3xl mx-auto px-6 text-center">
-          <h2 className="font-display text-4xl sm:text-4xl mb-4 font-extrabold">
+          <h2 className="font-barlow text-4xl sm:text-4xl tracking-tighter mb-4 font-extrabold">
             Interested In Working With Us?
           </h2>
-          <p className="text-primary-foreground/60 mb-8">
+          <p className="font-manrope text-sm text-primary-foreground/60 mb-8">
             We are always open to new opportunities and collaborations.
           </p>
           <div className="flex flex-wrap gap-3 justify-center">

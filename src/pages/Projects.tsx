@@ -134,7 +134,7 @@ const Projects = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
           >
-            <h1 className="font-display text-5xl sm:text-6xl text-foreground leading-tight mb-4 font-extrabold">
+            <h1 className="font-barlow text-5xl sm:text-6xl text-foreground leading-tight mb-4 font-extrabold">
               Project-Folio.
             </h1>
             <p className="text-sm text-muted-foreground max-w-2xl leading-relaxed">
@@ -165,7 +165,7 @@ const Projects = () => {
                       className="w-full h-full object-cover"
                     />
                   ) : (
-                    <span className="font-display text-4xl font-bold text-primary">
+                    <span className="font-barlow text-4xl font-bold text-primary">
                       {project.year}
                     </span>
                   )}
@@ -232,7 +232,7 @@ const Projects = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
           >
-            <h2 className="font-display text-3xl sm:text-4xl mb-3 font-extrabold">
+            <h2 className="font-barlow text-3xl sm:text-4xl letter tracking-tighter mb-3 font-extrabold">
               Have a Project In Mind?
             </h2>
             <p className="text-primary-foreground/60 mb-10 max-w-lg mx-auto text-sm leading-relaxed">

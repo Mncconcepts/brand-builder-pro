@@ -50,7 +50,7 @@ const TestimonialsCarousel = ({ items }: TestimonialsCarouselProps) => {
               className="pl-4 basis-full md:basis-1/2"
             >
               <blockquote className="bg-card border border-border rounded-lg p-8 h-full flex flex-col">
-                <p className="text-foreground leading-relaxed mb-6 flex-1 text-sm font-normal">
+                <p className="text-foreground leading-loose mb-6 flex-1 text-xs font-normal">
                   "{t.quote}"
                 </p>
                 <footer>

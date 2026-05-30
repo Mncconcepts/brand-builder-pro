@@ -100,10 +100,10 @@ const Services = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
           >
-            <h1 className="font-display text-5xl sm:text-6xl text-foreground leading-tight mb-4 font-extrabold">
+            <h1 className="font-barlow text-5xl sm:text-6xl text-foreground leading-tight mb-4 font-extrabold">
               Our Services
             </h1>
-            <p className="text-sm text-muted-foreground max-w-2xl leading-relaxed">
+            <p className="text-sm font-manrope text-muted-foreground max-w-2xl leading-relaxed">
               From concept to launch, We provide end-to-end services that cover every aspect of
               building successful digital products.
             </p>
@@ -164,7 +164,7 @@ const Services = () => {
             <p className="text-xs font-medium tracking-widest uppercase text-muted-foreground mb-2">
               Process
             </p>
-            <h2 className="font-display text-4xl text-foreground font-extrabold">
+            <h2 className="font-barlow text-4xl text-foreground font-extrabold">
               How It Works
             </h2>
           </motion.div>
@@ -179,7 +179,7 @@ const Services = () => {
                 transition={{ delay: i * 0.1 }}
               >
                 <span className="font-display text-5xl font-bold text-border">{p.step}</span>
-                <h3 className="font-display text-lg font-bold text-foreground mt-4 mb-2">
+                <h3 className="font-barlow text-lg font-bold text-foreground mt-4 mb-2">
                   {p.title}
                 </h3>
                 <p className="text-xs text-muted-foreground leading-relaxed">
@@ -203,10 +203,10 @@ const Services = () => {
             <p className="text-xs font-medium tracking-widest uppercase text-muted-foreground mb-1">
               Pricing
             </p>
-            <h2 className="font-display text-5xl text-foreground font-extrabold">
+            <h2 className="font-barlow text-5xl text-foreground font-extrabold">
               Investment Tiers
             </h2>
-            <p className="text-muted-foreground text-xs mt-4 max-w-lg mx-auto">
+            <p className="text-muted-foreground text-sm mt-4 max-w-lg mx-auto">
               Transparent pricing to match your project scope. Every engagement includes a detailed proposal.
             </p>
           </motion.div>

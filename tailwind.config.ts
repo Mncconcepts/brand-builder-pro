@@ -14,8 +14,9 @@ export default {
     },
     extend: {
       fontFamily: {
-        display: ['Public Sans', 'system-ui', 'sans-serif'],
-        body: ['Manrope', 'system-ui', 'sans-serif'],
+        inter: ["Inter", "sans-serif"],
+        barlow: ["Barlow Condensed", "sans-serif"],
+        manrope: ["Manrope", "sans-serif"],
       },
       colors: {
         border: "hsl(var(--border))",

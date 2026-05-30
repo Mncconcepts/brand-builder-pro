@@ -135,14 +135,14 @@ const testimonials = [
   {
     quote:
       "Working with this team was a game-changer for our product. The attention to detail and technical expertise exceeded our expectations.",
-    name: "Sarah Johnson",
-    role: "CEO, TechStart",
+    name: "John Chukwudi",
+    role: "FOUNDER, Visa Guard Africa",
   },
   {
     quote:
       "Delivered a stunning website that perfectly captures our brand. Professional, responsive, and a pleasure to work with.",
     name: "Michael Chen",
-    role: "Founder, DesignLab",
+    role: "Founder, Oonsa Event WebApp",
   },
   {
     quote:
@@ -188,17 +188,17 @@ const Index = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
           >
-            <p className="text-xs sm:text-2xs font-medium tracking-widest uppercase text-muted-foreground mb-1">
+            <p className="text-xs sm:text-2xs font-medium tracking-tight uppercase text-muted-foreground mb-1">
               Development-Design
             </p>
-            <h1 className="font-display text-5xl sm:text-6xl lg:text-7xl font-bold leading-[1.1] tracking-tight text-foreground mb-6">
+            <h1 className="font-inter text-5xl sm:text-6xl lg:text-7xl font- leading-[1.1] tracking-tighter text-foreground mb-6">
               <TypewriterText
                 text="Creating Digital Experiences That Work."
                 speed={55}
                 startDelay={250}
               />
             </h1>
-            <p className="text-sm text-muted-foreground max-w-md leading-relaxed mb-6">
+            <p className="font-manrope text-sm text-muted-foreground max-w-md leading-relaxed mb-6">
               Mncconcepts help businesses create powerful web applications and
               thoughtful digital experiences that drive growth and engagement.
             </p>
@@ -234,7 +234,7 @@ const Index = () => {
       {/* Stats — count-up triggered when scrolled into view */}
       <section className="border-y border-border bg-secondary/30">
         <div ref={statsRef} className="max-w-6xl mx-auto px-6 py-16">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+          <div className="font-Display grid grid-cols-2 md:grid-cols-4 gap-8">
             {stats.map((stat, i) => (
               <motion.div
                 key={stat.label}
@@ -264,10 +264,10 @@ const Index = () => {
             className="flex flex-col md:flex-row md:items-end justify-between mb-14 gap-4"
           >
             <div>
-              <p className="text-xs font-medium tracking-widest uppercase text-muted-foreground mb-1">
+              <p className="text-xs font-medium tracking-tight uppercase text-muted-foreground mb-1">
                 Our Services
               </p>
-              <h2 className="font-display text-4xl text-foreground font-extrabold">
+              <h2 className="font-barlow text-4xl tracking-tighter text-foreground font-extrabold">
                 Services & Expertise.
               </h2>
             </div>
@@ -298,7 +298,7 @@ const Index = () => {
                       className="w-50 h-50 object-cover"
                     />
                   ) : (
-                    <div className="w-full h-full flex items-center justify-center text-muted-foreground/30 text-xs tracking-widest uppercase">
+                    <div className="w-full h-full font-barlow flex items-center justify-center text-muted-foreground/30 text-xs tracking-tight uppercase">
                       {service.title}
                     </div>
                   )}
@@ -309,7 +309,7 @@ const Index = () => {
                   <span className="text-xs font-semibold text-muted-foreground tracking-wider mb-2">
                     {service.number}
                   </span>
-                  <h3 className="font-display text-xl font-semibold text-foreground mb-2">
+                  <h3 className="font-barlow text-xm font-semibold text-foreground mb-2">
                     {service.title}
                   </h3>
                   <p className="text-xs text-muted-foreground leading-relaxed mb-5">
@@ -354,10 +354,10 @@ const Index = () => {
             className="flex flex-col md:flex-row md:items-end justify-between mb-14 gap-4"
           >
             <div>
-              <p className="text-xs font-medium tracking-widest uppercase text-muted-foreground mb-1">
+              <p className="text-xs font-medium tracking-tight uppercase text-muted-foreground mb-1">
                 Recent Work
               </p>
-              <h2 className="font-display text-4xl font-bold text-foreground">
+              <h2 className="font-barlow text-4xl tracking-tighter font-bold text-foreground">
                 Featured Projects
               </h2>
             </div>
@@ -402,14 +402,14 @@ const Index = () => {
             viewport={{ once: true }}
             className="mb-14"
           >
-            <p className="text-xs font-medium tracking-widest uppercase text-muted-foreground mb-1">
+            <p className="text-xs font-medium tracking-tight uppercase text-muted-foreground mb-1">
               Testimonials
             </p>
-            <h2 className="font-display text-4xl text-foreground font-extrabold">
+            <h2 className="font-barlow text-4xl text-foreground font-extrabold">
               Testimonials
             </h2>
           </motion.div>
-          <TestimonialsCarousel items={testimonials} />
+          <TestimonialsCarousel items={testimonials}  />
         </div>
       </section>
 
@@ -421,7 +421,7 @@ const Index = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
           >
-            <h2 className="font-display text-3xl sm:text-4xl mb-3 font-extrabold">
+            <h2 className="font-barlow text-3xl tracking-tighter sm:text-4xl mb-3 font-extrabold">
               Need Any Of Our Services?
             </h2>
             <p className="text-primary-foreground/60 mb-10 max-w-lg mx-auto text-sm leading-relaxed">
