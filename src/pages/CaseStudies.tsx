@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
-import { Calendar as CalendarIcon } from "lucide-react";
+import { Calendar as CalendarIcon, ArrowUpRight } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import BookCallSheet from "@/components/BookCallSheet";
@@ -83,24 +83,51 @@ const CaseStudies = () => {
     <div className="min-h-screen bg-background">
       <Navbar />
 
-      {/* Header */}
-      <section className="pt-32 pb-20 border-b border-border">
+      {/* ── HERO ── */}
+      <section className="relative pt-36 pb-24 border-b border-border overflow-hidden">
+        <div className="absolute inset-0 -z-10 bg-[linear-gradient(to_right,hsl(var(--border))_1px,transparent_1px),linear-gradient(to_bottom,hsl(var(--border))_1px,transparent_1px)] bg-[size:72px_72px] [mask-image:radial-gradient(ellipse_70%_60%_at_50%_0%,black,transparent)] opacity-20" />
+
         <div className="max-w-6xl mx-auto px-6">
           <motion.div
-            initial={{ opacity: 0, y: -40 }}
+            initial={{ opacity: 0, y: -30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
           >
-            <h1 className="font-barlow text-5xl sm:text-6xl font-extrabold text-foreground leading-tight mb-3">
-              General Case-Study.
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-border bg-foreground/5 mb-6">
+              <span className="w-1 h-1 rounded-full bg-foreground animate-pulse" />
+              <span className="text-[10px] font-bold text-foreground tracking-widest uppercase">Case Studies</span>
+            </div>
+
+            <h1 className="font-display text-5xl sm:text-6xl lg:text-7xl text-foreground leading-[1.05] font-extrabold tracking-tight mb-6">
+              General Project Case-Study.
             </h1>
-            <p className="text-sm text-muted-foreground max-w-2xl leading-relaxed">
+            <p className="text-sm text-muted-foreground max-w-xl leading-relaxed">
               In-depth look at select projects the challenges, the process, and
               the measurable outcomes delivered for each client.
             </p>
           </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.35, duration: 0.7 }}
+            className="flex flex-wrap gap-6 mt-12 pt-10 border-t border-border"
+          >
+            {[
+              { n: "5", label: "Core Services" },
+              { n: "50+", label: "Projects Shipped" },
+              { n: "4+", label: "Years Active" },
+              { n: "100%", label: "Remote-Friendly" },
+            ].map((s) => (
+              <div key={s.label} className="flex items-baseline gap-2">
+                <span className="font-display text-2xl font-extrabold text-foreground">{s.n}</span>
+                <span className="text-xs text-muted-foreground font-medium">{s.label}</span>
+              </div>
+            ))}
+          </motion.div>
         </div>
       </section>
+
 
       {/* Case Studies */}
       <section className="py-20">
@@ -122,7 +149,7 @@ const CaseStudies = () => {
                 {/* Top bar */}
                 <div className="bg-secondary/50 border-b border-border px-8 py-5 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                   <div>
-                    <h2 className="font-barlow text-2xm font-bold text-foreground">
+                    <h2 className="text-2xm font-bold text-foreground">
                       {cs.title}
                     </h2>
                     <p className="text-xs text-muted-foreground mt-1">
@@ -200,35 +227,28 @@ const CaseStudies = () => {
         </div>
       </section>
 
-      {/* CTA */}
-      <section className="py-20 bg-primary text-primary-foreground">
-        <div className="max-w-3xl mx-auto px-6 text-center">
-          <h2 className="font-display text-4xl sm:text-4xl font-extrabold mb-4">
-            Want Similar Results?
-          </h2>
-          <p className="text-sm text-primary-foreground/60 mb-8">
-            Let's discuss how we can deliver measurable impact for your
-            business.
-          </p>
-          <div className="flex flex-wrap gap-3 justify-center">
-            <Link
-              to="/contact"
-              className="inline-block bg-primary-foreground text-primary px-8 py-3.5 text-sm font-medium rounded-md hover:bg-primary-foreground/90 transition-colors"
-            >
-              Start a Conversation
-            </Link>
-            <BookCallSheet
-              trigger={
-                <button
-                  type="button"
-                  className="inline-flex items-center gap-2 border border-primary-foreground/40 text-primary-foreground px-8 py-3.5 text-sm font-medium rounded-md hover:bg-primary-foreground/10 transition-colors"
-                >
-                  <CalendarIcon className="h-4 w-4" />
-                  Book A Call Session
-                </button>
-              }
-            />
-          </div>
+      {/* ── CTA STRIP ── */}
+      <section className="py-20 bg-foreground text-background relative overflow-hidden">
+        <div className="max-w-3xl mx-auto px-6 text-center relative z-10">
+          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
+            <p className="text-[10px] font-bold uppercase tracking-widest opacity-40 mb-4">
+              Ready When You Are
+            </p>
+            <h2 className="font-display text-4xl sm:text-5xl font-extrabold tracking-tight mb-4">
+              Let's Build Something Real.
+            </h2>
+            <p className="opacity-60 text-sm max-w-md mx-auto leading-relaxed mb-10">
+              Let us discuss how we can deliver measurable impact for your business
+            </p>
+            <div className="flex flex-col sm:flex-row gap-3 justify-center">
+              <Link
+                to="/contact"
+                className="inline-flex items-center justify-center gap-2 bg-background text-foreground px-8 py-3.5 text-xs font-bold rounded-xl hover:bg-background/90 transition-all hover:-translate-y-0.5"
+              >
+                Start a Project <ArrowUpRight className="w-3.5 h-3.5" />
+              </Link>
+            </div>
+          </motion.div>
         </div>
       </section>
 

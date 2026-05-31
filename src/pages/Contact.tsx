@@ -74,20 +74,24 @@ const Contact = () => {
     <div className="min-h-screen bg-background selection:bg-primary/20">
       <Navbar />
 
-      {/* Header */}
-      <section className="pt-36 pb-16">
+       <section className="relative pt-36 pb-24 border-b border-border overflow-hidden">
+        <div className="absolute inset-0 -z-10 bg-[linear-gradient(to_right,hsl(var(--border))_1px,transparent_1px),linear-gradient(to_bottom,hsl(var(--border))_1px,transparent_1px)] bg-[size:72px_72px] [mask-image:radial-gradient(ellipse_70%_60%_at_50%_0%,black,transparent)] opacity-20" />
+
         <div className="max-w-6xl mx-auto px-6">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: -30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-            className="max-w-3xl"
+            transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
           >
-            <h1 className="font-barlow text-4xl sm:text-6xl font-extrabold text-foreground tracking-tight mb-3">
-              Contact Us
-              <br className="hidden sm:block" />
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-border bg-foreground/5 mb-6">
+              <span className="w-1 h-1 rounded-full bg-foreground animate-pulse" />
+              <span className="text-[10px] font-bold text-foreground tracking-widest uppercase">Contact Us</span>
+            </div>
+
+            <h1 className="font-display text-5xl sm:text-6xl lg:text-7xl text-foreground leading-[1.05] font-extrabold tracking-tight mb-6">
+              Send Us Direct Messages.
             </h1>
-            <p className="text-sm text-muted-foreground leading-relaxed max-w-2xl">
+            <p className="text-sm text-muted-foreground max-w-xl leading-relaxed">
               Have a project in mind or want to discuss a potential
               collaboration? we would love to hear from you. Fill out the form below
               or reach out directly.
@@ -95,6 +99,7 @@ const Contact = () => {
           </motion.div>
         </div>
       </section>
+
 
       {/* Contact Form + Info */}
       <section className="pb-20 pt-8">

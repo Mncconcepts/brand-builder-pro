@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
-import { ExternalLink, Calendar as CalendarIcon, BookOpen } from "lucide-react";
+import { ExternalLink, Calendar as CalendarIcon, BookOpen, ArrowUpRight } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import StackingCards from "@/components/StackingCards";
@@ -127,27 +127,30 @@ const Projects = () => {
       <Navbar />
 
       {/* Header */}
-      <section className="pt-32 pb-20 border-b ">
+      <section className="relative pt-40 pb-24 overflow-hidden border-b border-border/40">
+        <div className="absolute inset-0 -z-10 bg-[radial-gradient(45%_40%_at_50%_50%,rgba(var(--primary-rgb),0.05)_0%,transparent_100%)]" />
         <div className="max-w-6xl mx-auto px-6">
           <motion.div
-            initial={{ opacity: 0, y: -40 }}
+            initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
+            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
           >
-            <h1 className="font-barlow text-5xl sm:text-6xl text-foreground leading-tight mb-4 font-extrabold">
-              Project-Folio.
+            <span className="inline-block px-3 py-1 rounded-full bg-secondary text-[10px] font-bold tracking-[0.2em] uppercase mb-6 border border-border">
+              Portfolio
+            </span>
+            <h1 className="font-display text-6xl sm:text-7xl lg:text-8xl font-extrabold tracking-tighter leading-[0.9] mb-8">
+              Selected <br />
+              <span className="text-muted-foreground/40">Works.</span>
             </h1>
-            <p className="text-sm text-muted-foreground max-w-2xl leading-relaxed">
-              A curated collection of projects showcasing our expertise in web &
-              app development, product design, and user experience across
-              various industries.
+            <p className="text-base text-muted-foreground max-w-xl leading-relaxed font-medium">
+              Bridging the gap between aesthetic design and technical excellence. A curated list of digital products and web experiences.
             </p>
           </motion.div>
         </div>
       </section>
 
       {/* Projects */}
-      <section className="py-20">
+      <section className="py-15">
         <div className="max-w-6xl mx-auto px-6">
           <StackingCards offset={5} top={10}>
             {projects.map((project) => (
@@ -224,44 +227,39 @@ const Projects = () => {
         </div>
       </section>
 
-      {/* CTA */}
-      <section className="py-20 bg-primary text-primary-foreground">
-        <div className="max-w-3xl mx-auto px-6 text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-          >
-            <h2 className="font-barlow text-3xl sm:text-4xl letter tracking-tighter mb-3 font-extrabold">
-              Have a Project In Mind?
-            </h2>
-            <p className="text-primary-foreground/60 mb-10 max-w-lg mx-auto text-sm leading-relaxed">
-              Let's discuss how we can help bring your vision to life with clean
-              code and thoughtful design.
-            </p>
-            <div className="flex flex-wrap gap-3 justify-center">
-              <Link
-                to="/contact"
-                className="inline-block bg-primary-foreground text-primary px-8 py-3.5 text-sm font-medium rounded-md hover:bg-primary-foreground/90 transition-colors"
-              >
-                Start A Conversation
-              </Link>
-              <BookCallSheet
-                trigger={
-                  <button
-                    type="button"
-                    className="inline-flex items-center gap-2 border border-primary-foreground/40 text-primary-foreground px-8 py-3.5 text-sm font-medium rounded-md hover:bg-primary-foreground/10 transition-colors"
-                  >
-                    <CalendarIcon className="h-4 w-4" />
-                    Book A Call Session
-                  </button>
-                }
-              />
-            </div>
-          </motion.div>
-        </div>
-      </section>
-
+      {/* ── CTA ── */}
+           <section className="py-24 bg-foreground text-background relative overflow-hidden">
+             <div className="max-w-3xl mx-auto px-6 text-center relative z-10">
+               <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
+                 <p className="text-xs font-bold uppercase tracking-widest opacity-50 mb-4">Let's Connect</p>
+                 <h2 className="font-display text-4xl sm:text-5xl font-extrabold tracking-tight mb-4">
+                   Interested in Working With Us?
+                 </h2>
+                 <p className="opacity-60 text-sm max-w-md mx-auto leading-relaxed mb-10">
+                   We are always open to new opportunities and collaborations. Let's build something great together.
+                 </p>
+                 <div className="flex flex-col sm:flex-row gap-3 justify-center">
+                   <Link
+                     to="/contact"
+                     className="inline-flex items-center justify-center gap-2 bg-background text-foreground px-8 py-3.5 text-sm font-bold rounded-xl hover:opacity-90 transition-all hover:-translate-y-0.5"
+                   >
+                     Get in Touch <ArrowUpRight className="w-3.5 h-3.5" />
+                   </Link>
+                   <BookCallSheet
+                     trigger={
+                       <button
+                         type="button"
+                         className="inline-flex items-center justify-center gap-2 border-2 border-background/30 text-background px-8 py-3.5 text-sm font-bold rounded-xl hover:bg-background/10 transition-all hover:-translate-y-0.5"
+                       >
+                         <CalendarIcon className="h-3.5 w-3.5" /> Book A Call Session
+                       </button>
+                     }
+                   />
+                 </div>
+               </motion.div>
+             </div>
+           </section>
+           
       <Footer />
     </div>
   );

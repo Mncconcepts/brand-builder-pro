@@ -3,41 +3,30 @@ import { motion, useInView } from "framer-motion";
 import { useRef, useEffect, useState } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import StackingCards from "@/components/StackingCards";
 import TestimonialsCarousel from "@/components/TestimonialsCarousel";
 import TypewriterText from "@/components/TypewriterText";
 import BookCallSheet from "@/components/BookCallSheet";
-import { Calendar as CalendarIcon } from "lucide-react";
 import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion";
-import heroVideo from "@/assets/hero-typing-v2.mp4.asset.json";
+  Calendar as CalendarIcon,
+  ArrowUpRight,
+  Star,
+  Sparkles,
+} from "lucide-react";
 
-function useCountUp(
-  target: number,
-  duration: number = 1800,
-  triggered: boolean = false,
-) {
+function useCountUp(target: number, duration = 1800, triggered = false) {
   const [count, setCount] = useState(0);
-
   useEffect(() => {
     if (!triggered) return;
-    let startTime: number | null = null;
-
-    const step = (timestamp: number) => {
-      if (!startTime) startTime = timestamp;
-      const progress = Math.min((timestamp - startTime) / duration, 1);
-      const eased = 1 - Math.pow(1 - progress, 3);
-      setCount(Math.floor(eased * target));
-      if (progress < 1) requestAnimationFrame(step);
+    let start: number | null = null;
+    const step = (ts: number) => {
+      if (!start) start = ts;
+      const p = Math.min((ts - start) / duration, 1);
+      setCount(Math.floor((1 - Math.pow(1 - p, 3)) * target));
+      if (p < 1) requestAnimationFrame(step);
       else setCount(target);
     };
     requestAnimationFrame(step);
   }, [triggered, target, duration]);
-
   return count;
 }
 
@@ -50,22 +39,23 @@ function AnimatedStat({
   label: string;
   triggered: boolean;
 }) {
-  // Parse numeric part and suffix (e.g. "4+" → 4, "+")
   const match = value.match(/^(\d+)(.*)$/);
   const numeric = match ? parseInt(match[1], 10) : 0;
   const suffix = match ? match[2] : value;
   const count = useCountUp(numeric, 1800, triggered);
-
   return (
-    <div className="text-center">
-      <p className="font-display text-4xl font-bold text-foreground">
+    <div className="text-center group">
+      <p className="font-display text-4xl sm:text-5xl font-extrabold text-foreground tracking-tight leading-none">
         {triggered ? `${count}${suffix}` : `0${suffix}`}
       </p>
-      <p className="text-sm text-muted-foreground mt-1">{label}</p>
+      <p className="text-xs text-muted-foreground mt-2 uppercase tracking-widest font-medium">
+        {label}
+      </p>
     </div>
   );
 }
 
+/* ─── data ── */
 const stats = [
   { value: "4+", label: "Years Experience" },
   { value: "50+", label: "Projects Delivered" },
@@ -73,25 +63,30 @@ const stats = [
   { value: "99%", label: "Client Satisfaction" },
 ];
 
+/* Trusted client avatars — replace srcs with real photos */
+const trustedAvatars = [
+  { src: "/cc1.png", name: "Oonsa" },
+  { src: "/cc2.png", name: "Oonsa" },
+];
+
 const featuredServices = [
   {
     number: "01",
     title: "Web & App Development",
     desc: "Modern, scalable websites & applications built with the latest technologies.",
-    image: "/vgalanding2.jpg",
+    image: "/hero-tech-design.jpg",
     bullets: [
       "React / Next.js applications",
-      "ReactNative / flutter-Dart",
+      "React Native / Flutter-Dart",
       "TypeScript & clean architecture",
       "API & third-party integrations",
-      "Performance optimization",
     ],
   },
   {
     number: "02",
     title: "Product Design",
     desc: "User-centered design that drives engagement and business results.",
-    image: "/proj-storeapp2.png",
+    image: "/omapost4.png",
     bullets: [
       "End-to-end UX research",
       "Wireframing & prototyping",
@@ -103,7 +98,7 @@ const featuredServices = [
     number: "03",
     title: "UI/UX Design",
     desc: "Intuitive interfaces and seamless experiences across all devices.",
-    image: "/proj-oma.png",
+    image: "/post1dap.png",
     bullets: [
       "Interface & interaction design",
       "Design systems & component libraries",
@@ -115,19 +110,28 @@ const featuredServices = [
 
 const featuredProjects = [
   {
-    title: "Multiple Vendor Store",
+    title: "Multiple Vendor Store CVMP",
     category: "App Design",
     year: "2025",
+    image: "/proj-storeapp2.png",
+    tags: ["Mobile", "E-Commerce"],
+    color: "from-orange-500/20 to-yellow-500/10",
   },
   {
-    title: "Visa Guard Africa Technologies",
-    category: "Product Design, Development",
+    title: "Visa Guard Africa",
+    category: "Product Design & Development",
     year: "2026",
+    image: "/visaguard.jpg",
+    tags: ["Web App", "Fintech"],
+    color: "from-blue-500/20 to-cyan-500/10",
   },
   {
-    title: "Oonsa Event Planning Webapp",
-    category: "UIUX Design",
+    title: "Oonsa Event Webapp",
+    category: "UI/UX Design",
     year: "2025",
+    image: "/Oonsa.png",
+    tags: ["Web", "Events"],
+    color: "from-purple-500/20 to-pink-500/10",
   },
 ];
 
@@ -135,13 +139,13 @@ const testimonials = [
   {
     quote:
       "Working with this team was a game-changer for our product. The attention to detail and technical expertise exceeded our expectations.",
-    name: "John Chukwudi",
+    name: "John Chukwudi Eze",
     role: "FOUNDER, Visa Guard Africa",
   },
   {
     quote:
       "Delivered a stunning website that perfectly captures our brand. Professional, responsive, and a pleasure to work with.",
-    name: "Michael Chen",
+    name: "Oonsa",
     role: "Founder, Oonsa Event WebApp",
   },
   {
@@ -152,89 +156,191 @@ const testimonials = [
   },
 ];
 
-// const homeFaqs = [
-//   {
-//     q: "What Services Do You Offer?",
-//     a: "I specialize in web development, product design, and UI/UX design — from initial strategy and wireframes to fully shipped, production-ready applications.",
-//   },
-//   {
-//     q: "How Long Does A Typical Project Take?",
-//     a: "Most engagements run 2-8 weeks depending on scope. After our intro call I'll share a detailed timeline with milestones.",
-//   },
-//   {
-//     q: "Do You Work With International Clients?",
-//     a: "Yes — I collaborate remotely with clients worldwide and adapt comfortably to different time zones.",
-//   },
-//   {
-//     q: "What Is Your Pricing Model?",
-//     a: "Projects are typically scoped as fixed-price engagements. For ongoing work, monthly retainers are also available.",
-//   },
-// ];
-
+/* ════════════════════════════════════════════════════════════════
+   COMPONENT
+   ════════════════════════════════════════════════════════════════ */
 const Index = () => {
-  // Ref + inView for the stats section
   const statsRef = useRef<HTMLDivElement>(null);
   const statsInView = useInView(statsRef, { once: true, margin: "-80px" });
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background overflow-x-hidden">
       <Navbar />
 
-      {/* Hero */}
+      {/* ══════════════════════════════════════════════
+          HERO
+          ══════════════════════════════════════════════ */}
       <section className="relative min-h-screen flex items-center pt-8">
+        {/* Background decorative blobs */}
+        <div className="absolute inset-0 -z-10 overflow-hidden pointer-events-none">
+          <div className="absolute -top-24 -left-24 w-[500px] h-[500px] rounded-full bg-primary/5 blur-[120px]" />
+          <div className="absolute top-1/2 -right-32 w-[400px] h-[400px] rounded-full bg-blue-500/5 blur-[100px]" />
+          <div className="absolute inset-0 bg-[linear-gradient(to_right,hsl(var(--border))_1px,transparent_1px),linear-gradient(to_bottom,hsl(var(--border))_1px,transparent_1px)] bg-[size:64px_64px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,black,transparent)] opacity-40" />
+        </div>
+
         <div className="max-w-6xl mx-auto px-6 w-full grid lg:grid-cols-2 gap-12 lg:gap-16 items-center py-20">
           <motion.div
             initial={{ opacity: 0, y: -40 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
+            className="flex flex-col"
           >
-            <p className="text-xs sm:text-2xs font-medium tracking-tight uppercase text-muted-foreground mb-1">
-              Development-Design
-            </p>
-            <h1 className="font-inter text-5xl sm:text-6xl lg:text-7xl font- leading-[1.1] tracking-tighter text-foreground mb-6">
+            {/* ── Modern hero badge ── */}
+            <div className="mb-6 flex items-center gap-3">
+              <div className="relative inline-flex items-center gap-2 px-4 py-2 rounded-full border border-primary/25 bg-primary/8 backdrop-blur-sm group cursor-default select-none overflow-hidden">
+                {/* animated gradient sweep */}
+                <span className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-700 bg-gradient-to-r from-transparent via-primary/10 to-transparent" />
+                {/* pulse dot */}
+                <span className="relative flex h-2 w-2 shrink-0">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-60" />
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-primary" />
+                </span>
+                <Sparkles className="w-3.5 h-3.5 text-primary shrink-0" />
+                <span className="text-xs font-small text-primary tracking-wide uppercase">
+                  Design & Development
+                </span>
+              </div>
+            </div>
+
+            <h1 className="font-display text-5xl sm:text-6xl lg:text-7xl font-extrabold leading-[1.05] tracking-tighter text-foreground mb-6">
               <TypewriterText
                 text="Creating Digital Experiences That Work."
                 speed={55}
                 startDelay={250}
               />
             </h1>
-            <p className="font-manrope text-sm text-muted-foreground max-w-md leading-relaxed mb-6">
-              Mncconcepts help businesses create powerful web applications and
+
+            <p className="text-sm text-muted-foreground max-w-md leading-relaxed mb-8">
+              Mncconcepts helps businesses create powerful web applications and
               thoughtful digital experiences that drive growth and engagement.
             </p>
-            <div className="flex flex-wrap gap-4">
+
+            {/* CTA row */}
+            <div className="flex flex-wrap gap-3 mb-10">
               <Link
                 to="/projects"
-                className="inline-block bg-primary text-primary-foreground px-7 py-3 text-sm font-medium rounded-md hover:bg-primary/90 transition-colors"
+                className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-7 py-3 text-sm font-semibold rounded-lg hover:bg-primary/90 transition-all hover:-translate-y-0.5 shadow-lg shadow-primary/20"
               >
-                View Projects
+                View Projects <ArrowUpRight className="w-4 h-4" />
               </Link>
               <Link
                 to="/contact"
-                className="inline-block border border-border text-foreground px-7 py-3 text-sm font-medium rounded-md hover:bg-secondary transition-colors"
+                className="inline-flex items-center gap-2 border border-border text-foreground px-7 py-3 text-sm font-semibold rounded-lg hover:bg-secondary transition-all hover:-translate-y-0.5"
               >
                 Get in Touch
               </Link>
             </div>
+
+            {/* ── Trusted-by avatars ── */}
+            <div className="flex items-center gap-2">
+              {/* Overlapping avatar stack */}
+              <div className="flex items-center">
+                {trustedAvatars.map((av, i) => (
+                  <div
+                    key={av.name}
+                    className="relative w-9 h-9 rounded-full border-2 border-background overflow-hidden shadow-md ring-1 ring-border/30"
+                    style={{
+                      marginLeft: i === 0 ? 0 : "-10px",
+                      zIndex: trustedAvatars.length - i,
+                    }}
+                    title={av.name}
+                  >
+                    <img
+                      src={av.src}
+                      alt={av.name}
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                ))}
+                {/* +more badge */}
+                <div
+                  className="relative w-9 h-9 rounded-full border-2 border-background bg-primary flex items-center justify-center text-[10px] font-bold text-primary-foreground shadow-md"
+                  style={{ marginLeft: "-10px", zIndex: 0 }}
+                >
+                  +12
+                </div>
+              </div>
+
+              <div>
+                {/* 5-star row */}
+                <div className="flex items-center gap-0.5 mb-0.5">
+                  {Array(5)
+                    .fill(0)
+                    .map((_, i) => (
+                      <Star
+                        key={i}
+                        className="w-3 h-3 fill-amber-400 text-amber-400"
+                      />
+                    ))}
+                </div>
+                <p className="text-xs text-muted-foreground leading-tight">
+                  Trusted by{" "}
+                  <span className="font-semibold text-foreground">
+                    30+ clients
+                  </span>
+                </p>
+              </div>
+            </div>
           </motion.div>
 
+          {/* ── Hero image ── */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
-            className="relative"
+            initial={{ opacity: 0, scale: 0.95, y: 20 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            transition={{
+              duration: 0.9,
+              delay: 0.25,
+              ease: [0.22, 1, 0.36, 1],
+            }}
+            className="relative hidden lg:block"
           >
-            <div className="aspect-[4/3] h-full overflow-hidden rounded-xl">
-              <img src="/proj-oma.png" alt="" />
+            {/* Decorative ring */}
+            <div className="absolute -inset-4 rounded-2xl border border-border/40 bg-secondary/20 backdrop-blur-sm -z-10" />
+            <div className="absolute -inset-1 rounded-xl bg-gradient-to-br from-primary/10 via-transparent to-blue-500/10 -z-10" />
+
+            <div className="aspect-[4/3] overflow-hidden rounded-xl border border-border/60 shadow-2xl">
+              <img
+                src="/proj-oma.png"
+                alt="Featured project preview"
+                className="w-full h-full object-cover"
+              />
+            </div>
+
+            {/* Floating stat badge */}
+            <div className="absolute -bottom-5 -left-6 flex items-center gap-3 bg-card border border-border rounded-xl px-4 py-3 shadow-xl backdrop-blur-md">
+              <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center">
+                <span className="text-lg"></span>
+              </div>
+              <div>
+                <p className="text-xs font-bold text-foreground">
+                  50+ Projects
+                </p>
+                <p className="text-[10px] text-muted-foreground">
+                  Successfully Delivered
+                </p>
+              </div>
+            </div>
+
+            {/* Floating availability badge */}
+            <div className="absolute -top-4 -right-4 flex items-center gap-2 bg-card border border-border rounded-full px-3 py-2 shadow-lg">
+              <span className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
+              </span>
+              <span className="text-[11px] font-semibold text-foreground">
+                Available for work
+              </span>
             </div>
           </motion.div>
         </div>
       </section>
 
-      {/* Stats — count-up triggered when scrolled into view */}
+      {/* ══════════════════════════════════════════════
+          STATS
+          ══════════════════════════════════════════════ */}
       <section className="border-y border-border bg-secondary/30">
         <div ref={statsRef} className="max-w-6xl mx-auto px-6 py-16">
-          <div className="font-Display grid grid-cols-2 md:grid-cols-4 gap-8">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-10">
             {stats.map((stat, i) => (
               <motion.div
                 key={stat.label}
@@ -254,8 +360,10 @@ const Index = () => {
         </div>
       </section>
 
-      {/* ── Services Preview ── */}
-      <section className="py-24">
+      {/* ══════════════════════════════════════════════
+          SERVICES
+          ══════════════════════════════════════════════ */}
+      <section className="py-28">
         <div className="max-w-6xl mx-auto px-6">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -264,75 +372,66 @@ const Index = () => {
             className="flex flex-col md:flex-row md:items-end justify-between mb-14 gap-4"
           >
             <div>
-              <p className="text-xs font-medium tracking-tight uppercase text-muted-foreground mb-1">
-                Our Services
+              <p className="text-xs font-semibold tracking-wide uppercase text-primary mb-2">
+                What We Do
               </p>
-              <h2 className="font-barlow text-4xl tracking-tighter text-foreground font-extrabold">
+              <h2 className="font-display text-4xl sm:text-5xl tracking-tight text-foreground font-extrabold">
                 Services & Expertise.
               </h2>
             </div>
             <Link
               to="/services"
-              className="text-sm font-medium text-foreground border-b border-foreground/30 pb-0.5 hover:border-foreground transition-colors self-start md:self-auto"
+              className="inline-flex items-center gap-1.5 text-sm font-semibold text-foreground border-b border-foreground/30 pb-0.5 hover:border-foreground hover:gap-2.5 transition-all self-start md:self-auto"
             >
-              View All Services →
+              View All Services <ArrowUpRight className="w-3.5 h-3.5" />
             </Link>
           </motion.div>
 
-          {/* 3-column grid */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {featuredServices.map((service, i) => (
               <motion.div
                 key={service.number}
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 24 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ delay: i * 0.1 }}
-                className="bg-card border border-border rounded-lg overflow-hidden shadow-sm flex flex-col"
+                transition={{ delay: i * 0.12 }}
+                className="group bg-card border border-border rounded-2xl overflow-hidden shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col"
               >
-                <div className="w-full h-44 bg-secondary overflow-hidden">
-                  {service.image ? (
-                    <img
-                      src={service.image}
-                      alt={service.title}
-                      className="w-50 h-50 object-cover"
-                    />
-                  ) : (
-                    <div className="w-full h-full font-barlow flex items-center justify-center text-muted-foreground/30 text-xs tracking-tight uppercase">
-                      {service.title}
-                    </div>
-                  )}
-                </div>
-
-                {/* Card body */}
-                <div className="p-7 flex flex-col flex-1">
-                  <span className="text-xs font-semibold text-muted-foreground tracking-wider mb-2">
+                {/* Image with overlay */}
+                <div className="relative w-full h-48 bg-secondary overflow-hidden">
+                  <img
+                    src={service.image}
+                    alt={service.title}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-card/80 via-transparent to-transparent" />
+                  <span className="absolute top-3 left-3 text-[10px] font-bold text-muted-foreground/70 tracking-widest uppercase bg-background/60 backdrop-blur-sm border border-border/40 px-2 py-1 rounded-md">
                     {service.number}
                   </span>
-                  <h3 className="font-barlow text-xm font-semibold text-foreground mb-2">
+                </div>
+
+                <div className="p-6 flex flex-col flex-1">
+                  <h3 className="font-display text-lg font-bold text-foreground mb-2 group-hover:text-primary transition-colors">
                     {service.title}
                   </h3>
                   <p className="text-xs text-muted-foreground leading-relaxed mb-5">
                     {service.desc}
                   </p>
-
-                  {/* Bullet points */}
-                  <ul className="space-y-2 mb-7 flex-1">
+                  <ul className="space-y-2 mb-6 flex-1">
                     {service.bullets.map((b) => (
                       <li
                         key={b}
-                        className="text-sm text-muted-foreground flex items-start gap-2"
+                        className="text-xs text-muted-foreground flex items-start gap-2"
                       >
-                        <span className="mt-[7px] text-xs w-1 h-1 shrink-0 bg-foreground rounded-full" />
+                        <span className="mt-1.5 w-1 h-1 rounded-full bg-primary shrink-0" />
                         {b}
                       </li>
                     ))}
                   </ul>
-
                   <Link to="/contact">
                     <button
                       type="button"
-                      className="w-full text-center text-sm font-medium py-3 rounded-md bg-background border border-border text-foreground hover:bg-foreground hover:text-background transition-colors"
+                      className="w-full text-center text-sm font-semibold py-2.5 rounded-lg bg-background border border-border text-foreground hover:bg-primary hover:text-primary-foreground hover:border-primary transition-all duration-200"
                     >
                       Book Service
                     </button>
@@ -344,8 +443,10 @@ const Index = () => {
         </div>
       </section>
 
-   
-      <section className="py-24 bg-secondary/30 border-y border-border">
+      {/* ══════════════════════════════════════════════
+          FEATURED PROJECTS — image cards
+          ══════════════════════════════════════════════ */}
+      <section className="py-28 bg-secondary/30 border-y border-border">
         <div className="max-w-6xl mx-auto px-6">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -354,47 +455,96 @@ const Index = () => {
             className="flex flex-col md:flex-row md:items-end justify-between mb-14 gap-4"
           >
             <div>
-              <p className="text-xs font-medium tracking-tight uppercase text-muted-foreground mb-1">
+              <p className="text-xs font-semibold tracking-wide uppercase text-primary mb-2">
                 Recent Work
               </p>
-              <h2 className="font-barlow text-4xl tracking-tighter font-bold text-foreground">
-                Featured Projects
+              <h2 className="font-display text-4xl sm:text-5xl tracking-tight font-extrabold text-foreground">
+                Featured Projects.
               </h2>
             </div>
             <Link
               to="/projects"
-              className="text-sm font-medium text-foreground border-b border-foreground/30 pb-0.5 transition-colors self-start xs:self-auto"
+              className="inline-flex items-center gap-1.5 text-sm font-semibold text-foreground border-b border-foreground/30 pb-0.5 hover:border-foreground hover:gap-2.5 transition-all self-start md:self-auto"
             >
-              View All Projects →
+              View All Projects <ArrowUpRight className="w-3.5 h-3.5" />
             </Link>
           </motion.div>
 
-          <StackingCards offset={20} top={100}>
-            {featuredProjects.map((project) => (
-              <Link
+          {/* ── Project cards grid ── */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {featuredProjects.map((project, i) => (
+              <motion.div
                 key={project.title}
-                to="/projects"
-                className="group flex items-center justify-between border border-border bg-card rounded-lg px-8 py-6 shadow-sm hover:shadow-md transition-shadow"
+                initial={{ opacity: 0, y: 28 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.12 }}
               >
-                <div>
-                  <h3 className="font-display text-xm font-semibold text-foreground group-hover:text-muted-foreground transition-colors">
-                    {project.title}
-                  </h3>
-                  <p className="text-sm text-muted-foreground mt-1">
-                    {project.category}
-                  </p>
-                </div>
-                <span className="text-sm text-muted-foreground">
-                  {project.year}
-                </span>
-              </Link>
+                <Link
+                  to="/projects"
+                  className="group flex flex-col bg-card border border-border rounded-2xl overflow-hidden shadow-sm hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 h-full"
+                >
+                  {/* Image area */}
+                  <div
+                    className={`relative h-52 overflow-hidden bg-gradient-to-br ${project.color}`}
+                  >
+                    <img
+                      src={project.image}
+                      alt={project.title}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    />
+                    {/* Gradient overlay */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-card via-card/20 to-transparent opacity-0 group-hover:opacity-60 transition-opacity duration-300" />
+
+                    {/* Arrow icon on hover */}
+                    <div className="absolute top-3 right-3 w-8 h-8 rounded-full bg-background/80 backdrop-blur-sm border border-border/50 flex items-center justify-center opacity-0 group-hover:opacity-100 translate-x-2 group-hover:translate-x-0 transition-all duration-300 shadow-md">
+                      <ArrowUpRight className="w-4 h-4 text-foreground" />
+                    </div>
+
+                    {/* Year badge */}
+                    <div className="absolute bottom-3 left-3 text-[10px] font-bold text-muted-foreground bg-background/70 backdrop-blur-sm border border-border/40 px-2 py-1 rounded-md">
+                      {project.year}
+                    </div>
+                  </div>
+
+                  {/* Card body */}
+                  <div className="p-5 flex flex-col gap-3">
+                    {/* Tags */}
+                    <div className="flex items-center gap-2">
+                      {project.tags.map((tag) => (
+                        <span
+                          key={tag}
+                          className="text-[10px] font-semibold tracking-wide uppercase px-2.5 py-1 rounded-full bg-primary/8 text-primary border border-primary/15"
+                        >
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+
+                    {/* Title */}
+                    <h3 className="font-display text-base font-bold text-foreground group-hover:text-primary transition-colors leading-snug">
+                      {project.title}
+                    </h3>
+
+                    {/* Category + arrow */}
+                    <div className="flex items-center justify-between mt-auto pt-1 border-t border-border/50">
+                      <p className="text-xs text-muted-foreground font-medium">
+                        {project.category}
+                      </p>
+                      <ArrowUpRight className="w-3.5 h-3.5 text-muted-foreground group-hover:text-primary group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all duration-200" />
+                    </div>
+                  </div>
+                </Link>
+              </motion.div>
             ))}
-          </StackingCards>
+          </div>
         </div>
       </section>
 
-      {/* Testimonials */}
-      <section className="py-24">
+      {/* ══════════════════════════════════════════════
+          TESTIMONIALS
+          ══════════════════════════════════════════════ */}
+      <section className="py-28">
         <div className="max-w-6xl mx-auto px-6">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -402,26 +552,35 @@ const Index = () => {
             viewport={{ once: true }}
             className="mb-14"
           >
-            <p className="text-xs font-medium tracking-tight uppercase text-muted-foreground mb-1">
-              Testimonials
+            <p className="text-xs font-semibold tracking-wide uppercase text-primary mb-2">
+              Client Reviewgi
             </p>
-            <h2 className="font-barlow text-4xl text-foreground font-extrabold">
-              Testimonials
+            <h2 className="font-display text-4xl sm:text-5xl text-foreground font-extrabold">
+              What Clients Say.
             </h2>
           </motion.div>
-          <TestimonialsCarousel items={testimonials}  />
+          <TestimonialsCarousel items={testimonials} />
         </div>
       </section>
 
-      {/* CTA */}
-      <section className="py-20 bg-primary text-primary-foreground">
-        <div className="max-w-3xl mx-auto px-6 text-center">
+      {/* ══════════════════════════════════════════════
+          CTA
+          ══════════════════════════════════════════════ */}
+      <section className="py-24 bg-primary text-primary-foreground relative overflow-hidden">
+        {/* decorative blobs */}
+        <div className="absolute -top-20 -left-20 w-72 h-72 rounded-full bg-white/10 blur-3xl pointer-events-none" />
+        <div className="absolute -bottom-20 -right-20 w-96 h-96 rounded-full bg-white/10 blur-3xl pointer-events-none" />
+
+        <div className="max-w-3xl mx-auto px-6 text-center relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
           >
-            <h2 className="font-barlow text-3xl tracking-tighter sm:text-4xl mb-3 font-extrabold">
+            <p className="text-xs font-semibold tracking-widest uppercase text-primary-foreground/60 mb-4">
+              Let's Collaborate
+            </p>
+            <h2 className="font-display text-4xl sm:text-5xl font-extrabold tracking-tight mb-4">
               Need Any Of Our Services?
             </h2>
             <p className="text-primary-foreground/60 mb-10 max-w-lg mx-auto text-sm leading-relaxed">
@@ -433,7 +592,7 @@ const Index = () => {
                 to="/contact"
                 className="inline-block bg-primary-foreground text-primary px-8 py-3.5 text-sm font-medium rounded-md hover:bg-primary-foreground/90 transition-colors"
               >
-                Start A Conversation
+                Get in Touch
               </Link>
               <BookCallSheet
                 trigger={

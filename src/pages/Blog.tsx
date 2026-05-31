@@ -1,6 +1,6 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
-import { CheckCircle } from "lucide-react";
+import { CheckCircle, ArrowUpRight, Search } from "lucide-react";
 import { Link } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -63,96 +63,140 @@ const posts = [
   },
 ];
 
+const categories = ["All", "Engineering", "Design", "UX",];
+
 const Blog = () => {
   const [email, setEmail] = useState("");
   const [subscribed, setSubscribed] = useState(false);
+  const [activeCategory, setActiveCategory] = useState("All");
 
   const handleSubscribe = (e: React.FormEvent) => {
     e.preventDefault();
     if (!email.trim()) return;
     setSubscribed(true);
     setEmail("");
-    // Auto-dismiss after 5 seconds
     setTimeout(() => setSubscribed(false), 5000);
   };
 
+  const filteredPosts = activeCategory === "All" 
+    ? posts 
+    : posts.filter(post => post.category === activeCategory);
+
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background text-foreground selection:bg-primary selection:text-primary-foreground overflow-x-hidden">
       <Navbar />
 
-      {/* Header */}
-      <section className="pt-32 pb-20 border-b border-border">
-        <div className="max-w-6xl mx-auto px-6">
+      {/* ── HEADER & JOURNAL INTRO ── */}
+      <section className="relative pt-40 pb-16 border-b border-border/40 overflow-hidden">
+        <div className="absolute inset-0 -z-10 bg-[linear-gradient(to_right,hsl(var(--border))_1px,transparent_1px)] bg-[size:120px] [mask-image:linear-gradient(to_bottom,black,transparent)] opacity-10" />
+        
+        <div className="max-w-4xl mx-auto px-6">
           <motion.div
-            initial={{ opacity: 0, y: -40 }}
+            initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
+            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
           >
-            <h1 className="font-display text-5xl sm:text-6xl font-extrabold text-foreground leading-tight mb-6">
-              Blogs.
+            <span className="inline-block px-3 py-1 rounded-full bg-secondary text-[10px] font-bold tracking-[0.2em] uppercase mb-6 border border-border">
+              Perspectives & Insights
+            </span>
+            <h1 className="font-display text-5xl sm:text-6xl lg:text-7xl font-extrabold tracking-tighter leading-[0.95] mb-6">
+              The Journal.
             </h1>
-            <p className="text-sm text-muted-foreground max-w-2xl leading-relaxed">
-              Writing about web development, product design, and the lessons
-              learned from building digital products for real businesses.
+            <p className="text-sm text-muted-foreground max-w-xl leading-relaxed font-medium">
+              Deep dives into production web architecture, systematic user interface engineering, and the realities of shipping digital products.
             </p>
           </motion.div>
+
+          {/* Publication Filtering Sub-nav */}
+          <div className="flex flex-wrap items-center justify-between gap-4 mt-16 pt-6 border-t border-border/60">
+            <div className="flex flex-wrap gap-1.5">
+              {categories.map((cat) => (
+                <button
+                  key={cat}
+                  onClick={() => setActiveCategory(cat)}
+                  className={`px-4 py-1.5 rounded-full text-xs font-bold transition-all ${
+                    activeCategory === cat
+                      ? "bg-foreground text-background"
+                      : "bg-secondary text-muted-foreground hover:text-foreground border border-border/30"
+                  }`}
+                >
+                  {cat}
+                </button>
+              ))}
+            </div>
+            <div className="relative hidden sm:block">
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-muted-foreground" />
+              <input 
+                type="text" 
+                placeholder="Search articles..." 
+                className="bg-secondary/60 border border-border/40 rounded-xl pl-9 pr-4 py-2 text-xs font-medium placeholder:text-muted-foreground/50 focus:outline-none focus:border-border transition-colors w-48"
+              />
+            </div>
+          </div>
         </div>
       </section>
 
-      {/* Posts */}
-      <section className="py-20">
+      {/* ── ARTICLES FEED ── */}
+      <section className="py-15">
         <div className="max-w-4xl mx-auto px-6">
-          <StackingCards offset={20} top={100}>
-            {posts.map((post) => (
-              <article
+          <StackingCards offset={12} top={40}>
+            {filteredPosts.map((post) => (
+              <Link
+                to={`/blog/${post.slug}`}
                 key={post.slug}
-                className="group bg-card border border-border rounded-lg p-8 shadow-sm hover:shadow-xs transition-shadow cursor-pointer"
+                className="group block bg-card/40 backdrop-blur-sm border border-border/60 rounded-3xl p-8 lg:p-10 mb-8 last:mb-0 hover:border-border transition-all duration-300 hover:shadow-2xl hover:shadow-black/[0.02]"
               >
-                <div className="flex flex-wrap items-center gap-3 text-xs text-muted-foreground mb-3">
-                  <span className="font-semibold uppercase tracking-wider">
-                    {post.category}
-                  </span>
-                  <span>·</span>
-                  <span>{post.date}</span>
-                  <span>·</span>
-                  <span>{post.readTime}</span>
-                </div>
-                <h2 className="font-display text-2xm font-semibold text-foreground mb-3 group-hover:text-muted-foreground transition-colors">
-                  {post.title}
-                </h2>
-                <p className="text-muted-foreground text-sm leading-relaxed max-w-2xl">
-                  {post.excerpt}
-                </p>
-              </article>
+                <article>
+                  <div className="flex flex-wrap items-center gap-3 text-[11px] font-bold text-muted-foreground mb-4">
+                    <span className="text-foreground tracking-wider uppercase bg-secondary px-2.5 py-1 rounded-md border border-border/20">
+                      {post.category}
+                    </span>
+                    <span className="text-muted-foreground/40">•</span>
+                    <span className="font-medium">{post.date}</span>
+                    <span className="text-muted-foreground/40">•</span>
+                    <span className="font-medium">{post.readTime}</span>
+                  </div>
+
+                  <div className="flex items-start justify-between gap-6 mb-4">
+                    <h2 className="font-display text-xl sm:text-2xl font-bold text-foreground tracking-tight group-hover:text-muted-foreground transition-colors leading-tight">
+                      {post.title}
+                    </h2>
+                    <div className="shrink-0 w-8 h-8 rounded-full border border-border/60 flex items-center justify-center group-hover:bg-foreground group-hover:border-foreground transition-all duration-300">
+                      <ArrowUpRight className="w-3.5 h-3.5 text-muted-foreground group-hover:text-background transition-colors" />
+                    </div>
+                  </div>
+
+                  <p className="text-muted-foreground text-sm leading-relaxed max-w-3xl font-medium">
+                    {post.excerpt}
+                  </p>
+                </article>
+              </Link>
             ))}
           </StackingCards>
         </div>
       </section>
 
-      {/* Newsletter CTA */}
-      <section className="py-20 bg-primary text-primary-foreground">
+      {/* ── SUBSCRIPTION OVERLAY BAR ── */}
+      <section className="py-24 border-t border-border/40 relative overflow-hidden bg-secondary/20">
         <div className="max-w-3xl mx-auto px-6 text-center">
-          <h2 className="font-display text-4xl sm:text-5xl font-extrabold mb-4">
-            Stay In The Loop
+          <h2 className="font-display tracking-tighter text-3xl sm:text-4xl font-extrabold text-foreground mb-3">
+            Subscribe to the dispatch.
           </h2>
-          <p className="text-primary-foreground/60 text-sm mb-8 max-w-md mx-auto">
-            Get occasional updates on new articles, projects, and insights. No
-            spam, unsubscribe anytime.
+          <p className="text-muted-foreground text-sm mb-10 max-w-md mx-auto font-medium leading-relaxed">
+            Get early technical updates and long-form breakdowns once a month directly in your inbox. No spam.
           </p>
 
-          {/* Success banner */}
           <AnimatePresence>
             {subscribed && (
               <motion.div
-                initial={{ opacity: 0, y: -10, scale: 0.97 }}
-                animate={{ opacity: 1, y: 0, scale: 1 }}
-                exit={{ opacity: 0, y: -10, scale: 0.97 }}
-                transition={{ duration: 0.3 }}
-                className="flex items-center justify-center gap-3 bg-primary-foreground/15 border border-primary-foreground/25 rounded-lg px-5 py-4 mb-6 max-w-md mx-auto"
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -10 }}
+                className="flex items-center justify-center gap-2.5 bg-foreground text-background rounded-2xl px-5 py-3.5 mb-6 max-w-md mx-auto border border-foreground shadow-lg shadow-black/10"
               >
-                <CheckCircle className="h-5 w-5 text-primary-foreground shrink-0" />
-                <p className="text-sm font-medium text-primary-foreground">
-                  You're subscribed! Thanks for joining.
+                <CheckCircle className="h-4 w-4 shrink-0" />
+                <p className="text-xs font-bold">
+                  Successfully added. Welcome aboard.
                 </p>
               </motion.div>
             )}
@@ -160,21 +204,21 @@ const Blog = () => {
 
           <form
             onSubmit={handleSubscribe}
-            className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto"
+            className="flex flex-col sm:flex-row gap-2 max-w-md mx-auto p-1.5 bg-card border border-border/80 rounded-2xl shadow-xl shadow-black/[0.02]"
           >
             <input
               type="email"
               required
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              placeholder="your@email.com"
-              className="flex-1 bg-primary-foreground/10 border border-primary-foreground/20 rounded-md px-4 py-3 text-sm text-primary-foreground placeholder:text-primary-foreground/40 focus:outline-none focus:ring-2 focus:ring-primary-foreground/30"
+              placeholder="Enter your email address"
+              className="flex-1 bg-transparent px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground/50 focus:outline-none"
             />
             <button
               type="submit"
-              className="bg-primary-foreground text-primary px-6 py-3 text-sm font-medium rounded-md hover:bg-primary-foreground/90 transition-colors"
+              className="bg-foreground text-background px-6 py-3 text-xs font-bold rounded-xl hover:opacity-90 transition-all active:scale-[0.98] whitespace-nowrap"
             >
-              Subscribe
+              Join List
             </button>
           </form>
         </div>
