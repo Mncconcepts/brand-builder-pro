@@ -1,6 +1,21 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
-import { Calendar as CalendarIcon, ArrowUpRight, CheckCircle2, Code2, Palette, Zap, Trophy, Users, MessageSquare, Layers } from "lucide-react";
+import { 
+  Calendar as CalendarIcon, 
+  ArrowUpRight, 
+  CheckCircle2, 
+  Code2, 
+  Palette, 
+  Zap, 
+  Trophy, 
+  Users, 
+  MessageSquare, 
+  Layers, 
+  Monitor, 
+  Database, 
+  Terminal, 
+  PenTool 
+} from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import BookCallSheet from "@/components/BookCallSheet";
@@ -8,30 +23,22 @@ import BookCallSheet from "@/components/BookCallSheet";
 const skillGroups = [
   {
     label: "Frontend",
-    color: "text-foreground",
-    bg: "bg-secondary/50",
-    border: "border-border",
+    icon: Monitor,
     skills: ["React / Next.js", "React Native", "Flutter", "TypeScript", "Tailwind CSS"],
   },
   {
     label: "Backend",
-    color: "text-foreground",
-    bg: "bg-secondary/50",
-    border: "border-border",
+    icon: Database,
     skills: ["Node.js", "Express", "MongoDB", "PostgreSQL", "Firebase"],
   },
   {
     label: "Design",
-    color: "text-foreground",
-    bg: "bg-secondary/50",
-    border: "border-border",
+    icon: PenTool,
     skills: ["Figma", "UI/UX Design", "Design Systems", "Prototyping"],
   },
   {
     label: "Workflow",
-    color: "text-foreground",
-    bg: "bg-secondary/50",
-    border: "border-border",
+    icon: Terminal,
     skills: ["Git & CI/CD", "Agile / Scrum", "REST & GraphQL", "Python"],
   },
 ];
@@ -45,9 +52,6 @@ const experience = [
     description:
       "Leading product design for startups and established brands. Creating user-centered designs, conducting user research, building prototypes, and delivering scalable design systems that drive business outcomes.",
     icon: Palette,
-    accent: "text-foreground",
-    accentBg: "bg-secondary",
-    accentBorder: "border-border",
   },
   {
     role: "Product Designer",
@@ -57,9 +61,6 @@ const experience = [
     description:
       "Designed intuitive interfaces for e-commerce, SaaS, and fintech products. Led user research sessions, created wireframes and high-fidelity prototypes, and collaborated with engineering to ensure pixel-perfect implementation.",
     icon: Code2,
-    accent: "text-foreground",
-    accentBg: "bg-secondary",
-    accentBorder: "border-border",
   },
   {
     role: "UI/UX Designer",
@@ -69,9 +70,6 @@ const experience = [
     description:
       "Started as a web designer creating marketing pages, quickly transitioned into product design roles. Built user flows, designed component libraries, and learned to code to better communicate with developers.",
     icon: Zap,
-    accent: "text-foreground",
-    accentBg: "bg-secondary",
-    accentBorder: "border-border",
   },
 ];
 
@@ -136,15 +134,15 @@ const About = () => {
                 </h1>
               </div>
               <div className="pb-2">
-                <p className="text-sm text-muted-foreground leading-relaxed mb-6">
+                <p className="text-sm text-muted-foreground leading-relaxed mb-7">
                   We are a multidisciplinary creative team with over 4 years of experience bridging
                   the gap between design and development. We collaborate with startups and established
                   brands to craft digital products that are both visually compelling and technically robust.
                 </p>
-                <div className="flex flex-wrap gap-3">
+                <div className="flex flex-wrap gap-2">
                   <Link
                     to="/contact"
-                    className="inline-flex items-center gap-2 bg-foreground text-background px-6 py-2.5 text-sm font-bold rounded-lg hover:opacity-90 transition-all hover:-translate-y-0.5"
+                    className="inline-flex items-center gap-2 bg-foreground text-background px-6 py-2.8 text-sm font-bold rounded-lg hover:opacity-90 transition-all hover:-translate-y-0.5"
                   >
                     Work With Us <ArrowUpRight className="w-3.5 h-3.5" />
                   </Link>
@@ -179,60 +177,84 @@ const About = () => {
         </div>
       </section>
 
-      {/* ── APPROACH + SKILLS ── */}
+      {/* ── APPROACH + UPDATED MODERN CORE SKILLS ── */}
       <section className="py-28">
         <div className="max-w-6xl mx-auto px-6">
-          <div className="grid lg:grid-cols-2 gap-16">
+          <div className="grid grid-cols-1 gap-20">
+            {/* Approach Block */}
             <motion.div
-              initial={{ opacity: 0, x: -24 }}
-              whileInView={{ opacity: 1, x: 0 }}
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.7 }}
+              className="max-w-3xl"
             >
               <p className="text-xs font-bold uppercase tracking-widest text-foreground mb-3">Our Approach</p>
               <h2 className="font-display text-4xl sm:text-5xl font-extrabold text-foreground tracking-tight leading-tight mb-8">
-                Design & Code,<br />in Harmony.
+                Design & Code, in Harmony.
               </h2>
-              <div className="space-y-5">
+              <div className="grid sm:grid-cols-2 gap-6">
                 {[
-                  "Our approach combines design thinking with clean, maintainable code. We believe great products emerge when aesthetics and engineering work in harmony — not in opposition.",
-                  "Every pixel has a purpose, every line of code tells a story. We focus on creating digital experiences that not only look beautiful but perform flawlessly under real-world conditions.",
-                  "Whether it's a complex web application, a brand identity, or a product prototype, we bring the same level of care and craftsmanship to every project.",
+                  "Our approach combines design thinking with clean, maintainable code. We believe great products emerge when aesthetics and engineering work in harmony.",
+                  "Every pixel has a purpose, every line of code tells a story. We focus on creating digital experiences that perform flawlessly under real-world conditions.",
                 ].map((p, i) => (
                   <div key={i} className="flex gap-4">
-                    <CheckCircle2 className="w-3.5 h-3.5 text-foreground shrink-0 mt-1" />
+                    <CheckCircle2 className="w-4 h-4 text-primary shrink-0 mt-1" />
                     <p className="text-sm text-muted-foreground leading-relaxed">{p}</p>
                   </div>
                 ))}
               </div>
             </motion.div>
 
+            {/* MODERN CORE SKILLS SECTION */}
             <motion.div
-              initial={{ opacity: 0, x: 24 }}
-              whileInView={{ opacity: 1, x: 0 }}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.7, delay: 0.1 }}
+              transition={{ duration: 0.8 }}
             >
-              <p className="text-xs font-bold uppercase tracking-widest text-foreground mb-3">Technical Stack</p>
-              <h3 className="font-display text-2xl font-bold text-foreground mb-8">Core Skills</h3>
-              <div className="space-y-5">
-                {skillGroups.map((group) => (
-                  <div key={group.label}>
-                    <p className="text-[10px] font-extrabold uppercase tracking-widest mb-2.5 text-muted-foreground">
-                      {group.label}
-                    </p>
-                    <div className="flex flex-wrap gap-2">
-                      {group.skills.map((skill) => (
-                        <span
-                          key={skill}
-                          className="text-xs font-medium px-3 py-1.5 rounded-lg border border-border bg-secondary text-foreground cursor-default hover:bg-foreground hover:text-background transition-all"
-                        >
-                          {skill}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-                ))}
+              <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-12 gap-4">
+                <div>
+                  <p className="text-xs font-bold uppercase tracking-[0.2em] text-muted-foreground mb-3">Technical Stack</p>
+                  <h3 className="font-display text-3xl sm:text-4xl font-extrabold text-foreground">Core Skills.</h3>
+                </div>
+                <p className="text-sm text-muted-foreground max-w-xs leading-relaxed">
+                  We use a modern toolkit to build scalable, high-performance digital solutions.
+                </p>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                {skillGroups.map((group, groupIdx) => {
+                  const Icon = group.icon;
+                  return (
+                    <motion.div
+                      key={group.label}
+                      initial={{ opacity: 0, y: 20 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ delay: groupIdx * 0.1, duration: 0.5 }}
+                      className="group bg-secondary/30 border border-border/50 rounded-2xl p-6 hover:bg-secondary/50 hover:border-border transition-all duration-300"
+                    >
+                      <div className="flex items-center gap-3 mb-6">
+                        <div className="w-10 h-10 rounded-xl bg-background border border-border flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                          <Icon className="w-5 h-5 text-foreground" />
+                        </div>
+                        <h4 className="text-xs font-extrabold uppercase tracking-widest text-foreground">{group.label}</h4>
+                      </div>
+                      
+                      <div className="flex flex-wrap gap-2">
+                        {group.skills.map((skill) => (
+                          <span
+                            key={skill}
+                            className="text-[11px] font-semibold px-3 py-1.5 rounded-lg border border-border bg-background/50 text-muted-foreground hover:text-foreground hover:border-foreground/20 transition-colors cursor-default"
+                          >
+                            {skill}
+                          </span>
+                        ))}
+                      </div>
+                    </motion.div>
+                  );
+                })}
               </div>
             </motion.div>
           </div>

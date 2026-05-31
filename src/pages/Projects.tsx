@@ -182,7 +182,7 @@ const Projects = () => {
             <span className="inline-block px-3 py-1 rounded-full bg-secondary text-[10px] font-bold tracking-[0.2em] uppercase mb-6 border border-border">
               Portfolio
             </span>
-            <h1 className="font-display text-6xl sm:text-7xl lg:text-8xl font-extrabold tracking-tighter leading-[0.9] mb-8">
+            <h1 className="font-display text-6xl sm:text-6xl lg:text-8xl font-extrabold tracking-tight leading-[0.9] mb-8">
               All Selected <br />
               <span className="text-muted-foreground/40"> Projects </span>
             </h1>
@@ -234,7 +234,7 @@ const Projects = () => {
               {filteredProjects.map((project) => (
                 <article
                   key={project.title}
-                  className="group grid lg:grid-cols-[1fr_2fr] gap-8 border border-border rounded-lg p-6 lg:p-8 bg-card hover:shadow-sm transition-shadow cursor-pointer mb-10"
+                  className="group grid lg:grid-cols-[1fr_2fr] gap-8 border border-border rounded-xl p-6 lg:p-8 bg-card hover:shadow-sm transition-shadow cursor-pointer mb-10"
                 >
                   <div className="bg-secondary aspect-[16/12] rounded-md flex items-center justify-center overflow-hidden">
                     {project.image ? (
@@ -245,17 +245,17 @@ const Projects = () => {
                         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                       />
                     ) : (
-                      <span className="font-barlow text-4xl font-bold text-primary">
+                      <span className="font-display text-4xl font-bold text-primary">
                         {project.year}
                       </span>
                     )}
                   </div>
 
                   <div className="flex flex-col justify-center">
-                    <p className="text-xs font-semibold tracking-widest uppercase text-muted-foreground mb-2">
+                    <p className="text-xs font-semibold tracking-wide uppercase text-muted-foreground mb-2">
                       {project.category}
                     </p>
-                    <h3 className="font-display text-2xl font-bold text-foreground mb-3">
+                    <h3 className="font-display text-2xm font-bold text-foreground mb-3">
                       {project.title}
                     </h3>
                     <p className="text-muted-foreground text-sm leading-relaxed max-w-lg mb-4">

@@ -1,6 +1,6 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
-import { CheckCircle, ArrowUpRight, Search } from "lucide-react";
+import { CheckCircle, ArrowUpRight, Search, Lock } from "lucide-react";
 import { Link } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -63,7 +63,7 @@ const posts = [
   },
 ];
 
-const categories = ["All", "Engineering", "Design", "UX",];
+const categories = ["All", "Engineering", "Design", "UX"];
 
 const Blog = () => {
   const [email, setEmail] = useState("");
@@ -107,7 +107,6 @@ const Blog = () => {
             </p>
           </motion.div>
 
-          {/* Publication Filtering Sub-nav */}
           <div className="flex flex-wrap items-center justify-between gap-4 mt-16 pt-6 border-t border-border/60">
             <div className="flex flex-wrap gap-1.5">
               {categories.map((cat) => (
@@ -141,11 +140,18 @@ const Blog = () => {
         <div className="max-w-4xl mx-auto px-6">
           <StackingCards offset={12} top={40}>
             {filteredPosts.map((post) => (
+              /* REDIRECTION LOGIC: We point to an undefined /404 path to trigger the page */
               <Link
-                to={`/blog/${post.slug}`}
+                to="/content-archived-or-unavailable"
                 key={post.slug}
-                className="group block bg-card/40 backdrop-blur-sm border border-border/60 rounded-3xl p-8 lg:p-10 mb-8 last:mb-0 hover:border-border transition-all duration-300 hover:shadow-2xl hover:shadow-black/[0.02]"
+                className="group block bg-card/40 backdrop-blur-sm border border-border/60 rounded-3xl p-8 lg:p-10 mb-8 last:mb-0 hover:border-border transition-all duration-300 hover:shadow-2xl hover:shadow-black/[0.02] relative overflow-hidden"
               >
+                {/* Visual Hint of "Locked" Content */}
+                <div className="absolute top-4 right-10 flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                   <Lock className="w-3 h-3 text-muted-foreground" />
+                   <span className="text-[9px] font-bold uppercase tracking-widest text-muted-foreground">Coming Soon</span>
+                </div>
+
                 <article>
                   <div className="flex flex-wrap items-center gap-3 text-[11px] font-bold text-muted-foreground mb-4">
                     <span className="text-foreground tracking-wider uppercase bg-secondary px-2.5 py-1 rounded-md border border-border/20">
@@ -176,7 +182,7 @@ const Blog = () => {
         </div>
       </section>
 
-      {/* ── SUBSCRIPTION OVERLAY BAR ── */}
+      {/* ── SUBSCRIPTION SECTION ── */}
       <section className="py-24 border-t border-border/40 relative overflow-hidden bg-secondary/20">
         <div className="max-w-3xl mx-auto px-6 text-center">
           <h2 className="font-display tracking-tighter text-3xl sm:text-4xl font-extrabold text-foreground mb-3">

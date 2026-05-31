@@ -14,7 +14,15 @@ import {
 } from "lucide-react";
 
 /* ─── Skeleton Component ─── */
-const SkeletonImage = ({ src, alt, className }: { src: string; alt: string; className?: string }) => {
+const SkeletonImage = ({
+  src,
+  alt,
+  className,
+}: {
+  src: string;
+  alt: string;
+  className?: string;
+}) => {
   const [isLoaded, setIsLoaded] = useState(false);
 
   return (
@@ -118,7 +126,7 @@ const featuredServices = [
     number: "02",
     title: "Product Design",
     desc: "User-centered design that drives engagement and business results.",
-    image: "/omapost4.png",
+    image: "/proj-oma.png",
     bullets: [
       "End-to-end UX research",
       "Wireframing & prototyping",
@@ -130,7 +138,7 @@ const featuredServices = [
     number: "03",
     title: "UI/UX Design",
     desc: "Intuitive interfaces and seamless experiences across all devices.",
-    image: "/post1dap.png",
+    image: "/post-2dap.png",
     bullets: [
       "Interface & interaction design",
       "Design systems & component libraries",
@@ -574,21 +582,20 @@ const Index = () => {
               Let's discuss how we can help bring your vision to life with clean
               code and thoughtful design.
             </p>
-            <div className="flex flex-wrap gap-3 justify-center">
+            <div className="flex flex-col sm:flex-row gap-3 justify-center">
               <Link
                 to="/contact"
-                className="inline-block bg-primary-foreground text-primary px-8 py-3.5 text-sm font-medium rounded-md hover:bg-primary-foreground/90 transition-colors"
+                className="inline-flex items-center justify-center gap-2 bg-background text-foreground px-8 py-3.5 text-sm font-bold rounded-xl hover:opacity-90 transition-all hover:-translate-y-0.5"
               >
-                Get in Touch
+                Get in Touch <ArrowUpRight className="w-3.5 h-3.5" />
               </Link>
               <BookCallSheet
                 trigger={
                   <button
                     type="button"
-                    className="inline-flex items-center gap-2 border border-primary-foreground/40 text-primary-foreground px-8 py-3.5 text-sm font-medium rounded-md hover:bg-primary-foreground/10 transition-colors"
+                    className="inline-flex items-center justify-center gap-2 border-2 border-background/30 text-background px-8 py-3.5 text-sm font-bold rounded-xl hover:bg-background/10 transition-all hover:-translate-y-0.5"
                   >
-                    <CalendarIcon className="h-4 w-4" />
-                    Book A Call Session
+                    <CalendarIcon className="h-3.5 w-3.5" /> Book A Call Session
                   </button>
                 }
               />
