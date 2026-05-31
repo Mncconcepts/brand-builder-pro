@@ -150,6 +150,11 @@ const categories = ["All", "Web", "Mobile", "Logo"];
 const Projects = () => {
   const [activeCategory, setActiveCategory] = useState("All");
   const [searchQuery, setSearchQuery] = useState("");
+  const [loadedImages, setLoadedImages] = useState<Record<string, boolean>>({});
+
+  const handleImageLoad = (title: string) => {
+    setLoadedImages((prev) => ({ ...prev, [title]: true }));
+  };
 
   const filteredProjects = projects.filter((project) => {
     const matchesSearch = 
@@ -236,14 +241,25 @@ const Projects = () => {
                   key={project.title}
                   className="group grid lg:grid-cols-[1fr_2fr] gap-8 border border-border rounded-xl p-6 lg:p-8 bg-card hover:shadow-sm transition-shadow cursor-pointer mb-10"
                 >
-                  <div className="bg-secondary aspect-[16/12] rounded-md flex items-center justify-center overflow-hidden">
+                  <div className="relative bg-secondary aspect-[16/12] rounded-md flex items-center justify-center overflow-hidden">
                     {project.image ? (
-                      <img
-                        src={project.image}
-                        alt={project.title}
-                        loading="lazy"
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                      />
+                      <>
+                        {/* ── SKELETON LOADING SHIMMER ANIMATION ── */}
+                        {!loadedImages[project.title] && (
+                          <div className="absolute inset-0 bg-muted/60 overflow-hidden z-10 rounded-md">
+                            <div className="w-full h-full animate-pulse bg-gradient-to-r from-transparent via-muted-foreground/10 to-transparent" style={{ backgroundSize: '200% 100%' }} />
+                          </div>
+                        )}
+                        <img
+                          src={project.image}
+                          alt={project.title}
+                          loading="lazy"
+                          onLoad={() => handleImageLoad(project.title)}
+                          className={`w-full h-full object-cover group-hover:scale-105 transition-all duration-500 ${
+                            loadedImages[project.title] ? "opacity-100 scale-100" : "opacity-0 scale-95"
+                          }`}
+                        />
+                      </>
                     ) : (
                       <span className="font-display text-4xl font-bold text-primary">
                         {project.year}

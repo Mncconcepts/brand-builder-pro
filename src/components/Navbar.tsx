@@ -25,7 +25,7 @@ const Navbar = () => {
           {/* ── Brand Logo & Profile Image Group ── */}
           <Link to="/" className="flex items-center gap-3 group select-none">
             {/* Profile Avatar Container */}
-            <div className="relative w-9 h-9 shrink-0 overflow-hidden rounded-lg border border-border/40 bg-secondary/50 group-hover:border-foreground/20 transition-all duration-300">
+            <div className="relative w-9 h-9  shrink-0 overflow-hidden rounded-lg border border-border/40 bg-secondary/50 group-hover:border-foreground/20 transition-all duration-300">
               <img 
                 src="/profile3.jpg" 
                 alt="Profile" 
