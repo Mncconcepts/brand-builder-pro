@@ -248,7 +248,7 @@ const Index = () => {
             <div className="flex flex-wrap gap-3 mb-10">
               <Link
                 to="/projects"
-                className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-7 py-3 text-sm font-semibold rounded-lg hover:bg-primary/90 transition-all hover:-translate-y-0.5 shadow-lg shadow-primary/20"
+                className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-7 py-3 text-sm font-semibold rounded-lg hover:bg-primary/90 transition-all hover:-translate-y-0.5"
               >
                 View Projects <ArrowUpRight className="w-4 h-4" />
               </Link>
@@ -331,7 +331,7 @@ const Index = () => {
 
             <div className="absolute -bottom-5 -left-6 flex items-center gap-3 bg-card border border-border rounded-xl px-4 py-3 shadow-xl backdrop-blur-md">
               <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center">
-                <span className="text-lg"></span>
+                <span><ArrowUpRight className="w-4 h-4" /></span>
               </div>
               <div>
                 <p className="text-xs font-bold text-foreground">
@@ -358,7 +358,7 @@ const Index = () => {
 
       <section className="border-y border-border bg-secondary/30">
         <div ref={statsRef} className="max-w-6xl mx-auto px-6 py-16">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-10">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-20">
             {stats.map((stat, i) => (
               <motion.div
                 key={stat.label}
@@ -554,8 +554,8 @@ const Index = () => {
             <p className="text-xs font-semibold tracking-wide uppercase text-primary mb-2">
               Client Reviews
             </p>
-            <h2 className="font-display text-4xl sm:text-5xl text-foreground font-extrabold">
-              What Clients Say.
+            <h2 className="font-display text-4xl sm:text-5xl tracking-tight text-foreground font-extrabold">
+              Testimonials.
             </h2>
           </motion.div>
           <TestimonialsCarousel items={testimonials} />

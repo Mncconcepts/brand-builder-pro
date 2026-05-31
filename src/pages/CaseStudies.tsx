@@ -237,7 +237,7 @@ const CaseStudies = () => {
             <h2 className="font-display text-4xl sm:text-5xl font-extrabold tracking-tight mb-4">
               Let's Build Something Real.
             </h2>
-            <p className="opacity-60 text-sm max-w-md mx-auto leading-relaxed mb-10">
+            <p className="opacity-60 text-sm max-w-md mx-auto leading-relaxed mb-9">
               Let us discuss how we can deliver measurable impact for your business
             </p>
             <div className="flex flex-col sm:flex-row gap-3 justify-center">

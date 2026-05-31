@@ -370,7 +370,7 @@ const About = () => {
             <h2 className="font-display text-4xl sm:text-5xl font-extrabold tracking-tight mb-4">
               Interested in Working With Us?
             </h2>
-            <p className="opacity-60 text-sm max-w-md mx-auto leading-relaxed mb-10">
+            <p className="opacity-60 text-sm max-w-md mx-auto leading-relaxed mb-8">
               We are always open to new opportunities and collaborations. Let's build something great together.
             </p>
             <div className="flex flex-col sm:flex-row gap-3 justify-center">

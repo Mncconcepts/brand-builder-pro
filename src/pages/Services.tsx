@@ -413,8 +413,8 @@ const Services = () => {
             viewport={{ once: true }}
             className="mb-16 text-center"
           >
-            <p className="text-[10px] font-bold tracking-[0.2em] uppercase text-muted-foreground mb-3">Transparent Pricing</p>
-            <h2 className="font-display text-4xl sm:text-5xl text-foreground font-extrabold mb-4">
+            <p className="text-[10px] font-bold tracking-[0.2em] uppercase text-muted-foreground mb-2">Transparent Pricing</p>
+            <h2 className="font-display text-4xl sm:text-5xl tracking-tight text-foreground font-extrabold mb-3">
               Investment Tiers
             </h2>
           </motion.div>
@@ -483,13 +483,13 @@ const Services = () => {
       <section className="py-20 bg-foreground text-background relative overflow-hidden">
         <div className="max-w-3xl mx-auto px-6 text-center relative z-10">
           <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
-            <p className="text-[10px] font-bold uppercase tracking-widest opacity-40 mb-4">
+            <p className="text-[10px] font-bold uppercase tracking-widest opacity-40 mb-3">
               Ready When You Are
             </p>
-            <h2 className="font-display text-4xl sm:text-5xl font-extrabold tracking-tight mb-4">
+            <h2 className="font-display text-4xl sm:text-5xl font-extrabold tracking-tight mb-3">
               Let's Build Something Real.
             </h2>
-            <p className="opacity-60 text-sm max-w-md mx-auto leading-relaxed mb-10">
+            <p className="opacity-60 text-sm max-w-md mx-auto leading-relaxed mb-9">
               Tell us what you're working on. We'll get back within 24 hours with a clear path forward.
             </p>
             <div className="flex flex-col sm:flex-row gap-3 justify-center">

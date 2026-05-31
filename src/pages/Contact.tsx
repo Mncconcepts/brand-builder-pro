@@ -88,8 +88,8 @@ const Contact = () => {
               <span className="text-[10px] font-bold text-foreground tracking-widest uppercase">Contact Us</span>
             </div>
 
-            <h1 className="font-display text-5xl sm:text-6xl lg:text-7xl text-foreground leading-[1.05] font-extrabold tracking-tight mb-6">
-              Send Us Direct Messages.
+            <h1 className="font-display text-5xl sm:text-6xl lg:text-7xl text-foreground leading-[1.05] font-extrabold tracking-tight mb-4">
+              Need Help? Send Us Direct Messages.
             </h1>
             <p className="text-sm text-muted-foreground max-w-xl leading-relaxed">
               Have a project in mind or want to discuss a potential

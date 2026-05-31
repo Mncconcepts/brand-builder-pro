@@ -22,20 +22,30 @@ const Navbar = () => {
       <nav className="max-w-6xl mx-auto bg-background/70 backdrop-blur-xl border border-border/50 rounded-2xl shadow-xl shadow-black/[0.03] pointer-events-auto transition-all">
         <div className="px-6 flex items-center justify-between h-16">
           
-          {/* Brand Logo */}
-          <Link to="/" className="flex items-center gap-0 group select-none">
+          {/* ── Brand Logo & Profile Image Group ── */}
+          <Link to="/" className="flex items-center gap-3 group select-none">
+            {/* Profile Avatar Container */}
+            <div className="relative w-9 h-9 shrink-0 overflow-hidden rounded-lg border border-border/40 bg-secondary/50 group-hover:border-foreground/20 transition-all duration-300">
+              <img 
+                src="/profile3.jpg" 
+                alt="Profile" 
+                className="w-full h-full object-cover transform transition-transform duration-500 group-hover:scale-110"
+                loading="eager"
+              />
+            </div>
+
             <div className="flex flex-col leading-none">
               <span className="font-display text-base font-black tracking-tight text-foreground group-hover:text-muted-foreground transition-colors">
                 Mncconcepts.
               </span>
-              <span className="text-[6.5px] font-black tracking-[0.3em] uppercase text-muted-foreground/80 mt-0.5">
+              <span className="text-[6.5px] font-black tracking-[0.3em] uppercase text-muted-foreground/80 mt-1">
                 Development & Design
               </span>
             </div>
           </Link>
 
           {/* Desktop Items */}
-          <ul className="hidden md:flex items-center gap-1 bg-secondary/30 p-1 rounded-xl border border-border/20">
+          <ul className="hidden lg:flex items-center gap-1 bg-secondary/30 p-1 rounded-xl border border-border/20">
             {navItems.map((item) => {
               const isActive = location.pathname === item.href;
               return (

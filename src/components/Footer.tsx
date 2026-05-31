@@ -12,12 +12,12 @@ const Footer = () => {
           <div className="md:col-span-5 lg:col-span-6">
             <Link 
               to="/" 
-              className="text-xl font-bold tracking-tighter text-foreground hover:opacity-70 transition-opacity"
+              className="text-xm font-bold tracking-tighter text-foreground hover:opacity-70 transition-opacity"
             >
               Mncconcepts<span className="text-muted-foreground opacity-50">.</span>
             </Link>
             <p className="mt-6 text-sm text-muted-foreground leading-relaxed max-w-sm">
-              An independent web developer and product designer crafting digital experiences 
+              An independent team of developers and designers crafting digital experiences 
               that bridge the gap between complex engineering and human-centric design.
             </p>
           </div>
