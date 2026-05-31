@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { motion, useInView } from "framer-motion";
+import { motion, useInView, AnimatePresence } from "framer-motion";
 import { useRef, useEffect, useState } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -12,6 +12,39 @@ import {
   Star,
   Sparkles,
 } from "lucide-react";
+
+/* ─── Skeleton Component ─── */
+const SkeletonImage = ({ src, alt, className }: { src: string; alt: string; className?: string }) => {
+  const [isLoaded, setIsLoaded] = useState(false);
+
+  return (
+    <div className={`relative overflow-hidden ${className}`}>
+      {/* Shimmer/Skeleton Effect */}
+      <AnimatePresence>
+        {!isLoaded && (
+          <motion.div
+            initial={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="absolute inset-0 z-10 bg-muted/20"
+          >
+            <motion.div
+              className="w-full h-full bg-gradient-to-r from-transparent via-muted-foreground/10 to-transparent"
+              animate={{ x: ["-100%", "100%"] }}
+              transition={{ repeat: Infinity, duration: 1.5, ease: "linear" }}
+            />
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      <img
+        src={src}
+        alt={alt}
+        onLoad={() => setIsLoaded(true)}
+        className={`${className} transition-opacity duration-500 ${isLoaded ? "opacity-100" : "opacity-0"}`}
+      />
+    </div>
+  );
+};
 
 function useCountUp(target: number, duration = 1800, triggered = false) {
   const [count, setCount] = useState(0);
@@ -63,7 +96,6 @@ const stats = [
   { value: "99%", label: "Client Satisfaction" },
 ];
 
-/* Trusted client avatars — replace srcs with real photos */
 const trustedAvatars = [
   { src: "/cc1.png", name: "Oonsa" },
   { src: "/cc2.png", name: "Oonsa" },
@@ -156,9 +188,6 @@ const testimonials = [
   },
 ];
 
-/* ════════════════════════════════════════════════════════════════
-   COMPONENT
-   ════════════════════════════════════════════════════════════════ */
 const Index = () => {
   const statsRef = useRef<HTMLDivElement>(null);
   const statsInView = useInView(statsRef, { once: true, margin: "-80px" });
@@ -167,11 +196,7 @@ const Index = () => {
     <div className="min-h-screen bg-background overflow-x-hidden">
       <Navbar />
 
-      {/* ══════════════════════════════════════════════
-          HERO
-          ══════════════════════════════════════════════ */}
       <section className="relative min-h-screen flex items-center pt-8">
-        {/* Background decorative blobs */}
         <div className="absolute inset-0 -z-10 overflow-hidden pointer-events-none">
           <div className="absolute -top-24 -left-24 w-[500px] h-[500px] rounded-full bg-primary/5 blur-[120px]" />
           <div className="absolute top-1/2 -right-32 w-[400px] h-[400px] rounded-full bg-blue-500/5 blur-[100px]" />
@@ -185,12 +210,9 @@ const Index = () => {
             transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
             className="flex flex-col"
           >
-            {/* ── Modern hero badge ── */}
             <div className="mb-6 flex items-center gap-3">
               <div className="relative inline-flex items-center gap-2 px-4 py-2 rounded-full border border-primary/25 bg-primary/8 backdrop-blur-sm group cursor-default select-none overflow-hidden">
-                {/* animated gradient sweep */}
                 <span className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-700 bg-gradient-to-r from-transparent via-primary/10 to-transparent" />
-                {/* pulse dot */}
                 <span className="relative flex h-2 w-2 shrink-0">
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-60" />
                   <span className="relative inline-flex rounded-full h-2 w-2 bg-primary" />
@@ -202,11 +224,11 @@ const Index = () => {
               </div>
             </div>
 
-            <h1 className="font-display text-5xl sm:text-6xl lg:text-7xl font-extrabold leading-[1.05] tracking-tighter text-foreground mb-6">
+            <h1 className="font-display text-6xl sm:text-6xl lg:text-7xl font-extrabold leading-[1.05] tracking-tighter text-foreground mb-6">
               <TypewriterText
                 text="Creating Digital Experiences That Work."
                 speed={55}
-                startDelay={250}
+                startDelay={200}
               />
             </h1>
 
@@ -215,7 +237,6 @@ const Index = () => {
               thoughtful digital experiences that drive growth and engagement.
             </p>
 
-            {/* CTA row */}
             <div className="flex flex-wrap gap-3 mb-10">
               <Link
                 to="/projects"
@@ -231,9 +252,7 @@ const Index = () => {
               </Link>
             </div>
 
-            {/* ── Trusted-by avatars ── */}
             <div className="flex items-center gap-2">
-              {/* Overlapping avatar stack */}
               <div className="flex items-center">
                 {trustedAvatars.map((av, i) => (
                   <div
@@ -245,14 +264,13 @@ const Index = () => {
                     }}
                     title={av.name}
                   >
-                    <img
+                    <SkeletonImage
                       src={av.src}
                       alt={av.name}
                       className="w-full h-full object-cover"
                     />
                   </div>
                 ))}
-                {/* +more badge */}
                 <div
                   className="relative w-9 h-9 rounded-full border-2 border-background bg-primary flex items-center justify-center text-[10px] font-bold text-primary-foreground shadow-md"
                   style={{ marginLeft: "-10px", zIndex: 0 }}
@@ -262,7 +280,6 @@ const Index = () => {
               </div>
 
               <div>
-                {/* 5-star row */}
                 <div className="flex items-center gap-0.5 mb-0.5">
                   {Array(5)
                     .fill(0)
@@ -283,7 +300,6 @@ const Index = () => {
             </div>
           </motion.div>
 
-          {/* ── Hero image ── */}
           <motion.div
             initial={{ opacity: 0, scale: 0.95, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
@@ -294,19 +310,17 @@ const Index = () => {
             }}
             className="relative hidden lg:block"
           >
-            {/* Decorative ring */}
             <div className="absolute -inset-4 rounded-2xl border border-border/40 bg-secondary/20 backdrop-blur-sm -z-10" />
             <div className="absolute -inset-1 rounded-xl bg-gradient-to-br from-primary/10 via-transparent to-blue-500/10 -z-10" />
 
             <div className="aspect-[4/3] overflow-hidden rounded-xl border border-border/60 shadow-2xl">
-              <img
+              <SkeletonImage
                 src="/proj-oma.png"
                 alt="Featured project preview"
                 className="w-full h-full object-cover"
               />
             </div>
 
-            {/* Floating stat badge */}
             <div className="absolute -bottom-5 -left-6 flex items-center gap-3 bg-card border border-border rounded-xl px-4 py-3 shadow-xl backdrop-blur-md">
               <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center">
                 <span className="text-lg"></span>
@@ -321,7 +335,6 @@ const Index = () => {
               </div>
             </div>
 
-            {/* Floating availability badge */}
             <div className="absolute -top-4 -right-4 flex items-center gap-2 bg-card border border-border rounded-full px-3 py-2 shadow-lg">
               <span className="relative flex h-2 w-2">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
@@ -335,9 +348,6 @@ const Index = () => {
         </div>
       </section>
 
-      {/* ══════════════════════════════════════════════
-          STATS
-          ══════════════════════════════════════════════ */}
       <section className="border-y border-border bg-secondary/30">
         <div ref={statsRef} className="max-w-6xl mx-auto px-6 py-16">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-10">
@@ -360,9 +370,6 @@ const Index = () => {
         </div>
       </section>
 
-      {/* ══════════════════════════════════════════════
-          SERVICES
-          ══════════════════════════════════════════════ */}
       <section className="py-28">
         <div className="max-w-6xl mx-auto px-6">
           <motion.div
@@ -397,9 +404,8 @@ const Index = () => {
                 transition={{ delay: i * 0.12 }}
                 className="group bg-card border border-border rounded-2xl overflow-hidden shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col"
               >
-                {/* Image with overlay */}
                 <div className="relative w-full h-48 bg-secondary overflow-hidden">
-                  <img
+                  <SkeletonImage
                     src={service.image}
                     alt={service.title}
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
@@ -443,9 +449,6 @@ const Index = () => {
         </div>
       </section>
 
-      {/* ══════════════════════════════════════════════
-          FEATURED PROJECTS — image cards
-          ══════════════════════════════════════════════ */}
       <section className="py-28 bg-secondary/30 border-y border-border">
         <div className="max-w-6xl mx-auto px-6">
           <motion.div
@@ -470,7 +473,6 @@ const Index = () => {
             </Link>
           </motion.div>
 
-          {/* ── Project cards grid ── */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {featuredProjects.map((project, i) => (
               <motion.div
@@ -484,32 +486,26 @@ const Index = () => {
                   to="/projects"
                   className="group flex flex-col bg-card border border-border rounded-2xl overflow-hidden shadow-sm hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 h-full"
                 >
-                  {/* Image area */}
                   <div
                     className={`relative h-52 overflow-hidden bg-gradient-to-br ${project.color}`}
                   >
-                    <img
+                    <SkeletonImage
                       src={project.image}
                       alt={project.title}
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                     />
-                    {/* Gradient overlay */}
                     <div className="absolute inset-0 bg-gradient-to-t from-card via-card/20 to-transparent opacity-0 group-hover:opacity-60 transition-opacity duration-300" />
 
-                    {/* Arrow icon on hover */}
                     <div className="absolute top-3 right-3 w-8 h-8 rounded-full bg-background/80 backdrop-blur-sm border border-border/50 flex items-center justify-center opacity-0 group-hover:opacity-100 translate-x-2 group-hover:translate-x-0 transition-all duration-300 shadow-md">
                       <ArrowUpRight className="w-4 h-4 text-foreground" />
                     </div>
 
-                    {/* Year badge */}
                     <div className="absolute bottom-3 left-3 text-[10px] font-bold text-muted-foreground bg-background/70 backdrop-blur-sm border border-border/40 px-2 py-1 rounded-md">
                       {project.year}
                     </div>
                   </div>
 
-                  {/* Card body */}
                   <div className="p-5 flex flex-col gap-3">
-                    {/* Tags */}
                     <div className="flex items-center gap-2">
                       {project.tags.map((tag) => (
                         <span
@@ -521,12 +517,10 @@ const Index = () => {
                       ))}
                     </div>
 
-                    {/* Title */}
                     <h3 className="font-display text-base font-bold text-foreground group-hover:text-primary transition-colors leading-snug">
                       {project.title}
                     </h3>
 
-                    {/* Category + arrow */}
                     <div className="flex items-center justify-between mt-auto pt-1 border-t border-border/50">
                       <p className="text-xs text-muted-foreground font-medium">
                         {project.category}
@@ -541,9 +535,6 @@ const Index = () => {
         </div>
       </section>
 
-      {/* ══════════════════════════════════════════════
-          TESTIMONIALS
-          ══════════════════════════════════════════════ */}
       <section className="py-28">
         <div className="max-w-6xl mx-auto px-6">
           <motion.div
@@ -553,7 +544,7 @@ const Index = () => {
             className="mb-14"
           >
             <p className="text-xs font-semibold tracking-wide uppercase text-primary mb-2">
-              Client Reviewgi
+              Client Reviews
             </p>
             <h2 className="font-display text-4xl sm:text-5xl text-foreground font-extrabold">
               What Clients Say.
@@ -563,11 +554,7 @@ const Index = () => {
         </div>
       </section>
 
-      {/* ══════════════════════════════════════════════
-          CTA
-          ══════════════════════════════════════════════ */}
       <section className="py-24 bg-primary text-primary-foreground relative overflow-hidden">
-        {/* decorative blobs */}
         <div className="absolute -top-20 -left-20 w-72 h-72 rounded-full bg-white/10 blur-3xl pointer-events-none" />
         <div className="absolute -bottom-20 -right-20 w-96 h-96 rounded-full bg-white/10 blur-3xl pointer-events-none" />
 

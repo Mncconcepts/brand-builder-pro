@@ -167,7 +167,7 @@ const BookCallSheet = ({ trigger }: BookCallSheetProps) => {
                             <User className="w-3 h-3 text-[8px]"  /> Full Name
                           </Label>
                           <Input
-                            id="name" required placeholder="e.g. John Doe" value={name}
+                            id="name" required placeholder="" value={name}
                             onChange={(e) => setName(e.target.value)}
                             className="h-11 rounded-xl bg-secondary/30 border-border/60 text-foreground"
                           />
@@ -178,7 +178,7 @@ const BookCallSheet = ({ trigger }: BookCallSheetProps) => {
                             <Mail className="w-3 h-3" /> Email Address
                           </Label>
                           <Input
-                            id="email" required type="email" placeholder="john@company.com" value={email}
+                            id="email" required type="email" placeholder="" value={email}
                             onChange={(e) => setEmail(e.target.value)}
                             className="h-11 text-[8px] rounded-xl bg-secondary/30 border-border/60 text-foreground"
                           />

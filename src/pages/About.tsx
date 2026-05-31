@@ -122,7 +122,7 @@ const About = () => {
           >
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-border bg-secondary mb-6">
               <span className="w-1.5 h-1.5 rounded-full bg-foreground animate-pulse" />
-              <span className="text-xs font-semibold text-foreground tracking-wide uppercase">Our Story</span>
+              <span className="text-xs font-medium text-foreground tracking-wide uppercase">Our Story</span>
             </div>
 
             <div className="grid lg:grid-cols-2 gap-12 items-end">
