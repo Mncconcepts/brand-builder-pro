@@ -23,7 +23,7 @@ const Navbar = () => {
         <div className="px-6 flex items-center justify-between h-16">
           
           {/* ── Brand Logo & Profile Image Group ── */}
-          <Link to="/" className="flex items-center gap-3 group select-none">
+          <Link to="/" className="flex items-center gap-2 group select-none">
             {/* Profile Avatar Container */}
             <div className="relative w-9 h-9  shrink-0 overflow-hidden rounded-lg border border-border/40 bg-secondary/50 group-hover:border-foreground/20 transition-all duration-300">
               <img 
@@ -38,7 +38,7 @@ const Navbar = () => {
               <span className="font-display text-base font-black tracking-tight text-foreground group-hover:text-muted-foreground transition-colors">
                 Mncconcepts.
               </span>
-              <span className="text-[6.5px] font-black tracking-[0.3em] uppercase text-muted-foreground/80 mt-1">
+              <span className="text-[6.5px] font-black tracking-[0.25em] uppercase text-muted-foreground/80 mt-1">
                 Development & Design
               </span>
             </div>

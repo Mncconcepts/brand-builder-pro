@@ -39,7 +39,7 @@ const projects = [
     year: "Coming Soon",
     tech: ["Figma", "React", "Node.js", "TypeScript", "MongoDB", "Express"],
     image: vgalanding,
-    link: null,
+    link: "https://waitlist.visaguardafrica.com",
     caseStudySlug: "Visa-guard-africa App-Landing",
   },
   
@@ -60,7 +60,7 @@ const projects = [
     year: "2025",
     tech: ["Flutter", "Figma", "Dart", "Firebase"],
     image: projStoreapp2,
-    link: null,
+    link: "https://cvmarket.ng",
     caseStudySlug: "CVMP App",
   },
   {

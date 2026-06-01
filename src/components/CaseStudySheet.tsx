@@ -101,7 +101,7 @@ const caseStudies: CaseStudyData[] = [
       "The most complex challenge is integrating with government embassy databases — many of which have no public API. We are currently working with legal partners to establish data-sharing agreements and building a manual verification fallback in the interim.",
     learnings:
       "Building for vulnerable users demands an unusually high standard of trust design. Every label, every empty state, every error message must communicate safety. This project has fundamentally changed how we think about designing for high-stakes environments.",
-    link: null,
+    link: "https://waitlist.visaguardafrica.com",
   },
   {
     slug: "Oonsa-event-Webapp",
@@ -261,7 +261,7 @@ const caseStudies: CaseStudyData[] = [
       "Designing for a market with strong offline social dynamics was uniquely complex. Features like price negotiation and trust verification had to be reimagined for a digital context without losing the human, relational feel of the original market.",
     learnings:
       "The most impactful design work happens when you deeply understand and respect the existing system you're digitising. Computer Village isn't broken — it's just unscalable. Our job was to amplify what works, not replace it.",
-    link: null,
+    link: "https://cvmarket.ng",
   },
   {
     slug: "Oma-crypto App",

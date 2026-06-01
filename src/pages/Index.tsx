@@ -89,7 +89,7 @@ function AnimatedStat({
       <p className="font-display text-4xl sm:text-5xl font-extrabold text-foreground tracking-tight leading-none">
         {triggered ? `${count}${suffix}` : `0${suffix}`}
       </p>
-      <p className="text-xs text-muted-foreground mt-2 uppercase tracking-widest font-medium">
+      <p className="text-xs text-muted-foreground mt-2 uppercase tracking-tight font-medium">
         {label}
       </p>
     </div>
@@ -232,7 +232,7 @@ const Index = () => {
               </div>
             </div>
 
-            <h1 className="font-display text-6xl sm:text-6xl lg:text-7xl font-extrabold leading-[1.05] tracking-tighter text-foreground mb-6">
+            <h1 className="font-display text-6xl sm:text-6xl lg:text-7xl font-extrabold leading-[1.05] tracking-tighter text-foreground mb-4">
               <TypewriterText
                 text="Creating Digital Experiences That Work."
                 speed={55}
@@ -245,7 +245,7 @@ const Index = () => {
               thoughtful digital experiences that drive growth and engagement.
             </p>
 
-            <div className="flex flex-wrap gap-3 mb-10">
+            <div className="flex flex-wrap gap-3 mb-8">
               <Link
                 to="/projects"
                 className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-7 py-3 text-sm font-semibold rounded-lg hover:bg-primary/90 transition-all hover:-translate-y-0.5"
@@ -357,7 +357,7 @@ const Index = () => {
       </section>
 
       <section className="border-y border-border bg-secondary/30">
-        <div ref={statsRef} className="max-w-6xl mx-auto px-6 py-16">
+        <div ref={statsRef} className="font-display max-w-6xl mx-auto px-6 py-16">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-10">
             {stats.map((stat, i) => (
               <motion.div
