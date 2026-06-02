@@ -65,7 +65,7 @@ const experience = [
   {
     role: "UI/UX Designer",
     company: "Multiple Vendor Store (DAPSTORE)",
-    period: "2024–2025",
+    period: "2024-2025",
     type: "Full-time",
     description:
       "Started as a web designer creating marketing pages, quickly transitioned into product design roles. Built user flows, designed component libraries, and learned to code to better communicate with developers.",
@@ -81,7 +81,7 @@ const values = [
   },
   {
     title: "Clear Communication",
-    description: "Regular updates, honest timelines, and clear documentation. No surprises, no jargon — just straight talk.",
+    description: "Regular updates, honest timelines, and clear documentation. No surprises, no jargon just straight talk.",
     icon: MessageSquare,
   },
   {
@@ -170,7 +170,7 @@ const About = () => {
             {metrics.map((m) => (
               <div key={m.label} className="text-center py-4 px-2">
                 <p className="font-display text-3xl font-extrabold text-foreground tracking-tight">{m.value}</p>
-                <p className="text-[11px] text-muted-foreground mt-1 font-medium uppercase tracking-widest">{m.label}</p>
+                <p className="text-[10px] text-muted-foreground mt-1 font-medium uppercase tracking-wide">{m.label}</p>
               </div>
             ))}
           </motion.div>

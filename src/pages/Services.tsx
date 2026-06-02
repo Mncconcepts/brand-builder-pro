@@ -313,7 +313,7 @@ const Services = () => {
             </h1>
             <p className="text-sm text-muted-foreground max-w-xl leading-relaxed">
               From concept to launch, we provide end-to-end services covering every aspect of
-              building successful digital products — with clarity, craft, and accountability.
+              building successful digital products with clarity, craft, and accountability.
             </p>
           </motion.div>
 
