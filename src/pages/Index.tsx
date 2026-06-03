@@ -226,13 +226,13 @@ const Index = () => {
                   <span className="relative inline-flex rounded-full h-2 w-2 bg-primary" />
                 </span>
                 <Sparkles className="w-3.5 h-3.5 text-primary shrink-0" />
-                <span className="text-xs font-small text-primary tracking-wide uppercase">
+                <span className="text-xs font-small text-primary tracking-tight uppercase">
                   Design & Development
                 </span>
               </div>
             </div>
 
-            <h1 className="font-display text-6xl sm:text-6xl lg:text-7xl font-extrabold leading-[1.05] tracking-tighter text-foreground mb-4">
+            <h1 className="font-Display text-6xl sm:text-6xl lg:text-7xl font-extrabold leading-[1.05] tracking-tighter text-foreground mb-4">
               <TypewriterText
                 text="Creating Digital Experiences That Work."
                 speed={55}
@@ -321,7 +321,7 @@ const Index = () => {
             <div className="absolute -inset-4 rounded-2xl border border-border/40 bg-secondary/20 backdrop-blur-sm -z-10" />
             <div className="absolute -inset-1 rounded-xl bg-gradient-to-br from-primary/10 via-transparent to-blue-500/10 -z-10" />
 
-            <div className="aspect-[4/3] overflow-hidden rounded-xl border border-border/60 shadow-2xl">
+            <div className="aspect-[4/3] overflow-hidden rounded-xl border border-border/60 shadow-1xl">
               <SkeletonImage
                 src="/proj-oma.png"
                 alt="Featured project preview"
@@ -329,7 +329,7 @@ const Index = () => {
               />
             </div>
 
-            <div className="absolute -bottom-5 -left-6 flex items-center gap-3 bg-card border border-border rounded-xl px-4 py-3 shadow-xl backdrop-blur-md">
+            <div className="absolute -bottom-5 -left-6 flex items-center gap-3 bg-card border border-border rounded-xl px-4 py-3 shadow-m backdrop-blur-md">
               <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center">
                 <span><ArrowUpRight className="w-4 h-4" /></span>
               </div>
@@ -343,7 +343,7 @@ const Index = () => {
               </div>
             </div>
 
-            <div className="absolute -top-4 -right-4 flex items-center gap-2 bg-card border border-border rounded-full px-3 py-2 shadow-lg">
+            <div className="absolute -top-4 -right-4 flex items-center gap-2 bg-card border border-border rounded-full px-3 py-2 shadow-l">
               <span className="relative flex h-2 w-2">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
@@ -410,7 +410,7 @@ const Index = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.12 }}
-                className="group bg-card border border-border rounded-2xl overflow-hidden shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col"
+                className="group bg-card border border-border rounded-2xl overflow-hidden shadow-xm hover:shadow-l hover:-translate-y-1 transition-all duration-300 flex flex-col"
               >
                 <div className="relative w-full h-48 bg-secondary overflow-hidden">
                   <SkeletonImage
@@ -492,7 +492,7 @@ const Index = () => {
               >
                 <Link
                   to="/projects"
-                  className="group flex flex-col bg-card border border-border rounded-2xl overflow-hidden shadow-sm hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 h-full"
+                  className="group flex flex-col bg-card border border-border rounded-2xl overflow-hidden shadow-sm hover:shadow-xm hover:-translate-y-1.5 transition-all duration-300 h-full"
                 >
                   <div
                     className={`relative h-52 overflow-hidden bg-gradient-to-br ${project.color}`}

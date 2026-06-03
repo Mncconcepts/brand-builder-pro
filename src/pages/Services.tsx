@@ -429,7 +429,7 @@ const Services = () => {
                 transition={{ delay: i * 0.12 }}
                 className={`relative rounded-2xl border flex flex-col overflow-hidden transition-all duration-300 hover:-translate-y-1 ${
                   tier.featured
-                    ? "bg-foreground text-background border-foreground shadow-2xl scale-[1.02]"
+                    ? "bg-foreground text-background border-foreground shadow1xl scale-[1.02]"
                     : "bg-card border-border hover:border-foreground"
                 }`}
               >

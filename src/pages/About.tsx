@@ -50,7 +50,7 @@ const experience = [
     period: "Present",
     type: "Full-time",
     description:
-      "Leading product design for startups and established brands. Creating user-centered designs, conducting user research, building prototypes, and delivering scalable design systems that drive business outcomes.",
+      "Leading product design and development team for startups and established brands. Creating user-centered designs, conducting user research, building prototypes, and delivering scalable design systems that drive business outcomes.",
     icon: Palette,
   },
   {
@@ -118,9 +118,9 @@ const About = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
           >
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-border bg-secondary mb-6">
-              <span className="w-1.5 h-1.5 rounded-full bg-foreground animate-pulse" />
-              <span className="text-xs font-medium text-foreground tracking-wide uppercase">Our Story</span>
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-border bg-foreground/5 mb-6">
+              <span className="w-1 h-1 rounded-full bg-foreground animate-pulse" />
+              <span className="text-[10px] font-bold text-foreground tracking-widest uppercase">Our Story</span>
             </div>
 
             <div className="grid lg:grid-cols-2 gap-12 items-end">

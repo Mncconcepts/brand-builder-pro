@@ -9,7 +9,6 @@ import BookCallSheet from "@/components/BookCallSheet";
 
 // Asset Imports
 import projPearlzStore from "@/assets/proj-pearlz-store.png";
-import projStoreapp2 from "@/assets/proj-storeapp2.png";
 import Oonsa from "@/assets/Oonsa.png";
 import projOma from "@/assets/proj-oma.png";
 import projPaywithpi from "@/assets/proj-paywithpi.png";
@@ -17,9 +16,10 @@ import post2dap from "@/assets/post-2dap.png";
 import visaguard from "@/assets/visaguard.jpg";
 import vgalanding from "@/assets/vgalanding.jpg";
 import logoo1 from "@/assets/logoo1.png";
-import logoo2 from "@/assets/logoo2.png";
+import logoo0 from "@/assets/logoo0.png";
 import logoo3 from "@/assets/logoo3.png";
 import logoo4 from "@/assets/logoo4.png";
+import projstoreapp22 from "@/assets/proj-storeapp22.png";
 
 const projects = [
   {
@@ -33,8 +33,8 @@ const projects = [
     caseStudySlug: "Visa-guard-africa App-Landing",
   },
   {
-    title: "Visa Guard Landing Page",
-    category: "DESIGN · DEVELOPMENT · FULL STACK · APP LANDING",
+    title: "Visa Guard Africa Landing Page",
+    category: "DESIGN · DEVELOPMENT · FULL STACK · APP LANDING - WEB",
     description: "A secure visa platform designed to protect Africans from visa scams. Features real-time verification, fraud detection, and a seamless application tracking system.",
     year: "Coming Soon",
     tech: ["Figma", "React", "Node.js", "TypeScript", "MongoDB", "Express"],
@@ -45,8 +45,8 @@ const projects = [
   
   {
     title: "Oonsa Event WebApp",
-    category: "UI/UX DESIGN · WEBSITE",
-    description: "A modern event management app designed to simplify event discovery, ticketing, and planning.",
+    category: "UI/UX DESIGN · WEB-APP",
+    description: "A modern event management app designed to simplify event discovery, ticketing, and planning within Austrailia.",
     year: "2025",
     tech: ["Figma", "Adobe XD", "Illustrator", "Photoshop"],
     image: Oonsa,
@@ -59,7 +59,7 @@ const projects = [
     description: "A mobile marketplace app connecting buyers and sellers in Computer Village. Designed in Figma and built with Flutter.",
     year: "2025",
     tech: ["Flutter", "Figma", "Dart", "Firebase"],
-    image: projStoreapp2,
+    image: projstoreapp22,
     link: "https://cvmarket.ng",
     caseStudySlug: "CVMP App",
   },
@@ -119,7 +119,7 @@ const projects = [
     description: "An ultra-modern brand asset system and logo layout designed for an advanced social media growth engine, matching precision analytics with clean aesthetics.",
     year: "2026",
     tech: ["Illustrator", "Photoshop", "Branding"],
-    image: logoo2,
+    image: logoo0,
     link: null,
     caseStudySlug: null,
   },
@@ -184,10 +184,11 @@ const Projects = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
           >
-            <span className="inline-block px-3 py-1 rounded-full bg-secondary text-[10px] font-bold tracking-[0.2em] uppercase mb-6 border border-border">
-              Portfolio
-            </span>
-            <h1 className="font-display text-6xl sm:text-6xl lg:text-8xl font-extrabold tracking-tight leading-[0.9] mb-8">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-border bg-foreground/5 mb-6">
+              <span className="w-1 h-1 rounded-full bg-foreground animate-pulse" />
+              <span className="text-[10px] font-bold text-foreground tracking-widest uppercase">Selected Projects</span>
+            </div>
+            <h1 className="font-display text-6xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight leading-[0.9] mb-8">
               All Selected <br />
               <span className="text-muted-foreground/40"> Projects </span>
             </h1>
