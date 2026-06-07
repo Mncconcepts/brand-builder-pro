@@ -20,215 +20,39 @@ import CaseStudySheet from "./components/CaseStudySheet";
 const queryClient = new QueryClient();
 
 const AnimatedRoutes = () => {
-  const location = useLocation();
+const location = useLocation();
 
-  return (
-    <AnimatePresence mode="wait">
-      <PageTransition key={location.pathname}>
-        <Routes location={location}>
-          <Route path="/" element={<Index />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/services" element={<Services />} />
-          <Route path="/projects" element={<Projects />} />
-          <Route path="/contact" element={<Contact />} />
-          <Route path="/blog" element={<Blog />} />
-          <Route path="/case-studies" element={<CaseStudies />} />
-          <Route path="/projects/case-study/:slug" element={<CaseStudySheet />} />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </PageTransition>
-    </AnimatePresence>
-  );
+return (
+<AnimatePresence mode="wait">
+<PageTransition key={location.pathname}>
+<Routes location={location}>
+<Route path="/" element={<Index />} />
+<Route path="/about" element={<About />} />
+<Route path="/services" element={<Services />} />
+<Route path="/projects" element={<Projects />} />
+<Route path="/contact" element={<Contact />} />
+<Route path="/blog" element={<Blog />} />
+<Route path="/case-studies" element={<CaseStudies />} />
+<Route path="/projects/case-study/:slug" element={<CaseStudySheet />} />
+<Route path="*" element={<NotFound />} />
+</Routes>
+</PageTransition>
+</AnimatePresence>
+);
 };
 
 const App = () => (
-  <QueryClientProvider client={queryClient}>
-    <TooltipProvider>
-      <Toaster />
-      <Sonner />
-      <BrowserRouter>
-        <ScrollToTop />
-        <AnimatedRoutes />
-        <WhatsAppButton />
-      </BrowserRouter>
-    </TooltipProvider>
-  </QueryClientProvider>
+<QueryClientProvider client={queryClient}>
+<TooltipProvider>
+<Toaster />
+<Sonner />
+<BrowserRouter>
+<ScrollToTop />
+<AnimatedRoutes />
+<WhatsAppButton />
+</BrowserRouter>
+</TooltipProvider>
+</QueryClientProvider>
 );
-
-export default App;
-import { useEffect } from "react";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Route, Routes, useLocation } from "@tanstack/react-router";
-import { Toaster as Sonner } from "@/components/ui/sonner";
-import { Toaster } from "@/components/ui/toaster";
-import { TooltipProvider } from "@/components/ui/tooltip";
-import { AnimatePresence } from "framer-motion";
-import WhatsAppButton from "@/components/WhatsAppButton";
-import PageTransition from "@/components/PageTransition";
-import ScrollToTop from "@/components/ScrollToTop";
-import Index from "./pages/Index";
-import About from "./pages/About";
-import Services from "./pages/Services";
-import Projects from "./pages/Projects";
-import Contact from "./pages/Contact";
-import Blog from "./pages/Blog";
-import CaseStudies from "./pages/CaseStudies";
-import NotFound from "./pages/NotFound";
-import CaseStudySheet from "./components/CaseStudySheet";
-
-const queryClient = new QueryClient();
-
-const AnimatedRoutes = () => {
-  const location = useLocation();
-
-  return (
-    <AnimatePresence mode="wait">
-      <PageTransition key={location.pathname}>
-        <Routes location={location}>
-          <Route path="/" element={<Index />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/services" element={<Services />} />
-          <Route path="/projects" element={<Projects />} />
-          <Route path="/contact" element={<Contact />} />
-          <Route path="/blog" element={<Blog />} />
-          <Route path="/case-studies" element={<CaseStudies />} />
-          <Route path="/projects/case-study/:slug" element={<CaseStudySheet />} />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </PageTransition>
-    </AnimatePresence>
-  );
-};
-
-const App = () => {
-  // 🔥 ADDED: Clean ugly tracking URLs on load (safe + non-breaking)
-  useEffect(() => {
-    const url = new URL(window.location.href);
-
-    const paramsToRemove = [
-      "utm_source",
-      "utm_medium",
-      "utm_campaign",
-      "_aem",
-      "gclid",
-      "fbclid",
-      "ref"
-    ];
-
-    let changed = false;
-
-    paramsToRemove.forEach((param) => {
-      if (url.searchParams.has(param)) {
-        url.searchParams.delete(param);
-        changed = true;
-      }
-    });
-
-    if (changed) {
-      window.history.replaceState({}, "", url.pathname);
-    }
-  }, []);
-
-  return (
-    <QueryClientProvider client={queryClient}>
-      <TooltipProvider>
-        <Toaster />
-        <Sonner />
-        <BrowserRouter>
-          <ScrollToTop />
-          <AnimatedRoutes />
-          <WhatsAppButton />
-        </BrowserRouter>
-      </TooltipProvider>
-    </QueryClientProvider>
-  );
-};
-
-export default App;import { useEffect } from "react";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Route, Routes, useLocation } from "@tanstack/react-router";
-import { Toaster as Sonner } from "@/components/ui/sonner";
-import { Toaster } from "@/components/ui/toaster";
-import { TooltipProvider } from "@/components/ui/tooltip";
-import { AnimatePresence } from "framer-motion";
-import WhatsAppButton from "@/components/WhatsAppButton";
-import PageTransition from "@/components/PageTransition";
-import ScrollToTop from "@/components/ScrollToTop";
-import Index from "./pages/Index";
-import About from "./pages/About";
-import Services from "./pages/Services";
-import Projects from "./pages/Projects";
-import Contact from "./pages/Contact";
-import Blog from "./pages/Blog";
-import CaseStudies from "./pages/CaseStudies";
-import NotFound from "./pages/NotFound";
-import CaseStudySheet from "./components/CaseStudySheet";
-
-const queryClient = new QueryClient();
-
-const AnimatedRoutes = () => {
-  const location = useLocation();
-
-  return (
-    <AnimatePresence mode="wait">
-      <PageTransition key={location.pathname}>
-        <Routes location={location}>
-          <Route path="/" element={<Index />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/services" element={<Services />} />
-          <Route path="/projects" element={<Projects />} />
-          <Route path="/contact" element={<Contact />} />
-          <Route path="/blog" element={<Blog />} />
-          <Route path="/case-studies" element={<CaseStudies />} />
-          <Route path="/projects/case-study/:slug" element={<CaseStudySheet />} />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </PageTransition>
-    </AnimatePresence>
-  );
-};
-
-const App = () => {
-  useEffect(() => {
-    const url = new URL(window.location.href);
-
-    const paramsToRemove = [
-      "utm_source",
-      "utm_medium",
-      "utm_campaign",
-      "_aem",
-      "gclid",
-      "fbclid",
-      "ref"
-    ];
-
-    let changed = false;
-
-    paramsToRemove.forEach((param) => {
-      if (url.searchParams.has(param)) {
-        url.searchParams.delete(param);
-        changed = true;
-      }
-    });
-
-    if (changed) {
-      window.history.replaceState({}, "", url.pathname);
-    }
-  }, []);
-
-  return (
-    <QueryClientProvider client={queryClient}>
-      <TooltipProvider>
-        <Toaster />
-        <Sonner />
-        <BrowserRouter>
-          <ScrollToTop />
-          <AnimatedRoutes />
-          <WhatsAppButton />
-        </BrowserRouter>
-      </TooltipProvider>
-    </QueryClientProvider>
-  );
-};
 
 export default App;
