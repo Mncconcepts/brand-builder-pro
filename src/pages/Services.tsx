@@ -157,7 +157,7 @@ const pricing = [
   },
   {
     name: "Professional",
-    price: "$3,000",
+    price: "$3,500",
     priceNote: "Starting from",
     description: "For growing businesses that need a comprehensive digital solution.",
     features: [
@@ -348,7 +348,7 @@ const Services = () => {
             className="mb-10"
           >
             <p className="text-[10px] font-bold tracking-[0.2em] uppercase text-muted-foreground mb-2">core digital solutions</p>
-            <h2 className="font-display tracking-tight text-4xl font-extrabold text-foreground">Servics We Offer</h2>
+            <h2 className="font-display tracking-tight text-4xl font-extrabold text-foreground">Services We Offer</h2>
           </motion.div>
 
           <div className="divide-y divide-border border-t border-border rounded-2xl overflow-hidden bg-card/20 border shadow-sm px-2">
