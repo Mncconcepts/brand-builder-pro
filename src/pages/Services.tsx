@@ -347,8 +347,8 @@ const Services = () => {
             viewport={{ once: true }}
             className="mb-10"
           >
-            <p className="text-[10px] font-bold tracking-[0.2em] uppercase text-muted-foreground mb-2">Our Disciplines</p>
-            <h2 className="font-display text-4xl font-extrabold text-foreground">What We Do Best</h2>
+            <p className="text-[10px] font-bold tracking-[0.2em] uppercase text-muted-foreground mb-2">core digital solutions</p>
+            <h2 className="font-display tracking-tight text-4xl font-extrabold text-foreground">Servics We Offer</h2>
           </motion.div>
 
           <div className="divide-y divide-border border-t border-border rounded-2xl overflow-hidden bg-card/20 border shadow-sm px-2">
