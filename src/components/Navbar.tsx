@@ -19,7 +19,7 @@ const Navbar = () => {
   return (
     <header className="fixed top-3 left-0 right-0 z-50 w-full px-4 sm:px-6 pointer-events-none">
       {/* ── DESKTOP & MOBILE MAIN WRAPPER ── */}
-      <nav className="max-w-6xl mx-auto bg-background/50 backdrop-blur-xl border border-border/20 rounded-2xl shadow-xl shadow-black/[0.02] pointer-events-auto transition-all">
+      <nav className="max-w-6xl mx-auto bg-background/50 backdrop-blur-xl border border-border/20 rounded-2xl shadow-md shadow-black/[0.02] pointer-events-auto transition-all">
         <div className="px-6 flex items-center justify-between h-16">
           
           {/* ── Brand Logo & Profile Image Group ── */}

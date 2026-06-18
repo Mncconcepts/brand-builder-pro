@@ -7,8 +7,6 @@ import {
   Clock,
   Target,
   Lightbulb,
-  TrendingUp,
-  CheckCircle,
   Calendar,
 } from "lucide-react";
 import Navbar from "@/components/Navbar";
@@ -39,9 +37,69 @@ interface CaseStudyData {
   link?: string | null;
   accentColor: string;
   accentBg: string;
+  accentBorder: string;
 }
 
 const caseStudies: CaseStudyData[] = [
+  {
+    slug: "Supersonic-Dynamic-Services",
+    title: "Supersonic Dynamic Services B.V",
+    category: "LOGISTICS · HAULAGE · MOVING SERVICES",
+    tagline: "The Next-Generation Moving & Freight Haulage Service.",
+    year: "2026",
+    accentColor: "text-cyan-500",
+    accentBg: "bg-cyan-600",
+    accentBorder: "border-cyan-500",
+    tech: [
+      "React",
+      "TypeScript",
+      "Tailwind CSS",
+      "Framer Motion",
+      "React Hook Form",
+    ],
+    overview:
+      "Supersonic Dynamic Services B.V is a high-performance functional operations configuration and logistics platform. We engineered a seamless web experience powered by precision logistics and a carbon-neutral fleet, allowing businesses and individuals in the Netherlands to effortlessly manage, calculate, and coordinate complex relocation and freight haulage requests.",
+    role: "Frontend Engineering · UI/UX Design · Logistics System Integration",
+    duration: "4 months (2026)",
+    team: "1 Product Designer · 2 Frontend Engineers · 1 DevOps Specialist",
+    problem:
+      "Many moving and freight haulage companies in the Netherlands still rely on manual quotation processes, disconnected communication channels, paper-based documentation, and limited visibility into assignment progress. This often results in delayed responses, inefficient customer experiences, a lack of pricing transparency, and difficulty tracking relocation projects from quotation to completion. Customers needed a modern, technology-driven platform that would simplify the entire relocation journey while providing real-time access to quotations, assignment tracking, invoicing, payments, and customer support.",
+    solution:
+      "We designed and developed a modern digital platform for SUPERSONIC DYNAMIC SERVICES B.V. that centralizes and automates key moving and freight haulage operations. Built with React, TypeScript, and contemporary frontend technologies, the platform enables customers to request quotations online, upload assignment details and videos, monitor assignment progress in real time, access digital invoices, complete secure online payments, and communicate efficiently with the company. The solution delivers a seamless, transparent, and user-friendly experience while supporting the company's vision of leveraging digital innovation, operational excellence, and sustainable logistics services across the Netherlands.",
+    process: [
+      {
+        phase: "Business Analysis & Digital Workflow Architecture",
+        description:
+          "Conducted extensive business and operational analysis to map the complete customer journey, from quotation requests and assignment scheduling to job tracking, invoicing, payments, and customer support. Designed a scalable information architecture that simplifies complex moving and freight-haulage workflows while ensuring a seamless user experience for customers across the Netherlands.",
+      },
+      {
+        phase: "Customer Experience Design & Platform Interface Development",
+        description:
+          "Designed a responsive, user-centric interface that enables customers to easily request quotations, upload assignment details and videos, track assignment progress, access digital invoices, and communicate with support teams. Special attention was given to usability, accessibility, transparency, and mobile responsiveness to maximize customer engagement and satisfaction.",
+      },
+      {
+        phase: "Operational Systems Integration & Data Management",
+        description:
+          "Developed structured frontend workflows to support quotation management, assignment tracking, invoicing, payment processing, customer records, and operational reporting. The platform architecture was designed to support future integrations with CRM, accounting, invoicing, and payment systems, including EXACT Online and other business management tools.",
+      },
+      {
+        phase: "Performance Optimization, Interaction Design & Scalability",
+        description:
+          "Implemented modern frontend engineering practices, interactive user feedback mechanisms, and smooth interface transitions to create a professional digital experience. The solution was optimized for performance, maintainability, and future scalability, supporting SUPERSONIC DYNAMIC SERVICES B.V.'s vision of delivering technology-driven, environmentally sustainable moving and freight-haulage services throughout the Netherlands.",
+      },
+    ],
+    outcomes: [
+      "Delivered a modern digital platform that streamlines quotation requests, assignment tracking, invoicing, payment processing, and customer support operations.",
+      "Improved customer transparency through real-time assignment status tracking, digital documentation, and centralized communication workflows.",
+      "Established a scalable frontend foundation capable of supporting future integrations with EXACT Online CRM, accounting, invoicing, and payment systems.",
+      "Created a fully responsive user experience optimized for individuals, students, households, and businesses accessing moving and freight services across the Netherlands.",
+    ],
+    challenges:
+      "One of the primary challenges was translating complex moving and freight-haulage operational workflows into a simple and intuitive digital experience. The platform needed to accommodate multiple service categories, quotation submissions with supporting media uploads, assignment tracking, digital invoicing, and secure payment journeys while maintaining a clean user interface across desktop and mobile devices. This was addressed through careful information architecture, user-centered design principles, and a modular frontend system that simplifies complex business processes.",
+    learnings:
+      "Building digital solutions for the logistics and relocation industry reinforced the importance of transparency, trust, and operational visibility throughout the customer journey. Customers want clear pricing, real-time updates, straightforward communication, and confidence that their assignments are being managed professionally. By focusing on accessibility, workflow clarity, and user-friendly interfaces, we learned how technology can significantly improve customer satisfaction while supporting business efficiency and long-term scalability.",
+    link: null,
+  },
   {
     slug: "Visa-guard-africa App-Landing",
     title: "Visa Guard Africa Technologies Ltd",
@@ -51,6 +109,7 @@ const caseStudies: CaseStudyData[] = [
     year: "Coming Soon",
     accentColor: "text-blue-600",
     accentBg: "bg-blue-600",
+    accentBorder: "border-blue-600",
     tech: [
       "Figma",
       "React Native",
@@ -111,6 +170,7 @@ const caseStudies: CaseStudyData[] = [
     year: "2025",
     accentColor: "text-violet-600",
     accentBg: "bg-blue-600",
+    accentBorder: "border-violet-600",
     tech: ["Figma", "Adobe XD", "Illustrator", "Photoshop"],
     overview:
       "Oonsa is a modern event management platform designed to simplify how people discover, book, and experience events across Austraila and beyond. We led the full UI/UX design — from initial research through high-fidelity prototypes and developer handoff.",
@@ -165,6 +225,7 @@ const caseStudies: CaseStudyData[] = [
     year: "2025",
     accentColor: "text-blue-500",
     accentBg: "bg-blue-600",
+    accentBorder: "border-blue-500",
     tech: ["React", "Node.js", "Stripe", "PostgreSQL"],
     overview:
       "Pearlz Store is a full-featured e-commerce platform for a premium skincare brand. We designed and developed the entire experience — from product browsing and cart management to Stripe-powered checkout and a custom CMS for inventory. The result is a conversion-optimised storefront that reflects the brand's luxury positioning.",
@@ -218,6 +279,7 @@ const caseStudies: CaseStudyData[] = [
     year: "2025",
     accentColor: "text-blue-500",
     accentBg: "bg-blue-600",
+    accentBorder: "border-blue-500",
     tech: ["Flutter", "Figma", "Dart", "Firebase"],
     overview:
       "Computer Village in Lagos is Africa's largest open-air technology market — but navigating it is chaotic. CVMP is a mobile marketplace app that connects buyers with verified sellers, enabling product discovery, price comparison, and purchase negotiations in one seamless cross-platform experience.",
@@ -271,6 +333,7 @@ const caseStudies: CaseStudyData[] = [
     year: "2023",
     accentColor: "text-blue-500",
     accentBg: "bg-blue-600",
+    accentBorder: "border-blue-500",
     tech: ["Figma", "Adobe XD", "Illustrator", "Photoshop"],
     overview:
       "OMA is a mobile-first crypto mining, gaming, and entertainment platform designed to make cryptocurrency accessible to everyday users. We led the complete product design — creating intuitive dashboards, animated mining visualisations, growth analytics, and a reward ecosystem that keeps users engaged.",
@@ -324,6 +387,7 @@ const caseStudies: CaseStudyData[] = [
     year: "2022",
     accentColor: "text-blue-500",
     accentBg: "bg-blue-600",
+    accentBorder: "border-blue-500",
     tech: ["React", "TypeScript", "Firebase", "Node.js"],
     overview:
       "PayWithPi is a full-stack payment platform built on the Pi Network, enabling users to transfer Pi cryptocurrency, manage wallets, and complete purchases within a growing merchant ecosystem. The platform includes a consumer-facing app and a comprehensive admin dashboard with sales analytics and order management.",
@@ -369,7 +433,6 @@ const caseStudies: CaseStudyData[] = [
       "Building on emerging blockchain ecosystems requires exceptional flexibility. We learned to architect for change loose coupling, clear abstraction boundaries, and thorough internal documentation became non-negotiable practices that we now apply to every project.",
     link: null,
   },
-
   {
     slug: "Dapstore App",
     title: "Multiple Vendor Store (DAPSTORE)",
@@ -378,6 +441,7 @@ const caseStudies: CaseStudyData[] = [
     year: "2025",
     accentColor: "text-blue-500",
     accentBg: "bg-blue-600",
+    accentBorder: "border-blue-500",
     tech: ["Figma", "FigJam", "Flutter", "Firebase"],
     overview:
       "DAPSTORE is a multi-vendor marketplace platform that connects buyers with sellers in one seamless experience. Sellers can open a digital shop, list products, and reach customers directly, while buyers can browse, discover, and connect with vendors all in one place. From research to wireframes and high-fidelity prototypes, every screen was crafted to make commerce simple for both sides.",
@@ -425,21 +489,53 @@ const caseStudies: CaseStudyData[] = [
   },
 ];
 
+/* ─── animation variants ────────────────────────────────────────────── */
 const fadeUp = {
-  hidden: { opacity: 0, y: 24 },
+  hidden: { opacity: 0, y: 20 },
   visible: (i = 0) => ({
     opacity: 1,
     y: 0,
-    transition: { duration: 0.5, delay: i * 0.1, ease: [0.22, 1, 0.36, 1] },
+    transition: { duration: 0.5, delay: i * 0.08, ease: [0.22, 1, 0.36, 1] },
   }),
 };
 
-const SectionLabel = ({ children }: { children: React.ReactNode }) => (
-  <h2 className="text-xl font-bold text-foreground tracking-tight">
+const fadeIn = {
+  hidden: { opacity: 0 },
+  visible: { opacity: 1, transition: { duration: 0.4 } },
+};
+
+/* ─── small shared primitives ────────────────────────────────────────── */
+const Divider = () => <div className="w-full h-px bg-border" />;
+
+const SectionHeading = ({
+  children,
+  className = "",
+}: {
+  children: React.ReactNode;
+  className?: string;
+}) => (
+  <h2
+    className={`text-base font-semibold text-foreground tracking-tight ${className}`}
+  >
     {children}
   </h2>
 );
 
+const EyebrowLabel = ({
+  children,
+  className = "",
+}: {
+  children: React.ReactNode;
+  className?: string;
+}) => (
+  <p
+    className={`text-[10px] font-bold uppercase tracking-[0.12em] text-muted-foreground ${className}`}
+  >
+    {children}
+  </p>
+);
+
+/* ─── main component ─────────────────────────────────────────────────── */
 const CaseStudySheet = () => {
   const { slug } = useParams<{ slug: string }>();
   const navigate = useNavigate();
@@ -449,7 +545,7 @@ const CaseStudySheet = () => {
     return (
       <div className="min-h-screen bg-background flex flex-col">
         <Navbar />
-        <div className="flex-1 flex flex-col items-center justify-center gap-4">
+        <div className="flex-1 mt-15 flex flex-col items-center justify-center gap-4">
           <p className="text-2xl font-bold text-foreground">
             Case study not found.
           </p>
@@ -466,34 +562,36 @@ const CaseStudySheet = () => {
     <div className="min-h-screen bg-background">
       <Navbar />
 
-      <section className="pt-20 pb-12 border-b border-border">
+      {/* ── Hero ────────────────────────────────────────────────────── */}
+      <section className="pt-24 pb-16 border-b border-border">
         <div className="max-w-6xl mx-auto px-6">
-          {/* Back */}
+          {/* Back nav */}
           <motion.div
-            initial={{ opacity: 0, x: -16 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.4 }}
-            className="mb-8"
+            variants={fadeIn}
+            initial="hidden"
+            animate="visible"
+            className="mb-10"
           >
             <button
               onClick={() => navigate(-1)}
               className="inline-flex items-center gap-2 text-xs font-medium text-muted-foreground hover:text-foreground transition-colors group"
             >
-              <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
+              <ArrowLeft className="w-3.5 h-3.5 group-hover:-translate-x-0.5 transition-transform" />
               Back to Projects
             </button>
           </motion.div>
 
-          {/* Label */}
-          <motion.p
+          {/* Category eyebrow */}
+          <motion.div
             variants={fadeUp}
             initial="hidden"
             animate="visible"
             custom={0}
-            className={`text-xs font-bold tracking-widest uppercase mb-3 ${study.accentColor}`}
           >
-            {study.category}
-          </motion.p>
+            <EyebrowLabel className={`mb-3 ${study.accentColor}`}>
+              {study.category}
+            </EyebrowLabel>
+          </motion.div>
 
           {/* Title */}
           <motion.h1
@@ -501,31 +599,29 @@ const CaseStudySheet = () => {
             initial="hidden"
             animate="visible"
             custom={1}
-            className="font-display text-3xl sm:text-3xl font-extrabold text-foreground leading-tight mb-4"
+            className="font-display text-[2rem] sm:text-4xl font-extrabold text-foreground leading-[1.15] tracking-tight mb-5 max-w-3xl"
           >
             {study.title}
           </motion.h1>
 
           {/* Tagline */}
-          <motion.div
+          <motion.p
             variants={fadeUp}
             initial="hidden"
             animate="visible"
             custom={2}
-            className={`border-l-4 pl-4 mb-8 ${study.accentColor}`}
+            className="text-sm text-muted-foreground leading-relaxed max-w-2xl mb-10"
           >
-            <p className="text-xs text-muted-foreground leading-relaxed font-medium">
-              "{study.tagline}"
-            </p>
-          </motion.div>
+            {study.tagline}
+          </motion.p>
 
-          {/* Meta cards */}
+          {/* Meta strip */}
           <motion.div
             variants={fadeUp}
             initial="hidden"
             animate="visible"
             custom={3}
-            className="grid text-xs grid-cols-2 sm:grid-cols-4 gap-4"
+            className="grid grid-cols-2 sm:grid-cols-4 gap-px bg-border rounded-xl overflow-hidden border border-border"
           >
             {[
               {
@@ -551,13 +647,11 @@ const CaseStudySheet = () => {
             ].map((m) => (
               <div
                 key={m.label}
-                className="bg-card border border-border rounded-lg p-3"
+                className="bg-background p-4 flex flex-col gap-2"
               >
-                <div className="flex items-center gap-1.5 text-muted-foreground mb-1">
+                <div className="flex items-center gap-1.5 text-muted-foreground">
                   {m.icon}
-                  <span className="text-[10px] font-bold uppercase tracking-wider">
-                    {m.label}
-                  </span>
+                  <EyebrowLabel>{m.label}</EyebrowLabel>
                 </div>
                 <p className="text-xs font-medium text-foreground leading-snug">
                   {m.value}
@@ -568,8 +662,9 @@ const CaseStudySheet = () => {
         </div>
       </section>
 
-      <section className="py-10">
-        <div className="max-w-6xl mx-auto px-6 space-y-12">
+      {/* ── Body ────────────────────────────────────────────────────── */}
+      <section className="py-16">
+        <div className="max-w-6xl mx-auto px-6 space-y-16">
           {/* Tech stack */}
           <motion.div
             variants={fadeUp}
@@ -577,18 +672,20 @@ const CaseStudySheet = () => {
             whileInView="visible"
             viewport={{ once: true }}
           >
-            <SectionLabel>Tech Stack</SectionLabel>
-            <div className="flex flex-wrap gap-2 mt-3">
+            <EyebrowLabel className="mb-3">Tech Stack</EyebrowLabel>
+            <div className="flex flex-wrap gap-2">
               {study.tech.map((t) => (
                 <span
                   key={t}
-                  className="text-xs font-medium text-foreground bg-secondary border border-border px-3 py-1 rounded-md"
+                  className="text-[11px] font-semibold text-foreground bg-secondary border border-border px-3 py-1 rounded-full tracking-wide"
                 >
                   {t}
                 </span>
               ))}
             </div>
           </motion.div>
+
+          <Divider />
 
           {/* Overview */}
           <motion.div
@@ -597,51 +694,49 @@ const CaseStudySheet = () => {
             whileInView="visible"
             viewport={{ once: true }}
           >
-            <SectionLabel>Overview</SectionLabel>
-            <p className="mt-3 text-xs text-muted-foreground leading-relaxed">
+            <EyebrowLabel className="mb-3">Overview</EyebrowLabel>
+            <p className="text-sm text-muted-foreground leading-[1.8] max-w-3xl">
               {study.overview}
             </p>
           </motion.div>
 
-          {/* Problem / Solution side by side */}
-          <div className="grid md:grid-cols-2 gap-6">
-            <motion.div
-              variants={fadeUp}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-              className="rounded-xl border border-border bg-secondary/30 p-5"
-            >
-              <div className="flex items-center gap-2 mb-3">
-                <Target className="w-4 h-4 text-black-500" />
-                <h3 className="text-xs font-bold text-foreground tracking-wide uppercase">
-                  The Problem
-                </h3>
-              </div>
-              <p className="text-xs text-muted-foreground leading-relaxed">
-                {study.problem}
-              </p>
-            </motion.div>
+          <Divider />
 
-            <motion.div
-              variants={fadeUp}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-              custom={1}
-              className="rounded-xl border border-border bg-secondary/30 p-5"
-            >
-              <div className="flex items-center gap-2 mb-3">
-                <Lightbulb className={`w-4 h-4`} />
-                <h3 className="text-xs font-bold text-foreground tracking-wide uppercase">
-                  Our Solution
-                </h3>
-              </div>
-              <p className="text-xs text-muted-foreground leading-relaxed">
-                {study.solution}
-              </p>
-            </motion.div>
+          {/* Problem / Solution */}
+          <div className="grid md:grid-cols-2 gap-6">
+            {[
+              {
+                icon: <Target className="w-4 h-4" />,
+                label: "The Problem",
+                body: study.problem,
+              },
+              {
+                icon: <Lightbulb className="w-4 h-4" />,
+                label: "Our Solution",
+                body: study.solution,
+              },
+            ].map((card, i) => (
+              <motion.div
+                key={card.label}
+                variants={fadeUp}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true }}
+                custom={i * 0.15}
+                className="rounded-2xl border border-border bg-card p-6 flex flex-col gap-4"
+              >
+                <div className="flex items-center gap-2">
+                  <span className="text-muted-foreground">{card.icon}</span>
+                  <EyebrowLabel>{card.label}</EyebrowLabel>
+                </div>
+                <p className="text-xs text-muted-foreground leading-[1.85]">
+                  {card.body}
+                </p>
+              </motion.div>
+            ))}
           </div>
+
+          <Divider />
 
           {/* Process */}
           <motion.div
@@ -650,8 +745,9 @@ const CaseStudySheet = () => {
             whileInView="visible"
             viewport={{ once: true }}
           >
-            <SectionLabel>Our Process</SectionLabel>
-            <div className="mt-6 space-y-0">
+            <EyebrowLabel className="mb-8">Our Process</EyebrowLabel>
+
+            <div className="space-y-0">
               {study.process.map((step, i) => (
                 <motion.div
                   key={step.phase}
@@ -659,28 +755,31 @@ const CaseStudySheet = () => {
                   initial="hidden"
                   whileInView="visible"
                   viewport={{ once: true }}
-                  custom={i * 0.3}
-                  className="flex gap-4 group"
+                  custom={i * 0.1}
+                  className="flex gap-5 group"
                 >
-                  {/* Timeline spine */}
-                  <div className="flex flex-col items-center">
+                  {/* Timeline column */}
+                  <div className="flex flex-col items-center flex-shrink-0">
                     <div
-                      className={`w-6 h-6 rounded-full flex items-center justify-center text-[10px] font-bold text-white flex-shrink-0 z-10 ${study.accentBg}`}
+                      className={`w-7 h-7 rounded-full flex items-center justify-center text-[10px] font-bold text-white z-10 ${study.accentBg}`}
                     >
                       {i + 1}
                     </div>
                     {i < study.process.length - 1 && (
-                      <div className="w-px flex-1 bg-border my-2" />
+                      <div className="w-px flex-1 bg-border my-2 min-h-[32px]" />
                     )}
                   </div>
-                  {/* Content */}
+
+                  {/* Text */}
                   <div
-                    className={`pb-6 ${i === study.process.length - 1 ? "pb-0" : ""}`}
+                    className={`pb-8 ${
+                      i === study.process.length - 1 ? "pb-0" : ""
+                    }`}
                   >
-                    <h4 className="text-sm font-bold text-foreground mb-1.5">
+                    <p className="text-sm font-semibold text-foreground mb-1.5 leading-snug">
                       {step.phase}
-                    </h4>
-                    <p className="text-xs text-muted-foreground leading-relaxed">
+                    </p>
+                    <p className="text-xs text-muted-foreground leading-[1.85]">
                       {step.description}
                     </p>
                   </div>
@@ -689,6 +788,8 @@ const CaseStudySheet = () => {
             </div>
           </motion.div>
 
+          <Divider />
+
           {/* Outcomes */}
           <motion.div
             variants={fadeUp}
@@ -696,9 +797,7 @@ const CaseStudySheet = () => {
             whileInView="visible"
             viewport={{ once: true }}
           >
-            <div className="flex items-center gap-2 mb-4">
-              <SectionLabel>Outcomes & Impact</SectionLabel>
-            </div>
+            <EyebrowLabel className="mb-6">Outcomes & Impact</EyebrowLabel>
             <div className="grid sm:grid-cols-2 gap-3">
               {study.outcomes.map((item, i) => (
                 <motion.div
@@ -707,10 +806,13 @@ const CaseStudySheet = () => {
                   initial="hidden"
                   whileInView="visible"
                   viewport={{ once: true }}
-                  custom={i * 0.2}
-                  className="flex items-start gap-2.5 bg-secondary/50 p-3.5 rounded-lg border border-border"
+                  custom={i * 0.08}
+                  className="flex items-start gap-3 bg-secondary/40 border border-border rounded-xl p-4"
                 >
-                  <span className="text-xs text-foreground font-medium">
+                  <span
+                    className={`mt-0.5 flex-shrink-0 w-1.5 h-1.5 rounded-full ${study.accentBg}`}
+                  />
+                  <span className="text-xs text-foreground leading-[1.8]">
                     {item}
                   </span>
                 </motion.div>
@@ -718,54 +820,47 @@ const CaseStudySheet = () => {
             </div>
           </motion.div>
 
-          {/* Challenges & Learnings */}
-          <div className="grid md:grid-cols-2 gap-6 pt-6 border-t border-border">
-            <motion.div
-              variants={fadeUp}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-            >
-              <h3 className="text-sm font-bold text-foreground tracking-wide uppercase mb-2">
-                Challenges
-              </h3>
-              <p className="text-xs text-muted-foreground leading-relaxed">
-                {study.challenges}
-              </p>
-            </motion.div>
+          <Divider />
 
-            <motion.div
-              variants={fadeUp}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-              custom={1}
-            >
-              <h3 className="text-sm font-bold text-foreground tracking-wide uppercase mb-2">
-                Key Learnings
-              </h3>
-              <p className="text-xs text-muted-foreground leading-relaxed">
-                {study.learnings}
-              </p>
-            </motion.div>
+          {/* Challenges & Learnings */}
+          <div className="grid md:grid-cols-2 gap-10">
+            {[
+              { label: "Challenges", body: study.challenges },
+              { label: "Key Learnings", body: study.learnings },
+            ].map((section, i) => (
+              <motion.div
+                key={section.label}
+                variants={fadeUp}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true }}
+                custom={i * 0.15}
+              >
+                <EyebrowLabel className="mb-3">{section.label}</EyebrowLabel>
+                <p className="text-xs text-muted-foreground leading-[1.85]">
+                  {section.body}
+                </p>
+              </motion.div>
+            ))}
           </div>
 
-          {/* External Link */}
+          {/* CTA */}
           {study.link && (
             <motion.div
               variants={fadeUp}
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
-              className="pt-4 flex justify-center sm:justify-start"
+              className="pt-2 flex justify-start"
             >
               <a
                 href={study.link}
                 target="_blank"
                 rel="noopener noreferrer"
-                className={`inline-flex items-center gap-2 px-6 py-3 rounded-lg text-white text-sm font-bold transition-opacity hover:opacity-90 ${study.accentBg}`}
+                className={`inline-flex items-center gap-2 px-6 py-3 rounded-xl text-white text-xs font-bold tracking-wide transition-opacity hover:opacity-90 active:scale-[0.98] ${study.accentBg}`}
               >
-                Visit Live Project <ExternalLink className="w-4 h-4" />
+                Visit Live Project
+                <ExternalLink className="w-3.5 h-3.5" />
               </a>
             </motion.div>
           )}

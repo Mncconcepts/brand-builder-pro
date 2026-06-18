@@ -1,7 +1,12 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Link } from "react-router-dom";
-import { ExternalLink, Calendar as CalendarIcon, ArrowUpRight, Search } from "lucide-react";
+import {
+  ExternalLink,
+  Calendar as CalendarIcon,
+  ArrowUpRight,
+  Search,
+} from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import StackingCards from "@/components/StackingCards";
@@ -20,14 +25,40 @@ import logoo0 from "@/assets/logoo0.png";
 import logoo3 from "@/assets/logoo3.png";
 import logoo4 from "@/assets/logoo4.png";
 import projstoreapp22 from "@/assets/proj-storeapp22.png";
+import supersonic from "@/assets/supersonic.png";
 
 const projects = [
   {
+    title: "Supersonic Dynamic Services B.V",
+    category: "LOGISTICS · HAULAGE · WEB APPLICATION",
+    description:
+      "The Next-Generation Moving & Freight Haulage Service. Professional moving and freight haulage services powered by precision logistics and carbon-neutral fleet - experience the most seamless relocation and freight haulage services in the Netherlands.",
+    year: "2026",
+    tech: [
+      "React",
+      "TypeScript",
+      "Tailwind CSS",
+      "Framer Motion",
+      "React Hook Form",
+    ],
+    image: supersonic,
+    link: null,
+    caseStudySlug: "Supersonic-Dynamic-Services",
+  },
+  {
     title: "Visa Guard Africa Technologies Ltd",
     category: "DESIGN · DEVELOPMENT · FULL STACK · APP",
-    description: "A secure visa platform designed to protect Africans from visa scams. Features real-time verification, fraud detection, and a seamless application tracking system.",
+    description:
+      "A secure visa platform designed to protect Africans from visa scams. Features real-time verification, fraud detection, and a seamless application tracking system.",
     year: "Coming Soon",
-    tech: ["Figma", "React Native", "Node.js", "TypeScript", "MongoDB", "Express"],
+    tech: [
+      "Figma",
+      "React Native",
+      "Node.js",
+      "TypeScript",
+      "MongoDB",
+      "Express",
+    ],
     image: visaguard,
     link: null,
     caseStudySlug: "Visa-guard-africa App-Landing",
@@ -35,18 +66,20 @@ const projects = [
   {
     title: "Visa Guard Africa Landing Page",
     category: "DESIGN · DEVELOPMENT · FULL STACK · APP LANDING - WEB",
-    description: "A secure visa platform designed to protect Africans from visa scams. Features real-time verification, fraud detection, and a seamless application tracking system.",
+    description:
+      "A secure visa platform designed to protect Africans from visa scams. Features real-time verification, fraud detection, and a seamless application tracking system.",
     year: "Coming Soon",
     tech: ["Figma", "React", "Node.js", "TypeScript", "MongoDB", "Express"],
     image: vgalanding,
     link: "https://waitlist.visaguardafrica.com",
     caseStudySlug: "Visa-guard-africa App-Landing",
   },
-  
+
   {
     title: "Oonsa Event WebApp",
     category: "UI/UX DESIGN · WEB-APP",
-    description: "A modern event management app designed to simplify event discovery, ticketing, and planning within Austrailia.",
+    description:
+      "An all-in-one event app designed to make discovering local experiences, buying tickets, and planning events simple and stress-free across Australia.",
     year: "2025",
     tech: ["Figma", "Adobe XD", "Illustrator", "Photoshop"],
     image: Oonsa,
@@ -56,7 +89,8 @@ const projects = [
   {
     title: "Computer Village MarketPlace(CVMP)",
     category: "PRODUCT DESIGN · UIUX · APP",
-    description: "A mobile marketplace app connecting buyers and sellers in Computer Village. Designed in Figma and built with Flutter.",
+    description:
+      "A mobile marketplace app connecting buyers and sellers in Computer Village. Designed in Figma and built with Flutter.",
     year: "2025",
     tech: ["Flutter", "Figma", "Dart", "Firebase"],
     image: projstoreapp22,
@@ -66,7 +100,8 @@ const projects = [
   {
     title: "OMA Crypto Mining App",
     category: "UI/UX DESIGN · PRODUCT DESIGN · APP",
-    description: "A custom crypto mining, gaming, and entertainment mobile app. Designed end-to-end with intuitive dashboards.",
+    description:
+      "A custom crypto mining, gaming, and entertainment mobile app. Designed end-to-end with intuitive dashboards.",
     year: "2025",
     tech: ["Figma", "Adobe XD", "Illustrator", "Photoshop"],
     image: projOma,
@@ -76,7 +111,8 @@ const projects = [
   {
     title: "E-Commerce Skincare Website",
     category: "APP DESIGN · UI DESIGN - WEB DEVELOPMENT",
-    description: "A full-featured e-commerce platform with seamless checkout and real-time products. Built with React and Node.js.",
+    description:
+      "A full-featured e-commerce platform with seamless checkout and real-time products. Built with React and Node.js.",
     year: "2025",
     tech: ["React", "Node.js", "Stripe", "PostgreSQL"],
     image: projPearlzStore,
@@ -86,7 +122,8 @@ const projects = [
   {
     title: "Multiple Vendor Store (DAPSTORE)",
     category: "PRODUCT DESIGN · UIUX · APP",
-    description: "A multiple vendor store, mobile marketplace app connecting buyers and sellers.",
+    description:
+      "A multiple vendor store, mobile marketplace app connecting buyers and sellers.",
     year: "2025",
     tech: ["Flutter", "Figma", "Dart", "Firebase"],
     image: post2dap,
@@ -96,7 +133,8 @@ const projects = [
   {
     title: "PayWithPi",
     category: "WEB DEVELOPMENT · FULL STACK · WEBSITE",
-    description: "A Pi Network payment platform with wallet management and an admin dashboard.",
+    description:
+      "A Pi Network payment platform with wallet management and an admin dashboard.",
     year: "2024",
     tech: ["React", "TypeScript", "Firebase", "Node.js"],
     image: projPaywithpi,
@@ -106,7 +144,8 @@ const projects = [
   {
     title: "QuickBoostNG Branding",
     category: "BRANDING · LOGO DESIGN · IDENTITY",
-    description: "A bold and dynamic visual identity crafted for an automated Social Media Marketing (SMM) service provider. Engineered to project speed, growth, and digital authority.",
+    description:
+      "A bold and dynamic visual identity crafted for an automated Social Media Marketing (SMM) service provider. Engineered to project speed, growth, and digital authority.",
     year: "2026",
     tech: ["Illustrator", "Photoshop", "Figma"],
     image: logoo1,
@@ -116,7 +155,8 @@ const projects = [
   {
     title: "SmartBoost Identity",
     category: "BRANDING · LOGO DESIGN · IDENTITY",
-    description: "An ultra-modern brand asset system and logo layout designed for an advanced social media growth engine, matching precision analytics with clean aesthetics.",
+    description:
+      "An ultra-modern brand asset system and logo layout designed for an advanced social media growth engine, matching precision analytics with clean aesthetics.",
     year: "2026",
     tech: ["Illustrator", "Photoshop", "Branding"],
     image: logoo0,
@@ -126,7 +166,8 @@ const projects = [
   {
     title: "ReinsEvents Visual Identity",
     category: "BRANDING · LOGO DESIGN · MANAGEMENT",
-    description: "A sophisticated and elegant logo mark designed for a high-end corporate and social event organizer. Built to represent seamless planning, execution, and hospitality.",
+    description:
+      "A sophisticated and elegant logo mark designed for a high-end corporate and social event organizer. Built to represent seamless planning, execution, and hospitality.",
     year: "2025",
     tech: ["Illustrator", "Photoshop", "CorelDraw"],
     image: logoo3,
@@ -136,7 +177,8 @@ const projects = [
   {
     title: "Chuex Footies Identity",
     category: "BRANDING · LOGO DESIGN · PRODUCT DESIGN",
-    description: "A sleek, raw, and artisanal brand identifier created for a bespoke shoe making business, capturing craftsmanship, durability, and premium footwear fashion.",
+    description:
+      "A sleek, raw, and artisanal brand identifier created for a bespoke shoe making business, capturing craftsmanship, durability, and premium footwear fashion.",
     year: "2026",
     tech: ["Illustrator", "Photoshop", "Figma"],
     image: logoo4,
@@ -157,17 +199,22 @@ const Projects = () => {
   };
 
   const filteredProjects = projects.filter((project) => {
-    const matchesSearch = 
+    const matchesSearch =
       project.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
       project.category.toLowerCase().includes(searchQuery.toLowerCase());
-    
+
     if (activeCategory === "All") return matchesSearch;
-    
+
     // Custom filter logic
-    if (activeCategory === "Web") return matchesSearch && project.category.toLowerCase().includes("web");
-    if (activeCategory === "Mobile") return matchesSearch && project.category.toLowerCase().includes("app");
-    if (activeCategory === "Logo") return matchesSearch && project.category.toLowerCase().includes("branding");
-    
+    if (activeCategory === "Web")
+      return matchesSearch && project.category.toLowerCase().includes("web");
+    if (activeCategory === "Mobile")
+      return matchesSearch && project.category.toLowerCase().includes("app");
+    if (activeCategory === "Logo")
+      return (
+        matchesSearch && project.category.toLowerCase().includes("branding")
+      );
+
     return matchesSearch;
   });
 
@@ -186,7 +233,9 @@ const Projects = () => {
           >
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-border bg-foreground/5 mb-6">
               <span className="w-1 h-1 rounded-full bg-foreground animate-pulse" />
-              <span className="text-[10px] font-bold text-foreground tracking-widest uppercase">Selected Projects</span>
+              <span className="text-[10px] font-bold text-foreground tracking-widest uppercase">
+                Selected Projects
+              </span>
             </div>
             <h1 className="font-display text-6xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight leading-[0.9] mb-8">
               All Selected <br />
@@ -248,7 +297,10 @@ const Projects = () => {
                         {/* ── SKELETON LOADING SHIMMER ANIMATION ── */}
                         {!loadedImages[project.title] && (
                           <div className="absolute inset-0 bg-muted/60 overflow-hidden z-10 rounded-md">
-                            <div className="w-full h-full animate-pulse bg-gradient-to-r from-transparent via-muted-foreground/10 to-transparent" style={{ backgroundSize: '200% 100%' }} />
+                            <div
+                              className="w-full h-full animate-pulse bg-gradient-to-r from-transparent via-muted-foreground/10 to-transparent"
+                              style={{ backgroundSize: "200% 100%" }}
+                            />
                           </div>
                         )}
                         <img
@@ -257,7 +309,9 @@ const Projects = () => {
                           loading="lazy"
                           onLoad={() => handleImageLoad(project.title)}
                           className={`w-full h-full object-cover group-hover:scale-105 transition-all duration-500 ${
-                            loadedImages[project.title] ? "opacity-100 scale-100" : "opacity-0 scale-95"
+                            loadedImages[project.title]
+                              ? "opacity-100 scale-100"
+                              : "opacity-0 scale-95"
                           }`}
                         />
                       </>
@@ -317,7 +371,9 @@ const Projects = () => {
             </StackingCards>
           ) : (
             <div className="text-center py-20">
-              <p className="text-muted-foreground">No projects found matching your criteria.</p>
+              <p className="text-muted-foreground">
+                No projects found matching your criteria.
+              </p>
             </div>
           )}
         </div>
@@ -326,13 +382,20 @@ const Projects = () => {
       {/* CTA Section */}
       <section className="py-24 bg-foreground text-background relative overflow-hidden">
         <div className="max-w-3xl mx-auto px-6 text-center relative z-10">
-          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
-            <p className="text-xs font-bold uppercase tracking-widest opacity-50 mb-4">Let's Connect</p>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+          >
+            <p className="text-xs font-bold uppercase tracking-widest opacity-50 mb-4">
+              Let's Connect
+            </p>
             <h2 className="font-display text-4xl sm:text-5xl font-extrabold tracking-tight mb-4">
               Interested in Working Together?
             </h2>
             <p className="opacity-60 text-sm max-w-md mx-auto leading-relaxed mb-9">
-              We are always open to new opportunities and collaborations. Let's build something great together.
+              We are always open to new opportunities and collaborations. Let's
+              build something great together.
             </p>
             <div className="flex flex-col sm:flex-row gap-3 justify-center">
               <Link
