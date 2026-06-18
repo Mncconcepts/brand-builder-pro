@@ -154,7 +154,7 @@ const featuredProjects = [
     category: "App Design",
     year: "2025",
     image: "/proj-storeapp2.png",
-    tags: ["Mobile", "E-Commerce"],
+    tags: ["Mobile", "B2B", "CLASSIFIED"],
     color: "from-orange-500/20 to-yellow-500/10",
   },
   {
@@ -162,7 +162,7 @@ const featuredProjects = [
     category: "Product Design & Development",
     year: "2026",
     image: "/visaguard.jpg",
-    tags: ["Web App", "Fintech"],
+    tags: ["WebApp", " FINTECH", "TRAVEL"],
     color: "from-blue-500/20 to-cyan-500/10",
   },
   {
@@ -170,7 +170,7 @@ const featuredProjects = [
     category: "UI/UX Design",
     year: "2025",
     image: "/Oonsa.png",
-    tags: ["Web", "Events"],
+    tags: ["Web App", "Events"],
     color: "from-purple-500/20 to-pink-500/10",
   },
 ];

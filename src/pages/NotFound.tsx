@@ -46,7 +46,7 @@ const NotFound = () => {
       {/* Decorative Blueprint/Grid Background Alignment */}
       <div className="absolute inset-0 -z-10 bg-[linear-gradient(to_right,hsl(var(--border))_1px,transparent_1px),linear-gradient(to_bottom,hsl(var(--border))_1px,transparent_1px)] bg-[size:40px_40px] [mask-image:radial-gradient(ellipse_60%_60%_at_50%_50%,black,transparent)] opacity-20" />
       
-      <div className="max-w-4xl w-full grid md:grid-cols-5 gap-8 items-center bg-card/40 backdrop-blur-xl border border-border/60 rounded-3xl p-6 md:p-10 relative shadow-2xl shadow-black/10">
+      <div className="max-w-4xl w-full grid md:grid-cols-5 gap-8 items-center bg-card/40 backdrop-blur-xl border border-border/60 rounded-3xl p-6 md:p-10 relative shadow-1xl shadow-black/10">
         
         {/* ── LEFT CONTAINER: Interactive Bento Skill Anchor Panel ── */}
         <motion.div 

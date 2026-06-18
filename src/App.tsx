@@ -20,39 +20,39 @@ import CaseStudySheet from "./components/CaseStudySheet";
 const queryClient = new QueryClient();
 
 const AnimatedRoutes = () => {
-  const location = useLocation();
+const location = useLocation();
 
-  return (
-    <AnimatePresence mode="wait">
-      <PageTransition key={location.pathname}>
-        <Routes location={location}>
-          <Route path="/" element={<Index />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/services" element={<Services />} />
-          <Route path="/projects" element={<Projects />} />
-          <Route path="/contact" element={<Contact />} />
-          <Route path="/blog" element={<Blog />} />
-          <Route path="/case-studies" element={<CaseStudies />} />
-          <Route path="/projects/case-study/:slug" element={<CaseStudySheet />} />
-          <Route path="/notfound" element={<NotFound />} />
-        </Routes>
-      </PageTransition>
-    </AnimatePresence>
-  );
+return (
+<AnimatePresence mode="wait">
+<PageTransition key={location.pathname}>
+<Routes location={location}>
+<Route path="/" element={<Index />} />
+<Route path="/about" element={<About />} />
+<Route path="/services" element={<Services />} />
+<Route path="/projects" element={<Projects />} />
+<Route path="/contact" element={<Contact />} />
+<Route path="/blog" element={<Blog />} />
+<Route path="/case-studies" element={<CaseStudies />} />
+<Route path="/projects/case-study/:slug" element={<CaseStudySheet />} />
+<Route path="*" element={<NotFound />} />
+</Routes>
+</PageTransition>
+</AnimatePresence>
+);
 };
 
 const App = () => (
-  <QueryClientProvider client={queryClient}>
-    <TooltipProvider>
-      <Toaster />
-      <Sonner />
-      <BrowserRouter>
-        <ScrollToTop />
-        <AnimatedRoutes />
-        <WhatsAppButton />
-      </BrowserRouter>
-    </TooltipProvider>
-  </QueryClientProvider>
+<QueryClientProvider client={queryClient}>
+<TooltipProvider>
+<Toaster />
+<Sonner />
+<BrowserRouter>
+<ScrollToTop />
+<AnimatedRoutes />
+<WhatsAppButton />
+</BrowserRouter>
+</TooltipProvider>
+</QueryClientProvider>
 );
 
 export default App;
