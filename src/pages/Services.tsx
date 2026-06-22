@@ -396,7 +396,7 @@ const Services = () => {
                   <h3 className="font-display text-lg font-bold text-foreground mb-2">
                     {p.title}
                   </h3>
-                  <p className="text-[11px] text-muted-foreground leading-relaxed">{p.description}</p>
+                  <p className="text-[13px] text-muted-foreground leading-relaxed">{p.description}</p>
                 </motion.div>
               ))}
             </div>

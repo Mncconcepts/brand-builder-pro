@@ -1,20 +1,21 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
-import { 
-  Calendar as CalendarIcon, 
-  ArrowUpRight, 
-  CheckCircle2, 
-  Code2, 
-  Palette, 
-  Zap, 
-  Trophy, 
-  Users, 
-  MessageSquare, 
-  Layers, 
-  Monitor, 
-  Database, 
-  Terminal, 
-  PenTool 
+import {
+  Calendar as CalendarIcon,
+  ArrowUpRight,
+  CheckCircle2,
+  Code2,
+  Palette,
+  Zap,
+  Trophy,
+  Users,
+  MessageSquare,
+  Layers,
+  Monitor,
+  Database,
+  Terminal,
+  PenTool,
+  CalendarDays,
 } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -24,7 +25,13 @@ const skillGroups = [
   {
     label: "Frontend",
     icon: Monitor,
-    skills: ["React / Next.js", "React Native", "Flutter", "TypeScript", "Tailwind CSS"],
+    skills: [
+      "React / Next.js",
+      "React Native",
+      "Flutter",
+      "TypeScript",
+      "Tailwind CSS",
+    ],
   },
   {
     label: "Backend",
@@ -45,13 +52,31 @@ const skillGroups = [
 
 const experience = [
   {
-    role: "Lead Product Designer & PM",
+    role: "Co Software Developer & Lead Product Designer",
+    company: "SUPERSONIC Dynamic Services B.V.",
+    period: "Present",
+    type: "Full-Time",
+    description:
+      "Co-leading the design and frontend development of a next-generation moving and freight haulage platform for the Netherlands. Spearheading product strategy, UI/UX design, design systems, and responsive web experiences while collaborating on scalable frontend architecture and digital workflows. The platform delivers professional moving and freight haulage services powered by precision logistics, real-time operations, and carbon-neutral fleet solutions, creating a seamless, technology-driven relocation experience for individuals, families, and businesses.",
+    icon: Code2,
+  },
+  {
+    role: "Lead Product Designer & Product Manager",
     company: "Visa Guard Africa Technologies Ltd",
     period: "Present",
-    type: "Full-time",
+    type: "Full-Time",
     description:
-      "Leading product design and development team for startups and established brands. Creating user-centered designs, conducting user research, building prototypes, and delivering scalable design systems that drive business outcomes.",
+      "Leading product design and strategy for a visa security platform dedicated to protecting Africans from travel and immigration scams. Designed intuitive experiences for verified agent onboarding, secure visa applications, fraud detection workflows, and travel safety features while building scalable design systems and collaborating closely with engineering to deliver a reliable, high-security digital product.",
     icon: Palette,
+  },
+  {
+    role: "Product Designer",
+    company: "Oonsa Event WebApp",
+    period: "2025",
+    type: "Contract",
+    description:
+      "Designed a modern event discovery and ticketing platform that enables users to explore local experiences, purchase tickets, manage bookings, and seamlessly connect with events across Australia through an intuitive and user-centered digital experience.",
+    icon: CalendarDays,
   },
   {
     role: "Product Designer",
@@ -59,16 +84,16 @@ const experience = [
     period: "2025",
     type: "Contract",
     description:
-      "Designed intuitive interfaces for e-commerce, SaaS, and fintech products. Led user research sessions, created wireframes and high-fidelity prototypes, and collaborated with engineering to ensure pixel-perfect implementation.",
-    icon: Code2,
+      "Designed a B2B classified marketplace connecting verified technology buyers, sellers, wholesalers, and service providers. Led UX research, wireframing, prototyping, design system creation, and high-fidelity interfaces for product listings, vendor management, messaging, and transaction workflows while collaborating with engineering for seamless implementation.",
+    icon: Palette,
   },
   {
     role: "UI/UX Designer",
     company: "Multiple Vendor Store (DAPSTORE)",
-    period: "2024-2025",
-    type: "Full-time",
+    period: "2025",
+    type: "Internship",
     description:
-      "Started as a web designer creating marketing pages, quickly transitioned into product design roles. Built user flows, designed component libraries, and learned to code to better communicate with developers.",
+      "Designed a modern multi-vendor commerce platform, covering both the mobile application and marketing landing page. Led UX research, user flows, design system creation, and high-fidelity UI design for vendor management, product listings, payments, orders, inventory, and customer experiences while collaborating with developers to ensure responsive, pixel-perfect implementation.",
     icon: Zap,
   },
 ];
@@ -76,31 +101,35 @@ const experience = [
 const values = [
   {
     title: "Quality Over Quantity",
-    description: "Every project gets our full attention. We don't take on more than we can deliver at the highest standard.",
+    description:
+      "Every project gets our full attention. We don't take on more than we can deliver at the highest standard.",
     icon: Trophy,
   },
   {
     title: "Clear Communication",
-    description: "Regular updates, honest timelines, and clear documentation. No surprises, no jargon just straight talk.",
+    description:
+      "Regular updates, honest timelines, and clear documentation. No surprises, no jargon just straight talk.",
     icon: MessageSquare,
   },
   {
     title: "User-First Thinking",
-    description: "Good design starts with understanding the people who will use it. Research and empathy drive every decision.",
+    description:
+      "Good design starts with understanding the people who will use it. Research and empathy drive every decision.",
     icon: Users,
   },
   {
     title: "Clean, Maintainable Code",
-    description: "Code that is easy to read, test, and extend. Built for the long term, not just the deadline.",
+    description:
+      "Code that is easy to read, test, and extend. Built for the long term, not just the deadline.",
     icon: Layers,
   },
 ];
 
 const metrics = [
-  { value: "4+",  label: "Years of Experience" },
-  { value: "50+", label: "Projects Completed"  },
-  { value: "30+", label: "Happy Clients"        },
-  { value: "100%",label: "Remote-Friendly"      },
+  { value: "4+", label: "Years of Experience" },
+  { value: "50+", label: "Projects Completed" },
+  { value: "30+", label: "Happy Clients" },
+  { value: "100%", label: "Remote-Friendly" },
 ];
 
 const About = () => {
@@ -111,7 +140,7 @@ const About = () => {
       {/* ── HERO ── */}
       <section className="relative pt-36 pb-24 border-b border-border overflow-hidden">
         <div className="absolute inset-0 -z-10 bg-[linear-gradient(to_right,hsl(var(--border))_1px,transparent_1px),linear-gradient(to_bottom,hsl(var(--border))_1px,transparent_1px)] bg-[size:72px_72px] [mask-image:radial-gradient(ellipse_80%_50%_at_50%_0%,black,transparent)] opacity-20" />
-        
+
         <div className="max-w-6xl mx-auto px-6">
           <motion.div
             initial={{ opacity: 0, y: -30 }}
@@ -120,7 +149,9 @@ const About = () => {
           >
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-border bg-foreground/5 mb-6">
               <span className="w-1 h-1 rounded-full bg-foreground animate-pulse" />
-              <span className="text-[10px] font-bold text-foreground tracking-widest uppercase">Our Story</span>
+              <span className="text-[10px] font-bold text-foreground tracking-widest uppercase">
+                Our Story
+              </span>
             </div>
 
             <div className="grid lg:grid-cols-2 gap-12 items-end">
@@ -135,9 +166,11 @@ const About = () => {
               </div>
               <div className="pb-2">
                 <p className="text-sm text-muted-foreground leading-relaxed mb-7">
-                  We are a multidisciplinary creative team with over 4 years of experience bridging
-                  the gap between design and development. We collaborate with startups and established
-                  brands to craft digital products that are both visually compelling and technically robust.
+                  We are a multidisciplinary creative team with over 4 years of
+                  experience bridging the gap between design and development. We
+                  collaborate with startups and established brands to craft
+                  digital products that are both visually compelling and
+                  technically robust.
                 </p>
                 <div className="flex flex-wrap gap-2">
                   <Link
@@ -169,8 +202,12 @@ const About = () => {
           >
             {metrics.map((m) => (
               <div key={m.label} className="text-center py-4 px-2">
-                <p className="font-display text-3xl font-extrabold text-foreground tracking-tight">{m.value}</p>
-                <p className="text-[10px] text-muted-foreground mt-1 font-medium uppercase tracking-wide">{m.label}</p>
+                <p className="font-display text-3xl font-extrabold text-foreground tracking-tight">
+                  {m.value}
+                </p>
+                <p className="text-[10px] text-muted-foreground mt-1 font-medium uppercase tracking-wide">
+                  {m.label}
+                </p>
               </div>
             ))}
           </motion.div>
@@ -189,7 +226,9 @@ const About = () => {
               transition={{ duration: 0.7 }}
               className="max-w-3xl"
             >
-              <p className="text-xs font-bold uppercase tracking-widest text-foreground mb-3">Our Approach</p>
+              <p className="text-xs font-bold uppercase tracking-widest text-foreground mb-3">
+                Our Approach
+              </p>
               <h2 className="font-display text-4xl sm:text-5xl font-extrabold text-foreground tracking-tight leading-tight mb-8">
                 Design & Code, in Harmony.
               </h2>
@@ -200,7 +239,9 @@ const About = () => {
                 ].map((p, i) => (
                   <div key={i} className="flex gap-4">
                     <CheckCircle2 className="w-4 h-4 text-primary shrink-0 mt-1" />
-                    <p className="text-sm text-muted-foreground leading-relaxed">{p}</p>
+                    <p className="text-sm text-muted-foreground leading-relaxed">
+                      {p}
+                    </p>
                   </div>
                 ))}
               </div>
@@ -215,11 +256,16 @@ const About = () => {
             >
               <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-12 gap-4">
                 <div>
-                  <p className="text-xs font-bold uppercase tracking-[0.2em] text-muted-foreground mb-3">Technical Stack</p>
-                  <h3 className="font-display text-3xl sm:text-4xl font-extrabold text-foreground">Core Skills.</h3>
+                  <p className="text-xs font-bold uppercase tracking-[0.2em] text-muted-foreground mb-3">
+                    Technical Stack
+                  </p>
+                  <h3 className="font-display text-3xl sm:text-4xl font-extrabold text-foreground">
+                    Core Skills.
+                  </h3>
                 </div>
                 <p className="text-sm text-muted-foreground max-w-xs leading-relaxed">
-                  We use a modern toolkit to build scalable, high-performance digital solutions.
+                  We use a modern toolkit to build scalable, high-performance
+                  digital solutions.
                 </p>
               </div>
 
@@ -239,9 +285,11 @@ const About = () => {
                         <div className="w-10 h-10 rounded-xl bg-background border border-border flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
                           <Icon className="w-5 h-5 text-foreground" />
                         </div>
-                        <h4 className="text-xs font-extrabold uppercase tracking-widest text-foreground">{group.label}</h4>
+                        <h4 className="text-xs font-extrabold uppercase tracking-widest text-foreground">
+                          {group.label}
+                        </h4>
                       </div>
-                      
+
                       <div className="flex flex-wrap gap-2">
                         {group.skills.map((skill) => (
                           <span
@@ -270,8 +318,12 @@ const About = () => {
             viewport={{ once: true }}
             className="mb-16"
           >
-            <p className="text-xs font-bold uppercase tracking-widest text-foreground mb-3">Our Journey</p>
-            <h2 className="font-display text-4xl sm:text-5xl text-foreground font-extrabold tracking-tight">Work History.</h2>
+            <p className="text-xs font-bold uppercase tracking-widest text-foreground mb-3">
+              Our Journey
+            </p>
+            <h2 className="font-display text-4xl sm:text-5xl text-foreground font-extrabold tracking-tight">
+              Work History.
+            </h2>
           </motion.div>
 
           <div className="relative space-y-0">
@@ -298,13 +350,17 @@ const About = () => {
                         <h3 className="font-display text-xl font-bold text-foreground">
                           {exp.role}
                         </h3>
-                        <p className="text-sm text-muted-foreground font-medium mt-0.5">{exp.company}</p>
+                        <p className="text-sm text-muted-foreground font-medium mt-0.5">
+                          {exp.company}
+                        </p>
                       </div>
                       <div className="flex items-center gap-2 shrink-0">
                         <span className="text-[10px] font-bold uppercase tracking-widest px-2.5 py-1 rounded-full bg-secondary text-foreground border border-border">
                           {exp.type}
                         </span>
-                        <span className="text-sm font-semibold text-muted-foreground">{exp.period}</span>
+                        <span className="text-sm font-semibold text-muted-foreground">
+                          {exp.period}
+                        </span>
                       </div>
                     </div>
                     <p className="text-sm text-muted-foreground leading-relaxed max-w-2xl group-hover:text-foreground transition-colors">
@@ -327,8 +383,12 @@ const About = () => {
             viewport={{ once: true }}
             className="mb-16"
           >
-            <p className="text-xs font-bold uppercase tracking-widest text-foreground mb-3">What Drives Us</p>
-            <h2 className="font-display text-4xl sm:text-5xl text-foreground font-extrabold tracking-tight">How We Work.</h2>
+            <p className="text-xs font-bold uppercase tracking-widest text-foreground mb-3">
+              What Drives Us
+            </p>
+            <h2 className="font-display text-4xl sm:text-5xl text-foreground font-extrabold tracking-tight">
+              Service & Work Proccess
+            </h2>
           </motion.div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
@@ -353,7 +413,9 @@ const About = () => {
                     <h3 className="font-display text-base font-bold text-foreground mb-2 leading-snug">
                       {v.title}
                     </h3>
-                    <p className="text-xs text-muted-foreground leading-relaxed">{v.description}</p>
+                    <p className="text-xs text-muted-foreground leading-relaxed">
+                      {v.description}
+                    </p>
                   </div>
                 </motion.div>
               );
@@ -365,13 +427,20 @@ const About = () => {
       {/* ── CTA ── */}
       <section className="py-24 bg-foreground text-background relative overflow-hidden">
         <div className="max-w-3xl mx-auto px-6 text-center relative z-10">
-          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
-            <p className="text-xs font-bold uppercase tracking-widest opacity-50 mb-4">Let's Connect</p>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+          >
+            <p className="text-xs font-bold uppercase tracking-widest opacity-50 mb-4">
+              Let's Connect
+            </p>
             <h2 className="font-display text-4xl sm:text-5xl font-extrabold tracking-tight mb-4">
               Interested in Working With Us?
             </h2>
             <p className="opacity-60 text-sm max-w-md mx-auto leading-relaxed mb-8">
-              We are always open to new opportunities and collaborations. Let's build something great together.
+              We are always open to new opportunities and collaborations. Let's
+              build something great together.
             </p>
             <div className="flex flex-col sm:flex-row gap-3 justify-center">
               <Link

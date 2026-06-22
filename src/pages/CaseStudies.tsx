@@ -120,7 +120,7 @@ const CaseStudies = () => {
               { n: "100%", label: "Remote-Friendly" },
             ].map((s) => (
               <div key={s.label} className="flex items-baseline gap-2">
-                <span className="font-display text-2xl font-extrabold text-foreground">{s.n}</span>
+                <span className="font-display text-1xl font-extrabold text-foreground">{s.n}</span>
                 <span className="text-xs text-muted-foreground font-medium">{s.label}</span>
               </div>
             ))}

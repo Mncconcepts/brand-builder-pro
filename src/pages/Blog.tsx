@@ -90,7 +90,7 @@ const Blog = () => {
       <section className="relative pt-40 pb-16 border-b border-border/40 overflow-hidden">
         <div className="absolute inset-0 -z-10 bg-[linear-gradient(to_right,hsl(var(--border))_1px,transparent_1px)] bg-[size:120px] [mask-image:linear-gradient(to_bottom,black,transparent)] opacity-10" />
         
-        <div className="max-w-4xl mx-auto px-6">
+        <div className="max-w-6xl mx-auto px-6">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -137,7 +137,7 @@ const Blog = () => {
 
       {/* ── ARTICLES FEED ── */}
       <section className="py-15">
-        <div className="max-w-4xl mx-auto px-6">
+        <div className="max-w-6xl mx-auto px-6">
           <StackingCards offset={12} top={40}>
             {filteredPosts.map((post) => (
               /* REDIRECTION LOGIC: We point to an undefined /404 path to trigger the page */

@@ -30,7 +30,7 @@ import supersonic from "@/assets/supersonic.png";
 const projects = [
   {
     title: "Supersonic Dynamic Services B.V",
-    category: "LOGISTICS · HAULAGE · WEB APPLICATION",
+    category: "DESIGN · DEVELOPMENT · FULLSTACK-WEBSITE",
     description:
       "The Next-Generation Moving & Freight Haulage Service. Professional moving and freight haulage services powered by precision logistics and carbon-neutral fleet - experience the most seamless relocation and freight haulage services in the Netherlands.",
     year: "2026",

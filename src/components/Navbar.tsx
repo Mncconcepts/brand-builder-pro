@@ -15,22 +15,32 @@ const navItems = [
 const Navbar = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
   const location = useLocation();
+  const [imageLoaded, setImageLoaded] = useState(false);
 
   return (
     <header className="fixed top-3 left-0 right-0 z-50 w-full px-4 sm:px-6 pointer-events-none">
       {/* ── DESKTOP & MOBILE MAIN WRAPPER ── */}
       <nav className="max-w-6xl mx-auto bg-background/50 backdrop-blur-xl border border-border/20 rounded-2xl shadow-md shadow-black/[0.02] pointer-events-auto transition-all">
         <div className="px-6 flex items-center justify-between h-16">
-          
           {/* ── Brand Logo & Profile Image Group ── */}
           <Link to="/" className="flex items-center gap-2 group select-none">
             {/* Profile Avatar Container */}
             <div className="relative w-9 h-9  shrink-0 overflow-hidden rounded-lg border border-border/40 bg-secondary/50 group-hover:border-foreground/20 transition-all duration-300">
-              <img 
-                src="/profile3.jpg" 
-                alt="Profile" 
-                className="w-full h-full object-cover transform transition-transform duration-500 group-hover:scale-110"
-                loading="eager"
+              {/* Shimmer Skeleton Placeholder */}
+              {!imageLoaded && (
+                <div className="absolute inset-0 bg-gray-800/80 animate-pulse overflow-hidden">
+                  <div className="absolute inset-0 -translate-x-full animate-[shimmer_1.5s_infinite] bg-gradient-to-r from-transparent via-white/10 to-transparent" />
+                </div>
+              )}
+
+              <img
+                src="/profile3.jpg"
+                alt="Profile"
+                className={`w-full h-full object-cover transform transition-all duration-500 group-hover:scale-110 ${
+                  imageLoaded ? "opacity-100 scale-100" : "opacity-0 scale-95"
+                }`}
+                loading="lazy"
+                onLoad={() => setImageLoaded(true)}
               />
             </div>
 
@@ -53,7 +63,9 @@ const Navbar = () => {
                   <Link
                     to={item.href}
                     className={`relative z-10 block text-xs font-bold tracking-tight px-4 py-2 transition-colors duration-300 ${
-                      isActive ? "text-background" : "text-muted-foreground hover:text-foreground"
+                      isActive
+                        ? "text-background"
+                        : "text-muted-foreground hover:text-foreground"
                     }`}
                   >
                     {item.label}
@@ -62,7 +74,11 @@ const Navbar = () => {
                     <motion.div
                       layoutId="activeNavBackground"
                       className="absolute inset-0 bg-foreground rounded-lg -z-0"
-                      transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                      transition={{
+                        type: "spring",
+                        stiffness: 380,
+                        damping: 30,
+                      }}
                     />
                   )}
                 </li>
@@ -126,7 +142,7 @@ const Navbar = () => {
                 {navItems.map((item, index) => {
                   const isActive = location.pathname === item.href;
                   return (
-                    <motion.li 
+                    <motion.li
                       key={item.href}
                       initial={{ opacity: 0, x: -4 }}
                       animate={{ opacity: 1, x: 0 }}
@@ -146,8 +162,8 @@ const Navbar = () => {
                     </motion.li>
                   );
                 })}
-                
-                <motion.li 
+
+                <motion.li
                   initial={{ opacity: 0, y: 4 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: navItems.length * 0.04 }}
