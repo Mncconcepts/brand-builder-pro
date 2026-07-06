@@ -223,7 +223,7 @@ function ServiceRow({ service, index }: { service: typeof services[0]; index: nu
           {/* Title + tagline */}
           <div className="flex-1 min-w-0">
             <div className="flex items-baseline gap-3 flex-wrap">
-              <h3 className="font-display text-sm tracking-tight sm:text-1xl font-bold text-foreground group-hover:text-muted-foreground transition-colors">
+              <h3 className="font-display text-sm tracking-tight sm:text-1xl font-exrabold text-foreground group-hover:text-muted-foreground transition-colors">
                 {service.title}
               </h3>
               <span className="text-xs text-muted-foreground font-medium hidden sm:block">

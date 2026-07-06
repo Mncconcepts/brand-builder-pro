@@ -19,7 +19,7 @@ import projOma from "@/assets/proj-oma.png";
 import projPaywithpi from "@/assets/proj-paywithpi.png";
 import post2dap from "@/assets/post-2dap.png";
 import visaguard from "@/assets/visaguard.jpg";
-import vgalanding from "@/assets/vgalanding.jpg";
+import vgalanding from "@/assets/vgalanding2.jpg";
 import logoo1 from "@/assets/logoo1.png";
 import logoo0 from "@/assets/logoo0.png";
 import logoo3 from "@/assets/logoo3.png";
@@ -239,7 +239,7 @@ const Projects = () => {
             </div>
             <h1 className="font-display text-6xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight leading-[0.9] mb-8">
               All Selected <br />
-              <span className="text-muted-foreground/40"> Projects </span>
+              <span className="text-muted-foreground/40"> Jobs-Projects </span>
             </h1>
           </motion.div>
         </div>
@@ -291,7 +291,7 @@ const Projects = () => {
                   key={project.title}
                   className="group grid lg:grid-cols-[1fr_2fr] gap-8 border border-border rounded-xl p-6 lg:p-8 bg-card hover:shadow-sm transition-shadow cursor-pointer mb-10"
                 >
-                  <div className="relative bg-secondary aspect-[16/12] rounded-md flex items-center justify-center overflow-hidden">
+                  <div className="relative bg-secondary aspect-[19/12] rounded-md flex items-center justify-center overflow-hidden">
                     {project.image ? (
                       <>
                         {/* ── SKELETON LOADING SHIMMER ANIMATION ── */}
@@ -308,7 +308,7 @@ const Projects = () => {
                           alt={project.title}
                           loading="lazy"
                           onLoad={() => handleImageLoad(project.title)}
-                          className={`w-full h-full object-cover group-hover:scale-105 transition-all duration-500 ${
+                          className={`w-full  h-full object-cover group-hover:scale-105 transition-all duration-500 ${
                             loadedImages[project.title]
                               ? "opacity-100 scale-100"
                               : "opacity-0 scale-95"

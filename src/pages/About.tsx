@@ -136,54 +136,52 @@ const About = () => {
   return (
     <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
       <Navbar />
-
       {/* ── HERO ── */}
-      <section className="relative pt-36 pb-24 border-b border-border overflow-hidden">
-        <div className="absolute inset-0 -z-10 bg-[linear-gradient(to_right,hsl(var(--border))_1px,transparent_1px),linear-gradient(to_bottom,hsl(var(--border))_1px,transparent_1px)] bg-[size:72px_72px] [mask-image:radial-gradient(ellipse_80%_50%_at_50%_0%,black,transparent)] opacity-20" />
+      <section className="relative pt-28 pb-20 sm:pt-36 sm:pb-28 border-b border-border overflow-hidden">
+        {/* Ambient backdrop — softer, layered instead of a flat grid */}
+        <div className="absolute inset-0 -z-10">
+          <div className="absolute inset-0 bg-[linear-gradient(to_right,hsl(var(--border))_1px,transparent_1px),linear-gradient(to_bottom,hsl(var(--border))_1px,transparent_1px)] bg-[size:64px_64px] [mask-image:radial-gradient(ellipse_70%_45%_at_30%_0%,black,transparent)] opacity-[0.15]" />
+          <div className="absolute -top-32 -right-24 w-[420px] h-[420px] rounded-full bg-foreground/[0.04] blur-3xl" />
+        </div>
 
         <div className="max-w-6xl mx-auto px-6">
           <motion.div
-            initial={{ opacity: 0, y: -30 }}
+            initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
+            transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
           >
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-border bg-foreground/5 mb-6">
-              <span className="w-1 h-1 rounded-full bg-foreground animate-pulse" />
-              <span className="text-[10px] font-bold text-foreground tracking-widest uppercase">
-                Our Story
-              </span>
-            </div>
 
-            <div className="grid lg:grid-cols-2 gap-12 items-end">
-              <div>
-                <h1 className="font-display text-5xl sm:text-6xl lg:text-7xl font-extrabold text-foreground leading-[1.05] tracking-tight mb-6">
-                  We Build.
+            {/* 12-col grid: headline gets more room than copy, so it doesn't feel like a forced 50/50 split */}
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-y-10 lg:gap-x-10 items-end">
+              <div className="lg:col-span-7">
+                <h1 className="font-display text-[2.75rem] leading-[1.03] sm:text-6xl lg:text-[5.25rem] font-extrabold text-foreground tracking-tight text-balance">
+                  We Build.{" "}
+                  <span className="text-muted-foreground">We Design.</span>
                   <br />
-                  We Design.
-                  <br />
-                  <span className="text-muted-foreground">We Ship.</span>
+                  We Ship.
                 </h1>
               </div>
-              <div className="pb-2">
-                <p className="text-sm text-muted-foreground leading-relaxed mb-7">
-                  We are a multidisciplinary creative team with over 4 years of
-                  experience bridging the gap between design and development. We
-                  collaborate with startups and established brands to craft
-                  digital products that are both visually compelling and
-                  technically robust.
+
+              <div className="lg:col-span-5 lg:pl-6 lg:border-l lg:border-border">
+                <p className="text-sm sm:text-[15px] text-muted-foreground leading-relaxed mb-8 max-w-md">
+                  A multidisciplinary creative team with over 4 years bridging
+                  design and development. We partner with startups and
+                  established brands to ship digital products that look as good
+                  as they run.
                 </p>
-                <div className="flex flex-wrap gap-2">
+                <div className="flex flex-wrap gap-3">
                   <Link
                     to="/contact"
-                    className="inline-flex items-center gap-2 bg-foreground text-background px-6 py-2.8 text-sm font-bold rounded-lg hover:opacity-90 transition-all hover:-translate-y-0.5"
+                    className="group inline-flex items-center gap-2 bg-foreground text-background px-6 py-3 text-sm font-bold rounded-lg shadow-sm hover:shadow-md transition-all hover:-translate-y-0.5"
                   >
-                    Work With Us <ArrowUpRight className="w-3.5 h-3.5" />
+                    Work With Us
+                    <ArrowUpRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                   </Link>
                   <BookCallSheet
                     trigger={
                       <button
                         type="button"
-                        className="inline-flex items-center gap-2 border border-border text-foreground px-6 py-2.5 text-sm font-bold rounded-lg hover:bg-secondary transition-all hover:-translate-y-0.5"
+                        className="inline-flex items-center gap-2 border border-border text-foreground px-6 py-3 text-sm font-bold rounded-lg hover:bg-secondary transition-all hover:-translate-y-0.5"
                       >
                         <CalendarIcon className="w-3.5 h-3.5" /> Book a Call
                       </button>
@@ -195,21 +193,31 @@ const About = () => {
           </motion.div>
 
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.4, duration: 0.7 }}
-            className="grid grid-cols-2 sm:grid-cols-4 mt-14 pt-10 border-t border-border divide-x divide-border"
+            transition={{ delay: 0.3, duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+            className="mt-14 sm:mt-16 rounded-xl border border-border bg-foreground/[0.02] overflow-hidden"
           >
-            {metrics.map((m) => (
-              <div key={m.label} className="text-center py-4 px-2">
-                <p className="font-display text-3xl font-extrabold text-foreground tracking-tight">
-                  {m.value}
-                </p>
-                <p className="text-[10px] text-muted-foreground mt-1 font-medium uppercase tracking-wide">
-                  {m.label}
-                </p>
-              </div>
-            ))}
+
+            <div className="grid grid-cols-2 sm:grid-cols-4">
+              {metrics.map((m, i) => (
+                <div
+                  key={m.label}
+                  className={`text-center sm:text-left py-6 px-5 ${
+                    i % 2 === 0 ? "border-r border-border" : ""
+                  } ${i < 2 ? "border-b sm:border-b-0 border-border" : ""} ${
+                    i > 0 ? "sm:border-l sm:border-r-0" : ""
+                  }`}
+                >
+                  <p className="font-display text-3xl sm:text-4xl font-extrabold text-foreground tracking-tight tabular-nums">
+                    {m.value}
+                  </p>
+                  <p className="text-[10px] text-muted-foreground mt-1.5 font-semibold uppercase tracking-wide">
+                    {m.label}
+                  </p>
+                </div>
+              ))}
+            </div>
           </motion.div>
         </div>
       </section>
@@ -259,7 +267,7 @@ const About = () => {
                   <p className="text-xs font-bold uppercase tracking-[0.2em] text-muted-foreground mb-3">
                     Technical Stack
                   </p>
-                  <h3 className="font-display text-3xl sm:text-4xl font-extrabold text-foreground">
+                  <h3 className="font-display text-4xl sm:text-5xl font-extrabold text-foreground">
                     Core Skills.
                   </h3>
                 </div>
@@ -387,7 +395,7 @@ const About = () => {
               What Drives Us
             </p>
             <h2 className="font-display text-4xl sm:text-5xl text-foreground font-extrabold tracking-tight">
-              Service & Work Proccess
+              Our Execution Process
             </h2>
           </motion.div>
 

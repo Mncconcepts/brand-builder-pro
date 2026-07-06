@@ -153,7 +153,7 @@ const featuredProjects = [
     title: "Multiple Vendor Store CVMP",
     category: "App Design",
     year: "2025",
-    image: "/proj-storeapp2.png",
+    image: "/proj-storeapp22.png",
     tags: ["Mobile", "B2B", "CLASSIFIED"],
     color: "from-orange-500/20 to-yellow-500/10",
   },
@@ -161,8 +161,8 @@ const featuredProjects = [
     title: "Visa Guard Africa",
     category: "Product Design & Development",
     year: "2026",
-    image: "/visaguard.jpg",
-    tags: ["WebApp", " FINTECH", "TRAVEL"],
+    image: "/vgalanding2.jpg",
+    tags: ["WebApp", " FINTECH", "TRAVEL SAFETY"],
     color: "from-blue-500/20 to-cyan-500/10",
   },
   {
@@ -232,7 +232,7 @@ const Index = () => {
               </div>
             </div>
 
-            <h1 className="font-Display text-6xl sm:text-6xl lg:text-7xl font-extrabold leading-[1.05] tracking-tighter text-foreground mb-4">
+            <h1 className="font-Display text-balance text-6xl sm:text-6xl lg:text-7xl font-extrabold leading-[1.05] tracking-tighter text-foreground mb-4">
               <TypewriterText
                 text="Creating Digital Experiences That Work."
                 speed={55}
