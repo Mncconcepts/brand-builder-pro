@@ -232,7 +232,7 @@ const Index = () => {
               </div>
             </div>
 
-            <h1 className="font-Display text-balance text-6xl sm:text-6xl lg:text-7xl font-extrabold leading-[1.05] tracking-tighter text-foreground mb-4">
+            <h1 className="font-Display text-balance text-6xl sm:text-6xl lg:text-7xl font-black leading-[1.05] tracking-tighter text-foreground mb-4">
               <TypewriterText
                 text="Creating Digital Experiences That Work."
                 speed={55}
@@ -331,7 +331,9 @@ const Index = () => {
 
             <div className="absolute -bottom-5 -left-6 flex items-center gap-3 bg-card border border-border rounded-xl px-4 py-3 shadow-m backdrop-blur-md">
               <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center">
-                <span><ArrowUpRight className="w-4 h-4" /></span>
+                <span>
+                  <ArrowUpRight className="w-4 h-4" />
+                </span>
               </div>
               <div>
                 <p className="text-xs font-bold text-foreground">
@@ -357,7 +359,10 @@ const Index = () => {
       </section>
 
       <section className="border-y border-border bg-secondary/30">
-        <div ref={statsRef} className="font-display max-w-6xl mx-auto px-6 py-16">
+        <div
+          ref={statsRef}
+          className="font-display max-w-6xl mx-auto px-6 py-16"
+        >
           <div className="grid grid-cols-2 md:grid-cols-4 gap-10">
             {stats.map((stat, i) => (
               <motion.div

@@ -98,8 +98,8 @@ const CaseStudies = () => {
               <span className="text-[10px] font-bold text-foreground tracking-widest uppercase">Case Studies</span>
             </div>
 
-            <h1 className="font-display text-5xl sm:text-6xl lg:text-7xl text-foreground leading-[1.05] font-extrabold tracking-tight mb-6">
-              General Project Case-Study.
+            <h1 className="font-display text-5xl text-balance sm:text-6xl lg:text-7xl text-foreground leading-[1.05] font-extrabold tracking-tight mb-6">
+              General Case-Study.
             </h1>
             <p className="text-sm text-muted-foreground max-w-xl leading-relaxed">
               In-depth look at select projects the challenges, the process, and

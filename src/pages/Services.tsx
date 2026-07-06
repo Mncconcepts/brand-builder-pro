@@ -308,7 +308,7 @@ const Services = () => {
               <span className="text-[10px] font-bold text-foreground tracking-widest uppercase">What We Offer</span>
             </div>
 
-            <h1 className="font-display text-5xl sm:text-6xl lg:text-7xl text-foreground leading-[1.05] font-extrabold tracking-tight mb-6">
+            <h1 className="font-display text-balance text-5xl sm:text-7xl lg:text-7xl text-foreground leading-[1.05] font-extrabold tracking-tight mb-6">
               Services Built for Real Outcomes.
             </h1>
             <p className="text-sm text-muted-foreground max-w-xl leading-relaxed">
@@ -348,7 +348,7 @@ const Services = () => {
             className="mb-10"
           >
             <p className="text-[10px] font-bold tracking-[0.2em] uppercase text-muted-foreground mb-2">core digital solutions</p>
-            <h2 className="font-display tracking-tight text-4xl font-extrabold text-foreground">Services We Offer</h2>
+            <h2 className="font-display tracking-tight text-5xl font-extrabold text-foreground">Technical Expertise.</h2>
           </motion.div>
 
           <div className="divide-y divide-border border-t border-border rounded-2xl overflow-hidden bg-card/20 border shadow-sm px-2">
@@ -369,7 +369,7 @@ const Services = () => {
             className="mb-16"
           >
             <p className="text-[10px] font-bold tracking-[0.2em] uppercase text-muted-foreground mb-2">How We Work</p>
-            <h2 className="font-display text-4xl sm:text-5xl text-foreground font-extrabold">
+            <h2 className="font-display text-5xl text-balance sm:text-5xl text-foreground font-extrabold">
               A Clear Process, <br/> Every Time.
             </h2>
           </motion.div>
@@ -413,8 +413,8 @@ const Services = () => {
             viewport={{ once: true }}
             className="mb-16 text-center"
           >
-            <p className="text-[10px] font-bold tracking-[0.2em] uppercase text-muted-foreground mb-2">Transparent Pricing</p>
-            <h2 className="font-display text-4xl sm:text-5xl tracking-tight text-foreground font-extrabold mb-3">
+            <p className="text-[10px] font-bold tracking-[0.2em] uppercase text-muted-foreground mb-1">Transparent Pricing</p>
+            <h2 className="font-display text-5xl sm:text-5xl tracking-tight text-foreground font-extrabold mb-3">
               Investment Tiers
             </h2>
           </motion.div>

@@ -237,9 +237,9 @@ const Projects = () => {
                 Selected Projects
               </span>
             </div>
-            <h1 className="font-display text-6xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight leading-[0.9] mb-8">
+            <h1 className="font-display text-balance text-6xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight leading-[0.9] mb-8">
               All Selected <br />
-              <span className="text-muted-foreground/40"> Jobs-Projects </span>
+              <span className="text-muted-foreground/40"> Projects. </span>
             </h1>
           </motion.div>
         </div>

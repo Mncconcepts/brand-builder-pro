@@ -143,6 +143,7 @@ const About = () => {
           <div className="absolute inset-0 bg-[linear-gradient(to_right,hsl(var(--border))_1px,transparent_1px),linear-gradient(to_bottom,hsl(var(--border))_1px,transparent_1px)] bg-[size:64px_64px] [mask-image:radial-gradient(ellipse_70%_45%_at_30%_0%,black,transparent)] opacity-[0.15]" />
           <div className="absolute -top-32 -right-24 w-[420px] h-[420px] rounded-full bg-foreground/[0.04] blur-3xl" />
         </div>
+        
 
         <div className="max-w-6xl mx-auto px-6">
           <motion.div
@@ -150,15 +151,19 @@ const About = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
           >
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-border bg-foreground/5 mb-6">
+              <span className="w-1 h-1 rounded-full bg-foreground animate-pulse" />
+              <span className="text-[10px] font-bold text-foreground tracking-widest uppercase">About the Team</span>
+            </div>
 
             {/* 12-col grid: headline gets more room than copy, so it doesn't feel like a forced 50/50 split */}
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-y-10 lg:gap-x-10 items-end">
               <div className="lg:col-span-7">
-                <h1 className="font-display text-[2.75rem] leading-[1.03] sm:text-6xl lg:text-[5.25rem] font-extrabold text-foreground tracking-tight text-balance">
-                  We Build.{" "}
-                  <span className="text-muted-foreground">We Design.</span>
+                <h1 className="font-display text-[2.75rem] leading-[1.03] sm:text-7xl lg:text-[5.25rem] font-extrabold text-foreground tracking-tight text-balance">
+                  Discovery,{" "}
+                  <span className="text-muted-foreground">Strategy,</span>
                   <br />
-                  We Ship.
+                  Engineering.
                 </h1>
               </div>
 
@@ -330,7 +335,7 @@ const About = () => {
               Our Journey
             </p>
             <h2 className="font-display text-4xl sm:text-5xl text-foreground font-extrabold tracking-tight">
-              Work History.
+              Industry Experience.
             </h2>
           </motion.div>
 
@@ -391,11 +396,11 @@ const About = () => {
             viewport={{ once: true }}
             className="mb-16"
           >
-            <p className="text-xs font-bold uppercase tracking-widest text-foreground mb-3">
-              What Drives Us
+            <p className="text-xs font-bold uppercase tracking-widest text-foreground mb-2">
+              How We Work
             </p>
             <h2 className="font-display text-4xl sm:text-5xl text-foreground font-extrabold tracking-tight">
-              Our Execution Process
+            Execution Process.
             </h2>
           </motion.div>
 
