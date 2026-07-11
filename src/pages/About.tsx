@@ -52,7 +52,7 @@ const skillGroups = [
 
 const experience = [
   {
-    role: "Co Software Developer & Lead Product Designer",
+    role: "Software Developer & Lead Product Designer",
     company: "SUPERSONIC Dynamic Services B.V.",
     period: "Present",
     type: "Full-Time",
