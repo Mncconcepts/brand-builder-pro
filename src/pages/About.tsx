@@ -143,7 +143,6 @@ const About = () => {
           <div className="absolute inset-0 bg-[linear-gradient(to_right,hsl(var(--border))_1px,transparent_1px),linear-gradient(to_bottom,hsl(var(--border))_1px,transparent_1px)] bg-[size:64px_64px] [mask-image:radial-gradient(ellipse_70%_45%_at_30%_0%,black,transparent)] opacity-[0.15]" />
           <div className="absolute -top-32 -right-24 w-[420px] h-[420px] rounded-full bg-foreground/[0.04] blur-3xl" />
         </div>
-        
 
         <div className="max-w-6xl mx-auto px-6">
           <motion.div
@@ -153,7 +152,9 @@ const About = () => {
           >
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-border bg-foreground/5 mb-6">
               <span className="w-1 h-1 rounded-full bg-foreground animate-pulse" />
-              <span className="text-[10px] font-bold text-foreground tracking-widest uppercase">About the Team</span>
+              <span className="text-[10px] font-bold text-foreground tracking-widest uppercase">
+                About the Team
+              </span>
             </div>
 
             {/* 12-col grid: headline gets more room than copy, so it doesn't feel like a forced 50/50 split */}
@@ -203,7 +204,6 @@ const About = () => {
             transition={{ delay: 0.3, duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
             className="mt-14 sm:mt-16 rounded-xl border border-border bg-foreground/[0.02] overflow-hidden"
           >
-
             <div className="grid grid-cols-2 sm:grid-cols-4">
               {metrics.map((m, i) => (
                 <div
@@ -275,11 +275,11 @@ const About = () => {
                   <h3 className="font-display text-4xl sm:text-5xl font-extrabold text-foreground">
                     Core Skills.
                   </h3>
+                  <p className="text-sm text-muted-foreground mt-2 max-w-xs leading-relaxed">
+                    We use a modern toolkit to build scalable, high-performance
+                    digital solutions.
+                  </p>
                 </div>
-                <p className="text-sm text-muted-foreground max-w-xs leading-relaxed">
-                  We use a modern toolkit to build scalable, high-performance
-                  digital solutions.
-                </p>
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -400,7 +400,7 @@ const About = () => {
               How We Work
             </p>
             <h2 className="font-display text-4xl sm:text-5xl text-foreground font-extrabold tracking-tight">
-            Execution Process.
+              Execution Process.
             </h2>
           </motion.div>
 
@@ -448,7 +448,7 @@ const About = () => {
             <p className="text-xs font-bold uppercase tracking-widest opacity-50 mb-4">
               Let's Connect
             </p>
-            <h2 className="font-display text-4xl sm:text-5xl font-extrabold tracking-tight mb-4">
+            <h2 className="font-display text-4xl sm:text-5xl font-extrabold tracking-tight mb-1">
               Interested in Working With Us?
             </h2>
             <p className="opacity-60 text-sm max-w-md mx-auto leading-relaxed mb-8">

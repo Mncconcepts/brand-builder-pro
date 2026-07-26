@@ -226,7 +226,7 @@ const Index = () => {
                   <span className="relative inline-flex rounded-full h-2 w-2 bg-primary" />
                 </span>
                 <Sparkles className="w-3.5 h-3.5 text-primary shrink-0" />
-                <span className="text-xs font-small text-primary tracking-tight uppercase">
+                <span className="text-xs font-extra-small text-primary tracking-tight uppercase">
                   Design & Development
                 </span>
               </div>
@@ -321,9 +321,9 @@ const Index = () => {
             <div className="absolute -inset-4 rounded-2xl border border-border/40 bg-secondary/20 backdrop-blur-sm -z-10" />
             <div className="absolute -inset-1 rounded-xl bg-gradient-to-br from-primary/10 via-transparent to-blue-500/10 -z-10" />
 
-            <div className="aspect-[4/3] overflow-hidden rounded-xl border border-border/60 shadow-1xl">
+            <div className="aspect-[4/4] overflow-hidden rounded-xl border border-border/60 shadow-1xl">
               <SkeletonImage
-                src="/proj-oma.png"
+                src="/profile3.jpg"
                 alt="Featured project preview"
                 className="w-full h-full object-cover"
               />
@@ -580,7 +580,7 @@ const Index = () => {
             <p className="text-xs font-semibold tracking-widest uppercase text-primary-foreground/60 mb-4">
               Let's Collaborate
             </p>
-            <h2 className="font-display text-4xl sm:text-5xl font-extrabold tracking-tight mb-4">
+            <h2 className="font-display text-4xl sm:text-5xl font-extrabold tracking-tight mb-1">
               Need Any Of Our Services?
             </h2>
             <p className="text-primary-foreground/60 mb-10 max-w-lg mx-auto text-sm leading-relaxed">

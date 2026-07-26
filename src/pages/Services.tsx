@@ -486,7 +486,7 @@ const Services = () => {
             <p className="text-[10px] font-bold uppercase tracking-widest opacity-40 mb-3">
               Ready When You Are
             </p>
-            <h2 className="font-display text-4xl sm:text-5xl font-extrabold tracking-tight mb-3">
+            <h2 className="font-display text-4xl sm:text-5xl font-extrabold tracking-tight mb-1">
               Let's Build Something Real.
             </h2>
             <p className="opacity-60 text-sm max-w-md mx-auto leading-relaxed mb-9">
