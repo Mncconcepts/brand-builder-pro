@@ -94,7 +94,7 @@ const projects = [
     year: "2025",
     tech: ["Flutter", "Figma", "Dart", "Firebase"],
     image: projstoreapp22,
-    link: "https://cvmarket.ng",
+    link: "https://b2b.cvmarket.ng/",
     caseStudySlug: "CVMP App",
   },
   {
