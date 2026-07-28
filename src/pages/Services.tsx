@@ -305,10 +305,10 @@ const Services = () => {
           >
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-border bg-foreground/5 mb-6">
               <span className="w-1 h-1 rounded-full bg-foreground animate-pulse" />
-              <span className="text-[10px] font-bold text-foreground tracking-widest uppercase">What We Offer</span>
+              <span className="text-[10px] font-bold text-foreground tracking-wide uppercase">What We Offer</span>
             </div>
 
-            <h1 className="font-display text-balance text-5xl sm:text-7xl lg:text-7xl text-foreground leading-[1.05] font-extrabold tracking-tight mb-6">
+            <h1 className="font-display text-balance max-w-xm text-5xl sm:text-7xl lg:text-7xl text-foreground leading-[1.05] font-extrabold tracking-tight mb-2">
               Services Built for Real Outcomes.
             </h1>
             <p className="text-sm text-muted-foreground max-w-xl leading-relaxed">
@@ -347,8 +347,8 @@ const Services = () => {
             viewport={{ once: true }}
             className="mb-10"
           >
-            <p className="text-[10px] font-bold tracking-[0.2em] uppercase text-muted-foreground mb-2">core digital solutions</p>
-            <h2 className="font-display tracking-tight text-5xl font-extrabold text-foreground">Technical Expertise.</h2>
+            <p className="text-[10px] font-bold uppercase tracking-wide text-muted-foreground mb-2">core digital solutions</p>
+            <h2 className="font-display lg:text-6xl tracking-tight text-5xl font-extrabold text-foreground">Technical Expertise.</h2>
           </motion.div>
 
           <div className="divide-y divide-border border-t border-border rounded-2xl overflow-hidden bg-card/20 border shadow-sm px-2">
@@ -368,8 +368,8 @@ const Services = () => {
             viewport={{ once: true }}
             className="mb-16"
           >
-            <p className="text-[10px] font-bold tracking-[0.2em] uppercase text-muted-foreground mb-2">How We Work</p>
-            <h2 className="font-display text-5xl text-balance sm:text-5xl text-foreground font-extrabold">
+            <p className="text-[10px] font-bold tracking-wide uppercase text-muted-foreground mb-2">How We Work</p>
+            <h2 className="font-display text-5xl lg:text-6xl tracking-tight text-balance sm:text-5xl text-foreground font-extrabold">
               A Clear Process, <br/> Every Time.
             </h2>
           </motion.div>
@@ -413,8 +413,8 @@ const Services = () => {
             viewport={{ once: true }}
             className="mb-16 text-center"
           >
-            <p className="text-[10px] font-bold tracking-[0.2em] uppercase text-muted-foreground mb-1">Transparent Pricing</p>
-            <h2 className="font-display text-5xl sm:text-5xl tracking-tight text-foreground font-extrabold mb-3">
+            <p className="text-[10px] font-bold tracking-wide uppercase text-muted-foreground mb-1">Transparent Pricing</p>
+            <h2 className="font-display text-5xl lg:text-6xl sm:text-5xl tracking-tight text-foreground font-extrabold mb-3">
               Investment Tiers
             </h2>
           </motion.div>
@@ -483,7 +483,7 @@ const Services = () => {
       <section className="py-20 bg-foreground text-background relative overflow-hidden">
         <div className="max-w-3xl mx-auto px-6 text-center relative z-10">
           <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
-            <p className="text-[10px] font-bold uppercase tracking-widest opacity-40 mb-3">
+            <p className="text-[10px] font-bold uppercase tracking-wide opacity-40 mb-3">
               Ready When You Are
             </p>
             <h2 className="font-display text-4xl sm:text-5xl font-extrabold tracking-tight mb-1">

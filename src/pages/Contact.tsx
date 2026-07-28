@@ -85,10 +85,10 @@ const Contact = () => {
           >
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-border bg-foreground/5 mb-6">
               <span className="w-1 h-1 rounded-full bg-foreground animate-pulse" />
-              <span className="text-[10px] font-bold text-foreground tracking-widest uppercase">Contact Us</span>
+              <span className="text-[10px] font-bold text-foreground tracking-wide uppercase">Contact Us</span>
             </div>
 
-            <h1 className="font-display text-5xl sm:text-6xl lg:text-7xl text-foreground leading-[1.05] font-extrabold tracking-tight mb-4">
+            <h1 className="font-display text-5xl text-balance sm:text-6xl lg:text-7xl text-foreground leading-[1.05] font-extrabold tracking-tight mb-4">
               Need Help? Send Us Direct Messages.
             </h1>
             <p className="text-sm text-muted-foreground max-w-xl leading-relaxed">
@@ -259,7 +259,7 @@ const Contact = () => {
                           name="name"
                           required
                           placeholder="John Doe"
-                          className="w-full bg-background rounded-xl px-4 py-3.5 text-sm text-foreground placeholder:text-muted-foreground/60 focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all"
+                          className="w-full bg-background rounded-xl px-4 py-3.5 text-xs text-foreground placeholder:text-muted-foreground/60 focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all"
                         />
                       </div>
                       <div className="space-y-2">
@@ -271,7 +271,7 @@ const Contact = () => {
                           name="email"
                           required
                           placeholder="john@example.com"
-                          className="w-full bg-background border border-border rounded-xl px-4 py-3.5 text-sm text-foreground placeholder:text-muted-foreground/60 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all"
+                          className="w-full bg-background border border-border rounded-xl px-4 py-3.5 text-xs text-foreground placeholder:text-muted-foreground/60 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all"
                         />
                       </div>
                     </div>
@@ -285,7 +285,7 @@ const Contact = () => {
                         name="subject"
                         required
                         placeholder="What is this regarding?"
-                        className="w-full bg-background border border-border rounded-xl px-4 py-3.5 text-sm text-foreground placeholder:text-muted-foreground/60 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all"
+                        className="w-full bg-background border border-border rounded-xl px-4 py-3.5 text-xs text-foreground placeholder:text-muted-foreground/60 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all"
                       />
                     </div>
 
@@ -298,7 +298,7 @@ const Contact = () => {
                       </label>
                       <select
                         name="budget"
-                        className="w-full bg-background border border-border rounded-xl px-4 py-3.5 text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all appearance-none cursor-pointer"
+                        className="w-full bg-background border border-border rounded-xl px-4 py-3.5 text-xs text-foreground focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all appearance-none cursor-pointer"
                       >
                         <option value="">Select a range</option>
                         <option>$500 - $2,500</option>
@@ -317,7 +317,7 @@ const Contact = () => {
                         required
                         rows={5}
                         placeholder="Tell me about your project, goals, and timeline..."
-                        className="w-full bg-background border border-border rounded-xl px-4 py-3.5 text-sm text-foreground placeholder:text-muted-foreground/60 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all resize-none"
+                        className="w-full bg-background border border-border rounded-xl px-4 py-3.5 text-xs text-foreground placeholder:text-muted-foreground/60 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all resize-none"
                       />
                     </div>
 

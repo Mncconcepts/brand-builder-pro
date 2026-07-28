@@ -96,10 +96,10 @@ const Blog = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
           >
-            <span className="inline-block px-3 py-1 rounded-full bg-secondary text-[10px] font-bold tracking-[0.2em] uppercase mb-6 border border-border">
+            <span className="inline-block px-3 py-1 rounded-full bg-secondary text-[10px] font-bold tracking-wide uppercase mb-6 border border-border">
               Perspectives & Insights
             </span>
-            <h1 className="font-display text-5xl sm:text-6xl lg:text-7xl font-extrabold tracking-tighter leading-[0.95] mb-6">
+            <h1 className="font-display text-5xl sm:text-6xl lg:text-7xl font-extrabold tracking-tighter leading-[0.95] mb-2">
               The Journal.
             </h1>
             <p className="text-sm text-muted-foreground max-w-xl leading-relaxed font-medium">

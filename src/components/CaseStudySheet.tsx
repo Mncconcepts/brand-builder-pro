@@ -323,7 +323,7 @@ const caseStudies: CaseStudyData[] = [
       "Designing for a market with strong offline social dynamics was uniquely complex. Features like price negotiation and trust verification had to be reimagined for a digital context without losing the human, relational feel of the original market.",
     learnings:
       "The most impactful design work happens when you deeply understand and respect the existing system you're digitising. Computer Village isn't broken — it's just unscalable. Our job was to amplify what works, not replace it.",
-    link: "https://cvmarket.ng",
+    link: "https://b2b.cvmarket.ng/",
   },
   {
     slug: "Oma-crypto App",

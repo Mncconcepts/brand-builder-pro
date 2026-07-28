@@ -160,7 +160,7 @@ const About = () => {
             {/* 12-col grid: headline gets more room than copy, so it doesn't feel like a forced 50/50 split */}
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-y-10 lg:gap-x-10 items-end">
               <div className="lg:col-span-7">
-                <h1 className="font-display text-[2.75rem] leading-[1.03] sm:text-7xl lg:text-[5.25rem] font-extrabold text-foreground tracking-tight text-balance">
+                <h1 className="font-display text-[2.75rem] leading-[1.01] sm:text-7xl lg:text-8xl font-extrabold text-foreground tracking-tight text-balance">
                   Discovery,{" "}
                   <span className="text-muted-foreground">Strategy,</span>
                   <br />
@@ -239,10 +239,10 @@ const About = () => {
               transition={{ duration: 0.7 }}
               className="max-w-3xl"
             >
-              <p className="text-xs font-bold uppercase tracking-widest text-foreground mb-3">
+              <p className="text-xs font-bold uppercase tracking-wide text-foreground mb-3">
                 Our Approach
               </p>
-              <h2 className="font-display text-4xl sm:text-5xl font-extrabold text-foreground tracking-tight leading-tight mb-8">
+              <h2 className="font-display text-4xl lg:text-6xl sm:text-5xl font-extrabold text-foreground tracking-tight leading-tight mb-8">
                 Design & Code, in Harmony.
               </h2>
               <div className="grid sm:grid-cols-2 gap-6">
@@ -269,10 +269,10 @@ const About = () => {
             >
               <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-12 gap-4">
                 <div>
-                  <p className="text-xs font-bold uppercase tracking-[0.2em] text-muted-foreground mb-3">
+                  <p className="text-xs font-bold uppercase tracking-wide text-muted-foreground mb-3">
                     Technical Stack
                   </p>
-                  <h3 className="font-display text-4xl sm:text-5xl font-extrabold text-foreground">
+                  <h3 className="font-display lg:text-6xl text-4xl sm:text-5xl font-extrabold text-foreground">
                     Core Skills.
                   </h3>
                   <p className="text-sm text-muted-foreground mt-2 max-w-xs leading-relaxed">
@@ -331,10 +331,10 @@ const About = () => {
             viewport={{ once: true }}
             className="mb-16"
           >
-            <p className="text-xs font-bold uppercase tracking-widest text-foreground mb-3">
+            <p className="text-xs font-bold uppercase tracking-wide text-foreground mb-3">
               Our Journey
             </p>
-            <h2 className="font-display text-4xl sm:text-5xl text-foreground font-extrabold tracking-tight">
+            <h2 className="font-display lg:text-6xl text-4xl sm:text-5xl text-foreground font-extrabold tracking-tight">
               Industry Experience.
             </h2>
           </motion.div>
@@ -396,10 +396,10 @@ const About = () => {
             viewport={{ once: true }}
             className="mb-16"
           >
-            <p className="text-xs font-bold uppercase tracking-widest text-foreground mb-2">
+            <p className="text-xs font-bold uppercase tracking-wide text-foreground mb-2">
               How We Work
             </p>
-            <h2 className="font-display text-4xl sm:text-5xl text-foreground font-extrabold tracking-tight">
+            <h2 className="font-display lg:text-6xl text-4xl sm:text-5xl text-foreground font-extrabold tracking-tight">
               Execution Process.
             </h2>
           </motion.div>
@@ -445,7 +445,7 @@ const About = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
           >
-            <p className="text-xs font-bold uppercase tracking-widest opacity-50 mb-4">
+            <p className="text-xs font-bold uppercase tracking-wide opacity-50 mb-4">
               Let's Connect
             </p>
             <h2 className="font-display text-4xl sm:text-5xl font-extrabold tracking-tight mb-1">

@@ -107,6 +107,7 @@ const stats = [
 const trustedAvatars = [
   { src: "/cc1.png", name: "Oonsa" },
   { src: "/cc2.png", name: "Oonsa" },
+  { src: "/cc1.png", name: "Oonsa" },
 ];
 
 const featuredServices = [
@@ -323,7 +324,7 @@ const Index = () => {
 
             <div className="aspect-[4/4] overflow-hidden rounded-xl border border-border/60 shadow-1xl">
               <SkeletonImage
-                src="/profile3.jpg"
+                src="/proj-oma.png"
                 alt="Featured project preview"
                 className="w-full h-full object-cover"
               />
@@ -363,7 +364,7 @@ const Index = () => {
           ref={statsRef}
           className="font-display max-w-6xl mx-auto px-6 py-16"
         >
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-10">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-10 ">
             {stats.map((stat, i) => (
               <motion.div
                 key={stat.label}
@@ -395,7 +396,7 @@ const Index = () => {
               <p className="text-xs font-semibold tracking-wide uppercase text-primary mb-2">
                 What We Do
               </p>
-              <h2 className="font-display text-4xl sm:text-5xl tracking-tight text-foreground font-extrabold">
+              <h2 className="font-display lg:text-6xl mt-3 text-4xl sm:text-5xl tracking-tight text-foreground font-extrabold">
                 Services & Expertise.
               </h2>
             </div>
@@ -474,7 +475,7 @@ const Index = () => {
               <p className="text-xs font-semibold tracking-wide uppercase text-primary mb-2">
                 Recent Work
               </p>
-              <h2 className="font-display text-4xl sm:text-5xl tracking-tight font-extrabold text-foreground">
+              <h2 className="font-display lg:text-6xl text-4xl sm:text-5xl tracking-tight font-extrabold text-foreground">
                 Featured Projects.
               </h2>
             </div>
@@ -559,7 +560,7 @@ const Index = () => {
             <p className="text-xs font-semibold tracking-wide uppercase text-primary mb-2">
               Client Reviews
             </p>
-            <h2 className="font-display text-4xl sm:text-5xl tracking-tight text-foreground font-extrabold">
+            <h2 className="font-display lg:text-6xl text-4xl sm:text-5xl tracking-tight text-foreground font-extrabold">
               Testimonials.
             </h2>
           </motion.div>
@@ -577,10 +578,10 @@ const Index = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
           >
-            <p className="text-xs font-semibold tracking-widest uppercase text-primary-foreground/60 mb-4">
+            <p className="text-xs font-semibold tracking-wide uppercase text-primary-foreground/60 mb-4">
               Let's Collaborate
             </p>
-            <h2 className="font-display text-4xl sm:text-5xl font-extrabold tracking-tight mb-1">
+            <h2 className="font-display lg:text-5xl text-4xl sm:text-5xl font-extrabold tracking-tight mb-1">
               Need Any Of Our Services?
             </h2>
             <p className="text-primary-foreground/60 mb-10 max-w-lg mx-auto text-sm leading-relaxed">

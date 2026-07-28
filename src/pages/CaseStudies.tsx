@@ -95,10 +95,10 @@ const CaseStudies = () => {
           >
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-border bg-foreground/5 mb-6">
               <span className="w-1 h-1 rounded-full bg-foreground animate-pulse" />
-              <span className="text-[10px] font-bold text-foreground tracking-widest uppercase">Case Studies</span>
+              <span className="text-[10px] font-bold text-foreground tracking-wide uppercase">Case Studies</span>
             </div>
 
-            <h1 className="font-display text-5xl text-balance sm:text-6xl lg:text-7xl text-foreground leading-[1.05] font-extrabold tracking-tight mb-6">
+            <h1 className="font-display text-5xl text-balance sm:text-6xl lg:text-7xl text-foreground leading-[1.05] font-extrabold tracking-tight mb-2">
               General Case-Study.
             </h1>
             <p className="text-sm text-muted-foreground max-w-xl leading-relaxed">
@@ -111,7 +111,7 @@ const CaseStudies = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.35, duration: 0.7 }}
-            className="flex flex-wrap gap-6 mt-12 pt-10 border-t border-border"
+            className="flex flex-wrap gap-6 mt-12 pt-5 border-t border-border"
           >
             {[
               { n: "5", label: "Core Services" },
@@ -130,8 +130,8 @@ const CaseStudies = () => {
 
 
       {/* Case Studies */}
-      <section className="py-20">
-        <div className="max-w-6xl mx-auto px-6">
+      <section className="py-15">
+        <div className="max-w-6xl pt-5 mx-auto px-6">
           <div className="space-y-10">
             {caseStudies.map((cs, idx) => (
               <motion.article

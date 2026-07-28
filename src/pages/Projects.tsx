@@ -233,7 +233,7 @@ const Projects = () => {
           >
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-border bg-foreground/5 mb-6">
               <span className="w-1 h-1 rounded-full bg-foreground animate-pulse" />
-              <span className="text-[10px] font-bold text-foreground tracking-widest uppercase">
+              <span className="text-[10px] font-bold text-foreground tracking-wide uppercase">
                 Selected Projects
               </span>
             </div>
@@ -289,7 +289,7 @@ const Projects = () => {
               {filteredProjects.map((project) => (
                 <article
                   key={project.title}
-                  className="group grid lg:grid-cols-[1fr_2fr] gap-8 border border-border rounded-xl p-6 lg:p-8 bg-card hover:shadow-sm transition-shadow cursor-pointer mb-10"
+                  className="group grid lg:grid-cols-[1.5fr_2fr] gap-8 border border-border rounded-xl p-6 lg:p-8 bg-card hover:shadow-sm transition-shadow cursor-pointer mb-10"
                 >
                   <div className="relative bg-secondary aspect-[19/12] rounded-md flex items-center justify-center overflow-hidden">
                     {project.image ? (
@@ -387,7 +387,7 @@ const Projects = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
           >
-            <p className="text-xs font-bold uppercase tracking-widest opacity-50 mb-4">
+            <p className="text-xs font-bold uppercase tracking-wide opacity-50 mb-4">
               Let's Connect
             </p>
             <h2 className="font-display text-4xl sm:text-5xl font-extrabold tracking-tight mb-1">
