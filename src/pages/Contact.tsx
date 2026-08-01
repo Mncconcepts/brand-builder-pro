@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { useState, useEffect } from "react";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import {
   Calendar as CalendarIcon,
   Mail,
@@ -51,6 +52,31 @@ const Contact = () => {
   // Formspree Integration
   const [state, handleSubmit] = useForm("xqewyonl");
   const [isSuccessfullySubmitted, setIsSuccessfullySubmitted] = useState(false);
+
+  const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+
+  // Picked up from the "Configure & Book" flow on the homepage services section
+  const prefillService = searchParams.get("service") ?? "";
+  const prefillScope = searchParams.get("scope") ?? "";
+  const prefillTimeline = searchParams.get("timeline") ?? "";
+  const prefillNotes = searchParams.get("notes") ?? "";
+  const hasPrefill = Boolean(prefillService);
+
+  const prefillSubject = hasPrefill ? `${prefillService} — new inquiry` : "";
+  const prefillMessage = hasPrefill
+    ? [
+        `Service: ${prefillService}`,
+        prefillScope
+          ? `Scope: ${prefillScope}${prefillTimeline ? ` (${prefillTimeline})` : ""}`
+          : null,
+        prefillNotes ? `\nNotes:\n${prefillNotes}` : null,
+      ]
+        .filter(Boolean)
+        .join("\n")
+    : "";
+
+  const clearPrefill = () => navigate("/contact", { replace: true });
 
   // Handle toast notifications based on Formspree state
   useEffect(() => {
@@ -225,7 +251,7 @@ const Contact = () => {
               viewport={{ once: true }}
               transition={{ delay: 0.1 }}
             >
-              <div className="bg-card border border-border/25 rounded-3xl p-8 sm:p-10 shadow-sm">
+              <div className="bg-card border border-border/25 rounded-3xl p-8 sm:p-10 shadow-xs">
                 {isSuccessfullySubmitted ? (
                   <div className="h-full min-h-[400px] flex flex-col items-center justify-center text-center space-y-6">
                     <div className="w-16 h-16 bg-primary/10 text-primary rounded-full flex items-center justify-center mb-2">
@@ -248,87 +274,125 @@ const Contact = () => {
                     </button>
                   </div>
                 ) : (
-                  <form onSubmit={handleSubmit} className="space-y-6">
-                    <div className="grid sm:grid-cols-2 gap-6">
+                  <>
+                    {hasPrefill && (
+                      <div className="mb-6 flex items-start justify-between gap-3 rounded-xl border border-primary/20 bg-primary/5 px-4 py-3">
+                        <div>
+                          <p className="text-xs font-semibold text-foreground">
+                            Picking up your {prefillService} request
+                          </p>
+                          <p className="text-[11px] text-muted-foreground mt-0.5">
+                            {prefillScope && `${prefillScope} scope`}
+                            {prefillTimeline && ` · ${prefillTimeline}`} — we've
+                            pre-filled the details below, just add your contact
+                            info.
+                          </p>
+                        </div>
+                        <button
+                          type="button"
+                          onClick={clearPrefill}
+                          className="text-[11px] font-medium text-muted-foreground hover:text-foreground underline underline-offset-4 shrink-0"
+                        >
+                          Clear
+                        </button>
+                      </div>
+                    )}
+
+                    <form
+                      key={searchParams.toString()}
+                      onSubmit={handleSubmit}
+                      className="space-y-6"
+                    >
+                      {hasPrefill && (
+                        <input
+                          type="hidden"
+                          name="service_context"
+                          value={prefillService}
+                        />
+                      )}
+                      <div className="grid sm:grid-cols-2 gap-6">
+                        <div className="space-y-2">
+                          <label className="text-sm font-medium text-foreground">
+                            Name
+                          </label>
+                          <input
+                            type="text"
+                            name="name"
+                            required
+                            placeholder="John Doe"
+                            className="w-full bg-background rounded-xl px-4 py-3.5 text-xs text-foreground placeholder:text-muted-foreground/60 focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all"
+                          />
+                        </div>
+                        <div className="space-y-2">
+                          <label className="text-sm font-medium text-foreground">
+                            Email
+                          </label>
+                          <input
+                            type="email"
+                            name="email"
+                            required
+                            placeholder="john@example.com"
+                            className="w-full bg-background border border-border rounded-xl px-4 py-3.5 text-xs text-foreground placeholder:text-muted-foreground/60 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all"
+                          />
+                        </div>
+                      </div>
+
                       <div className="space-y-2">
                         <label className="text-sm font-medium text-foreground">
-                          Name
+                          Subject
                         </label>
                         <input
                           type="text"
-                          name="name"
+                          name="subject"
                           required
-                          placeholder="John Doe"
-                          className="w-full bg-background rounded-xl px-4 py-3.5 text-xs text-foreground placeholder:text-muted-foreground/60 focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all"
-                        />
-                      </div>
-                      <div className="space-y-2">
-                        <label className="text-sm font-medium text-foreground">
-                          Email
-                        </label>
-                        <input
-                          type="email"
-                          name="email"
-                          required
-                          placeholder="john@example.com"
+                          defaultValue={prefillSubject}
+                          placeholder="What is this regarding?"
                           className="w-full bg-background border border-border rounded-xl px-4 py-3.5 text-xs text-foreground placeholder:text-muted-foreground/60 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all"
                         />
                       </div>
-                    </div>
 
-                    <div className="space-y-2">
-                      <label className="text-sm font-medium text-foreground">
-                        Subject
-                      </label>
-                      <input
-                        type="text"
-                        name="subject"
-                        required
-                        placeholder="What is this regarding?"
-                        className="w-full bg-background border border-border rounded-xl px-4 py-3.5 text-xs text-foreground placeholder:text-muted-foreground/60 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all"
-                      />
-                    </div>
+                      <div className="space-y-2">
+                        <label className="text-sm font-medium text-foreground">
+                          Budget Range{" "}
+                          <span className="text-muted-foreground font-normal">
+                            (Optional)
+                          </span>
+                        </label>
+                        <select
+                          name="budget"
+                          className="w-full bg-background border border-border rounded-xl px-4 py-3.5 text-xs text-foreground focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all appearance-none cursor-pointer"
+                        >
+                          <option value="">Select a range</option>
+                          <option>$500 - $2,500</option>
+                          <option>$2,500 - $5,000</option>
+                          <option>$5,000 - $10,000</option>
+                          <option>$10,000+</option>
+                        </select>
+                      </div>
 
-                    <div className="space-y-2">
-                      <label className="text-sm font-medium text-foreground">
-                        Budget Range{" "}
-                        <span className="text-muted-foreground font-normal">
-                          (Optional)
-                        </span>
-                      </label>
-                      <select
-                        name="budget"
-                        className="w-full bg-background border border-border rounded-xl px-4 py-3.5 text-xs text-foreground focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all appearance-none cursor-pointer"
+                      <div className="space-y-2">
+                        <label className="text-sm font-medium text-foreground">
+                          Message
+                        </label>
+                        <textarea
+                          name="message"
+                          required
+                          rows={5}
+                          defaultValue={prefillMessage}
+                          placeholder="Tell me about your project, goals, and timeline..."
+                          className="w-full bg-background border border-border rounded-xl px-4 py-3.5 text-xs text-foreground placeholder:text-muted-foreground/60 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all resize-none"
+                        />
+                      </div>
+
+                      <button
+                        type="submit"
+                        disabled={state.submitting}
+                        className="w-full flex justify-center items-center gap-2 bg-primary text-primary-foreground py-4 text-sm font-semibold rounded-xl hover:bg-primary/90 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
                       >
-                        <option value="">Select a range</option>
-                        <option>$500 - $2,500</option>
-                        <option>$2,500 - $5,000</option>
-                        <option>$5,000 - $10,000</option>
-                        <option>$10,000+</option>
-                      </select>
-                    </div>
-
-                    <div className="space-y-2">
-                      <label className="text-sm font-medium text-foreground">
-                        Message
-                      </label>
-                      <textarea
-                        name="message"
-                        required
-                        rows={5}
-                        placeholder="Tell me about your project, goals, and timeline..."
-                        className="w-full bg-background border border-border rounded-xl px-4 py-3.5 text-xs text-foreground placeholder:text-muted-foreground/60 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all resize-none"
-                      />
-                    </div>
-
-                    <button
-                      type="submit"
-                      disabled={state.submitting}
-                      className="w-full flex justify-center items-center gap-2 bg-primary text-primary-foreground py-4 text-sm font-semibold rounded-xl hover:bg-primary/90 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
-                    >
-                      {state.submitting ? "Sending..." : "Send Message"}
-                    </button>
-                  </form>
+                        {state.submitting ? "Sending..." : "Send Message"}
+                      </button>
+                    </form>
+                  </>
                 )}
               </div>
             </motion.div>

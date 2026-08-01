@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { motion, useInView, AnimatePresence } from "framer-motion";
 import { useRef, useEffect, useState } from "react";
 import Navbar from "@/components/Navbar";
@@ -11,6 +11,13 @@ import {
   ArrowUpRight,
   Star,
   Sparkles,
+  Clock,
+  FolderCheck,
+  Users,
+  Award,
+  ChevronDown,
+  CheckCircle2,
+  X,
 } from "lucide-react";
 
 /* ─── Skeleton Component ─── */
@@ -85,8 +92,8 @@ function AnimatedStat({
   const suffix = match ? match[2] : value;
   const count = useCountUp(numeric, 1800, triggered);
   return (
-    <div className="text-center group">
-      <p className="font-display text-4xl sm:text-5xl font-extrabold text-foreground tracking-tight leading-none">
+    <div className="group">
+      <p className="font-display text-3xl sm:text-4xl font-extrabold text-foreground tracking-tight leading-none">
         {triggered ? `${count}${suffix}` : `0${suffix}`}
       </p>
       <p className="text-xs text-muted-foreground mt-2 uppercase tracking-tight font-medium">
@@ -98,10 +105,34 @@ function AnimatedStat({
 
 /* ─── data ── */
 const stats = [
-  { value: "4+", label: "Years Experience" },
-  { value: "50+", label: "Projects Delivered" },
-  { value: "30+", label: "Happy Clients" },
-  { value: "99%", label: "Client Satisfaction" },
+  {
+    value: "4+",
+    label: "Years Experience",
+    icon: Clock,
+    detail:
+      "Four years shipping production-grade products across fintech, e-commerce, and events.",
+  },
+  {
+    value: "50+",
+    label: "Projects Delivered",
+    icon: FolderCheck,
+    detail:
+      "From single-flow MVPs to multi-phase platforms, all taken from brief to launch.",
+  },
+  {
+    value: "30+",
+    label: "Happy Clients",
+    icon: Users,
+    detail:
+      "Founders and teams who came back for their next build instead of shopping around.",
+  },
+  {
+    value: "99%",
+    label: "Client Satisfaction",
+    icon: Award,
+    detail:
+      "Measured after handover, not just at kickoff — quality that holds once we're gone.",
+  },
 ];
 
 const trustedAvatars = [
@@ -156,7 +187,7 @@ const featuredProjects = [
     year: "2025",
     image: "/proj-storeapp22.png",
     tags: ["Mobile", "B2B", "CLASSIFIED"],
-    color: "from-orange-500/20 to-yellow-500/10",
+    color: "from-primary/15 to-primary/5",
   },
   {
     title: "Visa Guard Africa",
@@ -164,7 +195,7 @@ const featuredProjects = [
     year: "2026",
     image: "/vgalanding2.jpg",
     tags: ["WebApp", " FINTECH", "TRAVEL SAFETY"],
-    color: "from-blue-500/20 to-cyan-500/10",
+    color: "from-primary/10 to-transparent",
   },
   {
     title: "Oonsa Event Webapp",
@@ -172,7 +203,7 @@ const featuredProjects = [
     year: "2025",
     image: "/Oonsa.png",
     tags: ["Web App", "Events"],
-    color: "from-purple-500/20 to-pink-500/10",
+    color: "from-foreground/5 to-primary/10",
   },
 ];
 
@@ -197,9 +228,78 @@ const testimonials = [
   },
 ];
 
+const scopeTiers = [
+  {
+    id: "starter",
+    label: "Starter",
+    timeline: "2-3 weeks",
+    blurb: "Best for an MVP or a single, focused flow you need live fast.",
+  },
+  {
+    id: "growth",
+    label: "Growth",
+    timeline: "4-6 weeks",
+    blurb: "Best for a full product with several features working together.",
+  },
+  {
+    id: "custom",
+    label: "Custom",
+    timeline: "6+ weeks",
+    blurb: "Best for complex, multi-phase builds with their own roadmap.",
+  },
+];
+
 const Index = () => {
+  const navigate = useNavigate();
   const statsRef = useRef<HTMLDivElement>(null);
   const statsInView = useInView(statsRef, { once: true, margin: "-80px" });
+  const [expandedStat, setExpandedStat] = useState<number | null>(null);
+
+  const [activeService, setActiveService] = useState<number | null>(null);
+  const [selectedTier, setSelectedTier] = useState<string>("growth");
+  const [inquiryNote, setInquiryNote] = useState("");
+  const [isSubmittingInquiry, setIsSubmittingInquiry] = useState(false);
+
+  const openServiceModal = (index: number) => {
+    setActiveService(index);
+    setSelectedTier("growth");
+    setInquiryNote("");
+    setIsSubmittingInquiry(false);
+  };
+
+  const closeServiceModal = () => {
+    setActiveService(null);
+    setIsSubmittingInquiry(false);
+  };
+
+  const handleContinueToContact = () => {
+    if (activeService === null) return;
+    setIsSubmittingInquiry(true);
+    const service = featuredServices[activeService];
+    const tier = scopeTiers.find((t) => t.id === selectedTier);
+    const params = new URLSearchParams({
+      service: service.title,
+      scope: tier?.label ?? "",
+      timeline: tier?.timeline ?? "",
+    });
+    if (inquiryNote.trim()) params.set("notes", inquiryNote.trim());
+    window.setTimeout(() => {
+      navigate(`/contact?${params.toString()}`);
+    }, 550);
+  };
+
+  useEffect(() => {
+    if (activeService === null) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") closeServiceModal();
+    };
+    document.body.style.overflow = "hidden";
+    window.addEventListener("keydown", onKey);
+    return () => {
+      document.body.style.overflow = "";
+      window.removeEventListener("keydown", onKey);
+    };
+  }, [activeService]);
 
   return (
     <div className="min-h-screen bg-background overflow-x-hidden">
@@ -317,7 +417,7 @@ const Index = () => {
               delay: 0.25,
               ease: [0.22, 1, 0.36, 1],
             }}
-            className="relative hidden lg:block"
+            className="relative block mt-10 lg:mt-0"
           >
             <div className="absolute -inset-4 rounded-2xl border border-border/40 bg-secondary/20 backdrop-blur-sm -z-10" />
             <div className="absolute -inset-1 rounded-xl bg-gradient-to-br from-primary/10 via-transparent to-blue-500/10 -z-10" />
@@ -359,28 +459,69 @@ const Index = () => {
         </div>
       </section>
 
+      {/* ─── Stats: tap any card to see what's behind the number ─── */}
       <section className="border-y border-border bg-secondary/30">
         <div
           ref={statsRef}
           className="font-display max-w-6xl mx-auto px-6 py-16"
         >
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-10 ">
-            {stats.map((stat, i) => (
-              <motion.div
-                key={stat.label}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.1 }}
-              >
-                <AnimatedStat
-                  value={stat.value}
-                  label={stat.label}
-                  triggered={statsInView}
-                />
-              </motion.div>
-            ))}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-5">
+            {stats.map((stat, i) => {
+              const isOpen = expandedStat === i;
+              const Icon = stat.icon;
+              return (
+                <motion.button
+                  type="button"
+                  key={stat.label}
+                  onClick={() => setExpandedStat(isOpen ? null : i)}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: i * 0.1 }}
+                  aria-expanded={isOpen}
+                  className={`group text-left bg-card border rounded-2xl p-5 sm:p-6 transition-all duration-300  focus-visible:ring-2 focus-visible:ring-primary/10 ${
+                    isOpen
+                      ? "border-primary/40 shadow-md"
+                      : "border-border hover:border-primary/30 hover:-translate-y-1"
+                  }`}
+                >
+                  <div className="flex items-start justify-between mb-4">
+                    <div className="w-9 h-9 rounded-lg bg-primary/10 flex items-center justify-center">
+                      <Icon className="w-4 h-4 text-primary" />
+                    </div>
+                    <ChevronDown
+                      className={`w-4 h-4 text-muted-foreground transition-transform duration-300 ${
+                        isOpen ? "rotate-180" : ""
+                      }`}
+                    />
+                  </div>
+
+                  <AnimatedStat
+                    value={stat.value}
+                    label={stat.label}
+                    triggered={statsInView}
+                  />
+
+                  <AnimatePresence initial={false}>
+                    {isOpen && (
+                      <motion.p
+                        initial={{ opacity: 0, height: 0, marginTop: 0 }}
+                        animate={{ opacity: 1, height: "auto", marginTop: 12 }}
+                        exit={{ opacity: 0, height: 0, marginTop: 0 }}
+                        transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+                        className="text-xs text-muted-foreground leading-relaxed overflow-hidden pt-3 border-t border-border/60"
+                      >
+                        {stat.detail}
+                      </motion.p>
+                    )}
+                  </AnimatePresence>
+                </motion.button>
+              );
+            })}
           </div>
+          <p className="text-center text-[11px] text-muted-foreground mt-6 font-sans normal-case tracking-normal">
+            Tap a number to see what's behind it.
+          </p>
         </div>
       </section>
 
@@ -393,11 +534,11 @@ const Index = () => {
             className="flex flex-col md:flex-row md:items-end justify-between mb-14 gap-4"
           >
             <div>
-              <p className="text-xs font-semibold tracking-wide uppercase text-primary mb-2">
-                What We Do
+              <p className="text-xs font-semibold tracking-tight uppercase text-primary mb-2">
+                Capabilities
               </p>
-              <h2 className="font-display lg:text-6xl mt-3 text-4xl sm:text-5xl tracking-tight text-foreground font-extrabold">
-                Services & Expertise.
+              <h2 className="font-display leading-10 text-balance lg:text-6xl mt-3 text-4xl sm:text-5xl tracking-tight text-foreground font-extrabold">
+                Services Highlight.
               </h2>
             </div>
             <Link
@@ -448,14 +589,13 @@ const Index = () => {
                       </li>
                     ))}
                   </ul>
-                  <Link to="/contact">
-                    <button
-                      type="button"
-                      className="w-full text-center text-sm font-semibold py-2.5 rounded-lg bg-background border border-border text-foreground hover:bg-primary hover:text-primary-foreground hover:border-primary transition-all duration-200"
-                    >
-                      Book Service
-                    </button>
-                  </Link>
+                  <button
+                    type="button"
+                    onClick={() => openServiceModal(i)}
+                    className="w-full text-center text-xs font-semibold py-2.5 rounded-lg bg-background border border-border text-foreground hover:bg-primary hover:text-primary-foreground hover:border-primary transition-all duration-200"
+                  >
+                    Configure & Book
+                  </button>
                 </div>
               </motion.div>
             ))}
@@ -472,11 +612,11 @@ const Index = () => {
             className="flex flex-col md:flex-row md:items-end justify-between mb-14 gap-4"
           >
             <div>
-              <p className="text-xs font-semibold tracking-wide uppercase text-primary mb-2">
-                Recent Work
+              <p className="text-xs font-semibold tracking-tight uppercase text-primary mb-2">
+                Selected Work
               </p>
               <h2 className="font-display lg:text-6xl text-4xl sm:text-5xl tracking-tight font-extrabold text-foreground">
-                Featured Projects.
+                Shipped Products.
               </h2>
             </div>
             <Link
@@ -611,6 +751,171 @@ const Index = () => {
       </section>
 
       <Footer />
+
+      {/* ─── Service configurator: replaces the plain "go to contact" link ─── */}
+      <AnimatePresence>
+        {activeService !== null && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 flex items-end sm:items-center justify-center"
+          >
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={closeServiceModal}
+              className="absolute inset-0 bg-foreground/40 backdrop-blur-sm"
+            />
+
+            <motion.div
+              initial={{ opacity: 0, y: 40, scale: 0.98 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: 20, scale: 0.98 }}
+              transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+              role="dialog"
+              aria-modal="true"
+              className="relative w-full sm:max-w-lg max-h-[92vh] overflow-y-auto bg-card border border-border rounded-t-2xl sm:rounded-2xl shadow-2xl"
+            >
+              <div className="sticky top-0 z-10 bg-card/95 backdrop-blur-sm border-b border-border px-6 py-5 flex items-start justify-between gap-4">
+                <div>
+                  <p className="text-[10px] font-bold uppercase tracking-widest text-primary mb-1">
+                    {featuredServices[activeService].number} · Configure
+                  </p>
+                  <h3 className="font-display text-xl font-bold text-foreground">
+                    {featuredServices[activeService].title}
+                  </h3>
+                </div>
+                <button
+                  type="button"
+                  onClick={closeServiceModal}
+                  aria-label="Close"
+                  className="w-8 h-8 shrink-0 rounded-full border border-border flex items-center justify-center text-muted-foreground hover:text-foreground hover:border-foreground/40 transition-colors"
+                >
+                  <X className="w-4 h-4" />
+                </button>
+              </div>
+
+              <div className="px-6 py-6 space-y-6">
+                <div>
+                  <p className="text-xs font-semibold text-foreground mb-3">
+                    Choose your scope
+                  </p>
+                  <div className="grid grid-cols-3 gap-2">
+                    {scopeTiers.map((tier) => (
+                      <button
+                        key={tier.id}
+                        type="button"
+                        onClick={() => setSelectedTier(tier.id)}
+                        className={`text-left rounded-xl border px-3 py-3 transition-all duration-200 ${
+                          selectedTier === tier.id
+                            ? "border bg-primary/10 shadow-xs"
+                            : "border-border hover:border-primary/20"
+                        }`}
+                      >
+                        <p
+                          className={`text-xs font-bold mb-0.5 ${
+                            selectedTier === tier.id
+                              ? "text-primary"
+                              : "text-foreground"
+                          }`}
+                        >
+                          {tier.label}
+                        </p>
+                        <p className="text-[10px] text-muted-foreground">
+                          {tier.timeline}
+                        </p>
+                      </button>
+                    ))}
+                  </div>
+                  <AnimatePresence mode="wait">
+                    <motion.p
+                      key={selectedTier}
+                      initial={{ opacity: 0, y: 4 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -4 }}
+                      transition={{ duration: 0.2 }}
+                      className="text-xs text-muted-foreground leading-relaxed mt-3"
+                    >
+                      {scopeTiers.find((t) => t.id === selectedTier)?.blurb}
+                    </motion.p>
+                  </AnimatePresence>
+                </div>
+
+                <div>
+                  <p className="text-xs font-semibold text-foreground mb-3">
+                    What's included
+                  </p>
+                  <ul className="space-y-2">
+                    {featuredServices[activeService].bullets.map((b) => (
+                      <li
+                        key={b}
+                        className="flex items-start gap-2 text-xs text-muted-foreground"
+                      >
+                        <CheckCircle2 className="w-3.5 h-3.5 text-primary shrink-0 mt-0.5" />
+                        {b}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                <div>
+                  <label
+                    htmlFor="inquiry-note"
+                    className="text-xs font-semibold text-foreground mb-3 block"
+                  >
+                    Anything specific?{" "}
+                    <span className="text-muted-foreground font-normal">
+                      (optional)
+                    </span>
+                  </label>
+                  <textarea
+                    id="inquiry-note"
+                    value={inquiryNote}
+                    onChange={(e) => setInquiryNote(e.target.value)}
+                    rows={3}
+                    placeholder="type here..."
+                    className="w-full text-xs rounded-xl border border-border bg-background px-3 py-2.5 text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-primary/40 focus:border-primary/40 resize-none"
+                  />
+                </div>
+
+                <div className="flex flex-col sm:flex-row gap-2 pt-1">
+                  <button
+                    type="button"
+                    onClick={closeServiceModal}
+                    className="flex-1 text-center text-sm font-semibold py-2.5 rounded-lg border border-border text-foreground hover:bg-secondary transition-all duration-200"
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    type="button"
+                    onClick={handleContinueToContact}
+                    disabled={isSubmittingInquiry}
+                    className="flex-1 inline-flex items-center justify-center gap-2 text-sm font-semibold py-2.5 rounded-lg bg-primary text-primary-foreground hover:bg-primary/90 transition-all duration-200 disabled:opacity-70"
+                  >
+                    {isSubmittingInquiry ? (
+                      <>
+                        <span className="w-3.5 h-3.5 text-sm rounded-full border-2 border-primary-foreground/40 border-t-primary-foreground animate-spin" />
+                        Preparing your brief...
+                      </>
+                    ) : (
+                      <>
+                        Continue to Contact{" "}
+                        <ArrowUpRight className="w-3.5 h-3.5" />
+                      </>
+                    )}
+                  </button>
+                </div>
+                <p className="text-[9px] text-muted-foreground text-center">
+                  We'll take you to the contact form with this pre-filled so you
+                  don't have to repeat yourself.
+                </p>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 };
