@@ -8,9 +8,6 @@ interface TypewriterTextProps {
   caretClassName?: string;
 }
 
-/**
- * Renders text with a typewriter "tick" effect and a blinking caret.
- */
 const TypewriterText = ({
   text,
   speed = 55,
@@ -41,12 +38,12 @@ const TypewriterText = ({
   return (
     <span className={className} aria-label={text}>
       <span aria-hidden="true">{shown}</span>
-      <span
-        aria-hidden="true"
-        className={`inline-block w-[0.08em] -mb-[0.05em] ml-[0.05em] h-[0.9em] align-middle bg-current animate-caret-blink ${caretClassName} ${
-          done ? "opacity-100" : "opacity-100"
-        }`}
-      />
+      {!done && (
+        <span
+          aria-hidden="true"
+          className={`inline-block w-[0.08em] -mb-[0.05em] ml-[0.05em] h-[0.9em] align-middle bg-current animate-caret-blink ${caretClassName}`}
+        />
+      )}
     </span>
   );
 };

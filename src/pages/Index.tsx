@@ -422,7 +422,7 @@ const Index = () => {
             <div className="absolute -inset-4 rounded-2xl border border-border/40 bg-secondary/20 backdrop-blur-sm -z-10" />
             <div className="absolute -inset-1 rounded-xl bg-gradient-to-br from-primary/10 via-transparent to-blue-500/10 -z-10" />
 
-            <div className="aspect-[4/4] overflow-hidden rounded-xl border border-border/60 shadow-1xl">
+            <div className="aspect-[4/4] overflow-hidden rounded-xl border border-border/60 shadow-1md">
               <SkeletonImage
                 src="/proj-oma.png"
                 alt="Featured project preview"
@@ -594,7 +594,7 @@ const Index = () => {
                     onClick={() => openServiceModal(i)}
                     className="w-full text-center text-xs font-semibold py-2.5 rounded-lg bg-background border border-border text-foreground hover:bg-primary hover:text-primary-foreground hover:border-primary transition-all duration-200"
                   >
-                    Configure & Book
+                    Book This Service
                   </button>
                 </div>
               </motion.div>
@@ -604,7 +604,7 @@ const Index = () => {
       </section>
 
       <section className="py-28 bg-secondary/30 border-y border-border">
-        <div className="max-w-6xl mx-auto px-6">
+        <div className="max-w-6xl mx-auto px-6"> 
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -650,7 +650,7 @@ const Index = () => {
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-card via-card/20 to-transparent opacity-0 group-hover:opacity-60 transition-opacity duration-300" />
 
-                    <div className="absolute top-3 right-3 w-8 h-8 rounded-full bg-background/80 backdrop-blur-sm border border-border/50 flex items-center justify-center opacity-0 group-hover:opacity-100 translate-x-2 group-hover:translate-x-0 transition-all duration-300 shadow-md">
+                    <div className="absolute top-3 right-3 w-8 h-8 rounded-full bg-background/80 backdrop-blur-sm border border-border/30 flex items-center justify-center opacity-0 group-hover:opacity-100 translate-x-2 group-hover:translate-x-0 transition-all duration-300 shadow-xs">
                       <ArrowUpRight className="w-4 h-4 text-foreground" />
                     </div>
 
@@ -776,7 +776,7 @@ const Index = () => {
               transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
               role="dialog"
               aria-modal="true"
-              className="relative w-full sm:max-w-lg max-h-[92vh] overflow-y-auto bg-card border border-border rounded-t-2xl sm:rounded-2xl shadow-2xl"
+              className="relative w-full sm:max-w-lg max-h-[92vh] overflow-y-auto bg-card border border-border rounded-t-2xl sm:rounded-2xl shadow-2md"
             >
               <div className="sticky top-0 z-10 bg-card/95 backdrop-blur-sm border-b border-border px-6 py-5 flex items-start justify-between gap-4">
                 <div>
@@ -896,7 +896,7 @@ const Index = () => {
                   >
                     {isSubmittingInquiry ? (
                       <>
-                        <span className="w-3.5 h-3.5 text-sm rounded-full border-2 border-primary-foreground/40 border-t-primary-foreground animate-spin" />
+                        <span className="w-3.5 h-3.5 text-xs rounded-full border-2 border-primary-foreground/40 border-t-primary-foreground animate-spin" />
                         Preparing your brief...
                       </>
                     ) : (

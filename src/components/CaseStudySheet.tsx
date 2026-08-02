@@ -35,9 +35,6 @@ interface CaseStudyData {
   challenges: string;
   learnings: string;
   link?: string | null;
-  accentColor: string;
-  accentBg: string;
-  accentBorder: string;
 }
 
 const caseStudies: CaseStudyData[] = [
@@ -47,9 +44,6 @@ const caseStudies: CaseStudyData[] = [
     category: "LOGISTICS · HAULAGE · MOVING SERVICES",
     tagline: "The Next-Generation Moving & Freight Haulage Service.",
     year: "2026",
-    accentColor: "text-cyan-500",
-    accentBg: "bg-cyan-600",
-    accentBorder: "border-cyan-500",
     tech: [
       "React",
       "TypeScript",
@@ -107,9 +101,6 @@ const caseStudies: CaseStudyData[] = [
     tagline:
       "Protecting Africans from visa fraud one verified application at a time.",
     year: "Coming Soon",
-    accentColor: "text-blue-600",
-    accentBg: "bg-blue-600",
-    accentBorder: "border-blue-600",
     tech: [
       "Figma",
       "React Native",
@@ -168,9 +159,6 @@ const caseStudies: CaseStudyData[] = [
     category: "UI/UX DESIGN · BRANDING · WEBSITE",
     tagline: "Making event discovery and ticketing feel effortless.",
     year: "2025",
-    accentColor: "text-violet-600",
-    accentBg: "bg-blue-600",
-    accentBorder: "border-violet-600",
     tech: ["Figma", "Adobe XD", "Illustrator", "Photoshop"],
     overview:
       "Oonsa is a modern event management platform designed to simplify how people discover, book, and experience events across Austraila and beyond. We led the full UI/UX design — from initial research through high-fidelity prototypes and developer handoff.",
@@ -223,9 +211,6 @@ const caseStudies: CaseStudyData[] = [
     tagline:
       "A skincare shopping experience as smooth as the products it sells.",
     year: "2025",
-    accentColor: "text-blue-500",
-    accentBg: "bg-blue-600",
-    accentBorder: "border-blue-500",
     tech: ["React", "Node.js", "Stripe", "PostgreSQL"],
     overview:
       "Pearlz Store is a full-featured e-commerce platform for a premium skincare brand. We designed and developed the entire experience — from product browsing and cart management to Stripe-powered checkout and a custom CMS for inventory. The result is a conversion-optimised storefront that reflects the brand's luxury positioning.",
@@ -277,9 +262,6 @@ const caseStudies: CaseStudyData[] = [
     category: "PRODUCT DESIGN · UIUX · APP",
     tagline: "Bringing Nigeria's largest tech market to your fingertips.",
     year: "2025",
-    accentColor: "text-blue-500",
-    accentBg: "bg-blue-600",
-    accentBorder: "border-blue-500",
     tech: ["Flutter", "Figma", "Dart", "Firebase"],
     overview:
       "Computer Village in Lagos is Africa's largest open-air technology market — but navigating it is chaotic. CVMP is a mobile marketplace app that connects buyers with verified sellers, enabling product discovery, price comparison, and purchase negotiations in one seamless cross-platform experience.",
@@ -331,9 +313,6 @@ const caseStudies: CaseStudyData[] = [
     category: "UI/UX DESIGN · PRODUCT DESIGN · APP",
     tagline: "Making crypto mining accessible, visual, and rewarding.",
     year: "2023",
-    accentColor: "text-blue-500",
-    accentBg: "bg-blue-600",
-    accentBorder: "border-blue-500",
     tech: ["Figma", "Adobe XD", "Illustrator", "Photoshop"],
     overview:
       "OMA is a mobile-first crypto mining, gaming, and entertainment platform designed to make cryptocurrency accessible to everyday users. We led the complete product design — creating intuitive dashboards, animated mining visualisations, growth analytics, and a reward ecosystem that keeps users engaged.",
@@ -385,9 +364,6 @@ const caseStudies: CaseStudyData[] = [
     category: "WEB DEVELOPMENT · FULL STACK · WEBSITE",
     tagline: "Bringing real-world utility to the Pi Network ecosystem.",
     year: "2022",
-    accentColor: "text-blue-500",
-    accentBg: "bg-blue-600",
-    accentBorder: "border-blue-500",
     tech: ["React", "TypeScript", "Firebase", "Node.js"],
     overview:
       "PayWithPi is a full-stack payment platform built on the Pi Network, enabling users to transfer Pi cryptocurrency, manage wallets, and complete purchases within a growing merchant ecosystem. The platform includes a consumer-facing app and a comprehensive admin dashboard with sales analytics and order management.",
@@ -439,9 +415,6 @@ const caseStudies: CaseStudyData[] = [
     category: "PRODUCT DESIGN · UIUX · APP",
     tagline: "One secure platform, connecting both buyers and sellers",
     year: "2025",
-    accentColor: "text-blue-500",
-    accentBg: "bg-blue-600",
-    accentBorder: "border-blue-500",
     tech: ["Figma", "FigJam", "Flutter", "Firebase"],
     overview:
       "DAPSTORE is a multi-vendor marketplace platform that connects buyers with sellers in one seamless experience. Sellers can open a digital shop, list products, and reach customers directly, while buyers can browse, discover, and connect with vendors all in one place. From research to wireframes and high-fidelity prototypes, every screen was crafted to make commerce simple for both sides.",
@@ -505,21 +478,7 @@ const fadeIn = {
 };
 
 /* ─── small shared primitives ────────────────────────────────────────── */
-const Divider = () => <div className="w-full h-px bg-border" />;
-
-const SectionHeading = ({
-  children,
-  className = "",
-}: {
-  children: React.ReactNode;
-  className?: string;
-}) => (
-  <h2
-    className={`text-base font-semibold text-foreground tracking-tight ${className}`}
-  >
-    {children}
-  </h2>
-);
+const Divider = () => <div className="w-full h-px bg-border/60" />;
 
 const EyebrowLabel = ({
   children,
@@ -529,7 +488,7 @@ const EyebrowLabel = ({
   className?: string;
 }) => (
   <p
-    className={`text-[10px] font-bold uppercase tracking-[0.12em] text-muted-foreground ${className}`}
+    className={`text-[10px] font-bold uppercase tracking-[0.14em] text-muted-foreground ${className}`}
   >
     {children}
   </p>
@@ -545,11 +504,11 @@ const CaseStudySheet = () => {
     return (
       <div className="min-h-screen bg-background flex flex-col">
         <Navbar />
-        <div className="flex-1 mt-15 flex flex-col items-center justify-center gap-4">
+        <div className="flex-1 mt-25 flex flex-col items-center justify-center gap-4">
           <p className="text-2xl font-bold text-foreground">
             Case study not found.
           </p>
-          <Link to="/projects" className="text-black-600 underline text-xs">
+          <Link to="/projects" className="text-primary underline text-xs">
             ← Back to Projects
           </Link>
         </div>
@@ -557,6 +516,29 @@ const CaseStudySheet = () => {
       </div>
     );
   }
+
+  const metaItems = [
+    {
+      icon: <Target className="w-3.5 h-3.5" />,
+      label: "Role",
+      value: study.role,
+    },
+    {
+      icon: <Clock className="w-3.5 h-3.5" />,
+      label: "Timeline",
+      value: study.duration,
+    },
+    {
+      icon: <Users className="w-3.5 h-3.5" />,
+      label: "Team",
+      value: study.team,
+    },
+    {
+      icon: <Calendar className="w-3.5 h-3.5" />,
+      label: "Year",
+      value: study.year,
+    },
+  ];
 
   return (
     <div className="min-h-screen bg-background">
@@ -588,7 +570,7 @@ const CaseStudySheet = () => {
             animate="visible"
             custom={0}
           >
-            <EyebrowLabel className={`mb-3 ${study.accentColor}`}>
+            <EyebrowLabel className="mb-3 text-primary">
               {study.category}
             </EyebrowLabel>
           </motion.div>
@@ -599,7 +581,7 @@ const CaseStudySheet = () => {
             initial="hidden"
             animate="visible"
             custom={1}
-            className="font-display text-[2rem] sm:text-4xl font-extrabold text-foreground leading-[1.15] tracking-tight mb-5 max-w-3xl"
+            className="font-display text-[2rem] sm:text-4xl lg:text-5xl font-extrabold text-foreground leading-[1.1] tracking-tight mb-5 max-w-3xl"
           >
             {study.title}
           </motion.h1>
@@ -610,50 +592,28 @@ const CaseStudySheet = () => {
             initial="hidden"
             animate="visible"
             custom={2}
-            className="text-sm text-muted-foreground leading-relaxed max-w-2xl mb-10"
+            className="text-sm sm:text-base text-muted-foreground leading-relaxed max-w-2xl mb-12"
           >
             {study.tagline}
           </motion.p>
 
-          {/* Meta strip */}
+          {/* Meta strip — a quiet row, not a bordered grid */}
           <motion.div
             variants={fadeUp}
             initial="hidden"
             animate="visible"
             custom={3}
-            className="grid grid-cols-2 sm:grid-cols-4 gap-px bg-border rounded-xl overflow-hidden border border-border"
+            className="flex flex-wrap gap-x-12 gap-y-6 pt-8 border-t border-border/60"
           >
-            {[
-              {
-                icon: <Target className="w-3.5 h-3.5" />,
-                label: "Role",
-                value: study.role,
-              },
-              {
-                icon: <Clock className="w-3.5 h-3.5" />,
-                label: "Timeline",
-                value: study.duration,
-              },
-              {
-                icon: <Users className="w-3.5 h-3.5" />,
-                label: "Team",
-                value: study.team,
-              },
-              {
-                icon: <Calendar className="w-3.5 h-3.5" />,
-                label: "Year",
-                value: study.year,
-              },
-            ].map((m) => (
-              <div
-                key={m.label}
-                className="bg-background p-4 flex flex-col gap-2"
-              >
-                <div className="flex items-center gap-1.5 text-muted-foreground">
+            {metaItems.map((m) => (
+              <div key={m.label} className="flex flex-col gap-2 min-w-[110px]">
+                <div className="flex items-center gap-1.5 text-primary">
                   {m.icon}
-                  <EyebrowLabel>{m.label}</EyebrowLabel>
+                  <EyebrowLabel className="text-primary">
+                    {m.label}
+                  </EyebrowLabel>
                 </div>
-                <p className="text-xs font-medium text-foreground leading-snug">
+                <p className="text-xs font-medium text-foreground tracking-tight leading-snug">
                   {m.value}
                 </p>
               </div>
@@ -663,7 +623,7 @@ const CaseStudySheet = () => {
       </section>
 
       {/* ── Body ────────────────────────────────────────────────────── */}
-      <section className="py-16">
+      <section className="py-16 lg:py-20">
         <div className="max-w-6xl mx-auto px-6 space-y-16">
           {/* Tech stack */}
           <motion.div
@@ -672,12 +632,12 @@ const CaseStudySheet = () => {
             whileInView="visible"
             viewport={{ once: true }}
           >
-            <EyebrowLabel className="mb-3">Tech Stack</EyebrowLabel>
+            <EyebrowLabel className="mb-4">Tech Stack</EyebrowLabel>
             <div className="flex flex-wrap gap-2">
               {study.tech.map((t) => (
                 <span
                   key={t}
-                  className="text-[11px] font-semibold text-foreground bg-secondary border border-border px-3 py-1 rounded-full tracking-wide"
+                  className="text-[11px] font-semibold text-foreground bg-secondary/60 px-3 py-1.5 rounded-full tracking-wide"
                 >
                   {t}
                 </span>
@@ -694,8 +654,8 @@ const CaseStudySheet = () => {
             whileInView="visible"
             viewport={{ once: true }}
           >
-            <EyebrowLabel className="mb-3">Overview</EyebrowLabel>
-            <p className="text-sm text-muted-foreground leading-[1.8] max-w-3xl">
+            <EyebrowLabel className="mb-4">Overview</EyebrowLabel>
+            <p className="text-sm sm:text-[15px] text-muted-foreground leading-[1.85] max-w-3xl">
               {study.overview}
             </p>
           </motion.div>
@@ -703,7 +663,7 @@ const CaseStudySheet = () => {
           <Divider />
 
           {/* Problem / Solution */}
-          <div className="grid md:grid-cols-2 gap-6">
+          <div className="grid md:grid-cols-2 gap-6 md:gap-8">
             {[
               {
                 icon: <Target className="w-4 h-4" />,
@@ -723,13 +683,13 @@ const CaseStudySheet = () => {
                 whileInView="visible"
                 viewport={{ once: true }}
                 custom={i * 0.15}
-                className="rounded-2xl border border-border bg-card p-6 flex flex-col gap-4"
+                className="rounded-2xl bg-secondary/30 p-6 sm:p-8 flex flex-col gap-4"
               >
                 <div className="flex items-center gap-2">
-                  <span className="text-muted-foreground">{card.icon}</span>
+                  <span className="text-primary">{card.icon}</span>
                   <EyebrowLabel>{card.label}</EyebrowLabel>
                 </div>
-                <p className="text-xs text-muted-foreground leading-[1.85]">
+                <p className="text-xs sm:text-[13px] text-muted-foreground leading-[1.9]">
                   {card.body}
                 </p>
               </motion.div>
@@ -760,9 +720,7 @@ const CaseStudySheet = () => {
                 >
                   {/* Timeline column */}
                   <div className="flex flex-col items-center flex-shrink-0">
-                    <div
-                      className={`w-7 h-7 rounded-full flex items-center justify-center text-[10px] font-bold text-white z-10 ${study.accentBg}`}
-                    >
+                    <div className="w-7 h-7 rounded-full flex items-center justify-center text-[10px] font-bold text-primary-foreground bg-primary z-10">
                       {i + 1}
                     </div>
                     {i < study.process.length - 1 && (
@@ -779,7 +737,7 @@ const CaseStudySheet = () => {
                     <p className="text-sm font-semibold text-foreground mb-1.5 leading-snug">
                       {step.phase}
                     </p>
-                    <p className="text-xs text-muted-foreground leading-[1.85]">
+                    <p className="text-xs sm:text-[13px] text-muted-foreground leading-[1.9]">
                       {step.description}
                     </p>
                   </div>
@@ -807,12 +765,10 @@ const CaseStudySheet = () => {
                   whileInView="visible"
                   viewport={{ once: true }}
                   custom={i * 0.08}
-                  className="flex items-start gap-3 bg-secondary/40 border border-border rounded-xl p-4"
+                  className="flex items-start gap-3 bg-secondary/30 rounded-xl p-4"
                 >
-                  <span
-                    className={`mt-0.5 flex-shrink-0 w-1.5 h-1.5 rounded-full ${study.accentBg}`}
-                  />
-                  <span className="text-xs text-foreground leading-[1.8]">
+                  <span className="mt-1.5 flex-shrink-0 w-1.5 h-1.5 rounded-full bg-primary" />
+                  <span className="text-xs sm:text-[13px] text-foreground leading-[1.85]">
                     {item}
                   </span>
                 </motion.div>
@@ -837,7 +793,7 @@ const CaseStudySheet = () => {
                 custom={i * 0.15}
               >
                 <EyebrowLabel className="mb-3">{section.label}</EyebrowLabel>
-                <p className="text-xs text-muted-foreground leading-[1.85]">
+                <p className="text-xs sm:text-[13px] text-muted-foreground leading-[1.9]">
                   {section.body}
                 </p>
               </motion.div>
@@ -857,7 +813,7 @@ const CaseStudySheet = () => {
                 href={study.link}
                 target="_blank"
                 rel="noopener noreferrer"
-                className={`inline-flex items-center gap-2 px-6 py-3 rounded-xl text-white text-xs font-bold tracking-wide transition-opacity hover:opacity-90 active:scale-[0.98] ${study.accentBg}`}
+                className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-primary text-primary-foreground text-xs font-bold tracking-wide transition-opacity hover:opacity-90 active:scale-[0.98]"
               >
                 Visit Live Project
                 <ExternalLink className="w-3.5 h-3.5" />

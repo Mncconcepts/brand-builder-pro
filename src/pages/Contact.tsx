@@ -251,7 +251,7 @@ const Contact = () => {
               viewport={{ once: true }}
               transition={{ delay: 0.1 }}
             >
-              <div className="bg-card border border-border/25 rounded-3xl p-8 sm:p-10 shadow-xs">
+              <div className="bg-card border border-border rounded-2xl p-8 sm:p-10 shadow-xs">
                 {isSuccessfullySubmitted ? (
                   <div className="h-full min-h-[400px] flex flex-col items-center justify-center text-center space-y-6">
                     <div className="w-16 h-16 bg-primary/10 text-primary rounded-full flex items-center justify-center mb-2">

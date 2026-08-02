@@ -95,7 +95,9 @@ const CaseStudies = () => {
           >
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-border bg-foreground/5 mb-6">
               <span className="w-1 h-1 rounded-full bg-foreground animate-pulse" />
-              <span className="text-[10px] font-bold text-foreground tracking-wide uppercase">Case Studies</span>
+              <span className="text-[10px] font-bold text-foreground tracking-wide uppercase">
+                Case Studies
+              </span>
             </div>
 
             <h1 className="font-display text-5xl text-balance sm:text-6xl lg:text-7xl text-foreground leading-[1.05] font-extrabold tracking-tight mb-2">
@@ -120,117 +122,132 @@ const CaseStudies = () => {
               { n: "100%", label: "Remote-Friendly" },
             ].map((s) => (
               <div key={s.label} className="flex items-baseline gap-2">
-                <span className="font-display text-1xl font-extrabold text-foreground">{s.n}</span>
-                <span className="text-xs text-muted-foreground font-medium">{s.label}</span>
+                <span className="font-display text-xl font-extrabold text-foreground">
+                  {s.n}
+                </span>
+                <span className="text-xs text-muted-foreground font-medium">
+                  {s.label}
+                </span>
               </div>
             ))}
           </motion.div>
         </div>
       </section>
 
+      {/* ── Case Studies ── */}
+      <section className="pb-24">
+        <div className="max-w-6xl mx-auto px-6">
+          {caseStudies.map((cs, idx) => (
+            <motion.article
+              key={cs.slug}
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-80px" }}
+              transition={{
+                duration: 0.6,
+                delay: idx * 0.05,
+                ease: [0.22, 1, 0.36, 1],
+              }}
+              className={`relative overflow-hidden py-16 lg:py-20 ${
+                idx !== 0 ? "border-t border-border/60" : ""
+              }`}
+            >
+              {/* Decorative running number, sits behind the copy */}
+              <span className="pointer-events-none select-none absolute -top-2 right-0 font-display text-8xl sm:text-9xl font-light text-primary/[0.06] leading-none">
+                {String(idx + 1).padStart(2, "0")}
+              </span>
 
-      {/* Case Studies */}
-      <section className="py-15">
-        <div className="max-w-6xl pt-5 mx-auto px-6">
-          <div className="space-y-10">
-            {caseStudies.map((cs, idx) => (
-              <motion.article
-                key={cs.slug}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-80px" }}
-                transition={{
-                  duration: 0.6,
-                  delay: idx * 0.05,
-                  ease: [0.22, 1, 0.36, 1],
-                }}
-                className="border border-border rounded-lg overflow-hidden bg-card shadow-sm"
-              >
-                {/* Top bar */}
-                <div className="bg-secondary/50 border-b border-border px-8 py-5 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-                  <div>
-                    <h2 className="text-2xm font-bold text-foreground">
-                      {cs.title}
-                    </h2>
-                    <p className="text-xs text-muted-foreground mt-1">
-                      {cs.client} · {cs.industry} · {cs.duration}
-                    </p>
+              <div className="relative max-w-3xl">
+                {/* Meta row */}
+                <div className="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-2 mb-6">
+                  <div className="flex items-center gap-3">
+                    <span className="text-xs font-bold text-primary tracking-widest">
+                      {String(idx + 1).padStart(2, "0")}
+                    </span>
+                    <span className="text-xs text-muted-foreground uppercase tracking-wide">
+                      {cs.industry}
+                    </span>
                   </div>
                   <span className="text-xs font-medium text-muted-foreground">
-                    {cs.year}
+                    {cs.year} · {cs.duration}
                   </span>
                 </div>
 
-                <div className="p-8 lg:p-10 space-y-10">
-                  {/* Summary */}
-                  <p className="text-foreground leading-relaxed text-sm max-w-3xl">
-                    {cs.summary}
-                  </p>
+                <h2 className="font-display text-2xl sm:text-3xl font-bold text-foreground mb-1">
+                  {cs.title}
+                </h2>
+                <p className="text-xs text-muted-foreground mb-8">
+                  {cs.client}
+                </p>
 
-                  {/* Challenge & Solution */}
-                  <div className="grid md:grid-cols-2 gap-8">
-                    <div>
-                      <h3 className="text-sm font-semibold uppercase tracking-wider text-muted-foreground mb-3">
-                        The Challenge
-                      </h3>
-                      <p className="text-muted-foreground text-xs leading-relaxed">
-                        {cs.challenge}
-                      </p>
-                    </div>
-                    <div>
-                      <h3 className="text-sm font-semibold uppercase tracking-wider text-muted-foreground mb-3">
-                        The Solution
-                      </h3>
-                      <p className="text-muted-foreground text-xs leading-relaxed">
-                        {cs.solution}
-                      </p>
-                    </div>
-                  </div>
+                <p className="text-foreground/90 leading-relaxed text-sm mb-10">
+                  {cs.summary}
+                </p>
 
-                  {/* Results */}
+                {/* Challenge & Solution */}
+                <div className="grid sm:grid-cols-2 gap-8 sm:gap-10 mb-10">
                   <div>
-                    <h3 className="text-sm font-semibold uppercase tracking-wider text-muted-foreground mb-4">
-                      Key Results
+                    <h3 className="text-[11px] font-semibold uppercase tracking-widest text-primary mb-3">
+                      The Challenge
                     </h3>
-                    <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                      {cs.results.map((r) => (
-                        <div
-                          key={r.metric}
-                          className="bg-secondary/40 rounded-md p-4 text-center"
-                        >
-                          <p className="font-display text-2xl font-bold text-foreground">
-                            {r.value}
-                          </p>
-                          <p className="text-xs text-muted-foreground mt-1">
-                            {r.metric}
-                          </p>
-                        </div>
-                      ))}
-                    </div>
+                    <p className="text-muted-foreground text-xs leading-relaxed">
+                      {cs.challenge}
+                    </p>
                   </div>
+                  <div>
+                    <h3 className="text-[11px] font-semibold uppercase tracking-widest text-primary mb-3">
+                      The Solution
+                    </h3>
+                    <p className="text-muted-foreground text-xs leading-relaxed">
+                      {cs.solution}
+                    </p>
+                  </div>
+                </div>
 
-                  {/* Tech */}
-                  <div className="flex flex-wrap gap-2">
-                    {cs.tech.map((t) => (
-                      <span
-                        key={t}
-                        className="text-xs text-muted-foreground border border-border px-3 py-1 rounded-md"
-                      >
-                        {t}
-                      </span>
+                {/* Results — a single hairline table, no filled boxes */}
+                <div className="mb-10">
+                  <h3 className="text-[11px] font-semibold uppercase tracking-widest text-muted-foreground mb-4">
+                    Key Results
+                  </h3>
+                  <div className="grid grid-cols-2 sm:grid-cols-4 border-y border-border/60 divide-x divide-y sm:divide-y-0 divide-border/60">
+                    {cs.results.map((r) => (
+                      <div key={r.metric} className="px-4 py-4 first:pl-0">
+                        <p className="font-display text-xl sm:text-2xl font-bold text-foreground">
+                          {r.value}
+                        </p>
+                        <p className="text-[11px] text-muted-foreground mt-1">
+                          {r.metric}
+                        </p>
+                      </div>
                     ))}
                   </div>
                 </div>
-              </motion.article>
-            ))}
-          </div>
+
+                {/* Tech — plain, slash-separated, no chip borders */}
+                <div className="flex flex-wrap text-xs text-muted-foreground">
+                  {cs.tech.map((t, i) => (
+                    <span key={t}>
+                      {t}
+                      {i < cs.tech.length - 1 && (
+                        <span className="text-border mx-2">/</span>
+                      )}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </motion.article>
+          ))}
         </div>
       </section>
 
       {/* ── CTA STRIP ── */}
       <section className="py-20 bg-foreground text-background relative overflow-hidden">
         <div className="max-w-3xl mx-auto px-6 text-center relative z-10">
-          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+          >
             <p className="text-[10px] font-bold uppercase tracking-widest opacity-40 mb-4">
               Ready When You Are
             </p>
@@ -238,7 +255,8 @@ const CaseStudies = () => {
               Let's Build Something Real.
             </h2>
             <p className="opacity-60 text-sm max-w-md mx-auto leading-relaxed mb-9">
-              Let us discuss how we can deliver measurable impact for your business
+              Let us discuss how we can deliver measurable impact for your
+              business
             </p>
             <div className="flex flex-col sm:flex-row gap-3 justify-center">
               <Link
