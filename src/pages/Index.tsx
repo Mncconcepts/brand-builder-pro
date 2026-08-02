@@ -481,7 +481,7 @@ const Index = () => {
                   aria-expanded={isOpen}
                   className={`group text-left bg-card border rounded-2xl p-5 sm:p-6 transition-all duration-300  focus-visible:ring-2 focus-visible:ring-primary/10 ${
                     isOpen
-                      ? "border-primary/40 shadow-md"
+                      ? "border-primary/40 shadow-xs"
                       : "border-border hover:border-primary/30 hover:-translate-y-1"
                   }`}
                 >

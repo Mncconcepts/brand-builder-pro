@@ -570,9 +570,7 @@ const CaseStudySheet = () => {
             animate="visible"
             custom={0}
           >
-            <EyebrowLabel className="mb-3 text-primary">
-              {study.category}
-            </EyebrowLabel>
+            <EyebrowLabel>{study.category}</EyebrowLabel>
           </motion.div>
 
           {/* Title */}
@@ -581,7 +579,7 @@ const CaseStudySheet = () => {
             initial="hidden"
             animate="visible"
             custom={1}
-            className="font-display text-[2rem] sm:text-4xl lg:text-5xl font-extrabold text-foreground leading-[1.1] tracking-tight mb-5 max-w-3xl"
+            className="font-display text-[2rem] sm:text-4xl font-extrabold text-foreground leading-[1.15] tracking-tight mt-4 mb-5 max-w-3xl"
           >
             {study.title}
           </motion.h1>
@@ -592,28 +590,29 @@ const CaseStudySheet = () => {
             initial="hidden"
             animate="visible"
             custom={2}
-            className="text-sm sm:text-base text-muted-foreground leading-relaxed max-w-2xl mb-12"
+            className="text-sm text-muted-foreground leading-relaxed max-w-2xl mb-10"
           >
             {study.tagline}
           </motion.p>
 
-          {/* Meta strip — a quiet row, not a bordered grid */}
+          {/* Meta strip */}
           <motion.div
             variants={fadeUp}
             initial="hidden"
             animate="visible"
             custom={3}
-            className="flex flex-wrap gap-x-12 gap-y-6 pt-8 border-t border-border/60"
+            className="grid grid-cols-2 sm:grid-cols-4 gap-px bg-border rounded-xl overflow-hidden border border-border"
           >
             {metaItems.map((m) => (
-              <div key={m.label} className="flex flex-col gap-2 min-w-[110px]">
-                <div className="flex items-center gap-1.5 text-primary">
+              <div
+                key={m.label}
+                className="bg-background p-4 flex flex-col gap-2"
+              >
+                <div className="flex items-center gap-1.5 text-muted-foreground">
                   {m.icon}
-                  <EyebrowLabel className="text-primary">
-                    {m.label}
-                  </EyebrowLabel>
+                  <EyebrowLabel>{m.label}</EyebrowLabel>
                 </div>
-                <p className="text-xs font-medium text-foreground tracking-tight leading-snug">
+                <p className="text-xs font-medium text-foreground leading-snug">
                   {m.value}
                 </p>
               </div>
