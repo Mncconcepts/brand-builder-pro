@@ -326,7 +326,7 @@ const Index = () => {
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-60" />
                   <span className="relative inline-flex rounded-full h-2 w-2 bg-primary" />
                 </span>
-                <Sparkles className="w-3.5 h-3.5 text-primary shrink-0" />
+                {/* <Sparkles className="w-3.5 h-3.5 text-primary shrink-0" /> */}
                 <span className="text-xs font-extra-small text-primary tracking-tight uppercase">
                   Design & Development
                 </span>
@@ -342,8 +342,9 @@ const Index = () => {
             </h1>
 
             <p className="text-sm text-muted-foreground max-w-md leading-relaxed mb-8">
-              Mncconcepts helps businesses create powerful web applications and
-              thoughtful digital experiences that drive growth and engagement.
+              From strategy and design to development and deployment,
+              we craft world-class web applications and digital
+              solutions that empower businesses to innovate and scale.
             </p>
 
             <div className="flex flex-wrap gap-3 mb-8">
@@ -417,7 +418,7 @@ const Index = () => {
               delay: 0.25,
               ease: [0.22, 1, 0.36, 1],
             }}
-            className="relative block mt-10 lg:mt-0"
+            className="relative hidden sm:block sm:mt-10 lg:mt-0"
           >
             <div className="absolute -inset-4 rounded-2xl border border-border/40 bg-secondary/20 backdrop-blur-sm -z-10" />
             <div className="absolute -inset-1 rounded-xl bg-gradient-to-br from-primary/10 via-transparent to-blue-500/10 -z-10" />
@@ -604,7 +605,7 @@ const Index = () => {
       </section>
 
       <section className="py-28 bg-secondary/30 border-y border-border">
-        <div className="max-w-6xl mx-auto px-6"> 
+        <div className="max-w-6xl mx-auto px-6">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}

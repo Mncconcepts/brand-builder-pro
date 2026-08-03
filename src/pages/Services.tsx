@@ -3,7 +3,16 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import { ArrowUpRight, CheckCircle2, Zap, Palette, Code2, Lightbulb, Pen, ChevronDown } from "lucide-react";
+import {
+  ArrowUpRight,
+  CheckCircle2,
+  Zap,
+  Palette,
+  Code2,
+  Lightbulb,
+  Pen,
+  ChevronDown,
+} from "lucide-react";
 
 const services = [
   {
@@ -143,7 +152,8 @@ const pricing = [
     name: "Starter",
     price: "$900",
     priceNote: "Starting from",
-    description: "Perfect for small businesses needing a professional web presence.",
+    description:
+      "Perfect for small businesses needing a professional web presence.",
     features: [
       "Single page website",
       "Responsive design",
@@ -159,14 +169,15 @@ const pricing = [
     name: "Professional",
     price: "$3,500",
     priceNote: "Starting from",
-    description: "For growing businesses that need a comprehensive digital solution.",
+    description:
+      "For growing businesses that need a comprehensive digital solution.",
     features: [
-      "Multi-page website",
+      "Multi-page website-applications",
       "Figma custom design",
       "Advanced SEO",
       "CMS integration",
       "3 rounds of revisions",
-      "12 weeks delivery",
+      "16 weeks delivery",
       "Priority support",
     ],
     featured: true,
@@ -177,9 +188,10 @@ const pricing = [
     name: "Enterprise",
     price: "Custom",
     priceNote: "Let's talk",
-    description: "For complex projects requiring full-stack development and design.",
+    description:
+      "For complex projects requiring full-stack development and design.",
     features: [
-      "Web application",
+      "Web and mobile applications",
       "Custom feature set",
       "API integration",
       "Design system",
@@ -191,8 +203,24 @@ const pricing = [
   },
 ];
 
+const getPlanContactUrl = (tier: (typeof pricing)[0]) => {
+  const params = new URLSearchParams({
+    service: `${tier.name} Plan`,
+    scope: tier.price,
+    timeline: tier.priceNote,
+    notes: `Included: ${tier.features.join(", ")}`,
+  });
+  return `/contact?${params.toString()}`;
+};
+
 /* ── expandable service row ── */
-function ServiceRow({ service, index }: { service: typeof services[0]; index: number }) {
+function ServiceRow({
+  service,
+  index,
+}: {
+  service: (typeof services)[0];
+  index: number;
+}) {
   const [open, setOpen] = useState(false);
   const Icon = service.icon;
 
@@ -216,7 +244,9 @@ function ServiceRow({ service, index }: { service: typeof services[0]; index: nu
           </span>
 
           {/* Icon bubble - Reduced size */}
-          <div className={`w-9 h-9 rounded-lg bg-foreground/5 flex items-center justify-center shrink-0 transition-transform duration-300 group-hover:scale-110`}>
+          <div
+            className={`w-9 h-9 rounded-lg bg-foreground/5 flex items-center justify-center shrink-0 transition-transform duration-300 group-hover:scale-110`}
+          >
             <Icon className="w-4 h-4 text-foreground" />
           </div>
 
@@ -235,7 +265,10 @@ function ServiceRow({ service, index }: { service: typeof services[0]; index: nu
           {/* Tags preview */}
           <div className="hidden lg:flex items-center gap-2 shrink-0">
             {service.features.slice(0, 3).map((f) => (
-              <span key={f} className="text-[9px] font-bold px-2.5 py-0.5 rounded-full bg-foreground/5 text-foreground border border-border">
+              <span
+                key={f}
+                className="text-[9px] font-bold px-2.5 py-0.5 rounded-full bg-foreground/5 text-foreground border border-border"
+              >
                 {f}
               </span>
             ))}
@@ -255,7 +288,9 @@ function ServiceRow({ service, index }: { service: typeof services[0]; index: nu
         transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
         className="overflow-hidden"
       >
-        <div className={`mx-2 mb-6 rounded-2xl bg-gradient-to-br ${service.accent} border border-border p-6 sm:p-8`}>
+        <div
+          className={`mx-2 mb-6 rounded-2xl bg-gradient-to-br ${service.accent} border border-border p-6 sm:p-8`}
+        >
           <div className="grid sm:grid-cols-2 gap-8">
             <div>
               <p className="text-sm text-muted-foreground leading-relaxed mb-6">
@@ -274,7 +309,10 @@ function ServiceRow({ service, index }: { service: typeof services[0]; index: nu
               </p>
               <ul className="grid grid-cols-2 gap-2">
                 {service.features.map((f) => (
-                  <li key={f} className="flex items-center gap-2 text-sm text-foreground/80">
+                  <li
+                    key={f}
+                    className="flex items-center gap-2 text-sm text-foreground/80"
+                  >
                     <CheckCircle2 className="w-3.5 h-3.5 shrink-0 text-foreground" />
                     {f}
                   </li>
@@ -305,15 +343,18 @@ const Services = () => {
           >
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-border bg-foreground/5 mb-6">
               <span className="w-1 h-1 rounded-full bg-foreground animate-pulse" />
-              <span className="text-[10px] font-bold text-foreground tracking-wide uppercase">What We Offer</span>
+              <span className="text-[10px] font-bold text-foreground tracking-wide uppercase">
+                What We Offer
+              </span>
             </div>
 
             <h1 className="font-display text-balance max-w-xm text-5xl sm:text-7xl lg:text-7xl text-foreground leading-[1.05] font-extrabold tracking-tight mb-2">
               Services Built for Real Outcomes.
             </h1>
             <p className="text-sm text-muted-foreground max-w-xl leading-relaxed">
-              From concept to launch, we provide end-to-end services covering every aspect of
-              building successful digital products with clarity, craft, and accountability.
+              From concept to launch, we provide end-to-end services covering
+              every aspect of building successful digital products with clarity,
+              craft, and accountability.
             </p>
           </motion.div>
 
@@ -330,8 +371,12 @@ const Services = () => {
               { n: "100%", label: "Remote-Friendly" },
             ].map((s) => (
               <div key={s.label} className="flex items-baseline gap-2">
-                <span className="font-display text-1xl font-extrabold text-foreground">{s.n}</span>
-                <span className="text-xs text-muted-foreground font-medium">{s.label}</span>
+                <span className="font-display text-1xl font-extrabold text-foreground">
+                  {s.n}
+                </span>
+                <span className="text-xs text-muted-foreground font-medium">
+                  {s.label}
+                </span>
               </div>
             ))}
           </motion.div>
@@ -347,8 +392,12 @@ const Services = () => {
             viewport={{ once: true }}
             className="mb-10"
           >
-            <p className="text-[10px] font-bold uppercase tracking-wide text-muted-foreground mb-2">core digital solutions</p>
-            <h2 className="font-display lg:text-6xl tracking-tight text-5xl font-extrabold text-foreground">Technical Expertise.</h2>
+            <p className="text-[10px] font-bold uppercase tracking-wide text-muted-foreground mb-2">
+              core digital solutions
+            </p>
+            <h2 className="font-display lg:text-6xl tracking-tight text-5xl font-extrabold text-foreground">
+              Technical Expertise.
+            </h2>
           </motion.div>
 
           <div className="divide-y divide-border border-t border-border rounded-2xl overflow-hidden bg-card/20 border shadow-sm px-2">
@@ -368,9 +417,11 @@ const Services = () => {
             viewport={{ once: true }}
             className="mb-16"
           >
-            <p className="text-[10px] font-bold tracking-wide uppercase text-muted-foreground mb-2">How We Work</p>
+            <p className="text-[10px] font-bold tracking-wide uppercase text-muted-foreground mb-2">
+              How We Work
+            </p>
             <h2 className="font-display text-5xl lg:text-6xl tracking-tight text-balance sm:text-5xl text-foreground font-extrabold">
-              A Clear Process, <br/> Every Time.
+              A Clear Process, <br /> Every Time.
             </h2>
           </motion.div>
 
@@ -388,7 +439,9 @@ const Services = () => {
                   className="relative group"
                 >
                   <div className="w-12 h-12 rounded-xl bg-background border border-border flex items-center justify-center mb-6 shadow-sm group-hover:bg-foreground group-hover:text-background transition-all duration-300 relative z-10">
-                    <span className="font-display text-sm font-extrabold">{p.step}</span>
+                    <span className="font-display text-sm font-extrabold">
+                      {p.step}
+                    </span>
                   </div>
                   <span className="inline-block text-[9px] font-bold uppercase tracking-widest text-muted-foreground/60 border border-border px-2 py-0.5 rounded-full mb-3">
                     {p.duration}
@@ -396,7 +449,9 @@ const Services = () => {
                   <h3 className="font-display text-lg font-bold text-foreground mb-2">
                     {p.title}
                   </h3>
-                  <p className="text-[13px] text-muted-foreground leading-relaxed">{p.description}</p>
+                  <p className="text-[13px] text-muted-foreground leading-relaxed">
+                    {p.description}
+                  </p>
                 </motion.div>
               ))}
             </div>
@@ -413,7 +468,9 @@ const Services = () => {
             viewport={{ once: true }}
             className="mb-16 text-center"
           >
-            <p className="text-[10px] font-bold tracking-wide uppercase text-muted-foreground mb-1">Transparent Pricing</p>
+            <p className="text-[10px] font-bold tracking-wide uppercase text-muted-foreground mb-1">
+              Transparent Pricing
+            </p>
             <h2 className="font-display text-5xl lg:text-6xl sm:text-5xl tracking-tight text-foreground font-extrabold mb-3">
               Investment Tiers
             </h2>
@@ -440,11 +497,15 @@ const Services = () => {
                 )}
 
                 <div className="p-8 flex flex-col flex-1">
-                  <p className={`text-[10px] font-bold uppercase tracking-widest mb-4 opacity-60`}>
+                  <p
+                    className={`text-[10px] font-bold uppercase tracking-widest mb-4 opacity-60`}
+                  >
                     {tier.name}
                   </p>
                   <div className="mb-2">
-                    <span className="text-[10px] opacity-50 block">{tier.priceNote}</span>
+                    <span className="text-[10px] opacity-50 block">
+                      {tier.priceNote}
+                    </span>
                     <div className="font-display text-4xl font-extrabold tracking-tight">
                       {tier.price}
                     </div>
@@ -455,7 +516,10 @@ const Services = () => {
 
                   <ul className="space-y-3 mb-8 flex-1">
                     {tier.features.map((f) => (
-                      <li key={f} className="flex items-center gap-3 text-xs opacity-80">
+                      <li
+                        key={f}
+                        className="flex items-center gap-3 text-xs opacity-80"
+                      >
                         <CheckCircle2 className="w-3.5 h-3.5 shrink-0" />
                         {f}
                       </li>
@@ -463,7 +527,7 @@ const Services = () => {
                   </ul>
 
                   <Link
-                    to="/contact"
+                    to={getPlanContactUrl(tier)}
                     className={`inline-flex items-center justify-center gap-2 text-xs font-bold py-3.5 rounded-xl transition-all ${
                       tier.featured
                         ? "bg-background text-foreground hover:bg-background/90"
@@ -482,7 +546,11 @@ const Services = () => {
       {/* ── CTA STRIP ── */}
       <section className="py-20 bg-foreground text-background relative overflow-hidden">
         <div className="max-w-3xl mx-auto px-6 text-center relative z-10">
-          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+          >
             <p className="text-[10px] font-bold uppercase tracking-wide opacity-40 mb-3">
               Ready When You Are
             </p>
@@ -490,7 +558,8 @@ const Services = () => {
               Let's Build Something Real.
             </h2>
             <p className="opacity-60 text-sm max-w-md mx-auto leading-relaxed mb-9">
-              Tell us what you're working on. We'll get back within 24 hours with a clear path forward.
+              Tell us what you're working on. We'll get back within 24 hours
+              with a clear path forward.
             </p>
             <div className="flex flex-col sm:flex-row gap-3 justify-center">
               <Link
