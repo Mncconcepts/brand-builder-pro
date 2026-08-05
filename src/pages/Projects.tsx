@@ -404,16 +404,6 @@ const Projects = () => {
               >
                 Get in Touch <ArrowUpRight className="w-3.5 h-3.5" />
               </Link>
-              <BookCallSheet
-                trigger={
-                  <button
-                    type="button"
-                    className="inline-flex items-center justify-center gap-2 border-2 border-background/30 text-background px-8 py-3.5 text-sm font-bold rounded-xl hover:bg-background/10 transition-all hover:-translate-y-0.5"
-                  >
-                    <CalendarIcon className="h-3.5 w-3.5" /> Book A Call Session
-                  </button>
-                }
-              />
             </div>
           </motion.div>
         </div>

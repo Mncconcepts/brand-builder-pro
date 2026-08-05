@@ -146,7 +146,7 @@ const BookCallSheet = ({ trigger }: BookCallSheetProps) => {
                     </Button>
                   </motion.div>
                 ) : (
-                  <div className="flex pt-10 flex-col z-9 max-h-[90vh]">
+                  <div className="flex pt-10 flex-col z-99 max-h-[90vh]">
                     <div className="p-6 border-b border-border/50 flex items-start justify-between bg-card">
                       <div className="space-y-1">
                         <h2 className="text-xl mr-10 font-bold text-foreground tracking-tight">Book Strategy Call</h2>
