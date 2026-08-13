@@ -19,7 +19,7 @@ import projOma from "@/assets/proj-oma.png";
 import projPaywithpi from "@/assets/proj-paywithpi.png";
 import post2dap from "@/assets/post-2dap.png";
 import visaguard from "@/assets/visaguard.jpg";
-import vgalanding from "@/assets/vgalanding2.jpg";
+import vgalanding2 from "@/assets/vgalanding2.jpg";
 import logoo1 from "@/assets/logoo1.png";
 import logoo0 from "@/assets/logoo0.png";
 import logoo3 from "@/assets/logoo3.png";
@@ -65,12 +65,12 @@ const projects = [
   },
   {
     title: "Visa Guard Africa Landing Page",
-    category: "DESIGN · DEVELOPMENT · FULL STACK · APP LANDING - WEB",
+    category: "DESIGN · DEVELOPMENT · FULL STACK · LANDING - WEB",
     description:
       "A secure visa platform designed to protect Africans from visa scams. Features real-time verification, fraud detection, and a seamless application tracking system.",
     year: "Coming Soon",
     tech: ["Figma", "React", "Node.js", "TypeScript", "MongoDB", "Express"],
-    image: vgalanding,
+    image: vgalanding2,
     link: "https://waitlist.visaguardafrica.com",
     caseStudySlug: "Visa-guard-africa App-Landing",
   },

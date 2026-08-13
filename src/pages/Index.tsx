@@ -18,6 +18,12 @@ import {
   ChevronDown,
   CheckCircle2,
   X,
+  // NEW — used by the Courses section
+  Palette,
+  Code2,
+  Layout,
+  Server,
+  Eye,
 } from "lucide-react";
 
 /* ─── Skeleton Component ─── */
@@ -60,6 +66,67 @@ const SkeletonImage = ({
     </div>
   );
 };
+
+const ComingSoonImage = ({
+  icon: Icon,
+  className,
+}: {
+  icon: React.ElementType;
+  className?: string;
+}) => {
+  const [isLoaded, setIsLoaded] = useState(false);
+
+  useEffect(() => {
+    const t = window.setTimeout(
+      () => setIsLoaded(true),
+      900 + Math.random() * 500,
+    );
+    return () => window.clearTimeout(t);
+  }, []);
+
+  return (
+    <div className={`relative overflow-hidden bg-secondary/40 ${className}`}>
+      <AnimatePresence>
+        {!isLoaded && (
+          <motion.div
+            initial={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="absolute inset-0 z-10 bg-muted/20"
+          >
+            <motion.div
+              className="w-full h-full bg-gradient-to-r from-transparent via-muted-foreground/10 to-transparent"
+              animate={{ x: ["-100%", "100%"] }}
+              transition={{ repeat: Infinity, duration: 1.5, ease: "linear" }}
+            />
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: isLoaded ? 1 : 0 }}
+        transition={{ duration: 0.5 }}
+        className="absolute inset-0 flex flex-col items-center justify-center gap-2 border border-dashed border-border/60 m-2 rounded-lg"
+      >
+        <Icon className="w-5 h-5 text-muted-foreground/50" />
+        <span className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground/70">
+          Coming Soon
+        </span>
+      </motion.div>
+    </div>
+  );
+};
+
+const WhatsAppIcon = ({ className }: { className?: string }) => (
+  <svg
+    viewBox="0 0 24 24"
+    fill="currentColor"
+    className={className}
+    aria-hidden="true"
+  >
+    <path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.39 1.26 4.86L2 22l5.34-1.4a9.9 9.9 0 0 0 4.7 1.2h.01c5.46 0 9.9-4.45 9.9-9.91 0-2.65-1.03-5.14-2.9-7.01A9.87 9.87 0 0 0 12.04 2zm0 1.67c2.14 0 4.15.83 5.66 2.35a7.95 7.95 0 0 1 2.34 5.66c0 4.42-3.6 8.02-8.02 8.02a8 8 0 0 1-4.07-1.11l-.29-.17-2.98.78.8-2.9-.19-.3a7.93 7.93 0 0 1-1.22-4.28c0-4.42 3.6-8.02 8.02-8.02zm-3.6 4.5c-.16 0-.42.06-.64.31-.22.25-.85.83-.85 2.02 0 1.19.87 2.34.99 2.5.12.16 1.7 2.71 4.19 3.7 2.07.83 2.49.66 2.94.62.45-.04 1.45-.59 1.66-1.16.2-.57.2-1.06.14-1.16-.06-.1-.22-.16-.46-.28-.24-.12-1.45-.72-1.68-.8-.22-.08-.39-.12-.55.12-.16.24-.63.8-.78.96-.14.16-.28.18-.52.06-.24-.12-1.02-.38-1.94-1.2-.72-.64-1.2-1.43-1.35-1.67-.14-.24-.02-.37.11-.49.11-.11.24-.28.36-.42.12-.14.16-.24.24-.4.08-.16.04-.3-.02-.42-.06-.12-.55-1.34-.76-1.83-.2-.48-.4-.42-.55-.42h-.47z" />
+  </svg>
+);
 
 function useCountUp(target: number, duration = 1800, triggered = false) {
   const [count, setCount] = useState(0);
@@ -146,7 +213,7 @@ const featuredServices = [
     number: "01",
     title: "Web & App Development",
     desc: "Modern, scalable websites & applications built with the latest technologies.",
-    image: "/hero-tech-design.jpg",
+    image: "/proj-pearlz-store.png",
     bullets: [
       "React / Next.js applications",
       "React Native / Flutter-Dart",
@@ -232,20 +299,110 @@ const scopeTiers = [
   {
     id: "starter",
     label: "Starter",
-    timeline: "2-3 weeks",
+    timeline: "4-5 weeks",
     blurb: "Best for an MVP or a single, focused flow you need live fast.",
   },
   {
     id: "growth",
     label: "Growth",
-    timeline: "4-6 weeks",
+    timeline: "8-10 weeks",
     blurb: "Best for a full product with several features working together.",
   },
   {
     id: "custom",
     label: "Custom",
-    timeline: "6+ weeks",
+    timeline: "10+ weeks",
     blurb: "Best for complex, multi-phase builds with their own roadmap.",
+  },
+];
+
+const WHATSAPP_NUMBER = "2349020495756";
+
+const blogPosts = [
+  {
+    title: "Design Systems That Scale With Your Product",
+    excerpt:
+      "How we build reusable component libraries that keep teams shipping fast without sacrificing consistency.",
+    category: "Design",
+    date: "Jul 2026",
+    readTime: "6 min read",
+    image: "/blog7.jpg",
+  },
+  {
+    title: "From MVP to Series A: Choosing the Right Stack",
+    excerpt:
+      "A practical breakdown of the framework and infrastructure decisions that still hold up once you scale.",
+    category: "Engineering",
+    date: "Jun 2026",
+    readTime: "8 min read",
+    image: "/hero-tech-design.jpg",
+  },
+  {
+    title: "The Real Cost of Skipping UX Research",
+    excerpt:
+      "Why the fastest route to product-market fit still starts with talking to your users first.",
+    category: "Strategy",
+    date: "May 2026",
+    readTime: "5 min read",
+    image: "/blog3.jpg",
+  },
+];
+
+const courses = [
+  {
+    icon: Palette,
+    title: "Product Design",
+    level: "Beginner → Advanced",
+    duration: "8 weeks",
+    image: "/proj-oma.png",
+    desc: "A guided, project-based track covering research, wireframing, prototyping and high-fidelity UI taught the way we actually work with clients.",
+    bullets: [
+      "User research & personas",
+      "Wireframes to high-fidelity UI",
+      "Design systems & handoff",
+      "Portfolio-ready case study",
+    ],
+  },
+  {
+    icon: Code2,
+    title: "Full Stack Web Development",
+    level: "Beginner → Intermediate",
+    duration: "24 weeks",
+    desc: "Full-stack fundamentals from your first component to a deployed, database-backed application.",
+    bullets: [
+      "HTML, CSS & modern JavaScript",
+      "Git-Github Version control",
+      "React fundamentals",
+      "APIs & databases",
+      "SEO-Performance Optimisations",
+      "Securing a domain - Deploying a live project",
+    ],
+  },
+  {
+    icon: Layout,
+    title: "Frontend Development",
+    level: "Intermediate → Advanced",
+    duration: "8 weeks",
+    desc: "Go deep on React, state management and the interaction details that separate good frontend work from great frontend work.",
+    bullets: [
+      "React, Vite, TypeScript & hooks",
+      "State management patterns",
+      "Animation & micro-interactions",
+      "Performance & accessibility",
+    ],
+  },
+  {
+    icon: Server,
+    title: "Backend Development",
+    level: "Intermediate → Advanced",
+    duration: "12 weeks",
+    desc: "Design and ship the systems behind the interface APIs, databases, auth and infrastructure that hold up in production.",
+    bullets: [
+      "REST & API design",
+      "Databases & data modeling",
+      "Authentication & security",
+      "Deployment & infrastructure basics",
+    ],
   },
 ];
 
@@ -286,6 +443,29 @@ const Index = () => {
     window.setTimeout(() => {
       navigate(`/contact?${params.toString()}`);
     }, 550);
+  };
+
+  // NEW — course "Book Spot" follows the exact same pattern as
+  // handleContinueToContact above: build query params, go to /contact.
+  const handleCourseBook = (course: (typeof courses)[number]) => {
+    const params = new URLSearchParams({
+      course: course.title,
+      interest: "Course Enrollment",
+      level: course.level,
+    });
+    navigate(`/contact?${params.toString()}`);
+  };
+
+  // NEW — course WhatsApp quick-reach button
+  const handleCourseWhatsApp = (course: (typeof courses)[number]) => {
+    const text = encodeURIComponent(
+      `Hi! I'm interested in the ${course.title} course. Can you share more details?`,
+    );
+    window.open(
+      `https://wa.me/${WHATSAPP_NUMBER}?text=${text}`,
+      "_blank",
+      "noopener,noreferrer",
+    );
   };
 
   useEffect(() => {
@@ -342,9 +522,9 @@ const Index = () => {
             </h1>
 
             <p className="text-sm text-muted-foreground max-w-md leading-relaxed mb-8">
-              From strategy and design to development and deployment,
-              we craft world-class web applications and digital
-              solutions that empower businesses to innovate and scale.
+              From strategy and design to development and deployment, we craft
+              world-class web applications and digital solutions that empower
+              businesses to innovate and scale.
             </p>
 
             <div className="flex flex-wrap gap-3 mb-8">
@@ -536,10 +716,10 @@ const Index = () => {
           >
             <div>
               <p className="text-xs font-semibold tracking-tight uppercase text-primary mb-2">
-                Capabilities
+                Our Services
               </p>
               <h2 className="font-display leading-10 text-balance lg:text-6xl mt-3 text-4xl sm:text-5xl tracking-tight text-foreground font-extrabold">
-                Services Highlight.
+                Our Services
               </h2>
             </div>
             <Link
@@ -604,7 +784,102 @@ const Index = () => {
         </div>
       </section>
 
+      {/* ═══════════════════════════════════════════════════════
+          NEW — Courses section
+          ═══════════════════════════════════════════════════════ */}
       <section className="py-28 bg-secondary/30 border-y border-border">
+        <div className="max-w-6xl mx-auto px-6">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="mb-14 text-left max-w-lg"
+          >
+            <p className="text-xs font-semibold tracking-tight uppercase text-primary mb-2">
+              Learn
+            </p>
+            <h2 className="font-display leading-10 text-balance lg:text-6xl mt-3 text-4xl sm:text-5xl tracking-tight text-foreground font-extrabold">
+              Courses & Mentorship.
+            </h2>
+            <p className="text-sm text-muted-foreground mt-4 leading-relaxed">
+              Hands-on, project-based tracks taught by the same team building
+              products in production. Cohorts open soon book your spot to be
+              first in line.
+            </p>
+          </motion.div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            {courses.map((course, i) => {
+              const Icon = course.icon;
+              return (
+                <motion.div
+                  key={course.title}
+                  initial={{ opacity: 0, y: 24 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: i * 0.1 }}
+                  className="group flex flex-col bg-card border border-border rounded-2xl overflow-hidden hover:border-primary/30 transition-colors duration-300"
+                 > 
+                  <ComingSoonImage
+                    icon={Icon}
+                    className="aspect-[16/9] w-full"
+                  /> 
+
+                  <div className="flex flex-col flex-1 p-5 sm:p-6 text-left">
+                    <div className="flex items-center gap-2 mb-3">
+                      <span className="text-[10px] font-semibold uppercase tracking-wider text-primary bg-primary/10 px-2.5 py-1 rounded-full">
+                        {course.level}
+                      </span>
+                      <span className="text-[11px] text-muted-foreground">
+                        {course.duration}
+                      </span>
+                    </div>
+
+                    <h3 className="font-display text-lg font-bold text-foreground leading-snug mb-2 group-hover:text-primary transition-colors">
+                      {course.title}
+                    </h3>
+                    <p className="text-xs text-muted-foreground leading-relaxed mb-4">
+                      {course.desc}
+                    </p>
+
+                    <ul className="space-y-2 mb-6 flex-1">
+                      {course.bullets.map((b) => (
+                        <li
+                          key={b}
+                          className="flex items-start gap-2 text-xs text-muted-foreground"
+                        >
+                          <CheckCircle2 className="w-3.5 h-3.5 text-primary mt-0.5 shrink-0" />
+                          {b}
+                        </li>
+                      ))}
+                    </ul>
+
+                    <div className="flex items-center gap-2.5 mt-auto pt-4 border-t border-border/60">
+                      <button
+                        type="button"
+                        className="flex-1 inline-flex items-center justify-center gap-1.5 bg-primary text-primary-foreground px-4 py-2.5 text-xs font-semibold rounded-lg hover:bg-primary/90 transition-all duration-200"
+                      >
+                        <Eye className="w-3.5 h-3.5" />
+                        Browse Course
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => handleCourseWhatsApp(course)}
+                        aria-label={`Chat about ${course.title} on WhatsApp`}
+                        className="inline-flex items-center justify-center w-10 h-10 border border-border rounded-lg text-foreground hover:bg-background hover:border-emerald-500/40 hover:text-emerald-500 transition-all duration-200 shrink-0"
+                      >
+                        <WhatsAppIcon className="w-4 h-4" />
+                      </button>
+                    </div>
+                  </div>
+                </motion.div>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      <section className="py-28">
         <div className="max-w-6xl mx-auto px-6">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -614,7 +889,7 @@ const Index = () => {
           >
             <div>
               <p className="text-xs font-semibold tracking-tight uppercase text-primary mb-2">
-                Selected Work
+                Production Based
               </p>
               <h2 className="font-display lg:text-6xl text-4xl sm:text-5xl tracking-tight font-extrabold text-foreground">
                 Shipped Products.
@@ -675,9 +950,12 @@ const Index = () => {
                     <h3 className="font-display text-base font-bold text-foreground group-hover:text-primary transition-colors leading-snug">
                       {project.title}
                     </h3>
+                    <p className="text-xs text-muted-foreground leading-relaxed">
+                      List of digital products shipped and running on production successfully: websites & applications.
+                    </p>
 
                     <div className="flex items-center justify-between mt-auto pt-1 border-t border-border/50">
-                      <p className="text-xs text-muted-foreground font-medium">
+                      <p className="text-xs text-muted-foreground font-semibold">
                         {project.category}
                       </p>
                       <ArrowUpRight className="w-3.5 h-3.5 text-muted-foreground group-hover:text-primary group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all duration-200" />
@@ -706,6 +984,91 @@ const Index = () => {
             </h2>
           </motion.div>
           <TestimonialsCarousel items={testimonials} />
+        </div>
+      </section>
+
+      {/* ═══════════════════════════════════════════════════════
+          NEW — Blog section
+          ═══════════════════════════════════════════════════════ */}
+      <section className="py-28 bg-secondary/30 border-y border-border">
+        <div className="max-w-6xl mx-auto px-6">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="flex flex-col md:flex-row md:items-end justify-between mb-14 gap-4 text-left"
+          >
+            <div className="max-w-lg">
+              <p className="text-xs font-semibold tracking-tight uppercase text-primary mb-2">
+                Insights
+              </p>
+              <h2 className="font-display leading-10 text-balance lg:text-6xl mt-3 text-4xl sm:text-5xl tracking-tight text-foreground font-extrabold">
+                From The Blog.
+              </h2>
+              <p className="text-sm text-muted-foreground mt-2 leading-relaxed">
+                Notes on design, development, engineering and the decisions
+                behind the products we build.
+              </p>
+            </div>
+            <Link
+              to="/blog"
+              className="inline-flex items-center gap-1.5 text-sm font-semibold text-foreground border-b border-foreground/30 pb-0.5 hover:border-foreground hover:gap-2.5 transition-all self-start md:self-auto shrink-0"
+            >
+              Visit Blog <ArrowUpRight className="w-3.5 h-3.5" />
+            </Link>
+          </motion.div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {blogPosts.map((post, i) => (
+              <motion.article
+                key={post.title}
+                initial={{ opacity: 0, y: 24 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.1 }}
+                className="group flex flex-col bg-card border border-border rounded-2xl overflow-hidden hover:border-primary/30 transition-colors duration-300"
+              >
+                <div className="aspect-[14/10] overflow-hidden">
+                  <SkeletonImage
+                    src={post.image}
+                    alt={post.title}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  />
+                </div>
+
+                <div className="flex flex-col flex-1 p-5 sm:p-6 text-left">
+                  <div className="flex items-center gap-2 mb-3">
+                    <span className="text-[10px] font-semibold uppercase tracking-wider text-primary bg-primary/10 px-2.5 py-1 rounded-full">
+                      {post.category}
+                    </span>
+                    <span className="text-[11px] text-muted-foreground">
+                      {post.readTime}
+                    </span>
+                  </div>
+
+                  <h3 className="font-display text-lg font-bold text-foreground leading-snug mb-2 group-hover:text-primary transition-colors">
+                    {post.title}
+                  </h3>
+                  <p className="text-xs text-muted-foreground leading-relaxed mb-5 flex-1">
+                    {post.excerpt}
+                  </p>
+
+                  <div className="flex items-center justify-between pt-4 border-t border-border/60">
+                    <span className="text-[11px] text-muted-foreground">
+                      {post.date}
+                    </span>
+                    <Link
+                      to="/blog"
+                      className="inline-flex items-center gap-1 text-xs font-semibold text-foreground hover:text-primary transition-colors group/btn"
+                    >
+                      Read More
+                      <ArrowUpRight className="w-3.5 h-3.5 transition-transform group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5" />
+                    </Link>
+                  </div>
+                </div>
+              </motion.article>
+            ))}
+          </div>
         </div>
       </section>
 
