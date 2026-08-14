@@ -99,8 +99,8 @@ const Blog = () => {
             <span className="inline-block px-3 py-1 rounded-full bg-secondary text-[10px] font-bold tracking-wide uppercase mb-6 border border-border">
               Perspectives & Insights
             </span>
-            <h1 className="font-display text-5xl sm:text-6xl lg:text-7xl font-extrabold tracking-tighter leading-[0.95] mb-2">
-              The Journal.
+            <h1 className="font-display text-6xl sm:text-6xl lg:text-7xl text-balance font-extrabold tracking-tighter leading-[0.95] mb-2">
+             Software Development Blogs.
             </h1>
             <p className="text-sm text-muted-foreground max-w-xl leading-relaxed font-medium">
               Deep dives into production web architecture, systematic user interface engineering, and the realities of shipping digital products.
