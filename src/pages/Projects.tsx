@@ -390,7 +390,7 @@ const Projects = () => {
             <p className="text-xs font-bold uppercase tracking-wide opacity-50 mb-4">
               Let's Connect
             </p>
-            <h2 className="font-display text-4xl sm:text-5xl font-extrabold tracking-tight mb-1">
+            <h2 className="font-display text-balance text-4xl sm:text-5xl font-extrabold tracking-tight mb-1">
               Interested in Working Together?
             </h2>
             <p className="opacity-60 text-sm max-w-md mx-auto leading-relaxed mb-9">

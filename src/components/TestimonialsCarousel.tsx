@@ -103,8 +103,8 @@ const TestimonialsCarousel = ({ items }: TestimonialsCarouselProps) => {
                           <Star key={idx} className="w-3 h-3 fill-amber-400 text-amber-400" />
                         ))}
                       </div>
-                      <p className="text-foreground/90 leading-relaxed mb-6 flex-1 text-sm font-normal">
-                        "{t.quote}"
+                      <p className="text-xs text-muted-foreground leading-relaxed mb-6 flex-1 font-normal">
+                        {t.quote}
                       </p>
                     </div>
                   )}
@@ -202,7 +202,7 @@ const MarqueeCard = ({ t, isLoading }: { t: Testimonial; isLoading: boolean }) =
               <Star key={i} className="w-2.5 h-2.5 fill-amber-400 text-amber-400" />
             ))}
           </div>
-          <p className="text-foreground/90 text-xs leading-relaxed font-normal mb-4 line-clamp-4">
+          <p className="text-xs text-muted-foreground leading-relaxed mb-4 line-clamp-4">
             "{t.quote}"
           </p>
         </div>

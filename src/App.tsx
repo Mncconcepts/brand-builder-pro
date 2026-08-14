@@ -16,6 +16,7 @@ import Blog from "./pages/Blog";
 import CaseStudies from "./pages/CaseStudies";
 import NotFound from "./pages/NotFound";
 import CaseStudySheet from "./components/CaseStudySheet";
+import Courses from "./pages/Courses";
 
 const queryClient = new QueryClient();
 
@@ -32,6 +33,7 @@ return (
 <Route path="/projects" element={<Projects />} />
 <Route path="/contact" element={<Contact />} />
 <Route path="/blog" element={<Blog />} />
+<Route path="/courses" element={<Courses />} />
 <Route path="/case-studies" element={<CaseStudies />} />
 <Route path="/projects/case-study/:slug" element={<CaseStudySheet />} />
 <Route path="*" element={<NotFound />} />

@@ -5,9 +5,10 @@ import ThemeToggle from "@/components/ThemeToggle";
 
 const navItems = [
   { label: "Home", href: "/" },
-  { label: "About", href: "/about" },
   { label: "Services", href: "/services" },
-  { label: "Projects", href: "/projects" },
+  { label: "All Courses", href: "/courses" },
+  { label: "About", href: "/about" },
+  { label: "Live Projects", href: "/projects" },
   { label: "Case Studies", href: "/case-studies" },
   { label: "Blog", href: "/blog" },
 ];
@@ -22,9 +23,7 @@ const Navbar = () => {
       {/* ── DESKTOP & MOBILE MAIN WRAPPER ── */}
       <nav className="max-w-6xl mx-auto bg-background/50 backdrop-blur-xl border border-border/20 rounded-2xl shadow-md shadow-black/[0.02] pointer-events-auto transition-all">
         <div className="px-6 flex items-center justify-between h-16">
-          {/* ── Brand Logo & Profile Image Group ── */}
           <Link to="/" className="flex items-center gap-2 group select-none">
-            {/* Profile Avatar Container */}
             <div className="relative w-9 h-9  shrink-0 overflow-hidden rounded-lg border border-border/40 bg-secondary/50 group-hover:border-foreground/20 transition-all duration-300">
               {/* Shimmer Skeleton Placeholder */}
               {!imageLoaded && (
@@ -36,7 +35,7 @@ const Navbar = () => {
               <img
                 src="/profile3.jpg"
                 alt="Profile"
-                className={`w-full h-full object-cover transform transition-all duration-500 group-hover:scale-110 ${
+                className={`w-full h-full object-cover transform transition-all border-none duration-500 group-hover:scale-110 ${
                   imageLoaded ? "opacity-100 scale-100" : "opacity-0 scale-95"
                 }`}
                 loading="lazy"
@@ -48,8 +47,8 @@ const Navbar = () => {
               <span className="font-display text-base font-black tracking-tight text-foreground group-hover:text-muted-foreground transition-colors">
                 Mncconcepts.
               </span>
-              <span className="text-[6.5px] font-black tracking-[0.25em] uppercase text-muted-foreground/80 ">
-                Development & Design
+              <span className="text-[7px] font-black tracking-[0.25em] uppercase text-muted-foreground/80 ">
+                Development-Design
               </span>
             </div>
           </Link>
@@ -137,7 +136,7 @@ const Navbar = () => {
             transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
             className="md:hidden max-w-6xl mx-auto mt-2 pointer-events-auto"
           >
-            <div className="bg-background/85 backdrop-blur-2xl border border-border/60 rounded-2xl p-6 shadow-2xl shadow-black/10">
+            <div className="bg-background/85 backdrop-blur-2xl border border-border/60 rounded-2xl p-6 shadow-1xl shadow-black/10">
               <ul className="space-y-2">
                 {navItems.map((item, index) => {
                   const isActive = location.pathname === item.href;

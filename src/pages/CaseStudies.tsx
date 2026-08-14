@@ -173,7 +173,7 @@ const CaseStudies = () => {
                   </span>
                 </div>
 
-                <h2 className="font-display text-2xl sm:text-3xl font-bold text-foreground mb-1">
+                <h2 className="font-display text-balance leading-7 text-2xl sm:text-3xl font-bold text-foreground mb-1">
                   {cs.title}
                 </h2>
                 <p className="text-xs text-muted-foreground mb-8">
@@ -209,9 +209,9 @@ const CaseStudies = () => {
                   <h3 className="text-[11px] font-semibold uppercase tracking-widest text-muted-foreground mb-4">
                     Key Results
                   </h3>
-                  <div className="grid grid-cols-2 sm:grid-cols-4 border-y border-border/60 divide-x divide-y sm:divide-y-0 divide-border/60">
+                  <div className="grid grid-cols-2 sm:grid-cols-4 border-y border-border/60 divide-x divide-y  divide-border/60">
                     {cs.results.map((r) => (
-                      <div key={r.metric} className="px-4 py-4 first:pl-0">
+                      <div key={r.metric} className="px-4 py-4 ">
                         <p className="font-display text-xl sm:text-2xl font-bold text-foreground">
                           {r.value}
                         </p>
@@ -224,12 +224,12 @@ const CaseStudies = () => {
                 </div>
 
                 {/* Tech — plain, slash-separated, no chip borders */}
-                <div className="flex flex-wrap text-xs text-muted-foreground">
+                <div className="flex flex-wrap text-xs leading-5 text-muted-foreground">
                   {cs.tech.map((t, i) => (
                     <span key={t}>
                       {t}
                       {i < cs.tech.length - 1 && (
-                        <span className="text-border mx-2">/</span>
+                        <span className="text-border mx-2">-</span>
                       )}
                     </span>
                   ))}
@@ -251,7 +251,7 @@ const CaseStudies = () => {
             <p className="text-[10px] font-bold uppercase tracking-widest opacity-40 mb-4">
               Ready When You Are
             </p>
-            <h2 className="font-display text-4xl sm:text-5xl font-extrabold tracking-tight mb-1">
+            <h2 className="font-display text-balance text-4xl sm:text-5xl font-extrabold tracking-tight mb-1">
               Let's Build Something Real.
             </h2>
             <p className="opacity-60 text-sm max-w-md mx-auto leading-relaxed mb-9">

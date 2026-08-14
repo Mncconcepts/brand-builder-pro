@@ -36,7 +36,7 @@ const skillGroups = [
   {
     label: "Backend",
     icon: Database,
-    skills: ["Node.js", "Express", "MongoDB", "PostgreSQL", "Firebase"],
+    skills: ["Node.js", "Express", "Fast-Api", "MongoDB", "PostgreSQL", "Firebase"],
   },
   {
     label: "Design",
@@ -89,7 +89,7 @@ const experience = [
   },
   {
     role: "UI/UX Designer",
-    company: "Multiple Vendor Store (DAPSTORE)",
+    company: "Multiple Vendor Store (DAPSVERSE)",
     period: "2025",
     type: "Internship",
     description:
@@ -138,7 +138,6 @@ const About = () => {
       <Navbar />
       {/* ── HERO ── */}
       <section className="relative pt-28 pb-20 sm:pt-36 sm:pb-28 border-b border-border overflow-hidden">
-        {/* Ambient backdrop — softer, layered instead of a flat grid */}
         <div className="absolute inset-0 -z-10">
           <div className="absolute inset-0 bg-[linear-gradient(to_right,hsl(var(--border))_1px,transparent_1px),linear-gradient(to_bottom,hsl(var(--border))_1px,transparent_1px)] bg-[size:64px_64px] [mask-image:radial-gradient(ellipse_70%_45%_at_30%_0%,black,transparent)] opacity-[0.15]" />
           <div className="absolute -top-32 -right-24 w-[420px] h-[420px] rounded-full bg-foreground/[0.04] blur-3xl" />
@@ -242,8 +241,8 @@ const About = () => {
               <p className="text-xs font-bold uppercase tracking-wide text-foreground mb-3">
                 Our Approach
               </p>
-              <h2 className="font-display text-4xl lg:text-6xl sm:text-5xl font-extrabold text-foreground tracking-tight leading-tight mb-8">
-                Design & Code, in Harmony.
+              <h2 className="font-display text-balance text-4xl lg:text-6xl sm:text-5xl font-extrabold text-foreground tracking-tight leading-10 mb-8">
+                Design and Development.
               </h2>
               <div className="grid sm:grid-cols-2 gap-6">
                 {[
@@ -448,7 +447,7 @@ const About = () => {
             <p className="text-xs font-bold uppercase tracking-wide opacity-50 mb-4">
               Let's Connect
             </p>
-            <h2 className="font-display text-4xl sm:text-5xl font-extrabold tracking-tight mb-1">
+            <h2 className="font-display text-balance text-4xl sm:text-5xl font-extrabold tracking-tight mb-1">
               Interested in Working With Us?
             </h2>
             <p className="opacity-60 text-sm max-w-md mx-auto leading-relaxed mb-8">

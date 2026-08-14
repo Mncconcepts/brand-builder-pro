@@ -363,47 +363,19 @@ const courses = [
       "Portfolio-ready case study",
     ],
   },
-  {
-    icon: Code2,
-    title: "Full Stack Web Development",
-    level: "Beginner → Intermediate",
-    duration: "24 weeks",
-    desc: "Full-stack fundamentals from your first component to a deployed, database-backed application.",
-    bullets: [
-      "HTML, CSS & modern JavaScript",
-      "Git-Github Version control",
-      "React fundamentals",
-      "APIs & databases",
-      "SEO-Performance Optimisations",
-      "Securing a domain - Deploying a live project",
-    ],
-  },
-  {
-    icon: Layout,
-    title: "Frontend Development",
-    level: "Intermediate → Advanced",
-    duration: "8 weeks",
-    desc: "Go deep on React, state management and the interaction details that separate good frontend work from great frontend work.",
-    bullets: [
-      "React, Vite, TypeScript & hooks",
-      "State management patterns",
-      "Animation & micro-interactions",
-      "Performance & accessibility",
-    ],
-  },
-  {
-    icon: Server,
-    title: "Backend Development",
-    level: "Intermediate → Advanced",
-    duration: "12 weeks",
-    desc: "Design and ship the systems behind the interface APIs, databases, auth and infrastructure that hold up in production.",
-    bullets: [
-      "REST & API design",
-      "Databases & data modeling",
-      "Authentication & security",
-      "Deployment & infrastructure basics",
-    ],
-  },
+   {
+      icon: Layout,
+      title: "Frontend Development",
+      level: "Intermediate → Advanced",
+      duration: "8 weeks",
+      desc: "Go deep on React, state management and the interaction details that separate good frontend work from great frontend work.",
+      bullets: [
+        "React, Vite, TypeScript & hooks",
+        "State management patterns",
+        "Animation & micro-interactions",
+        "Performance & accessibility",
+      ],
+    },
 ];
 
 const Index = () => {
@@ -718,8 +690,8 @@ const Index = () => {
               <p className="text-xs font-semibold tracking-tight uppercase text-primary mb-2">
                 Our Services
               </p>
-              <h2 className="font-display leading-10 text-balance lg:text-6xl mt-3 text-4xl sm:text-5xl tracking-tight text-foreground font-extrabold">
-                Our Services
+              <h2 className="font-display leading-10 text-balance lg:text-6xl mt-2 text-4xl sm:text-6xl tracking-tight text-foreground font-extrabold">
+              Services We Offer.
               </h2>
             </div>
             <Link
@@ -793,15 +765,15 @@ const Index = () => {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="mb-14 text-left max-w-lg"
+            className="mb-14 text-left"
           >
             <p className="text-xs font-semibold tracking-tight uppercase text-primary mb-2">
               Learn
             </p>
-            <h2 className="font-display leading-10 text-balance lg:text-6xl mt-3 text-4xl sm:text-5xl tracking-tight text-foreground font-extrabold">
-              Courses & Mentorship.
+            <h2 className="font-display leading-8 text-balance lg:text-6xl mt-3 text-4xl sm:text-5xl tracking-tight text-foreground font-extrabold">
+              Browse All Courses and Mentorship Programm.
             </h2>
-            <p className="text-sm text-muted-foreground mt-4 leading-relaxed">
+            <p className="text-sm text-muted-foreground mt-4 max-w-lg leading-relaxed">
               Hands-on, project-based tracks taught by the same team building
               products in production. Cohorts open soon book your spot to be
               first in line.
@@ -860,7 +832,7 @@ const Index = () => {
                         className="flex-1 inline-flex items-center justify-center gap-1.5 bg-primary text-primary-foreground px-4 py-2.5 text-xs font-semibold rounded-lg hover:bg-primary/90 transition-all duration-200"
                       >
                         <Eye className="w-3.5 h-3.5" />
-                        Browse Course
+                        Browse Courses
                       </button>
                       <button
                         type="button"
@@ -891,7 +863,7 @@ const Index = () => {
               <p className="text-xs font-semibold tracking-tight uppercase text-primary mb-2">
                 Production Based
               </p>
-              <h2 className="font-display lg:text-6xl text-4xl sm:text-5xl tracking-tight font-extrabold text-foreground">
+              <h2 className="font-display lg:text-6xl text-4xl sm:text-6xl tracking-tight font-extrabold text-foreground">
                 Shipped Products.
               </h2>
             </div>
@@ -950,7 +922,7 @@ const Index = () => {
                     <h3 className="font-display text-base font-bold text-foreground group-hover:text-primary transition-colors leading-snug">
                       {project.title}
                     </h3>
-                    <p className="text-xs text-muted-foreground leading-relaxed">
+                    <p className="text-xs text-balance text-muted-foreground leading-relaxed">
                       List of digital products shipped and running on production successfully: websites & applications.
                     </p>
 
@@ -979,7 +951,7 @@ const Index = () => {
             <p className="text-xs font-semibold tracking-wide uppercase text-primary mb-2">
               Client Reviews
             </p>
-            <h2 className="font-display lg:text-6xl text-4xl sm:text-5xl tracking-tight text-foreground font-extrabold">
+            <h2 className="font-display lg:text-6xl text-4xl sm:text-6xl tracking-tight text-foreground font-extrabold">
               Testimonials.
             </h2>
           </motion.div>
@@ -1002,10 +974,10 @@ const Index = () => {
               <p className="text-xs font-semibold tracking-tight uppercase text-primary mb-2">
                 Insights
               </p>
-              <h2 className="font-display leading-10 text-balance lg:text-6xl mt-3 text-4xl sm:text-5xl tracking-tight text-foreground font-extrabold">
+              <h2 className="font-display leading-10 text-balance lg:text-6xl mt-3 text-4xl sm:text-6xl tracking-tight text-foreground font-extrabold">
                 From The Blog.
               </h2>
-              <p className="text-sm text-muted-foreground mt-2 leading-relaxed">
+              <p className="text-sm text-muted-foreground mt-0 leading-relaxed">
                 Notes on design, development, engineering and the decisions
                 behind the products we build.
               </p>

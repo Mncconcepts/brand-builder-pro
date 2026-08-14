@@ -185,8 +185,8 @@ const Blog = () => {
       {/* ── SUBSCRIPTION SECTION ── */}
       <section className="py-24 border-t border-border/40 relative overflow-hidden bg-secondary/20">
         <div className="max-w-3xl mx-auto px-6 text-center">
-          <h2 className="font-display tracking-tighter text-3xl sm:text-4xl font-extrabold text-foreground mb-3">
-            Subscribe to the dispatch.
+          <h2 className="font-display text-balance tracking-tighter text-4xl sm:text-4xl font-extrabold text-foreground mb-3">
+            Subscribe to Our Newsletter.
           </h2>
           <p className="text-muted-foreground text-sm mb-10 max-w-md mx-auto font-medium leading-relaxed">
             Get early technical updates and long-form breakdowns once a month directly in your inbox. No spam.
