@@ -975,7 +975,7 @@ const Index = () => {
                 Insights
               </p>
               <h2 className="font-display leading-10 text-balance lg:text-6xl mt-3 text-4xl sm:text-6xl tracking-tight text-foreground font-extrabold">
-                From The Blog.
+                From The Blogs.
               </h2>
               <p className="text-sm text-muted-foreground mt-0 leading-relaxed">
                 Notes on design, development, engineering and the decisions
