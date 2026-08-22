@@ -51,7 +51,7 @@ const Footer = () => {
               {["GitHub", "LinkedIn", "Twitter", "Facebook"].map((item) => (
                 <li key={item}>
                   <a 
-                    href="#" 
+                    href="/" 
                     target="_blank" 
                     rel="noopener noreferrer"
                     className="text-xs font-medium text-muted-foreground hover:text-foreground transition-all"

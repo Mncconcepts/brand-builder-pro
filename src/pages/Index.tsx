@@ -24,6 +24,7 @@ import {
   Layout,
   Server,
   Eye,
+  GraduationCap,
 } from "lucide-react";
 
 /* ─── Skeleton Component ─── */
@@ -687,7 +688,7 @@ const Index = () => {
             className="flex flex-col md:flex-row md:items-end justify-between mb-14 gap-4"
           >
             <div>
-              <p className="text-xs font-semibold tracking-tight uppercase text-primary mb-2">
+              <p className="text-[10px] font-bold tracking-wide uppercase text-muted-foreground mb-2">
                 Our Services
               </p>
               <h2 className="font-display leading-10 text-balance lg:text-6xl mt-2 text-4xl sm:text-6xl tracking-tight text-foreground font-extrabold">
@@ -767,17 +768,23 @@ const Index = () => {
             viewport={{ once: true }}
             className="mb-14 text-left"
           >
-            <p className="text-xs font-semibold tracking-tight uppercase text-primary mb-2">
-              Learn
+            <p className="text-[10px] font-bold tracking-wide uppercase text-muted-foreground mb-1">
+            Learn & Earn
             </p>
             <h2 className="font-display leading-8 text-balance lg:text-6xl mt-3 text-4xl sm:text-5xl tracking-tight text-foreground font-extrabold">
-              Browse All Courses and Mentorship Programm.
+            Browse All Courses and Mentorship Programm.
             </h2>
             <p className="text-sm text-muted-foreground mt-4 max-w-lg leading-relaxed">
               Hands-on, project-based tracks taught by the same team building
               products in production. Cohorts open soon book your spot to be
               first in line.
             </p>
+            <Link
+              to="/courses"
+              className="inline-flex items-center gap-1.5 text-sm font-semibold text-foreground border-b border-foreground/30 pt-4 hover:border-foreground hover:gap-2.5 transition-all self-start md:self-auto"
+            >
+              View All Courses <ArrowUpRight className="w-3.5 h-3.5" />
+            </Link>
           </motion.div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
@@ -860,7 +867,7 @@ const Index = () => {
             className="flex flex-col md:flex-row md:items-end justify-between mb-14 gap-4"
           >
             <div>
-              <p className="text-xs font-semibold tracking-tight uppercase text-primary mb-2">
+              <p className="text-[10px] font-bold tracking-wide uppercase text-muted-foreground mb-2">
                 Production Based
               </p>
               <h2 className="font-display lg:text-6xl text-4xl sm:text-6xl tracking-tight font-extrabold text-foreground">
@@ -948,7 +955,7 @@ const Index = () => {
             viewport={{ once: true }}
             className="mb-14"
           >
-            <p className="text-xs font-semibold tracking-wide uppercase text-primary mb-2">
+            <p className="text-[10px] font-bold tracking-wide uppercase text-muted-foreground mb-2">
               Client Reviews
             </p>
             <h2 className="font-display lg:text-6xl text-4xl sm:text-6xl tracking-tight text-foreground font-extrabold">
@@ -971,13 +978,13 @@ const Index = () => {
             className="flex flex-col md:flex-row md:items-end justify-between mb-14 gap-4 text-left"
           >
             <div className="max-w-lg">
-              <p className="text-xs font-semibold tracking-tight uppercase text-primary mb-2">
+              <p className="text-[10px] font-bold tracking-wide uppercase text-muted-foreground mb-2">
                 Insights
               </p>
               <h2 className="font-display leading-10 text-balance lg:text-6xl mt-3 text-4xl sm:text-6xl tracking-tight text-foreground font-extrabold">
                 From The Blogs.
               </h2>
-              <p className="text-sm text-muted-foreground mt-0 leading-relaxed">
+              <p className="text-sm text-muted-foreground mt-3 leading-4">
                 Notes on design, development, engineering and the decisions
                 behind the products we build.
               </p>
@@ -1228,7 +1235,7 @@ const Index = () => {
                     type="button"
                     onClick={handleContinueToContact}
                     disabled={isSubmittingInquiry}
-                    className="flex-1 inline-flex items-center justify-center gap-2 text-sm font-semibold py-2.5 rounded-lg bg-primary text-primary-foreground hover:bg-primary/90 transition-all duration-200 disabled:opacity-70"
+                    className="flex-1 inline-flex items-center justify-center gap-2 text-sm font-semibold py-3.5 rounded-lg bg-primary text-primary-foreground hover:bg-primary/90 transition-all duration-200 disabled:opacity-70"
                   >
                     {isSubmittingInquiry ? (
                       <>
