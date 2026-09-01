@@ -1048,7 +1048,7 @@ const Index = () => {
           Blog — editorial index: one featured story, two compact
           list rows.
           ═══════════════════════════════════════════════════════ */}
-      <section className="py-28 bg-secondary/30 border-y border-border">
+      <section className="py-25 bg-secondary/30 border-y border-border">
         <div className="max-w-6xl mx-auto px-6">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
