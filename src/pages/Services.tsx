@@ -213,7 +213,6 @@ const getPlanContactUrl = (tier: (typeof pricing)[0]) => {
   return `/contact?${params.toString()}`;
 };
 
-/* ── expandable service row ── */
 function ServiceRow({
   service,
   index,
@@ -235,39 +234,41 @@ function ServiceRow({
       <button
         type="button"
         onClick={() => setOpen(!open)}
+        aria-expanded={open}
         className="w-full text-left group"
       >
-        <div className="flex items-center gap-6 py-7 px-2 hover:px-4 transition-all duration-300">
+        <div className="flex items-center gap-3 sm:gap-6 py-5 sm:py-7 px-4 sm:px-8 transition-colors duration-300 group-hover:bg-foreground/[0.025] active:bg-foreground/[0.04]">
           {/* Number */}
-          <span className="text-[10px] font-bold text-muted-foreground/40 tracking-widest w-8 shrink-0">
+          <span className="hidden sm:block text-[10px] font-bold text-muted-foreground/40 tracking-widest w-6 shrink-0">
             {service.number}
           </span>
 
-          {/* Icon bubble - Reduced size */}
-          <div
-            className={`w-9 h-9 rounded-lg bg-foreground/5 flex items-center justify-center shrink-0 transition-transform duration-300 group-hover:scale-110`}
-          >
+          {/* Icon bubble */}
+          <div className="w-10 h-10 sm:w-9 sm:h-9 rounded-xl sm:rounded-lg bg-foreground/5 flex items-center justify-center shrink-0 transition-transform duration-300 group-hover:scale-110">
             <Icon className="w-4 h-4 text-foreground" />
           </div>
 
           {/* Title + tagline */}
           <div className="flex-1 min-w-0">
-            <div className="flex items-baseline gap-3 flex-wrap">
-              <h3 className="font-display text-sm tracking-tight sm:text-1xl font-exrabold text-foreground group-hover:text-muted-foreground transition-colors">
+            <div className="flex items-center gap-3 flex-wrap">
+              <h3 className="font-display text-base sm:text-xl font-extrabold tracking-tight text-foreground group-hover:text-muted-foreground transition-colors">
                 {service.title}
               </h3>
-              <span className="text-xs text-muted-foreground font-medium hidden sm:block">
+              <span className="hidden sm:inline text-xs text-muted-foreground font-medium">
                 — {service.tagline}
               </span>
             </div>
+            <p className="sm:hidden text-xs text-muted-foreground font-medium mt-0.5">
+              {service.tagline}
+            </p>
           </div>
 
-          {/* Tags preview */}
+          {/* Tags preview — desktop only, room enough not to crowd the title */}
           <div className="hidden lg:flex items-center gap-2 shrink-0">
             {service.features.slice(0, 3).map((f) => (
               <span
                 key={f}
-                className="text-[9px] font-bold px-2.5 py-0.5 rounded-full bg-foreground/5 text-foreground border border-border"
+                className="font-mono text-[9px] font-semibold tracking-tight px-2.5 py-1 rounded-md bg-foreground/5 text-foreground/70 border border-border"
               >
                 {f}
               </span>
@@ -289,32 +290,34 @@ function ServiceRow({
         className="overflow-hidden"
       >
         <div
-          className={`mx-2 mb-6 rounded-2xl bg-gradient-to-br ${service.accent} border border-border p-6 sm:p-8`}
+          className={`mx-3 sm:mx-6 mb-5 sm:mb-6 rounded-2xl bg-gradient-to-br ${service.accent} border border-border p-5 sm:p-8`}
         >
-          <div className="grid sm:grid-cols-2 gap-8">
-            <div>
+          <div className="grid grid-cols-1 md:grid-cols-5 gap-6 md:gap-8">
+            <div className="md:col-span-2">
               <p className="text-sm text-muted-foreground leading-relaxed mb-6">
                 {service.description}
               </p>
               <Link
                 to="/contact"
-                className="inline-flex items-center gap-2 text-xs font-bold px-5 py-2.5 rounded-lg border border-border text-foreground hover:bg-foreground hover:text-background transition-all"
+                className="inline-flex w-full sm:w-auto items-center justify-center gap-2 text-xs font-bold px-5 py-2.5 rounded-lg border border-border text-foreground hover:bg-foreground hover:text-background transition-all active:scale-[0.98]"
               >
                 Book This Service <ArrowUpRight className="w-3.5 h-3.5" />
               </Link>
             </div>
-            <div>
+            <div className="md:col-span-3">
               <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground mb-4">
-                What's Included
+                Tech & Capabilities
               </p>
-              <ul className="grid grid-cols-2 gap-2">
+              <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                 {service.features.map((f) => (
                   <li
                     key={f}
-                    className="flex items-center gap-2 text-sm text-foreground/80"
+                    className="flex items-center gap-2.5 text-xs rounded-lg border border-border/60 bg-background/50 px-3 py-2.5"
                   >
                     <CheckCircle2 className="w-3.5 h-3.5 shrink-0 text-foreground" />
-                    {f}
+                    <span className="font-mono text-foreground/80 tracking-tight">
+                      {f}
+                    </span>
                   </li>
                 ))}
               </ul>
@@ -332,7 +335,7 @@ const Services = () => {
       <Navbar />
 
       {/* ── HERO ── */}
-      <section className="relative pt-36 pb-24 border-b border-border overflow-hidden">
+      <section className="relative pt-32 sm:pt-36 pb-20 sm:pb-24 border-b border-border overflow-hidden">
         <div className="absolute inset-0 -z-10 bg-[linear-gradient(to_right,hsl(var(--border))_1px,transparent_1px),linear-gradient(to_bottom,hsl(var(--border))_1px,transparent_1px)] bg-[size:72px_72px] [mask-image:radial-gradient(ellipse_70%_60%_at_50%_0%,black,transparent)] opacity-20" />
 
         <div className="max-w-6xl mx-auto px-6">
@@ -348,7 +351,7 @@ const Services = () => {
               </span>
             </div>
 
-            <h1 className="font-display text-balance max-w-xm text-5xl sm:text-7xl lg:text-7xl text-foreground leading-[1.05] font-extrabold tracking-tight mb-2">
+            <h1 className="font-display text-balance max-w-3xl text-4xl sm:text-6xl lg:text-7xl text-foreground leading-[1.05] font-extrabold tracking-tight mb-3">
               Services Built for Real Outcomes.
             </h1>
             <p className="text-sm text-muted-foreground max-w-xl leading-relaxed">
@@ -362,16 +365,16 @@ const Services = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.35, duration: 0.7 }}
-            className="flex flex-wrap gap-6 mt-12 pt-10 border-t border-border"
+            className="grid grid-cols-2 sm:flex sm:flex-wrap gap-x-6 gap-y-5 sm:gap-x-10 sm:gap-y-0 mt-12 pt-10 border-t border-border"
           >
             {[
               { n: "5", label: "Core Services" },
               { n: "50+", label: "Projects Shipped" },
               { n: "4+", label: "Years Active" },
-              { n: "100%", label: "Remote-Friendly" },
+              { n: "100%", label: "Remote Active" },
             ].map((s) => (
               <div key={s.label} className="flex items-baseline gap-2">
-                <span className="font-display text-1xl font-extrabold text-foreground">
+                <span className="font-display text-2xl sm:text-3xl font-extrabold text-foreground">
                   {s.n}
                 </span>
                 <span className="text-xs text-muted-foreground font-medium">
@@ -383,24 +386,24 @@ const Services = () => {
         </div>
       </section>
 
-      {/* ── SERVICES ROWS ── */}
-      <section className="py-20">
+    
+      <section className="py-20 sm:py-24">
         <div className="max-w-6xl mx-auto px-6">
           <motion.div
             initial={{ opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="mb-10"
+            className="mb-8 sm:mb-10"
           >
             <p className="text-[10px] font-bold uppercase tracking-wide text-muted-foreground mb-2">
               core digital solutions
             </p>
-            <h2 className="font-display lg:text-6xl tracking-tight text-5xl font-extrabold text-foreground">
+            <h2 className="font-display lg:text-6xl tracking-tight text-4xl sm:text-5xl font-extrabold text-foreground">
               Technical Expertise.
             </h2>
           </motion.div>
 
-          <div className="divide-y divide-border border-t border-border rounded-2xl overflow-hidden bg-card/20 border shadow-sm px-2">
+          <div className="divide-y divide-border rounded-2xl sm:rounded-3xl overflow-hidden bg-card/40 border border-border shadow-sm">
             {services.map((service, i) => (
               <ServiceRow key={service.number} service={service} index={i} />
             ))}
@@ -409,26 +412,28 @@ const Services = () => {
       </section>
 
       {/* ── PROCESS ── */}
-      <section className="py-28 bg-foreground/[0.02] border-y border-border relative overflow-hidden">
+      <section className="py-24 sm:py-28 bg-foreground/[0.02] border-y border-border relative overflow-hidden">
         <div className="max-w-6xl mx-auto px-6">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="mb-16"
+            className="mb-12 sm:mb-16"
           >
             <p className="text-[10px] font-bold tracking-wide uppercase text-muted-foreground mb-2">
               How We Work
             </p>
-            <h2 className="font-display text-5xl lg:text-6xl tracking-tight text-balance sm:text-5xl text-foreground font-extrabold">
+            <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl tracking-tight text-balance text-foreground font-extrabold">
               A Clear Process, <br /> Every Time.
             </h2>
           </motion.div>
 
           <div className="relative">
             <div className="hidden md:block absolute top-6 left-[3.5rem] right-[3.5rem] h-px bg-border" />
+            {/* Mobile timeline rail — same sequence, same signifier, just vertical */}
+            <div className="md:hidden absolute left-6 top-6 bottom-6 w-px bg-border" />
 
-            <div className="grid md:grid-cols-4 gap-6">
+            <div className="grid md:grid-cols-4 gap-10 md:gap-6">
               {process.map((p, i) => (
                 <motion.div
                   key={p.step}
@@ -460,18 +465,18 @@ const Services = () => {
       </section>
 
       {/* ── PRICING ── */}
-      <section className="py-28">
+      <section className="py-24 sm:py-28">
         <div className="max-w-6xl mx-auto px-6">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="mb-16 text-center"
+            className="mb-12 sm:mb-16 text-center"
           >
             <p className="text-[10px] font-bold tracking-wide uppercase text-muted-foreground mb-1">
               Transparent Pricing
             </p>
-            <h2 className="font-display text-5xl lg:text-6xl sm:text-5xl tracking-tight text-foreground font-extrabold mb-3">
+            <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl tracking-tight text-foreground font-extrabold mb-3">
               Investment Tiers
             </h2>
           </motion.div>
@@ -486,7 +491,7 @@ const Services = () => {
                 transition={{ delay: i * 0.12 }}
                 className={`relative rounded-2xl border flex flex-col overflow-hidden transition-all duration-300 hover:-translate-y-1 ${
                   tier.featured
-                    ? "bg-foreground text-background border-foreground shadow1xl scale-[1.02]"
+                    ? "bg-foreground text-background border-foreground shadow-2md lg:scale-[1.02]"
                     : "bg-card border-border hover:border-foreground"
                 }`}
               >
@@ -496,17 +501,15 @@ const Services = () => {
                   </div>
                 )}
 
-                <div className="p-8 flex flex-col flex-1">
-                  <p
-                    className={`text-[10px] font-bold uppercase tracking-widest mb-4 opacity-60`}
-                  >
+                <div className="p-6 sm:p-8 flex flex-col flex-1">
+                  <p className="text-[10px] font-bold uppercase tracking-widest mb-4 opacity-60">
                     {tier.name}
                   </p>
                   <div className="mb-2">
                     <span className="text-[10px] opacity-50 block">
                       {tier.priceNote}
                     </span>
-                    <div className="font-display text-4xl font-extrabold tracking-tight">
+                    <div className="font-display text-3xl sm:text-4xl font-extrabold tracking-tight">
                       {tier.price}
                     </div>
                   </div>
@@ -528,7 +531,7 @@ const Services = () => {
 
                   <Link
                     to={getPlanContactUrl(tier)}
-                    className={`inline-flex items-center justify-center gap-2 text-xs font-bold py-3.5 rounded-xl transition-all ${
+                    className={`w-full inline-flex items-center justify-center gap-2 text-xs font-bold py-3.5 rounded-xl transition-all active:scale-[0.98] ${
                       tier.featured
                         ? "bg-background text-foreground hover:bg-background/90"
                         : "bg-foreground text-background hover:bg-foreground/90"
@@ -544,17 +547,27 @@ const Services = () => {
       </section>
 
       {/* ── CTA STRIP ── */}
-      <section className="py-20 bg-foreground text-background relative overflow-hidden">
+      <section className="relative py-20 sm:py-24 bg-foreground text-background overflow-hidden">
+        <div className="absolute inset-0 -z-10 bg-[linear-gradient(to_right,hsl(var(--background))_1px,transparent_1px),linear-gradient(to_bottom,hsl(var(--background))_1px,transparent_1px)] bg-[size:64px_64px] [mask-image:radial-gradient(ellipse_70%_60%_at_50%_50%,black,transparent)] opacity-[0.06]" />
+        <div className="absolute -top-20 -left-20 w-72 h-72 rounded-full bg-background/10 blur-3xl pointer-events-none" />
+        <div className="absolute -bottom-20 -right-20 w-96 h-96 rounded-full bg-background/10 blur-3xl pointer-events-none" />
+
         <div className="max-w-3xl mx-auto px-6 text-center relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
           >
-            <p className="text-[10px] font-bold uppercase tracking-wide opacity-40 mb-3">
-              Ready When You Are
-            </p>
-            <h2 className="font-display text-balance text-4xl sm:text-5xl font-extrabold tracking-tight mb-1">
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-background/15 bg-background/5 backdrop-blur-sm mb-6">
+              <span className="relative flex h-1.5 w-1.5">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-70" />
+                <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-emerald-400" />
+              </span>
+              <span className="text-[11px] font-semibold text-background/80">
+                Available for new projects
+              </span>
+            </div>
+            <h2 className="font-display text-balance lg:text-6xl text-4xl sm:text-5xl font-extrabold tracking-tight mb-3">
               Let's Build Something Real.
             </h2>
             <p className="opacity-60 text-sm max-w-md mx-auto leading-relaxed mb-9">
@@ -564,7 +577,7 @@ const Services = () => {
             <div className="flex flex-col sm:flex-row gap-3 justify-center">
               <Link
                 to="/contact"
-                className="inline-flex items-center justify-center gap-2 bg-background text-foreground px-8 py-3.5 text-xs font-bold rounded-xl hover:bg-background/90 transition-all hover:-translate-y-0.5"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-background text-foreground px-8 py-3.5 text-xs font-bold rounded-xl hover:bg-background/90 transition-all hover:-translate-y-0.5 active:scale-[0.97]"
               >
                 Start a Project <ArrowUpRight className="w-3.5 h-3.5" />
               </Link>

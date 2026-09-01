@@ -36,7 +36,14 @@ const skillGroups = [
   {
     label: "Backend",
     icon: Database,
-    skills: ["Node.js", "Express", "Fast-Api", "MongoDB", "PostgreSQL", "Firebase"],
+    skills: [
+      "Node.js",
+      "Express",
+      "Fast-Api",
+      "MongoDB",
+      "PostgreSQL",
+      "Firebase",
+    ],
   },
   {
     label: "Design",
@@ -159,39 +166,29 @@ const About = () => {
             {/* 12-col grid: headline gets more room than copy, so it doesn't feel like a forced 50/50 split */}
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-y-10 lg:gap-x-10 items-end">
               <div className="lg:col-span-7">
-                <h1 className="font-display text-[2.75rem] leading-[1.01] sm:text-7xl lg:text-8xl font-extrabold text-foreground tracking-tight text-balance">
-                  Discovery,{" "}
-                  <span className="text-muted-foreground">Strategy,</span>
+                <h1 className="font-display text-[2.75rem] leading-[1.01] sm:text-7xl lg:text-7xl font-extrabold text-foreground tracking-tight text-balance">
+                  Design-Stretegy,{" "} <br />
+                  <span className="text-muted-foreground">Development,</span>
                   <br />
-                  Engineering.
+                  Launch-Support.
                 </h1>
               </div>
 
-              <div className="lg:col-span-5 lg:pl-6 lg:border-l lg:border-border">
-                <p className="text-sm sm:text-[15px] text-muted-foreground leading-relaxed mb-8 max-w-md">
+              <div className="lg:col-span-5 lg:pl-6 lg:border-border">
+                <p className="text-sm sm:text-[13.5px] text-muted-foreground leading-relaxed mb-5 max-w-md">
                   A multidisciplinary creative team with over 4 years bridging
                   design and development. We partner with startups and
                   established brands to ship digital products that look as good
                   as they run.
                 </p>
-                <div className="flex flex-wrap gap-3">
+                <div className="flex flex-wrap gap-5">
                   <Link
                     to="/contact"
-                    className="group inline-flex items-center gap-2 bg-foreground text-background px-6 py-3 text-sm font-bold rounded-lg shadow-sm hover:shadow-md transition-all hover:-translate-y-0.5"
+                    className="group inline-flex items-center gap-2 bg-foreground text-background px-10 py-3 text-sm font-bold rounded-xl shadow-sm hover:shadow-xs transition-all hover:-translate-y-0.5"
                   >
                     Work With Us
                     <ArrowUpRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                   </Link>
-                  <BookCallSheet
-                    trigger={
-                      <button
-                        type="button"
-                        className="inline-flex items-center gap-2 border border-border text-foreground px-6 py-3 text-sm font-bold rounded-lg hover:bg-secondary transition-all hover:-translate-y-0.5"
-                      >
-                        <CalendarIcon className="w-3.5 h-3.5" /> Book a Call
-                      </button>
-                    }
-                  />
                 </div>
               </div>
             </div>
@@ -238,7 +235,7 @@ const About = () => {
               transition={{ duration: 0.7 }}
               className="max-w-3xl"
             >
-              <p className="text-xs font-bold uppercase tracking-wide text-foreground mb-3">
+              <p className="text-[10px] font-bold tracking-wide uppercase text-muted-foreground mb-2">
                 Our Approach
               </p>
               <h2 className="font-display text-balance text-4xl lg:text-6xl sm:text-5xl font-extrabold text-foreground tracking-tight leading-10 mb-8">
@@ -268,17 +265,17 @@ const About = () => {
             >
               <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-12 gap-4">
                 <div>
-                  <p className="text-xs font-bold uppercase tracking-wide text-muted-foreground mb-3">
+                  <p className="text-[10px] font-bold tracking-wide uppercase text-muted-foreground mb-2">
                     Technical Stack
                   </p>
                   <h3 className="font-display lg:text-6xl text-4xl sm:text-5xl font-extrabold text-foreground">
                     Core Skills.
                   </h3>
-                  <p className="text-sm text-muted-foreground mt-2 max-w-xs leading-relaxed">
-                    We use a modern toolkit to build scalable, high-performance
-                    digital solutions.
-                  </p>
                 </div>
+                <p className="text-sm text-muted-foreground mt-2 max-w-xs leading-relaxed">
+                  We use a modern toolkit to build scalable, high-performance
+                  digital solutions.
+                </p>
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -330,7 +327,7 @@ const About = () => {
             viewport={{ once: true }}
             className="mb-16"
           >
-            <p className="text-xs font-bold uppercase tracking-wide text-foreground mb-3">
+            <p className="text-[10px] font-bold tracking-wide uppercase text-muted-foreground mb-2">
               Our Journey
             </p>
             <h2 className="font-display lg:text-6xl text-4xl sm:text-5xl text-foreground font-extrabold tracking-tight">
@@ -395,7 +392,7 @@ const About = () => {
             viewport={{ once: true }}
             className="mb-16"
           >
-            <p className="text-xs font-bold uppercase tracking-wide text-foreground mb-2">
+            <p className="text-[10px] font-bold tracking-wide uppercase text-muted-foreground mb-2">
               How We Work
             </p>
             <h2 className="font-display lg:text-6xl text-4xl sm:text-5xl text-foreground font-extrabold tracking-tight">
@@ -425,7 +422,7 @@ const About = () => {
                     <h3 className="font-display text-base font-bold text-foreground mb-2 leading-snug">
                       {v.title}
                     </h3>
-                    <p className="text-xs text-muted-foreground leading-relaxed">
+                    <p className="text-xs text-muted-foreground text-balance leading-4">
                       {v.description}
                     </p>
                   </div>
@@ -444,13 +441,19 @@ const About = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
           >
-            <p className="text-xs font-bold uppercase tracking-wide opacity-50 mb-4">
-              Let's Connect
-            </p>
-            <h2 className="font-display text-balance text-4xl sm:text-5xl font-extrabold tracking-tight mb-1">
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-background/15 bg-background/5 backdrop-blur-sm mb-6">
+              <span className="relative flex h-1.5 w-1.5">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-70" />
+                <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-emerald-400" />
+              </span>
+              <span className="text-[11px] font-semibold text-background/80">
+                Available for new projects
+              </span>
+            </div>
+            <h2 className="font-display text-balance lg:text-6xl text-4xl sm:text-5xl font-extrabold tracking-tight mb-1">
               Interested in Working With Us?
             </h2>
-            <p className="opacity-60 text-sm max-w-md mx-auto leading-relaxed mb-8">
+            <p className="opacity-60 text-sm max-w-lg mx-auto leading-relaxed mb-8">
               We are always open to new opportunities and collaborations. Let's
               build something great together.
             </p>
@@ -465,8 +468,9 @@ const About = () => {
                 trigger={
                   <button
                     type="button"
-                    className="inline-flex items-center justify-center gap-2 border-2 border-background/30 text-background px-8 py-3.5 text-sm font-bold rounded-xl hover:bg-background/10 transition-all hover:-translate-y-0.5"
+                    className="group relative inline-flex items-center justify-center gap-2 overflow-hidden border-2 border-background/30 text-background px-8 py-3.5 text-sm font-bold rounded-xl transition-all hover:-translate-y-0.5 hover:border-background/55"
                   >
+                    <span className="absolute inset-0 -z-10 bg-background/10 scale-x-0 origin-left transition-transform duration-300 ease-out group-hover:scale-x-100" />
                     <CalendarIcon className="h-3.5 w-3.5" /> Book A Call Session
                   </button>
                 }

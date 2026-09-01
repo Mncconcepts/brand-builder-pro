@@ -18,6 +18,7 @@ import {
   ChevronDown,
   CheckCircle2,
   X,
+  Quote,
   // NEW — used by the Courses section
   Palette,
   Code2,
@@ -146,6 +147,7 @@ function useCountUp(target: number, duration = 1800, triggered = false) {
   return count;
 }
 
+/* Redesigned for the dark, hairline-divided stats band below. */
 function AnimatedStat({
   value,
   label,
@@ -160,11 +162,11 @@ function AnimatedStat({
   const suffix = match ? match[2] : value;
   const count = useCountUp(numeric, 1800, triggered);
   return (
-    <div className="group">
-      <p className="font-display text-3xl sm:text-4xl font-extrabold text-foreground tracking-tight leading-none">
+    <div>
+      <p className="font-display text-4xl sm:text-5xl font-extrabold text-background tracking-tight leading-none">
         {triggered ? `${count}${suffix}` : `0${suffix}`}
       </p>
-      <p className="text-xs text-muted-foreground mt-2 uppercase tracking-tight font-medium">
+      <p className="text-xs text-background/55 mt-2.5 tracking-tight font-medium">
         {label}
       </p>
     </div>
@@ -261,16 +263,16 @@ const featuredProjects = [
     title: "Visa Guard Africa",
     category: "Product Design & Development",
     year: "2026",
-    image: "/vgalanding2.jpg",
+    image: "/visaguard.jpg",
     tags: ["WebApp", " FINTECH", "TRAVEL SAFETY"],
     color: "from-primary/10 to-transparent",
   },
   {
-    title: "Oonsa Event Webapp",
-    category: "UI/UX Design",
-    year: "2025",
-    image: "/Oonsa.png",
-    tags: ["Web App", "Events"],
+    title: "Supersonic Dynamic Services",
+    category: "Development & Product Design",
+    year: "2026",
+    image: "/supersonic.png",
+    tags: ["Logistics", "Haulage-Moving service"],
     color: "from-foreground/5 to-primary/10",
   },
 ];
@@ -327,7 +329,7 @@ const blogPosts = [
     category: "Design",
     date: "Jul 2026",
     readTime: "6 min read",
-    image: "/blog7.jpg",
+    image: "/blog3.jpg",
   },
   {
     title: "From MVP to Series A: Choosing the Right Stack",
@@ -345,7 +347,16 @@ const blogPosts = [
     category: "Strategy",
     date: "May 2026",
     readTime: "5 min read",
-    image: "/blog3.jpg",
+    image: "/blog7.jpg",
+  },
+  {
+    title: "How I Communicate With Clients to Avoid Scope Creep",
+    excerpt:
+      "Frameworks and templates I use for proposals, check-ins, and change requests that keep projects on track and profitable.",
+    category: "Business",
+    date: "Jun 2026",
+    readTime: "8 min read",
+    image: "/blog9.jpg",
   },
 ];
 
@@ -364,19 +375,19 @@ const courses = [
       "Portfolio-ready case study",
     ],
   },
-   {
-      icon: Layout,
-      title: "Frontend Development",
-      level: "Intermediate → Advanced",
-      duration: "8 weeks",
-      desc: "Go deep on React, state management and the interaction details that separate good frontend work from great frontend work.",
-      bullets: [
-        "React, Vite, TypeScript & hooks",
-        "State management patterns",
-        "Animation & micro-interactions",
-        "Performance & accessibility",
-      ],
-    },
+  {
+    icon: Layout,
+    title: "Frontend Development",
+    level: "Intermediate → Advanced",
+    duration: "8 weeks",
+    desc: "Go deep on React, state management and the interaction details that separate good frontend work from great frontend work.",
+    bullets: [
+      "React, Vite, TypeScript & hooks",
+      "State management patterns",
+      "Animation & micro-interactions",
+      "Performance & accessibility",
+    ],
+  },
 ];
 
 const Index = () => {
@@ -389,6 +400,10 @@ const Index = () => {
   const [selectedTier, setSelectedTier] = useState<string>("growth");
   const [inquiryNote, setInquiryNote] = useState("");
   const [isSubmittingInquiry, setIsSubmittingInquiry] = useState(false);
+
+
+  const [heroProject, ...otherProjects] = featuredProjects;
+  const [featuredPost, ...restPosts] = blogPosts;
 
   const openServiceModal = (index: number) => {
     setActiveService(index);
@@ -613,13 +628,34 @@ const Index = () => {
         </div>
       </section>
 
-      {/* ─── Stats: tap any card to see what's behind the number ─── */}
-      <section className="border-y border-border bg-secondary/30">
+      {/* ═══════════════════════════════════════════════════════
+          Stats — signature dark band: hairline-divided table of
+          figures instead of identical rounded cards. Tap to expand.
+          ═══════════════════════════════════════════════════════ */}
+      <section className="relative bg-foreground text-background overflow-hidden">
+        <div className="absolute inset-0 -z-10 bg-[linear-gradient(to_right,hsl(var(--background))_1px,transparent_1px),linear-gradient(to_bottom,hsl(var(--background))_1px,transparent_1px)] bg-[size:56px_56px] opacity-[0.06]" />
+        <div className="absolute -top-32 left-1/4 w-[420px] h-[420px] rounded-full bg-background/[0.05] blur-[110px] pointer-events-none" />
+        <div className="absolute -bottom-32 right-0 w-[360px] h-[360px] rounded-full bg-background/[0.04] blur-[100px] pointer-events-none" />
+
         <div
           ref={statsRef}
-          className="font-display max-w-6xl mx-auto px-6 py-16"
+          className="font-display max-w-6xl mx-auto px-6 py-20 sm:py-24 relative"
         >
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-5">
+          <div className="flex items-end justify-between mb-12 gap-4">
+            <div>
+              <p className="text-[10px] font-bold tracking-wide uppercase text-background/50 mb-2">
+                Track Record
+              </p>
+              <h2 className="text-3xl sm:text-4xl tracking-tight font-extrabold text-background">
+                By The Numbers.
+              </h2>
+            </div>
+            <p className="hidden sm:block text-xs text-background/45 max-w-[190px] text-right leading-4">
+              Tap any figure to see what's behind it.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-2 md:grid-cols-4 border-t border-l border-background/15">
             {stats.map((stat, i) => {
               const isOpen = expandedStat === i;
               const Icon = stat.icon;
@@ -628,24 +664,25 @@ const Index = () => {
                   type="button"
                   key={stat.label}
                   onClick={() => setExpandedStat(isOpen ? null : i)}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
+                  initial={{ opacity: 0 }}
+                  whileInView={{ opacity: 1 }}
                   viewport={{ once: true }}
-                  transition={{ delay: i * 0.1 }}
+                  transition={{ delay: i * 0.08, duration: 0.5 }}
                   aria-expanded={isOpen}
-                  className={`group text-left bg-card border rounded-2xl p-5 sm:p-6 transition-all duration-300  focus-visible:ring-2 focus-visible:ring-primary/10 ${
+                  className={`group relative text-left border-r border-b border-background/15 p-6 sm:p-7 transition-colors duration-300 focus-visible:outline-none focus-visible:bg-background/[0.07] ${
                     isOpen
-                      ? "border-primary/40 shadow-xs"
-                      : "border-border hover:border-primary/30 hover:-translate-y-1"
+                      ? "bg-background/[0.07]"
+                      : "hover:bg-background/[0.04]"
                   }`}
                 >
-                  <div className="flex items-start justify-between mb-4">
-                    <div className="w-9 h-9 rounded-lg bg-primary/10 flex items-center justify-center">
-                      <Icon className="w-4 h-4 text-primary" />
-                    </div>
+                  <div className="flex items-start justify-between mb-6 sm:mb-8">
+                    <Icon
+                      className="w-4 h-4 text-background/40 group-hover:text-background/75 transition-colors duration-300"
+                      strokeWidth={1.75}
+                    />
                     <ChevronDown
-                      className={`w-4 h-4 text-muted-foreground transition-transform duration-300 ${
-                        isOpen ? "rotate-180" : ""
+                      className={`w-3.5 h-3.5 text-background/40 transition-transform duration-300 ${
+                        isOpen ? "rotate-180 text-background/75" : ""
                       }`}
                     />
                   </div>
@@ -660,10 +697,10 @@ const Index = () => {
                     {isOpen && (
                       <motion.p
                         initial={{ opacity: 0, height: 0, marginTop: 0 }}
-                        animate={{ opacity: 1, height: "auto", marginTop: 12 }}
+                        animate={{ opacity: 1, height: "auto", marginTop: 14 }}
                         exit={{ opacity: 0, height: 0, marginTop: 0 }}
                         transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
-                        className="text-xs text-muted-foreground leading-relaxed overflow-hidden pt-3 border-t border-border/60"
+                        className="text-xs text-background/55 leading-relaxed overflow-hidden pt-4 border-t border-background/15"
                       >
                         {stat.detail}
                       </motion.p>
@@ -673,9 +710,6 @@ const Index = () => {
               );
             })}
           </div>
-          <p className="text-center text-[11px] text-muted-foreground mt-6 font-sans normal-case tracking-normal">
-            Tap a number to see what's behind it.
-          </p>
         </div>
       </section>
 
@@ -692,7 +726,7 @@ const Index = () => {
                 Our Services
               </p>
               <h2 className="font-display leading-10 text-balance lg:text-6xl mt-2 text-4xl sm:text-6xl tracking-tight text-foreground font-extrabold">
-              Services We Offer.
+                Services We Offer.
               </h2>
             </div>
             <Link
@@ -769,19 +803,14 @@ const Index = () => {
             className="mb-14 text-left"
           >
             <p className="text-[10px] font-bold tracking-wide uppercase text-muted-foreground mb-1">
-            Learn & Earn
+              Learn & Earn
             </p>
-            <h2 className="font-display leading-8 text-balance lg:text-6xl mt-3 text-4xl sm:text-5xl tracking-tight text-foreground font-extrabold">
-            Browse All Courses and Mentorship Programm.
+            <h2 className="font-display leading-10 text-balance lg:text-6xl mt-2 text-4xl sm:text-6xl tracking-tight text-foreground font-extrabold">
+              Browse All Courses & Mentorship Programm.
             </h2>
-            <p className="text-sm text-muted-foreground mt-4 max-w-lg leading-relaxed">
-              Hands-on, project-based tracks taught by the same team building
-              products in production. Cohorts open soon book your spot to be
-              first in line.
-            </p>
             <Link
               to="/courses"
-              className="inline-flex items-center gap-1.5 text-sm font-semibold text-foreground border-b border-foreground/30 pt-4 hover:border-foreground hover:gap-2.5 transition-all self-start md:self-auto"
+              className="inline-flex items-center gap-1.5 text-sm font-semibold text-foreground border-b border-foreground/30 pb-0.5 hover:border-foreground hover:gap-2.5 transition-all self-start md:self-auto"
             >
               View All Courses <ArrowUpRight className="w-3.5 h-3.5" />
             </Link>
@@ -798,11 +827,11 @@ const Index = () => {
                   viewport={{ once: true }}
                   transition={{ delay: i * 0.1 }}
                   className="group flex flex-col bg-card border border-border rounded-2xl overflow-hidden hover:border-primary/30 transition-colors duration-300"
-                 > 
+                >
                   <ComingSoonImage
                     icon={Icon}
                     className="aspect-[16/9] w-full"
-                  /> 
+                  />
 
                   <div className="flex flex-col flex-1 p-5 sm:p-6 text-left">
                     <div className="flex items-center gap-2 mb-3">
@@ -858,6 +887,10 @@ const Index = () => {
         </div>
       </section>
 
+      {/* ═══════════════════════════════════════════════════════
+          Shipped Products — asymmetric editorial gallery: one
+          featured case study up top, two supporting pieces below.
+          ═══════════════════════════════════════════════════════ */}
       <section className="py-28">
         <div className="max-w-6xl mx-auto px-6">
           <motion.div
@@ -882,92 +915,138 @@ const Index = () => {
             </Link>
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {featuredProjects.map((project, i) => (
-              <motion.div
-                key={project.title}
-                initial={{ opacity: 0, y: 28 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.12 }}
-              >
-                <Link
-                  to="/projects"
-                  className="group flex flex-col bg-card border border-border rounded-2xl overflow-hidden shadow-sm hover:shadow-xm hover:-translate-y-1.5 transition-all duration-300 h-full"
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 sm:gap-6">
+            {featuredProjects.map((project, i) => {
+              const isFeatured = i === 0;
+              return (
+                <motion.div
+                  key={project.title}
+                  initial={{ opacity: 0, y: 28 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{
+                    delay: i * 0.12,
+                    duration: 0.6,
+                    ease: [0.22, 1, 0.36, 1],
+                  }}
+                  className={isFeatured ? "lg:col-span-2" : ""}
                 >
-                  <div
-                    className={`relative h-52 overflow-hidden bg-gradient-to-br ${project.color}`}
+                  <Link
+                    to="/projects"
+                    className={`group relative flex flex-col bg-card border border-border overflow-hidden transition-all duration-500 hover:border-foreground/25 hover:shadow-2md hover:-translate-y-1 ${
+                      isFeatured ? "rounded-3xl" : "rounded-2xl"
+                    }`}
                   >
-                    <SkeletonImage
-                      src={project.image}
-                      alt={project.title}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-card via-card/20 to-transparent opacity-0 group-hover:opacity-60 transition-opacity duration-300" />
+                    <div
+                      className={`relative overflow-hidden bg-gradient-to-br ${project.color} ${
+                        isFeatured
+                          ? "aspect-[16/9] sm:aspect-[16/8]"
+                          : "aspect-[3/1.9]"
+                      }`}
+                    >
+                      <SkeletonImage
+                        src={project.image}
+                        alt={project.title}
+                        className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.06]"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/45 via-black/0 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
-                    <div className="absolute top-3 right-3 w-8 h-8 rounded-full bg-background/80 backdrop-blur-sm border border-border/30 flex items-center justify-center opacity-0 group-hover:opacity-100 translate-x-2 group-hover:translate-x-0 transition-all duration-300 shadow-xs">
-                      <ArrowUpRight className="w-4 h-4 text-foreground" />
+                      <div className="absolute top-4 left-4 text-[10px] font-bold text-foreground bg-background/85 backdrop-blur-sm border border-border/40 px-2.5 py-1 rounded-full">
+                        {project.year}
+                      </div>
+
+                      <div className="absolute top-4 right-4 w-9 h-9 rounded-full bg-background/90 backdrop-blur-sm border border-border/30 flex items-center justify-center opacity-0 scale-75 -rotate-45 group-hover:opacity-100 group-hover:scale-100 group-hover:rotate-0 transition-all duration-400 ease-out">
+                        <ArrowUpRight className="w-4 h-4 text-foreground" />
+                      </div>
                     </div>
 
-                    <div className="absolute bottom-3 left-3 text-[10px] font-bold text-muted-foreground bg-background/70 backdrop-blur-sm border border-border/40 px-2 py-1 rounded-md">
-                      {project.year}
-                    </div>
-                  </div>
+                    <div className="p-5 sm:p-6 flex flex-col gap-3 flex-1">
+                      <div className="flex items-center gap-2 flex-wrap">
+                        {project.tags.map((tag) => (
+                          <span
+                            key={tag}
+                            className="text-[10px] font-semibold tracking-wide uppercase px-2.5 py-1 rounded-full bg-primary/8 text-primary border border-primary/15"
+                          >
+                            {tag}
+                          </span>
+                        ))}
+                      </div>
 
-                  <div className="p-5 flex flex-col gap-3">
-                    <div className="flex items-center gap-2">
-                      {project.tags.map((tag) => (
-                        <span
-                          key={tag}
-                          className="text-[10px] font-semibold tracking-wide uppercase px-2.5 py-1 rounded-full bg-primary/8 text-primary border border-primary/15"
-                        >
-                          {tag}
-                        </span>
-                      ))}
-                    </div>
+                      <h3
+                        className={`font-display font-bold text-foreground group-hover:text-primary transition-colors leading-snug ${
+                          isFeatured ? "text-xl sm:text-2xl" : "text-base"
+                        }`}
+                      >
+                        {project.title}
+                      </h3>
 
-                    <h3 className="font-display text-base font-bold text-foreground group-hover:text-primary transition-colors leading-snug">
-                      {project.title}
-                    </h3>
-                    <p className="text-xs text-balance text-muted-foreground leading-relaxed">
-                      List of digital products shipped and running on production successfully: websites & applications.
-                    </p>
-
-                    <div className="flex items-center justify-between mt-auto pt-1 border-t border-border/50">
-                      <p className="text-xs text-muted-foreground font-semibold">
-                        {project.category}
+                      <p className="text-xs text-balance tracking-tight text-muted-foreground leading-relaxed max-w-md">
+                        List of digital products shipped and running on
+                        production successfully: websites & applications.
                       </p>
-                      <ArrowUpRight className="w-3.5 h-3.5 text-muted-foreground group-hover:text-primary group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all duration-200" />
+
+                      <div className="flex items-center justify-between mt-auto pt-3 border-t border-border/50">
+                        <p className="text-xs text-muted-foreground font-semibold">
+                          {project.category}
+                        </p>
+                        <ArrowUpRight className="w-3.5 h-3.5 text-muted-foreground group-hover:text-primary group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all duration-200" />
+                      </div>
                     </div>
-                  </div>
-                </Link>
-              </motion.div>
-            ))}
+                  </Link>
+                </motion.div>
+              );
+            })}
           </div>
         </div>
       </section>
 
-      <section className="py-28">
+      {/* ═══════════════════════════════════════════════════════
+          Testimonials — framed panel with corner marks, trust row
+          up top; carousel itself is untouched.
+          ═══════════════════════════════════════════════════════ */}
+      <section className="py-25 relative overflow-hidden">
         <div className="max-w-6xl mx-auto px-6">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="mb-14"
+            className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-12"
           >
-            <p className="text-[10px] font-bold tracking-wide uppercase text-muted-foreground mb-2">
-              Client Reviews
-            </p>
-            <h2 className="font-display lg:text-6xl text-4xl sm:text-6xl tracking-tight text-foreground font-extrabold">
-              Testimonials.
-            </h2>
+            <div className="max-w-xl">
+              <p className="text-[10px] font-bold tracking-wide uppercase text-muted-foreground mb-2">
+                Client Reviews
+              </p>
+              <h2 className="font-display lg:text-6xl text-4xl sm:text-6xl tracking-tight text-foreground font-extrabold leading-[1.05]">
+                Testimonials.
+              </h2>
+            </div>
+            <div className="flex items-center gap-1">
+              <div className="flex items-center gap-0.5">
+                {Array(5)
+                  .fill(0)
+                  .map((_, i) => (
+                    <Star
+                      key={i}
+                      className="w-3 h-3 fill-amber-400 text-amber-400"
+                    />
+                  ))}
+              </div>
+              <p className="text-xs text-muted-foreground">
+                <span className="font-medium text-foreground">
+                  30+ founders
+                </span>{" "}
+                trust our work
+              </p>
+            </div>
           </motion.div>
+
           <TestimonialsCarousel items={testimonials} />
         </div>
       </section>
 
       {/* ═══════════════════════════════════════════════════════
-          NEW — Blog section
+          Blog — editorial index: one featured story, two compact
+          list rows.
           ═══════════════════════════════════════════════════════ */}
       <section className="py-28 bg-secondary/30 border-y border-border">
         <div className="max-w-6xl mx-auto px-6">
@@ -984,7 +1063,7 @@ const Index = () => {
               <h2 className="font-display leading-10 text-balance lg:text-6xl mt-3 text-4xl sm:text-6xl tracking-tight text-foreground font-extrabold">
                 From The Blogs.
               </h2>
-              <p className="text-sm text-muted-foreground mt-3 leading-4">
+              <p className="text-sm text-muted-foreground tracking-tight leading-5">
                 Notes on design, development, engineering and the decisions
                 behind the products we build.
               </p>
@@ -997,63 +1076,110 @@ const Index = () => {
             </Link>
           </motion.div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {blogPosts.map((post, i) => (
-              <motion.article
-                key={post.title}
-                initial={{ opacity: 0, y: 24 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.1 }}
-                className="group flex flex-col bg-card border border-border rounded-2xl overflow-hidden hover:border-primary/30 transition-colors duration-300"
-              >
-                <div className="aspect-[14/10] overflow-hidden">
-                  <SkeletonImage
-                    src={post.image}
-                    alt={post.title}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                  />
+          <div className="grid grid-cols-1 lg:grid-cols-5 gap-6 lg:gap-8">
+            {/* Featured story */}
+            <motion.article
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="lg:col-span-3 group flex flex-col bg-card border border-border rounded-2xl overflow-hidden hover:border-primary/30 hover:shadow-xm transition-all duration-300"
+            >
+              <div className="aspect-[16/9] overflow-hidden">
+                <SkeletonImage
+                  src={featuredPost.image}
+                  alt={featuredPost.title}
+                  className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                />
+              </div>
+
+              <div className="flex flex-col flex-1 p-6 sm:p-8 text-left">
+                <div className="flex items-center gap-2 mb-3">
+                  <span className="text-[10px] font-semibold uppercase tracking-wider text-primary bg-primary/10 px-2.5 py-1 rounded-full">
+                    {featuredPost.category}
+                  </span>
+                  <span className="text-[11px] text-muted-foreground">
+                    {featuredPost.readTime}
+                  </span>
                 </div>
 
-                <div className="flex flex-col flex-1 p-5 sm:p-6 text-left">
-                  <div className="flex items-center gap-2 mb-3">
-                    <span className="text-[10px] font-semibold uppercase tracking-wider text-primary bg-primary/10 px-2.5 py-1 rounded-full">
-                      {post.category}
-                    </span>
-                    <span className="text-[11px] text-muted-foreground">
-                      {post.readTime}
-                    </span>
-                  </div>
+                <h3 className="font-display text-xl sm:text-2xl font-bold text-foreground leading-snug mb-3 group-hover:text-primary transition-colors">
+                  {featuredPost.title}
+                </h3>
+                <p className="text-sm text-muted-foreground leading-relaxed mb-6 flex-1">
+                  {featuredPost.excerpt}
+                </p>
 
-                  <h3 className="font-display text-lg font-bold text-foreground leading-snug mb-2 group-hover:text-primary transition-colors">
-                    {post.title}
-                  </h3>
-                  <p className="text-xs text-muted-foreground leading-relaxed mb-5 flex-1">
-                    {post.excerpt}
-                  </p>
-
-                  <div className="flex items-center justify-between pt-4 border-t border-border/60">
-                    <span className="text-[11px] text-muted-foreground">
-                      {post.date}
-                    </span>
-                    <Link
-                      to="/blog"
-                      className="inline-flex items-center gap-1 text-xs font-semibold text-foreground hover:text-primary transition-colors group/btn"
-                    >
-                      Read More
-                      <ArrowUpRight className="w-3.5 h-3.5 transition-transform group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5" />
-                    </Link>
-                  </div>
+                <div className="flex items-center justify-between pt-4 border-t border-border/60">
+                  <span className="text-[11px] text-muted-foreground">
+                    {featuredPost.date}
+                  </span>
+                  <Link
+                    to="/blog"
+                    className="inline-flex items-center gap-1 text-xs font-semibold text-foreground hover:text-primary transition-colors group/btn"
+                  >
+                    Read More
+                    <ArrowUpRight className="w-3.5 h-3.5 transition-transform group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5" />
+                  </Link>
                 </div>
-              </motion.article>
-            ))}
+              </div>
+            </motion.article>
+
+            {/* Supporting list */}
+            <div className="lg:col-span-2 flex flex-col  gap-5 divide-border">
+              {restPosts.map((post, i) => (
+                <motion.article
+                  key={post.title}
+                  initial={{ opacity: 0, y: 16 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.1 + i * 0.1 }}
+                >
+                  <Link
+                    to="/blog"
+                    className="group flex items-start gap-4 py-6 first:pt-0 last:pb-0"
+                  >
+                    <div className="w-20 h-20 sm:w-24 sm:h-24 shrink-0 rounded-xl overflow-hidden">
+                      <SkeletonImage
+                        src={post.image}
+                        alt={post.title}
+                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                      />
+                    </div>
+                    <div className="flex flex-col gap-1.5 min-w-0">
+                      <div className="flex items-center gap-2.5">
+                        <span className="text-[9px] font-semibold uppercase tracking-wider text-primary">
+                          {post.category}
+                        </span>
+                        <span className="text-[10px] text-muted-foreground">
+                          {post.readTime}
+                        </span>
+                      </div>
+                      <h4 className="font-display text-sm font-bold text-foreground leading-snug group-hover:text-primary transition-colors line-clamp-2">
+                        {post.title}
+                      </h4>
+                      <p className="hidden sm:block text-xs text-muted-foreground leading-snug line-clamp-1">
+                        {post.excerpt}
+                      </p>
+                      <span className="inline-flex items-center gap-1 text-[11px] text-muted-foreground mt-0.5">
+                        {post.date}
+                        <ArrowUpRight className="w-3 h-3 opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300" />
+                      </span>
+                    </div>
+                  </Link>
+                </motion.article>
+              ))}
+            </div>
           </div>
         </div>
       </section>
 
-      <section className="py-24 bg-primary text-primary-foreground relative overflow-hidden">
-        <div className="absolute -top-20 -left-20 w-72 h-72 rounded-full bg-white/10 blur-3xl pointer-events-none" />
-        <div className="absolute -bottom-20 -right-20 w-96 h-96 rounded-full bg-white/10 blur-3xl pointer-events-none" />
+      {/* ═══════════════════════════════════════════════════════
+          Final CTA — same actions and handlers, refined visuals.
+          ═══════════════════════════════════════════════════════ */}
+      <section className="relative py-28 bg-foreground text-background overflow-hidden">
+        <div className="absolute inset-0 -z-10 bg-[linear-gradient(to_right,hsl(var(--background))_1px,transparent_1px),linear-gradient(to_bottom,hsl(var(--background))_1px,transparent_1px)] bg-[size:64px_64px] [mask-image:radial-gradient(ellipse_70%_60%_at_50%_50%,black,transparent)] opacity-[0.06]" />
+        <div className="absolute -top-20 -left-20 w-72 h-72 rounded-full bg-background/10 blur-3xl pointer-events-none" />
+        <div className="absolute -bottom-20 -right-20 w-96 h-96 rounded-full bg-background/10 blur-3xl pointer-events-none" />
 
         <div className="max-w-3xl mx-auto px-6 text-center relative z-10">
           <motion.div
@@ -1061,29 +1187,38 @@ const Index = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
           >
-            <p className="text-xs font-semibold tracking-wide uppercase text-primary-foreground/60 mb-4">
-              Let's Collaborate
-            </p>
-            <h2 className="font-display lg:text-5xl text-4xl sm:text-5xl font-extrabold tracking-tight mb-1">
-              Need Any Of Our Services?
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-background/15 bg-background/5 backdrop-blur-sm mb-6">
+              <span className="relative flex h-1.5 w-1.5">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-70" />
+                <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-emerald-400" />
+              </span>
+              <span className="text-[11px] font-semibold text-background/80">
+                Available for new projects
+              </span>
+            </div>
+
+            <h2 className="font-display text-balance lg:text-6xl text-4xl sm:text-5xl font-extrabold tracking-tight mb-1">
+              Interested in Working With Us?
             </h2>
-            <p className="text-primary-foreground/60 mb-10 max-w-lg mx-auto text-sm leading-relaxed">
+            <p className="text-background/55 mb-10 max-w-lg mx-auto text-sm leading-relaxed">
               Let's discuss how we can help bring your vision to life with clean
               code and thoughtful design.
             </p>
             <div className="flex flex-col sm:flex-row gap-3 justify-center">
               <Link
                 to="/contact"
-                className="inline-flex items-center justify-center gap-2 bg-background text-foreground px-8 py-3.5 text-sm font-bold rounded-xl hover:opacity-90 transition-all hover:-translate-y-0.5"
+                className="group inline-flex items-center justify-center gap-2 bg-background text-foreground px-8 py-3.5 text-sm font-bold rounded-xl hover:opacity-90 transition-all hover:-translate-y-0.5 hover:shadow-2md"
               >
-                Get in Touch <ArrowUpRight className="w-3.5 h-3.5" />
+                Get in Touch{" "}
+                <ArrowUpRight className="w-3.5 h-3.5 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
               </Link>
               <BookCallSheet
                 trigger={
                   <button
                     type="button"
-                    className="inline-flex items-center justify-center gap-2 border-2 border-background/30 text-background px-8 py-3.5 text-sm font-bold rounded-xl hover:bg-background/10 transition-all hover:-translate-y-0.5"
+                    className="group relative inline-flex items-center justify-center gap-2 overflow-hidden border-2 border-background/30 text-background px-8 py-3.5 text-sm font-bold rounded-xl transition-all hover:-translate-y-0.5 hover:border-background/55"
                   >
+                    <span className="absolute inset-0 -z-10 bg-background/10 scale-x-0 origin-left transition-transform duration-300 ease-out group-hover:scale-x-100" />
                     <CalendarIcon className="h-3.5 w-3.5" /> Book A Call Session
                   </button>
                 }

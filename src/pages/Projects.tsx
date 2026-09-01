@@ -387,13 +387,19 @@ const Projects = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
           >
-            <p className="text-xs font-bold uppercase tracking-wide opacity-50 mb-4">
-              Let's Connect
-            </p>
-            <h2 className="font-display text-balance text-4xl sm:text-5xl font-extrabold tracking-tight mb-1">
-              Interested in Working Together?
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-background/15 bg-background/5 backdrop-blur-sm mb-6">
+              <span className="relative flex h-1.5 w-1.5">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-70" />
+                <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-emerald-400" />
+              </span>
+              <span className="text-[11px] font-semibold text-background/80">
+                Available for new projects
+              </span>
+            </div>
+            <h2 className="font-display text-balance lg:text-6xl text-4xl sm:text-5xl font-extrabold tracking-tight mb-1">
+              Interested in Working With Us?
             </h2>
-            <p className="opacity-60 text-sm max-w-md mx-auto leading-relaxed mb-9">
+            <p className="opacity-60 text-sm max-w-lg mx-auto leading-relaxed mb-8">
               We are always open to new opportunities and collaborations. Let's
               build something great together.
             </p>
@@ -404,11 +410,21 @@ const Projects = () => {
               >
                 Get in Touch <ArrowUpRight className="w-3.5 h-3.5" />
               </Link>
+              <BookCallSheet
+                trigger={
+                  <button
+                    type="button"
+                    className="group relative inline-flex items-center justify-center gap-2 overflow-hidden border-2 border-background/30 text-background px-8 py-3.5 text-sm font-bold rounded-xl transition-all hover:-translate-y-0.5 hover:border-background/55"
+                  >
+                    <span className="absolute inset-0 -z-10 bg-background/10 scale-x-0 origin-left transition-transform duration-300 ease-out group-hover:scale-x-100" />
+                    <CalendarIcon className="h-3.5 w-3.5" /> Book A Call Session
+                  </button>
+                }
+              />
             </div>
           </motion.div>
         </div>
       </section>
-
       <Footer />
     </div>
   );
