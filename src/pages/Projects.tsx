@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import {
   ExternalLink,
@@ -9,7 +9,6 @@ import {
 } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import StackingCards from "@/components/StackingCards";
 import BookCallSheet from "@/components/BookCallSheet";
 
 // Asset Imports
@@ -50,7 +49,7 @@ const projects = [
     category: "DESIGN · DEVELOPMENT · FULL STACK · APP",
     description:
       "A secure visa platform designed to protect Africans from visa scams. Features real-time verification, fraud detection, and a seamless application tracking system.",
-    year: "Coming Soon",
+    year: "2026",
     tech: [
       "Figma",
       "React Native",
@@ -68,7 +67,7 @@ const projects = [
     category: "DESIGN · DEVELOPMENT · FULL STACK · LANDING - WEB",
     description:
       "A secure visa platform designed to protect Africans from visa scams. Features real-time verification, fraud detection, and a seamless application tracking system.",
-    year: "Coming Soon",
+    year: "2026",
     tech: ["Figma", "React", "Node.js", "TypeScript", "MongoDB", "Express"],
     image: vgalanding2,
     link: "https://waitlist.visaguardafrica.com",
@@ -77,7 +76,7 @@ const projects = [
 
   {
     title: "Oonsa Event WebApp",
-    category: "UI/UX DESIGN · WEB-APP",
+    category: "UI/UX DESIGN · WEBAPP",
     description:
       "An all-in-one event app designed to make discovering local experiences, buying tickets, and planning events simple and stress-free across Australia.",
     year: "2025",
@@ -131,17 +130,6 @@ const projects = [
     caseStudySlug: "Dapstore App",
   },
   {
-    title: "PayWithPi",
-    category: "WEB DEVELOPMENT · FULL STACK · WEBSITE",
-    description:
-      "A Pi Network payment platform with wallet management and an admin dashboard.",
-    year: "2024",
-    tech: ["React", "TypeScript", "Firebase", "Node.js"],
-    image: projPaywithpi,
-    link: null,
-    caseStudySlug: "Paywithpi Website",
-  },
-  {
     title: "QuickBoostNG Branding",
     category: "BRANDING · LOGO DESIGN · IDENTITY",
     description:
@@ -187,7 +175,21 @@ const projects = [
   },
 ];
 
-const categories = ["All", "Web", "Mobile", "Logo"];
+const categories = ["All", "Web", "Mobile App", "Logos"];
+
+const matchesCategory = (project: (typeof projects)[number], category: string) => {
+  const cat = project.category.toLowerCase();
+  switch (category) {
+    case "Web":
+      return cat.includes("web") || cat.includes("website") || cat.includes("landing");
+    case "Mobile App":
+      return cat.includes("app") && !cat.includes("webapp");
+    case "Logos":
+      return cat.includes("branding") || cat.includes("logo");
+    default:
+      return true;
+  }
+};
 
 const Projects = () => {
   const [activeCategory, setActiveCategory] = useState("All");
@@ -204,18 +206,7 @@ const Projects = () => {
       project.category.toLowerCase().includes(searchQuery.toLowerCase());
 
     if (activeCategory === "All") return matchesSearch;
-
-    // Custom filter logic
-    if (activeCategory === "Web")
-      return matchesSearch && project.category.toLowerCase().includes("web");
-    if (activeCategory === "Mobile")
-      return matchesSearch && project.category.toLowerCase().includes("app");
-    if (activeCategory === "Logo")
-      return (
-        matchesSearch && project.category.toLowerCase().includes("branding")
-      );
-
-    return matchesSearch;
+    return matchesSearch && matchesCategory(project, activeCategory);
   });
 
   return (
@@ -237,7 +228,7 @@ const Projects = () => {
                 Selected Projects
               </span>
             </div>
-            <h1 className="font-display text-balance text-6xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight leading-[0.9] mb-8">
+            <h1 className="font-display text-6xl sm:text-6xl lg:text-6xl text-balance font-extrabold tracking-tighter leading-[0.95] mb-2">
               All Selected <br />
               <span className="text-muted-foreground/40"> Projects. </span>
             </h1>
@@ -249,22 +240,6 @@ const Projects = () => {
       <section className="pb-12 border-b border-border/40">
         <div className="max-w-6xl mx-auto px-6">
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
-            {/* Filter Tabs */}
-            <div className="flex flex-wrap gap-2">
-              {categories.map((cat) => (
-                <button
-                  key={cat}
-                  onClick={() => setActiveCategory(cat)}
-                  className={`px-6 py-2 rounded-full text-xs font-bold transition-all border ${
-                    activeCategory === cat
-                      ? "bg-foreground text-background border-foreground"
-                      : "bg-transparent text-muted-foreground border-border hover:border-foreground/50"
-                  }`}
-                >
-                  {cat}
-                </button>
-              ))}
-            </div>
 
             {/* Search Input */}
             <div className="relative max-w-sm w-full">
@@ -274,29 +249,54 @@ const Projects = () => {
                 placeholder="Search projects..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full bg-secondary/50 border border-border rounded-xl py-2.5 pl-10 pr-4 text-sm focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all"
+                className="w-full bg-secondary/50 border border-border rounded-full py-2.5 pl-10 pr-4 text-sm focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all"
               />
+            </div>
+
+            {/* Filter Tabs */}
+            <div className="flex flex-wrap gap-2">
+              {categories.map((cat) => (
+                <button
+                  key={cat}
+                  onClick={() => setActiveCategory(cat)}
+                  className={`px-5 py-2 rounded-full text-sm font-bold transition-all border ${
+                    activeCategory === cat
+                      ? "bg-foreground text-background border-foreground"
+                      : "bg-transparent text-muted-foreground border-border hover:border-foreground/50"
+                  }`}
+                >
+                  {cat}
+                </button>
+              ))}
             </div>
           </div>
         </div>
       </section>
 
       {/* Projects Grid */}
-      <section className="py-15">
+      <section className="py-16">
         <div className="max-w-6xl mx-auto px-6">
           {filteredProjects.length > 0 ? (
-            <StackingCards offset={5} top={10}>
-              {filteredProjects.map((project) => (
-                <article
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+              {filteredProjects.map((project, index) => (
+                <motion.article
                   key={project.title}
-                  className="group grid lg:grid-cols-[1.5fr_2fr] gap-8 border border-border rounded-xl p-6 lg:p-8 bg-card hover:shadow-sm transition-shadow cursor-pointer mb-10"
+                  initial={{ opacity: 0, y: 24 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-60px" }}
+                  transition={{
+                    duration: 0.5,
+                    delay: (index % 3) * 0.08,
+                    ease: [0.16, 1, 0.3, 1],
+                  }}
+                  className="group flex flex-col border border-border rounded-xl bg-card overflow-hidden hover:border-foreground/30 hover:shadow-sm transition-all duration-300"
                 >
-                  <div className="relative bg-secondary aspect-[19/12] rounded-md flex items-center justify-center overflow-hidden">
+                  {/* Image */}
+                  <div className="relative bg-secondary aspect-[5/3] overflow-hidden">
                     {project.image ? (
                       <>
-                        {/* ── SKELETON LOADING SHIMMER ANIMATION ── */}
                         {!loadedImages[project.title] && (
-                          <div className="absolute inset-0 bg-muted/60 overflow-hidden z-10 rounded-md">
+                          <div className="absolute inset-0 bg-muted/60 overflow-hidden z-10">
                             <div
                               className="w-full h-full animate-pulse bg-gradient-to-r from-transparent via-muted-foreground/10 to-transparent"
                               style={{ backgroundSize: "200% 100%" }}
@@ -308,7 +308,7 @@ const Projects = () => {
                           alt={project.title}
                           loading="lazy"
                           onLoad={() => handleImageLoad(project.title)}
-                          className={`w-full  h-full object-cover group-hover:scale-105 transition-all duration-500 ${
+                          className={`w-full h-full object-cover group-hover:scale-105 transition-all duration-500 ${
                             loadedImages[project.title]
                               ? "opacity-100 scale-100"
                               : "opacity-0 scale-95"
@@ -316,59 +316,77 @@ const Projects = () => {
                         />
                       </>
                     ) : (
-                      <span className="font-display text-4xl font-bold text-primary">
-                        {project.year}
-                      </span>
+                      <div className="w-full h-full flex items-center justify-center">
+                        <span className="font-display text-4xl font-bold text-primary">
+                          {project.year}
+                        </span>
+                      </div>
                     )}
+
+                    {/* Year / status pill */}
+                    <span className="absolute top-3 right-3 z-20 bg-background/90 backdrop-blur-sm border border-border/60 text-foreground text-[10px] font-bold px-2.5 py-1 rounded-full">
+                      {project.year}
+                    </span>
                   </div>
 
-                  <div className="flex flex-col justify-center">
-                    <p className="text-xs font-semibold tracking-wide uppercase text-muted-foreground mb-2">
+                  {/* Content */}
+                  <div className="flex flex-col flex-1 p-6">
+                    <p className="text-[10px] font-semibold tracking-wide uppercase text-muted-foreground mb-2 line-clamp-1">
                       {project.category}
                     </p>
-                    <h3 className="font-display text-2xm font-bold text-foreground mb-3">
+                    <h3 className="font-display text-lg font-bold text-foreground mb-2 leading-snug">
                       {project.title}
                     </h3>
-                    <p className="text-muted-foreground text-sm leading-relaxed max-w-lg mb-4">
+                    <p className="text-muted-foreground text-sm leading-relaxed mb-4 line-clamp-3">
                       {project.description}
                     </p>
-                    <div className="flex flex-wrap gap-2">
-                      {project.tech.map((t) => (
+
+                    <div className="flex flex-wrap gap-1.5 mb-6">
+                      {project.tech.slice(0, 3).map((t) => (
                         <span
                           key={t}
-                          className="text-[10px] uppercase tracking-wider text-muted-foreground border border-border px-3 py-1 rounded-md"
+                          className="text-[10px] uppercase tracking-wider text-muted-foreground border border-border px-2.5 py-1 rounded-md"
                         >
                           {t}
                         </span>
                       ))}
+                      {project.tech.length > 3 && (
+                        <span className="text-[10px] uppercase tracking-wider text-muted-foreground border border-border px-2.5 py-1 rounded-md">
+                          +{project.tech.length - 3}
+                        </span>
+                      )}
                     </div>
-                    <div className="mt-6 flex flex-wrap gap-3">
+
+                    {/* Actions */}
+                    <div className="mt-auto flex items-center gap-3 pt-4 border-t border-border/60">
                       {project.link ? (
                         <a
                           href={project.link}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="inline-flex items-center gap-2 bg-blue-600 text-white px-5 py-2.5 rounded-md text-sm font-medium hover:bg-blue-700 transition-colors"
+                          className="inline-flex items-center gap-1.5 text-sm font-semibold text-blue-600 hover:text-foreground transition-colors"
                         >
-                          View Live <ExternalLink className="w-4 h-4" />
+                          View Live <ExternalLink className="w-3.5 h-3.5 text-blue-600" />
                         </a>
                       ) : (
-                        <span className="inline-flex items-center gap-2 bg-muted/50 text-muted-foreground px-5 py-2.5 rounded-md text-sm font-medium cursor-not-allowed">
-                          In Progress <ExternalLink className="w-4 h-4" />
+                        <span className="text-sm font-medium text-muted-foreground/70">
+                          In Progress
                         </span>
                       )}
 
-                      <Link
-                        to={`/projects/case-study/${project.caseStudySlug}`}
-                        className="inline-flex items-center gap-2 border border-border text-foreground/80 hover:text-foreground hover:bg-secondary px-5 py-2.5 rounded-md text-xs font-medium transition-colors"
-                      >
-                        View Case Study
-                      </Link>
+                      {project.caseStudySlug && (
+                        <Link
+                          to={`/projects/case-study/${project.caseStudySlug}`}
+                          className="inline-flex items-center gap-1.5 text-sm font-semibold text-foreground/70 hover:text-foreground transition-colors ml-auto"
+                        >
+                          Case Study <ArrowUpRight className="w-3.5 h-3.5" />
+                        </Link>
+                      )}
                     </div>
                   </div>
-                </article>
+                </motion.article>
               ))}
-            </StackingCards>
+            </div>
           ) : (
             <div className="text-center py-20">
               <p className="text-muted-foreground">

@@ -71,7 +71,7 @@ const Footer = () => {
                © {currentYear} Mncconcepts
              </p>
              <div className="flex gap-4">
-                <Link to="/privacy" className="text-[10px] font-medium text-muted-foreground/40 hover:text-foreground transition-colors uppercase tracking-widest">
+                <Link to="/terms" className="text-[10px] font-medium text-muted-foreground/40 hover:text-foreground transition-colors uppercase tracking-widest">
                   Privacy
                 </Link>
                 <Link to="/terms" className="text-[10px] font-medium text-muted-foreground/40 hover:text-foreground transition-colors uppercase tracking-widest">

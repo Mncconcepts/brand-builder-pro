@@ -351,7 +351,7 @@ const Services = () => {
               </span>
             </div>
 
-            <h1 className="font-display text-balance max-w-3xl text-4xl sm:text-6xl lg:text-7xl text-foreground leading-[1.05] font-extrabold tracking-tight mb-3">
+            <h1 className="font-display text-6xl sm:text-6xl lg:text-6xl text-balance font-extrabold tracking-tighter leading-[0.95] mb-2">
               Services Built for Real Outcomes.
             </h1>
             <p className="text-sm text-muted-foreground max-w-xl leading-relaxed">
@@ -374,7 +374,7 @@ const Services = () => {
               { n: "100%", label: "Remote Active" },
             ].map((s) => (
               <div key={s.label} className="flex items-baseline gap-2">
-                <span className="font-display text-2xl sm:text-3xl font-extrabold text-foreground">
+                <span className="font-display text-2xl sm:text-2xl font-extrabold text-foreground">
                   {s.n}
                 </span>
                 <span className="text-xs text-muted-foreground font-medium">
@@ -386,7 +386,6 @@ const Services = () => {
         </div>
       </section>
 
-    
       <section className="py-20 sm:py-24">
         <div className="max-w-6xl mx-auto px-6">
           <motion.div
@@ -395,7 +394,7 @@ const Services = () => {
             viewport={{ once: true }}
             className="mb-8 sm:mb-10"
           >
-            <p className="text-[10px] font-bold uppercase tracking-wide text-muted-foreground mb-2">
+            <p className="text-[10px] font-extrabold uppercase tracking-wide text-muted-foreground mb-2">
               core digital solutions
             </p>
             <h2 className="font-display lg:text-6xl tracking-tight text-4xl sm:text-5xl font-extrabold text-foreground">
@@ -430,7 +429,6 @@ const Services = () => {
 
           <div className="relative">
             <div className="hidden md:block absolute top-6 left-[3.5rem] right-[3.5rem] h-px bg-border" />
-            {/* Mobile timeline rail — same sequence, same signifier, just vertical */}
             <div className="md:hidden absolute left-6 top-6 bottom-6 w-px bg-border" />
 
             <div className="grid md:grid-cols-4 gap-10 md:gap-6">
@@ -454,7 +452,7 @@ const Services = () => {
                   <h3 className="font-display text-lg font-bold text-foreground mb-2">
                     {p.title}
                   </h3>
-                  <p className="text-[13px] text-muted-foreground leading-relaxed">
+                  <p className="text-[14px] text-muted-foreground leading-relaxed">
                     {p.description}
                   </p>
                 </motion.div>
@@ -476,7 +474,7 @@ const Services = () => {
             <p className="text-[10px] font-bold tracking-wide uppercase text-muted-foreground mb-1">
               Transparent Pricing
             </p>
-            <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl tracking-tight text-foreground font-extrabold mb-3">
+            <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl tracking-tight text-foreground font-extrabold mb-1">
               Investment Tiers
             </h2>
           </motion.div>

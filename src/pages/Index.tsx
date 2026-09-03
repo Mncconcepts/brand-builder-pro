@@ -10,7 +10,6 @@ import {
   Calendar as CalendarIcon,
   ArrowUpRight,
   Star,
-  Sparkles,
   Clock,
   FolderCheck,
   Users,
@@ -18,15 +17,13 @@ import {
   ChevronDown,
   CheckCircle2,
   X,
-  Quote,
-  // NEW — used by the Courses section
   Palette,
-  Code2,
   Layout,
-  Server,
   Eye,
-  GraduationCap,
+  ArrowRight,
+  BellRing,
 } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 /* ─── Skeleton Component ─── */
 const SkeletonImage = ({
@@ -147,7 +144,6 @@ function useCountUp(target: number, duration = 1800, triggered = false) {
   return count;
 }
 
-/* Redesigned for the dark, hairline-divided stats band below. */
 function AnimatedStat({
   value,
   label,
@@ -358,6 +354,15 @@ const blogPosts = [
     readTime: "8 min read",
     image: "/blog9.jpg",
   },
+  {
+    title: "Modern Web Architecture: What Actually Matters in 2026",
+    excerpt:
+      "An opinionated guide to choosing the right tools, patterns, and trade-offs when building production web applications today.",
+    category: "Engineering",
+    date: "Jul 2026",
+    readTime: "6 min read",
+    image: "/blog3.jpg",
+  },
 ];
 
 const courses = [
@@ -401,7 +406,6 @@ const Index = () => {
   const [inquiryNote, setInquiryNote] = useState("");
   const [isSubmittingInquiry, setIsSubmittingInquiry] = useState(false);
 
-
   const [heroProject, ...otherProjects] = featuredProjects;
   const [featuredPost, ...restPosts] = blogPosts;
 
@@ -433,8 +437,6 @@ const Index = () => {
     }, 550);
   };
 
-  // NEW — course "Book Spot" follows the exact same pattern as
-  // handleContinueToContact above: build query params, go to /contact.
   const handleCourseBook = (course: (typeof courses)[number]) => {
     const params = new URLSearchParams({
       course: course.title,
@@ -455,6 +457,13 @@ const Index = () => {
       "noopener,noreferrer",
     );
   };
+
+  const productHighlights = [
+    "Expert Reviewers",
+    "Quality Feedbacks",
+    "Timely Support",
+    "Fast Response",
+  ];
 
   useEffect(() => {
     if (activeService === null) return;
@@ -501,7 +510,7 @@ const Index = () => {
               </div>
             </div>
 
-            <h1 className="font-Display text-balance text-6xl sm:text-6xl lg:text-7xl font-black leading-[1.05] tracking-tighter text-foreground mb-4">
+            <h1 className="font-Display text-balance text-6xl sm:text-6xl lg:text-7xl font-black leading-[1.01] tracking-tighter text-foreground mb-4">
               <TypewriterText
                 text="Creating Digital Experiences That Work."
                 speed={55}
@@ -763,7 +772,7 @@ const Index = () => {
                   <h3 className="font-display text-lg font-bold text-foreground mb-2 group-hover:text-primary transition-colors">
                     {service.title}
                   </h3>
-                  <p className="text-xs text-muted-foreground leading-relaxed mb-5">
+                  <p className="text-sm text-muted-foreground leading-5 mb-5">
                     {service.desc}
                   </p>
                   <ul className="space-y-2 mb-6 flex-1">
@@ -806,7 +815,7 @@ const Index = () => {
               Learn & Earn
             </p>
             <h2 className="font-display leading-10 text-balance lg:text-6xl mt-2 text-4xl sm:text-6xl tracking-tight text-foreground font-extrabold">
-              Browse All Courses & Mentorship Programm.
+              Featured Courses.
             </h2>
             <Link
               to="/courses"
@@ -846,7 +855,7 @@ const Index = () => {
                     <h3 className="font-display text-lg font-bold text-foreground leading-snug mb-2 group-hover:text-primary transition-colors">
                       {course.title}
                     </h3>
-                    <p className="text-xs text-muted-foreground leading-relaxed mb-4">
+                    <p className="text-sm text-muted-foreground leading-5 mb-5">
                       {course.desc}
                     </p>
 
@@ -865,7 +874,7 @@ const Index = () => {
                     <div className="flex items-center gap-2.5 mt-auto pt-4 border-t border-border/60">
                       <button
                         type="button"
-                        className="flex-1 inline-flex items-center justify-center gap-1.5 bg-primary text-primary-foreground px-4 py-2.5 text-xs font-semibold rounded-lg hover:bg-primary/90 transition-all duration-200"
+                        className="flex-1 inline-flex items-center justify-center gap-1.5 bg-primary text-primary-foreground px-4 py-3.5 text-xs font-semibold rounded-lg hover:bg-primary/90 transition-all duration-200"
                       >
                         <Eye className="w-3.5 h-3.5" />
                         Browse Courses
@@ -940,8 +949,8 @@ const Index = () => {
                     <div
                       className={`relative overflow-hidden bg-gradient-to-br ${project.color} ${
                         isFeatured
-                          ? "aspect-[16/9] sm:aspect-[16/8]"
-                          : "aspect-[3/1.9]"
+                          ? "aspect-[15/9] sm:aspect-[14/8]"
+                          : "aspect-[3/1.9] sm:aspect-[3/1.9]"
                       }`}
                     >
                       <SkeletonImage
@@ -980,7 +989,7 @@ const Index = () => {
                         {project.title}
                       </h3>
 
-                      <p className="text-xs text-balance tracking-tight text-muted-foreground leading-relaxed max-w-md">
+                      <p className="text-sm text-balance  text-muted-foreground leading-5">
                         List of digital products shipped and running on
                         production successfully: websites & applications.
                       </p>
@@ -1004,7 +1013,7 @@ const Index = () => {
           Testimonials — framed panel with corner marks, trust row
           up top; carousel itself is untouched.
           ═══════════════════════════════════════════════════════ */}
-      <section className="py-25 relative overflow-hidden">
+      <section className="py-20 relative overflow-hidden">
         <div className="max-w-6xl mx-auto px-6">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -1020,24 +1029,14 @@ const Index = () => {
                 Testimonials.
               </h2>
             </div>
-            <div className="flex items-center gap-1">
-              <div className="flex items-center gap-0.5">
-                {Array(5)
-                  .fill(0)
-                  .map((_, i) => (
-                    <Star
-                      key={i}
-                      className="w-3 h-3 fill-amber-400 text-amber-400"
-                    />
-                  ))}
-              </div>
+            {/* <div className="flex items-center gap-1">
               <p className="text-xs text-muted-foreground">
                 <span className="font-medium text-foreground">
                   30+ founders
                 </span>{" "}
                 trust our work
               </p>
-            </div>
+            </div> */}
           </motion.div>
 
           <TestimonialsCarousel items={testimonials} />
@@ -1060,10 +1059,10 @@ const Index = () => {
               <p className="text-[10px] font-bold tracking-wide uppercase text-muted-foreground mb-2">
                 Insights
               </p>
-              <h2 className="font-display leading-10 text-balance lg:text-6xl mt-3 text-4xl sm:text-6xl tracking-tight text-foreground font-extrabold">
+              <h2 className="font-display leading-10 text-balance lg:text-6xl mt-2 text-4xl sm:text-6xl tracking-tight text-foreground font-extrabold">
                 From The Blogs.
               </h2>
-              <p className="text-sm text-muted-foreground tracking-tight leading-5">
+              <p className="text-sm text-muted-foreground tracking-tight mt-1 leading-5">
                 Notes on design, development, engineering and the decisions
                 behind the products we build.
               </p>
@@ -1173,6 +1172,121 @@ const Index = () => {
         </div>
       </section>
 
+      <section className="py-20 sm:py-28">
+        <div className="max-w-6xl mx-auto px-4">
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+            className="group relative rounded-3xl border border-border bg-card overflow-hidden shadow-sm hover:shadow-sm transition-shadow duration-500"
+          >
+            <div className="grid md:grid-cols-2">
+              {/* Text column */}
+              <div className="order-1 md:order-2 p-6 sm:p-8 lg:p-10 flex flex-col justify-center">
+                <div className="inline-flex items-center gap-2.5 w-fit mt-3 mb-5">
+                  {/* 3D-styled bell — the attention-grabbing addition */}
+                  <motion.div
+                    aria-hidden="true"
+                    animate={{ rotate: [0, -15, 12, -10, 8, -5, 0] }}
+                    transition={{
+                      duration: 1.8,
+                      repeat: Infinity,
+                      repeatDelay: 2.4,
+                      ease: "easeInOut",
+                    }}
+                    style={{ transformOrigin: "50% 12%" }}
+                    className="relative shrink-0 w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-gradient-to-b from-primary via-primary to-primary/70 shadow-[0_4px_10px_-2px_rgba(0,0,0,0.4),inset_0_1px_1px_rgba(255,255,255,0.5)] ring-1 ring-black/5"
+                  >
+                    <span className="absolute -inset-1 rounded-full bg-primary/25 animate-ping" />
+                    <span className="absolute inset-x-1.5 top-1 h-1/2 rounded-full bg-white/30 blur-[2px]" />
+                    <BellRing
+                      className="absolute inset-0 m-auto w-4 h-4 sm:w-[18px] sm:h-[18px] text-white drop-shadow-sm"
+                      strokeWidth={2.4}
+                    />
+                  </motion.div>
+
+                  <span className="relative flex h-1.5 w-1.5">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-70" />
+                    <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-emerald-500" />
+                  </span>
+                  <span className="text-[13px] font-extrabold uppercase tracking-wide text-muted-foreground">
+                    Launching Soon
+                  </span>
+                </div>
+
+                <h2 className="font-display text-3xl sm:text-4xl text-balance lg:text-[2.4rem] font-medium tracking-tight leading-[1.12] text-foreground">
+                  <span className="text-primary font-extrabold text-4xl sm:text-5xl lg:text-[3rem]">
+                    New Product Launch! <br />
+                  </span>{" "}
+                  Get Ready For Our New Product Launch -{" "}
+                  <strong className="text-gray-500"> Xerai Studios.</strong>
+                </h2>
+
+                <p className="mt-5 text-sm text-muted-foreground leading-relaxed text-balance ">
+                  Our new portfolio and CV reviewing platform, built for
+                  creators who want clarity and expert feedback to secure better job opportunities and role.
+                </p>
+
+                <div className="mt-6 flex flex-wrap gap-1">
+                  {productHighlights.map((item) => (
+                    <span
+                      key={item}
+                      className="rounded-full border border-border bg-background/60 text-foreground px-3 py-2 text-xs font-normal tracking-tight hover:border-primary/40 hover:bg-primary/5 hover:-translate-y-0.5 transition-all duration-200"
+                    >
+                      {item}
+                    </span>
+                  ))}
+                </div>
+
+                <div className="mt-8">
+                  <Link to="#">
+                    <Button className="group/cta rounded-xl px-6 h-11 text-sm font-bold">
+                      Browse Product
+                      <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover/cta:translate-x-1" />
+                    </Button>
+                  </Link>
+                </div>
+              </div>
+
+              <div className="order-1 md:order-2 relative aspect-[16/10] md:aspect-auto min-h-[260px] md:min-h-[440px]">
+                <SkeletonImage
+                  src="/hero-abstract.jpg"
+                  alt="Xerai Studios product preview"
+                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04]"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t md:bg-gradient-to-l from-background via-background/10 md:via-background/10 to-transparent" />
+
+                <div className="absolute top-3 right-3 sm:top-4 sm:right-4 md:top-5 md:right-5 flex items-center gap-2 bg-card/90 backdrop-blur-sm border border-border rounded-full px-3 py-2 shadow-lg">
+                  <span className="relative flex h-2 w-2">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
+                    <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
+                  </span>
+                  <span className="text-[11px] font-semibold text-foreground">
+                    Early Access Opening
+                  </span>
+                </div>
+
+                {/* Bottom-left info chip — mirrors the homepage hero's "50+ Projects" card */}
+                <div className="absolute bottom-4 left-4 md:bottom-5 md:left-5 flex items-center gap-3 bg-card/95 backdrop-blur-md border border-border rounded-xl px-4 py-3 shadow-md max-w-[230px]">
+                  <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
+                    <Eye className="w-4 h-4 text-primary" />
+                  </div>
+                  <div>
+                    <p className="text-xs font-bold text-foreground leading-tight">
+                      Portfolio & CV Reviews
+                    </p>
+                    <p className="text-[10px] text-muted-foreground">
+                      By vetted industry experts
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
       {/* ═══════════════════════════════════════════════════════
           Final CTA — same actions and handlers, refined visuals.
           ═══════════════════════════════════════════════════════ */}
@@ -1197,12 +1311,12 @@ const Index = () => {
               </span>
             </div>
 
-            <h2 className="font-display text-balance lg:text-6xl text-4xl sm:text-5xl font-extrabold tracking-tight mb-1">
-              Interested in Working With Us?
+            <h2 className="font-display text-balance lg:text-6xl text-4xl sm:text-5xl font-extrabold tracking-tight mb-2">
+              Let's Build Something Real.
             </h2>
-            <p className="text-background/55 mb-10 max-w-lg mx-auto text-sm leading-relaxed">
-              Let's discuss how we can help bring your vision to life with clean
-              code and thoughtful design.
+            <p className="opacity-60 text-sm max-w-md mx-auto leading-relaxed mb-9">
+              Intrested in working with us? Send us messages. We'll get back
+              within 24 hours with a clear path forward.
             </p>
             <div className="flex flex-col sm:flex-row gap-3 justify-center">
               <Link

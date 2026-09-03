@@ -249,7 +249,7 @@ const BookCallSheet = ({ trigger }: BookCallSheetProps) => {
                           type="submit" disabled={formspreeState.submitting}
                           className="w-full h-11 bg-foreground text-background hover:opacity-90 rounded-xl text-xs font-bold transition-all active:scale-[0.98]"
                         >
-                          {formspreeState.submitting ? "Processing..." : "Secure Consultation Slot"}
+                          {formspreeState.submitting ? "Processing..." : "Secure Booking"}
                         </Button>
                       </div>
                     </form>

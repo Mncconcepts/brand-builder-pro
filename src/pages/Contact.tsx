@@ -114,7 +114,7 @@ const Contact = () => {
               <span className="text-[10px] font-bold text-foreground tracking-wide uppercase">Contact Us</span>
             </div>
 
-            <h1 className="font-display text-5xl text-balance sm:text-6xl lg:text-7xl text-foreground leading-[1.05] font-extrabold tracking-tight mb-4">
+            <h1 className="font-display text-balance max-w-3xl text-4xl sm:text-6xl lg:text-7xl text-foreground leading-[1.05] font-extrabold tracking-tight mb-3">
               Need Help? Send Us Direct Messages.
             </h1>
             <p className="text-sm text-muted-foreground max-w-xl leading-relaxed">
@@ -320,7 +320,7 @@ const Contact = () => {
                             name="name"
                             required
                             placeholder="John Doe"
-                            className="w-full bg-background rounded-xl px-4 py-3.5 text-xs text-foreground placeholder:text-muted-foreground/60 focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all"
+                            className="w-full bg-background border border-border rounded-xl px-4 py-3.5 text-xs text-foreground placeholder:text-muted-foreground/60 focus:outline-none focus:ring-1 focus:ring-primary/5 focus:border-gray-500 transition-all"
                           />
                         </div>
                         <div className="space-y-2">
@@ -332,7 +332,7 @@ const Contact = () => {
                             name="email"
                             required
                             placeholder="john@example.com"
-                            className="w-full bg-background border border-border rounded-xl px-4 py-3.5 text-xs text-foreground placeholder:text-muted-foreground/60 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all"
+                            className="w-full bg-background border border-border rounded-xl px-4 py-3.5 text-xs text-foreground placeholder:text-muted-foreground/60 focus:outline-none focus:ring-1 focus:ring-primary/5 focus:border-gray-500 transition-all"
                           />
                         </div>
                       </div>
@@ -347,7 +347,7 @@ const Contact = () => {
                           required
                           defaultValue={prefillSubject}
                           placeholder="What is this regarding?"
-                          className="w-full bg-background border border-border rounded-xl px-4 py-3.5 text-xs text-foreground placeholder:text-muted-foreground/60 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all"
+                            className="w-full bg-background border border-border rounded-xl px-4 py-3.5 text-xs text-foreground placeholder:text-muted-foreground/60 focus:outline-none focus:ring-1 focus:ring-primary/5 focus:border-gray-500 transition-all"
                         />
                       </div>
 
@@ -360,7 +360,7 @@ const Contact = () => {
                         </label>
                         <select
                           name="budget"
-                          className="w-full bg-background border border-border rounded-xl px-4 py-3.5 text-xs text-foreground focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all appearance-none cursor-pointer"
+                            className="w-full bg-background border border-border rounded-xl px-4 py-3.5 text-xs text-foreground placeholder:text-muted-foreground/60 focus:outline-none focus:ring-1 focus:ring-primary/5 focus:border-gray-500 transition-all"
                         >
                           <option value="">Select a range</option>
                           <option>$500 - $2,500</option>
@@ -380,7 +380,7 @@ const Contact = () => {
                           rows={5}
                           defaultValue={prefillMessage}
                           placeholder="Tell me about your project, goals, and timeline..."
-                          className="w-full bg-background border border-border rounded-xl px-4 py-3.5 text-xs text-foreground placeholder:text-muted-foreground/60 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all resize-none"
+                          className="w-full bg-background border border-border rounded-xl px-4 py-3.5 text-xs text-foreground placeholder:text-muted-foreground/60 focus:outline-none focus:ring-1 focus:ring-primary/5 focus:border-gray-500 transition-all resize-none"
                         />
                       </div>
 

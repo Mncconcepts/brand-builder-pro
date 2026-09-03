@@ -1,9 +1,12 @@
-import { motion } from "framer-motion";
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { Link } from "react-router-dom";
 import {
   Calendar as CalendarIcon,
   ArrowUpRight,
-  CheckCircle2,
+  ChevronDown,
+  Compass,
+  Rocket,
   Code2,
   Palette,
   Zap,
@@ -21,10 +24,33 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import BookCallSheet from "@/components/BookCallSheet";
 
+const approachPillars = [
+  {
+    icon: Compass,
+    title: "Design & Strategy",
+    description:
+      "We start with research and product strategy, mapping user needs and business goals before a single screen gets designed. Every decision has a reason behind it.",
+  },
+  {
+    icon: Code2,
+    title: "Development",
+    description:
+      "Clean, scalable code that mirrors the design intent exactly. We build with modern frameworks so what ships matches what was designed, pixel for pixel.",
+  },
+  {
+    icon: Rocket,
+    title: "Launch & Support",
+    description:
+      "We don't disappear after launch. Ongoing iteration, monitoring, and support keep the product improving long after the first release date.",
+  },
+];
+
 const skillGroups = [
   {
     label: "Frontend",
     icon: Monitor,
+    description:
+      "Building fast, accessible interfaces that hold up from first prototype to production traffic.",
     skills: [
       "React / Next.js",
       "React Native",
@@ -36,6 +62,8 @@ const skillGroups = [
   {
     label: "Backend",
     icon: Database,
+    description:
+      "Reliable APIs and data infrastructure engineered to handle real-world load without surprises.",
     skills: [
       "Node.js",
       "Express",
@@ -48,11 +76,15 @@ const skillGroups = [
   {
     label: "Design",
     icon: PenTool,
+    description:
+      "Systems-driven design that stays consistent as a product's surface area grows.",
     skills: ["Figma", "UI/UX Design", "Design Systems", "Prototyping"],
   },
   {
     label: "Workflow",
     icon: Terminal,
+    description:
+      "The processes and tooling that keep delivery predictable, from commit to release.",
     skills: ["Git & CI/CD", "Agile / Scrum", "REST & GraphQL", "Python"],
   },
 ];
@@ -140,6 +172,9 @@ const metrics = [
 ];
 
 const About = () => {
+  const [activeSkill, setActiveSkill] = useState(0);
+  const [openExperience, setOpenExperience] = useState<number | null>(0);
+
   return (
     <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
       <Navbar />
@@ -167,7 +202,7 @@ const About = () => {
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-y-10 lg:gap-x-10 items-end">
               <div className="lg:col-span-7">
                 <h1 className="font-display text-[2.75rem] leading-[1.01] sm:text-7xl lg:text-7xl font-extrabold text-foreground tracking-tight text-balance">
-                  Design-Stretegy,{" "} <br />
+                  Design-Strategy, <br />
                   <span className="text-muted-foreground">Development,</span>
                   <br />
                   Launch-Support.
@@ -223,140 +258,180 @@ const About = () => {
         </div>
       </section>
 
-      {/* ── APPROACH + UPDATED MODERN CORE SKILLS ── */}
-      <section className="py-28">
+      {/* ── APPROACH ── */}
+      <section className="py-28 border-b border-border">
         <div className="max-w-6xl mx-auto px-6">
-          <div className="grid grid-cols-1 gap-20">
-            {/* Approach Block */}
-            <motion.div
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.7 }}
-              className="max-w-3xl"
-            >
-              <p className="text-[10px] font-bold tracking-wide uppercase text-muted-foreground mb-2">
-                Our Approach
-              </p>
-              <h2 className="font-display text-balance text-4xl lg:text-6xl sm:text-5xl font-extrabold text-foreground tracking-tight leading-10 mb-8">
-                Design and Development.
-              </h2>
-              <div className="grid sm:grid-cols-2 gap-6">
-                {[
-                  "Our approach combines design thinking with clean, maintainable code. We believe great products emerge when aesthetics and engineering work in harmony.",
-                  "Every pixel has a purpose, every line of code tells a story. We focus on creating digital experiences that perform flawlessly under real-world conditions.",
-                ].map((p, i) => (
-                  <div key={i} className="flex gap-4">
-                    <CheckCircle2 className="w-4 h-4 text-primary shrink-0 mt-1" />
-                    <p className="text-sm text-muted-foreground leading-relaxed">
-                      {p}
-                    </p>
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7 }}
+          >
+            <p className="text-[10px] font-bold tracking-wide uppercase text-muted-foreground mb-2">
+              Our Approach
+            </p>
+            <h2 className="font-display text-balance text-4xl lg:text-6xl sm:text-5xl font-extrabold text-foreground tracking-tight leading-[1.05] mb-2 max-w-2xl">
+              Design and Development.
+            </h2>
+            <p className="text-sm text-muted-foreground leading-relaxed max-w-xl mb-14">
+              Great products emerge when aesthetics and engineering work in
+              harmony. Every pixel has a purpose, every line of code tells a
+              story here's how a project moves from idea to something real.
+            </p>
+
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-px bg-border rounded-2xl overflow-hidden border border-border">
+              {approachPillars.map((pillar) => {
+                const Icon = pillar.icon;
+                return (
+                  <div
+                    key={pillar.title}
+                    className="bg-background p-8 flex flex-col gap-5"
+                  >
+                    <div className="w-11 h-11 rounded-xl border border-border flex items-center justify-center">
+                      <Icon className="w-5 h-5 text-foreground" />
+                    </div>
+                    <div>
+                      <h3 className="font-display text-base font-bold text-foreground mb-2">
+                        {pillar.title}
+                      </h3>
+                      <p className="text-xs text-muted-foreground leading-relaxed">
+                        {pillar.description}
+                      </p>
+                    </div>
                   </div>
-                ))}
-              </div>
-            </motion.div>
-
-            {/* MODERN CORE SKILLS SECTION */}
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8 }}
-            >
-              <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-12 gap-4">
-                <div>
-                  <p className="text-[10px] font-bold tracking-wide uppercase text-muted-foreground mb-2">
-                    Technical Stack
-                  </p>
-                  <h3 className="font-display lg:text-6xl text-4xl sm:text-5xl font-extrabold text-foreground">
-                    Core Skills.
-                  </h3>
-                </div>
-                <p className="text-sm text-muted-foreground mt-2 max-w-xs leading-relaxed">
-                  We use a modern toolkit to build scalable, high-performance
-                  digital solutions.
-                </p>
-              </div>
-
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-                {skillGroups.map((group, groupIdx) => {
-                  const Icon = group.icon;
-                  return (
-                    <motion.div
-                      key={group.label}
-                      initial={{ opacity: 0, y: 20 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      viewport={{ once: true }}
-                      transition={{ delay: groupIdx * 0.1, duration: 0.5 }}
-                      className="group bg-secondary/30 border border-border/50 rounded-2xl p-6 hover:bg-secondary/50 hover:border-border transition-all duration-300"
-                    >
-                      <div className="flex items-center gap-3 mb-6">
-                        <div className="w-10 h-10 rounded-xl bg-background border border-border flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                          <Icon className="w-5 h-5 text-foreground" />
-                        </div>
-                        <h4 className="text-xs font-extrabold uppercase tracking-widest text-foreground">
-                          {group.label}
-                        </h4>
-                      </div>
-
-                      <div className="flex flex-wrap gap-2">
-                        {group.skills.map((skill) => (
-                          <span
-                            key={skill}
-                            className="text-[11px] font-semibold px-3 py-1.5 rounded-lg border border-border bg-background/50 text-muted-foreground hover:text-foreground hover:border-foreground/20 transition-colors cursor-default"
-                          >
-                            {skill}
-                          </span>
-                        ))}
-                      </div>
-                    </motion.div>
-                  );
-                })}
-              </div>
-            </motion.div>
-          </div>
+                );
+              })}
+            </div>
+          </motion.div>
         </div>
       </section>
 
-      {/* ── EXPERIENCE TIMELINE ── */}
-      <section className="py-28 bg-secondary/30 border-y border-border relative overflow-hidden">
+      {/* ── TECHNICAL STACK (interactive tabs) ── */}
+      <section className="py-20">
+        <div className="max-w-6xl mx-auto px-6">
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7 }}
+          >
+            <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-10 gap-4">
+              <div>
+                <p className="text-[10px] font-bold tracking-wide uppercase text-muted-foreground mb-2">
+                  Technical Stack
+                </p>
+                <h3 className="font-display lg:text-6xl text-4xl sm:text-5xl font-extrabold text-foreground">
+                  Core Skills.
+                </h3>
+              </div>
+              <p className="text-sm text-muted-foreground max-w-xs leading-relaxed">
+                We use a modern toolkit to build scalable, high-performance
+                digital solutions.
+              </p>
+            </div>
+
+            <div className="border border-border rounded-2xl bg-card overflow-hidden">
+              <div
+                role="tablist"
+                aria-label="Skill categories"
+                className="flex flex-wrap border-b border-border"
+              >
+                {skillGroups.map((group, i) => {
+                  const Icon = group.icon;
+                  const active = activeSkill === i;
+                  return (
+                    <button
+                      key={group.label}
+                      role="tab"
+                      aria-selected={active}
+                      onClick={() => setActiveSkill(i)}
+                      className={`flex items-center gap-2 px-5 sm:px-6 py-4 text-xs font-extrabold uppercase tracking-widest border-b-2 -mb-px transition-colors ${
+                        active
+                          ? "border-foreground text-foreground bg-secondary/40"
+                          : "border-transparent text-muted-foreground hover:text-foreground"
+                      }`}
+                    >
+                      <Icon className="w-4 h-4" />
+                      {group.label}
+                    </button>
+                  );
+                })}
+              </div>
+
+              <div className="p-8 sm:p-10">
+                <AnimatePresence mode="wait">
+                  <motion.div
+                    key={activeSkill}
+                    initial={{ opacity: 0, y: 8 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -8 }}
+                    transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
+                  >
+                    <p className="text-sm text-muted-foreground leading-relaxed mb-6 max-w-lg">
+                      {skillGroups[activeSkill].description}
+                    </p>
+                    <div className="flex flex-wrap gap-2.5">
+                      {skillGroups[activeSkill].skills.map((skill) => (
+                        <span
+                          key={skill}
+                          className="text-xs font-semibold px-3.5 py-2 rounded-lg border border-border bg-background text-foreground"
+                        >
+                          {skill}
+                        </span>
+                      ))}
+                    </div>
+                  </motion.div>
+                </AnimatePresence>
+              </div>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* ── EXPERIENCE (accordion) ── */}
+      <section className="py-20 bg-secondary/30 border-y border-border">
         <div className="max-w-6xl mx-auto px-6">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="mb-16"
+            className="mb-14"
           >
             <p className="text-[10px] font-bold tracking-wide uppercase text-muted-foreground mb-2">
-              Our Journey
+              Track Record
             </p>
             <h2 className="font-display lg:text-6xl text-4xl sm:text-5xl text-foreground font-extrabold tracking-tight">
               Industry Experience.
             </h2>
           </motion.div>
 
-          <div className="relative space-y-0">
-            <div className="absolute left-[26px] top-8 bottom-8 w-px bg-border hidden sm:block" />
-
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.1, duration: 0.6 }}
+            className="border border-border rounded-2xl bg-card overflow-hidden"
+          >
             {experience.map((exp, i) => {
               const Icon = exp.icon;
+              const isOpen = openExperience === i;
               return (
-                <motion.div
-                  key={exp.role}
-                  initial={{ opacity: 0, x: -20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: i * 0.12, duration: 0.6 }}
-                  className="group relative flex gap-8 pb-14 last:pb-0"
+                <div
+                  key={exp.role + exp.company}
+                  className={i !== 0 ? "border-t border-border" : ""}
                 >
-                  <div className="relative shrink-0 w-14 h-14 rounded-2xl bg-foreground flex items-center justify-center z-10 transition-transform duration-300">
-                    <Icon className="w-5 h-5 text-background" />
-                  </div>
+                  <button
+                    onClick={() => setOpenExperience(isOpen ? null : i)}
+                    aria-expanded={isOpen}
+                    className="w-full flex items-center gap-5 text-left px-6 py-6 sm:px-8 hover:bg-secondary/30 transition-colors"
+                  >
+                    <div className="shrink-0 w-11 h-11 rounded-xl bg-foreground flex items-center justify-center">
+                      <Icon className="w-4.5 h-4.5 text-background" />
+                    </div>
 
-                  <div className="flex-1 pt-1 pb-8 border-b border-border last:border-0">
-                    <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2 mb-3">
-                      <div>
-                        <h3 className="font-display text-xl font-bold text-foreground">
+                    <div className="flex-1 min-w-0 grid sm:grid-cols-[1fr_auto] gap-2 sm:gap-6 items-start sm:items-center">
+                      <div className="min-w-0">
+                        <h3 className="font-display text-base sm:text-lg font-bold text-foreground truncate">
                           {exp.role}
                         </h3>
                         <p className="text-sm text-muted-foreground font-medium mt-0.5">
@@ -367,30 +442,49 @@ const About = () => {
                         <span className="text-[10px] font-bold uppercase tracking-widest px-2.5 py-1 rounded-full bg-secondary text-foreground border border-border">
                           {exp.type}
                         </span>
-                        <span className="text-sm font-semibold text-muted-foreground">
+                        <span className="text-sm font-semibold text-muted-foreground whitespace-nowrap">
                           {exp.period}
                         </span>
                       </div>
                     </div>
-                    <p className="text-sm text-muted-foreground leading-relaxed max-w-2xl group-hover:text-foreground transition-colors">
-                      {exp.description}
-                    </p>
-                  </div>
-                </motion.div>
+
+                    <ChevronDown
+                      className={`w-4 h-4 text-muted-foreground shrink-0 transition-transform duration-300 ${
+                        isOpen ? "rotate-180" : ""
+                      }`}
+                    />
+                  </button>
+
+                  <AnimatePresence initial={false}>
+                    {isOpen && (
+                      <motion.div
+                        initial={{ height: 0, opacity: 0 }}
+                        animate={{ height: "auto", opacity: 1 }}
+                        exit={{ height: 0, opacity: 0 }}
+                        transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+                        className="overflow-hidden"
+                      >
+                        <p className="text-sm text-muted-foreground leading-relaxed px-6 sm:px-8 pb-7 pl-[4.75rem] max-w-2xl">
+                          {exp.description}
+                        </p>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
               );
             })}
-          </div>
+          </motion.div>
         </div>
       </section>
 
       {/* ── VALUES ── */}
-      <section className="py-28">
+      {/* <section className="py-28">
         <div className="max-w-6xl mx-auto px-6">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="mb-16"
+            className="mb-14"
           >
             <p className="text-[10px] font-bold tracking-wide uppercase text-muted-foreground mb-2">
               How We Work
@@ -400,38 +494,37 @@ const About = () => {
             </h2>
           </motion.div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-            {values.map((v, i) => {
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="border-t border-border"
+          >
+            {values.map((v) => {
               const Icon = v.icon;
               return (
-                <motion.div
+                <div
                   key={v.title}
-                  initial={{ opacity: 0, y: 24 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: i * 0.1 }}
-                  className="group relative bg-card border border-border rounded-2xl p-7 flex flex-col gap-5 hover:-translate-y-1.5 transition-all duration-300 overflow-hidden"
+                  className="grid grid-cols-1 sm:grid-cols-12 gap-3 sm:gap-8 py-8 border-b border-border items-start"
                 >
-                  <span className="absolute top-4 right-4 text-[11px] font-extrabold text-muted-foreground/20">
-                    {String(i + 1).padStart(2, "0")}
-                  </span>
-                  <div className="w-12 h-12 rounded-xl bg-secondary flex items-center justify-center group-hover:bg-foreground transition-all duration-300">
-                    <Icon className="w-4 h-4 text-foreground group-hover:text-background" />
+                  <div className="sm:col-span-1">
+                    <div className="w-10 h-10 rounded-lg bg-secondary flex items-center justify-center">
+                      <Icon className="w-4 h-4 text-foreground" />
+                    </div>
                   </div>
-                  <div>
-                    <h3 className="font-display text-base font-bold text-foreground mb-2 leading-snug">
-                      {v.title}
-                    </h3>
-                    <p className="text-xs text-muted-foreground text-balance leading-4">
-                      {v.description}
-                    </p>
-                  </div>
-                </motion.div>
+                  <h3 className="sm:col-span-3 font-display text-lg font-bold text-foreground leading-snug">
+                    {v.title}
+                  </h3>
+                  <p className="sm:col-span-8 text-sm text-muted-foreground leading-relaxed max-w-xl">
+                    {v.description}
+                  </p>
+                </div>
               );
             })}
-          </div>
+          </motion.div>
         </div>
-      </section>
+      </section> */}
 
       {/* ── CTA ── */}
       <section className="py-24 bg-foreground text-background relative overflow-hidden">
