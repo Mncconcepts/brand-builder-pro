@@ -1013,7 +1013,7 @@ const Index = () => {
           Testimonials — framed panel with corner marks, trust row
           up top; carousel itself is untouched.
           ═══════════════════════════════════════════════════════ */}
-      <section className="py-20 relative overflow-hidden">
+      <section className="py-28 relative overflow-hidden">
         <div className="max-w-6xl mx-auto px-6">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
