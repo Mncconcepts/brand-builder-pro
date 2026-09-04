@@ -171,7 +171,7 @@ const CaseStudies = () => {
       <section className="py-20">
         <div className="max-w-6xl mx-auto px-6">
           {/* Mobile scroll-spy strip */}
-          <div className="lg:hidden -mx-6 px-6 mb-10 overflow-x-auto">
+          <div className="lg:hidden -mx-6 px-6 mb-10 overflow-x-hidden">
             <div className="flex gap-2 w-max pb-1">
               {caseStudies.map((cs, i) => {
                 const active = activeSlug === cs.slug;
@@ -366,9 +366,15 @@ const CaseStudies = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
           >
-            <p className="text-[10px] font-bold uppercase tracking-widest opacity-40 mb-4">
-              Ready When You Are
-            </p>
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-background/15 bg-background/5 backdrop-blur-sm mb-6">
+              <span className="relative flex h-1.5 w-1.5">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-70" />
+                <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-emerald-400" />
+              </span>
+              <span className="text-[11px] font-semibold text-background/80">
+                Available for new projects
+              </span>
+            </div>
             <h2 className="font-display text-balance lg:text-6xl text-4xl sm:text-5xl font-extrabold tracking-tight mb-1">
               Let's Build Something Real.
             </h2>

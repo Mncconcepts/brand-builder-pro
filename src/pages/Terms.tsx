@@ -372,7 +372,7 @@ const Terms = () => {
             <Info className="w-4 h-4 text-muted-foreground mt-0.5 shrink-0" />
             <p className="text-xs text-muted-foreground leading-relaxed">
               This page is a general template for a design and development
-              studio. It's a starting point, not legal advice — have it reviewed
+              studio. It's a starting point, not legal advice have it reviewed
               by a qualified professional for your jurisdiction before
               publishing.
             </p>

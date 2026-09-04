@@ -307,7 +307,7 @@ const About = () => {
       </section>
 
       {/* ── TECHNICAL STACK (interactive tabs) ── */}
-      <section className="py-20">
+      {/* <section className="py-20">
         <div className="max-w-6xl mx-auto px-6">
           <motion.div
             initial={{ opacity: 0, y: 24 }}
@@ -324,7 +324,7 @@ const About = () => {
                   Core Skills.
                 </h3>
               </div>
-              <p className="text-sm text-muted-foreground max-w-xs leading-relaxed">
+              <p className="text-sm text-muted-foreground max-w-xs leading-5">
                 We use a modern toolkit to build scalable, high-performance
                 digital solutions.
               </p>
@@ -386,7 +386,7 @@ const About = () => {
             </div>
           </motion.div>
         </div>
-      </section>
+      </section> */}
 
       {/* ── EXPERIENCE (accordion) ── */}
       <section className="py-20 bg-secondary/30 border-y border-border">
@@ -464,7 +464,7 @@ const About = () => {
                         transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
                         className="overflow-hidden"
                       >
-                        <p className="text-sm text-muted-foreground leading-relaxed px-6 sm:px-8 pb-7 pl-[4.75rem] max-w-2xl">
+                        <p className="text-sm text-muted-foreground leading-relaxed px-6 sm:px-8 pb-7 pl-[4.75rem] max-w-6xl">
                           {exp.description}
                         </p>
                       </motion.div>

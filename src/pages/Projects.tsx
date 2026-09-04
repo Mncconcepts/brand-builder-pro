@@ -20,9 +20,9 @@ import post2dap from "@/assets/post-2dap.png";
 import visaguard from "@/assets/visaguard.jpg";
 import vgalanding2 from "@/assets/vgalanding2.jpg";
 import logoo1 from "@/assets/logoo1.png";
-import logoo0 from "@/assets/logoo0.png";
-import logoo3 from "@/assets/logoo3.png";
-import logoo4 from "@/assets/logoo4.png";
+import logoo0 from "@/assets/logoo0.jpg";
+import logoo3 from "@/assets/logoo3.jpg";
+import logoo4 from "@/assets/logoo4.jpg";
 import projstoreapp22 from "@/assets/proj-storeapp22.png";
 import supersonic from "@/assets/supersonic.png";
 
@@ -59,7 +59,7 @@ const projects = [
       "Express",
     ],
     image: visaguard,
-    link: null,
+    link: "https://waitlist.visaguardafrica.com",
     caseStudySlug: "Visa-guard-africa App-Landing",
   },
   {
@@ -119,12 +119,12 @@ const projects = [
     caseStudySlug: "Pearlz-store Website",
   },
   {
-    title: "Multiple Vendor Store (DAPSTORE)",
+    title: "Multiple Vendor Store (DAPVERSE)",
     category: "PRODUCT DESIGN · UIUX · APP",
     description:
       "A multiple vendor store, mobile marketplace app connecting buyers and sellers.",
     year: "2025",
-    tech: ["Flutter", "Figma", "Dart", "Firebase"],
+    tech: ["Flutter", "Figma", "Dart"],
     image: post2dap,
     link: null,
     caseStudySlug: "Dapstore App",
@@ -177,11 +177,18 @@ const projects = [
 
 const categories = ["All", "Web", "Mobile App", "Logos"];
 
-const matchesCategory = (project: (typeof projects)[number], category: string) => {
+const matchesCategory = (
+  project: (typeof projects)[number],
+  category: string,
+) => {
   const cat = project.category.toLowerCase();
   switch (category) {
     case "Web":
-      return cat.includes("web") || cat.includes("website") || cat.includes("landing");
+      return (
+        cat.includes("web") ||
+        cat.includes("website") ||
+        cat.includes("landing")
+      );
     case "Mobile App":
       return cat.includes("app") && !cat.includes("webapp");
     case "Logos":
@@ -240,7 +247,6 @@ const Projects = () => {
       <section className="pb-12 border-b border-border/40">
         <div className="max-w-6xl mx-auto px-6">
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
-
             {/* Search Input */}
             <div className="relative max-w-sm w-full">
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
@@ -337,7 +343,7 @@ const Projects = () => {
                     <h3 className="font-display text-lg font-bold text-foreground mb-2 leading-snug">
                       {project.title}
                     </h3>
-                    <p className="text-muted-foreground text-sm leading-relaxed mb-4 line-clamp-3">
+                    <p className="text-muted-foreground text-sm leading-5 mb-4 line-clamp-3">
                       {project.description}
                     </p>
 
@@ -366,7 +372,8 @@ const Projects = () => {
                           rel="noopener noreferrer"
                           className="inline-flex items-center gap-1.5 text-sm font-semibold text-blue-600 hover:text-foreground transition-colors"
                         >
-                          View Live <ExternalLink className="w-3.5 h-3.5 text-blue-600" />
+                          View Live{" "}
+                          <ExternalLink className="w-3.5 h-3.5 text-blue-600" />
                         </a>
                       ) : (
                         <span className="text-sm font-medium text-muted-foreground/70">
