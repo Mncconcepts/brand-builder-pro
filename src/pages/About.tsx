@@ -268,10 +268,10 @@ const About = () => {
             transition={{ duration: 0.7 }}
           >
             <p className="text-[10px] font-bold tracking-wide uppercase text-muted-foreground mb-2">
-              Our Approach
+              How We Work
             </p>
-            <h2 className="font-display text-balance text-4xl lg:text-6xl sm:text-5xl font-extrabold text-foreground tracking-tight leading-[1.05] mb-2 max-w-2xl">
-              Design and Development.
+            <h2 className="font-display text-balance text-4xl lg:text-6xl sm:text-5xl font-extrabold text-foreground tracking-tight leading-[1.05] mb-3 max-w-2xl">
+              Our Approach.
             </h2>
             <p className="text-sm text-muted-foreground leading-relaxed max-w-xl mb-14">
               Great products emerge when aesthetics and engineering work in
@@ -426,7 +426,7 @@ const About = () => {
                     className="w-full flex items-center gap-5 text-left px-6 py-6 sm:px-8 hover:bg-secondary/30 transition-colors"
                   >
                     <div className="shrink-0 w-11 h-11 rounded-xl bg-foreground flex items-center justify-center">
-                      <Icon className="w-4.5 h-4.5 text-background" />
+                      <Icon className="w-4 h-4 text-background" />
                     </div>
 
                     <div className="flex-1 min-w-0 grid sm:grid-cols-[1fr_auto] gap-2 sm:gap-6 items-start sm:items-center">

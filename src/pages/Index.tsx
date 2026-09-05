@@ -197,7 +197,7 @@ const stats = [
     label: "Client Satisfaction",
     icon: Award,
     detail:
-      "Measured after handover, not just at kickoff — quality that holds once we're gone.",
+      "Measured after handover, not just at kickoff quality that holds once we're gone.",
   },
 ];
 
@@ -1232,7 +1232,7 @@ const Index = () => {
                   {productHighlights.map((item) => (
                     <span
                       key={item}
-                      className="rounded-full border border-border bg-background/60 text-foreground px-3 py-2 text-xs font-normal tracking-tight hover:border-primary/40 hover:bg-primary/5 hover:-translate-y-0.5 transition-all duration-200"
+                      className="rounded-full cursor-pointer border border-border bg-background/60 text-foreground px-3 py-2 text-xs font-normal tracking-tight hover:border-primary/40 hover:bg-primary/5 hover:-translate-y-0.5 transition-all duration-200"
                     >
                       {item}
                     </span>

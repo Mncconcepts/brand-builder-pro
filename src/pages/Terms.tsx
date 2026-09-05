@@ -226,7 +226,7 @@ const privacySections: LegalSection[] = [
     title: "Data Sharing",
     blocks: [
       p(
-        "We may share information with trusted third-party service providers who help us operate our business — such as hosting, scheduling, or analytics providers — only to the extent necessary for them to perform their services. We do not share your information with third parties for their own marketing purposes.",
+        "We may share information with trusted third-party service providers who help us operate our business such as hosting, scheduling, or analytics providers only to the extent necessary for them to perform their services. We do not share your information with third parties for their own marketing purposes.",
       ),
     ],
   },
@@ -545,7 +545,7 @@ const Terms = () => {
               <div className="mt-4 pt-10 border-t border-border/60">
                 <div className="rounded-xl border border-border bg-card p-6 sm:p-8 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                   <div>
-                    <h3 className="font-display text-base font-bold text-foreground mb-1">
+                    <h3 className="font-display text-base text-balance font-bold text-foreground mb-1">
                       Have a question about these terms?
                     </h3>
                     <p className="text-sm text-muted-foreground">

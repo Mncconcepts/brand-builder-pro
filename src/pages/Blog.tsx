@@ -136,7 +136,7 @@ const Blog = () => {
       </section>
 
       {/* ── ARTICLES FEED ── */}
-      <section className="py-15">
+      <section className="py-20">
         <div className="max-w-6xl mx-auto px-6">
           <StackingCards offset={12} top={40}>
             {filteredPosts.map((post) => (

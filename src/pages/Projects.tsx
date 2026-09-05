@@ -149,10 +149,10 @@ const projects = [
     tech: ["Illustrator", "Photoshop", "Branding"],
     image: logoo0,
     link: null,
-    caseStudySlug: null,
+    caseStudySlug: "QuickBoostNG-Logo-Design",
   },
   {
-    title: "ReinsEvents Visual Identity",
+    title: "ReinasEvents Visual Identity",
     category: "BRANDING · LOGO DESIGN · MANAGEMENT",
     description:
       "A sophisticated and elegant logo mark designed for a high-end corporate and social event organizer. Built to represent seamless planning, execution, and hospitality.",
@@ -160,7 +160,7 @@ const projects = [
     tech: ["Illustrator", "Photoshop", "CorelDraw"],
     image: logoo3,
     link: null,
-    caseStudySlug: null,
+    caseStudySlug: "QuickBoostNG-Logo-Design",
   },
   {
     title: "Chuex Footies Identity",
@@ -171,7 +171,7 @@ const projects = [
     tech: ["Illustrator", "Photoshop", "Figma"],
     image: logoo4,
     link: null,
-    caseStudySlug: null,
+    caseStudySlug: "QuickBoostNG-Logo-Design",
   },
 ];
 
@@ -236,7 +236,7 @@ const Projects = () => {
               </span>
             </div>
             <h1 className="font-display text-6xl sm:text-6xl lg:text-6xl text-balance font-extrabold tracking-tighter leading-[0.95] mb-2">
-              All Selected <br />
+              All Selected<br />
               <span className="text-muted-foreground/40"> Projects. </span>
             </h1>
           </motion.div>
@@ -377,7 +377,6 @@ const Projects = () => {
                         </a>
                       ) : (
                         <span className="text-sm font-medium text-muted-foreground/70">
-                          In Progress
                         </span>
                       )}
 

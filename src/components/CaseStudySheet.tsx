@@ -462,7 +462,7 @@ const caseStudies: CaseStudyData[] = [
   },
 ];
 
-/* ─── animation variants ────────────────────────────────────────────── */
+/* ─── animation variants ── */
 const fadeUp = {
   hidden: { opacity: 0, y: 20 },
   visible: (i = 0) => ({
@@ -477,7 +477,7 @@ const fadeIn = {
   visible: { opacity: 1, transition: { duration: 0.4 } },
 };
 
-/* ─── small shared primitives ────────────────────────────────────────── */
+/* ─── small shared primitives ─ */
 const Divider = () => <div className="w-full h-px bg-border/60" />;
 
 const EyebrowLabel = ({
@@ -494,7 +494,7 @@ const EyebrowLabel = ({
   </p>
 );
 
-/* ─── main component ─────────────────────────────────────────────────── */
+/* ─── main component ─ */
 const CaseStudySheet = () => {
   const { slug } = useParams<{ slug: string }>();
   const navigate = useNavigate();
@@ -504,15 +504,14 @@ const CaseStudySheet = () => {
     return (
       <div className="min-h-screen bg-background flex flex-col">
         <Navbar />
-        <div className="flex-1 mt-25 flex flex-col items-center justify-center gap-4">
+        <div className="flex-1 py-28 flex flex-col items-center justify-center gap-4">
           <p className="text-2xl font-bold text-foreground">
-            Case study not found.
+            Case Study Not Found.
           </p>
           <Link to="/projects" className="text-primary underline text-xs">
             ← Back to Projects
           </Link>
         </div>
-        <Footer />
       </div>
     );
   }
@@ -544,7 +543,7 @@ const CaseStudySheet = () => {
     <div className="min-h-screen bg-background">
       <Navbar />
 
-      {/* ── Hero ────────────────────────────────────────────────────── */}
+      {/* ── Hero ── */}
       <section className="pt-24 pb-16 border-b border-border">
         <div className="max-w-6xl mx-auto px-6">
           {/* Back nav */}
@@ -621,7 +620,7 @@ const CaseStudySheet = () => {
         </div>
       </section>
 
-      {/* ── Body ────────────────────────────────────────────────────── */}
+      {/* ── Body ── */}
       <section className="py-16 lg:py-20">
         <div className="max-w-6xl mx-auto px-6 space-y-16">
           {/* Tech stack */}
