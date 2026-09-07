@@ -257,7 +257,7 @@ const Courses = () => {
             </div>
 
             <h1 className="font-display text-6xl sm:text-6xl lg:text-6xl text-balance font-extrabold tracking-tighter leading-[0.95] mb-2">
-              All Courses & Mentorship Program.
+              Courses & Mentorship Program.
             </h1>
             <p className="text-sm text-muted-foreground max-w-xl leading-relaxed">
               Hands-on, project-based tracks taught by the same team building
@@ -367,7 +367,7 @@ const Courses = () => {
                     <span className="absolute -inset-1 rounded-full bg-primary/25 animate-ping" />
                     <span className="absolute inset-x-1.5 top-1 h-1/2 rounded-full bg-white/30 blur-[2px]" />
                     <BellRing
-                      className="absolute inset-0 m-auto w-4 h-4 sm:w-[18px] sm:h-[18px] text-white drop-shadow-sm"
+                      className="absolute inset-0 m-auto w-4 h-4 sm:w-[18px] sm:h-[18px] text-background drop-shadow-sm"
                       strokeWidth={2.4}
                     />
                   </motion.div>
@@ -386,7 +386,7 @@ const Courses = () => {
                     New Product Launch! <br />
                   </span>{" "}
                   Get Ready For Our New Product Launch -{" "}
-                  <strong className="text-gray-500"> Xerai Studios.</strong>
+                  <strong className="text-gray-500 tracking-tighter"> Xerai Studios.</strong>
                 </h2>
 
                 <p className="mt-5 text-sm text-muted-foreground leading-relaxed text-balance ">

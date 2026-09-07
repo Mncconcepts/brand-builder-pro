@@ -15,16 +15,16 @@ import BookCallSheet from "@/components/BookCallSheet";
 import projPearlzStore from "@/assets/proj-pearlz-store.png";
 import Oonsa from "@/assets/Oonsa.png";
 import projOma from "@/assets/proj-oma.png";
-import projPaywithpi from "@/assets/proj-paywithpi.png";
 import post2dap from "@/assets/post-2dap.png";
 import visaguard from "@/assets/visaguard.jpg";
 import vgalanding2 from "@/assets/vgalanding2.jpg";
-import logoo1 from "@/assets/logoo1.png";
+import logoo1 from "@/assets/logoo11.jpg";
 import logoo0 from "@/assets/logoo0.jpg";
-import logoo3 from "@/assets/logoo3.jpg";
+import logoo33 from "@/assets/logoo33.jpg";
 import logoo4 from "@/assets/logoo4.jpg";
 import projstoreapp22 from "@/assets/proj-storeapp22.png";
 import supersonic from "@/assets/supersonic.png";
+import xerai from "@/assets/xerai.jpg";
 
 const projects = [
   {
@@ -158,7 +158,7 @@ const projects = [
       "A sophisticated and elegant logo mark designed for a high-end corporate and social event organizer. Built to represent seamless planning, execution, and hospitality.",
     year: "2025",
     tech: ["Illustrator", "Photoshop", "CorelDraw"],
-    image: logoo3,
+    image: logoo33,
     link: null,
     caseStudySlug: "QuickBoostNG-Logo-Design",
   },
@@ -170,6 +170,17 @@ const projects = [
     year: "2026",
     tech: ["Illustrator", "Photoshop", "Figma"],
     image: logoo4,
+    link: null,
+    caseStudySlug: "QuickBoostNG-Logo-Design",
+  },
+   {
+    title: "Xerai Studios Identity",
+    category: "BRANDING · LOGO DESIGN · PRODUCT DESIGN",
+    description:
+      "A sleek, raw, and professional brand identifier created for a portfolio reviewing platform for creatives who want clarity in the tech industry, to secure better job placement and roles, capturing quality reviews from industries professionals, fast response, and expert feedback.",
+    year: "2026",
+    tech: ["Illustrator", "Photoshop", "Figma"],
+    image: xerai,
     link: null,
     caseStudySlug: "QuickBoostNG-Logo-Design",
   },
@@ -236,7 +247,8 @@ const Projects = () => {
               </span>
             </div>
             <h1 className="font-display text-6xl sm:text-6xl lg:text-6xl text-balance font-extrabold tracking-tighter leading-[0.95] mb-2">
-              All Selected<br />
+              All Selected
+              <br />
               <span className="text-muted-foreground/40"> Projects. </span>
             </h1>
           </motion.div>
@@ -376,8 +388,7 @@ const Projects = () => {
                           <ExternalLink className="w-3.5 h-3.5 text-blue-600" />
                         </a>
                       ) : (
-                        <span className="text-sm font-medium text-muted-foreground/70">
-                        </span>
+                        <span className="text-sm font-medium text-muted-foreground/70"></span>
                       )}
 
                       {project.caseStudySlug && (
@@ -420,12 +431,12 @@ const Projects = () => {
                 Available for new projects
               </span>
             </div>
-            <h2 className="font-display text-balance lg:text-6xl text-4xl sm:text-5xl font-extrabold tracking-tight mb-1">
+            <h2 className="font-display text-balance lg:text-6xl text-4xl sm:text-5xl font-extrabold tracking-tighter mb-1">
               Interested in Working With Us?
             </h2>
-            <p className="opacity-60 text-sm max-w-lg mx-auto leading-relaxed mb-8">
-              We are always open to new opportunities and collaborations. Let's
-              build something great together.
+            <p className="opacity-60 text-sm max-w-lg mx-auto leading-5 mb-8">
+              We are always open to new opportunities and collaborations. Send
+              us messages let's build something great together.
             </p>
             <div className="flex flex-col sm:flex-row gap-3 justify-center">
               <Link

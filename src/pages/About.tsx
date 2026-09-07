@@ -425,8 +425,8 @@ const About = () => {
                     aria-expanded={isOpen}
                     className="w-full flex items-center gap-5 text-left px-6 py-6 sm:px-8 hover:bg-secondary/30 transition-colors"
                   >
-                    <div className="shrink-0 w-11 h-11 rounded-xl bg-foreground flex items-center justify-center">
-                      <Icon className="w-4 h-4 text-background" />
+                    <div className="shrink-0 w-11 h-11 rounded-xl bg-foreground/5  flex items-center justify-center">
+                      <Icon className="w-4 h-4 text-foreground" />
                     </div>
 
                     <div className="flex-1 min-w-0 grid sm:grid-cols-[1fr_auto] gap-2 sm:gap-6 items-start sm:items-center">
@@ -464,7 +464,7 @@ const About = () => {
                         transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
                         className="overflow-hidden"
                       >
-                        <p className="text-sm text-muted-foreground leading-relaxed px-6 sm:px-8 pb-7 pl-[4.75rem] max-w-6xl">
+                        <p className="text-medium text-muted-foreground leading-relaxed px-6 sm:px-8 pb-7 pl-[4.75rem] max-w-6xl">
                           {exp.description}
                         </p>
                       </motion.div>
@@ -543,11 +543,11 @@ const About = () => {
                 Available for new projects
               </span>
             </div>
-            <h2 className="font-display text-balance lg:text-6xl text-4xl sm:text-5xl font-extrabold tracking-tight mb-1">
+            <h2 className="font-display text-balance lg:text-6xl text-4xl sm:text-5xl font-extrabold tracking-tighter mb-1">
               Interested in Working With Us?
             </h2>
-            <p className="opacity-60 text-sm max-w-lg mx-auto leading-relaxed mb-8">
-              We are always open to new opportunities and collaborations. Let's
+            <p className="opacity-60 text-sm max-w-lg mx-auto leading-5 mb-8">
+              We are always open to new opportunities and collaborations. Send us messages let's
               build something great together.
             </p>
             <div className="flex flex-col sm:flex-row gap-3 justify-center">

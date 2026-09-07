@@ -814,7 +814,7 @@ const Index = () => {
             <p className="text-[10px] font-bold tracking-wide uppercase text-muted-foreground mb-1">
               Learn & Earn
             </p>
-            <h2 className="font-display leading-10 text-balance lg:text-6xl mt-2 text-4xl sm:text-6xl tracking-tight text-foreground font-extrabold">
+            <h2 className="font-display leading-10 text-balance lg:text-6xl mt-2 text-4xl sm:text-6xl tracking-tight text-foreground font-extrabold mb-2">
               Featured Courses.
             </h2>
             <Link
@@ -1029,14 +1029,14 @@ const Index = () => {
                 Testimonials.
               </h2>
             </div>
-            {/* <div className="flex items-center gap-1">
-              <p className="text-xs text-muted-foreground">
+            <div className="flex items-center gap-1">
+              <p className="hidden sm:block text-xs text-muted-foreground">
                 <span className="font-medium text-foreground">
-                  30+ founders
+                  30+ Customers
                 </span>{" "}
                 trust our work
               </p>
-            </div> */}
+            </div>
           </motion.div>
 
           <TestimonialsCarousel items={testimonials} />
@@ -1201,7 +1201,7 @@ const Index = () => {
                     <span className="absolute -inset-1 rounded-full bg-primary/25 animate-ping" />
                     <span className="absolute inset-x-1.5 top-1 h-1/2 rounded-full bg-white/30 blur-[2px]" />
                     <BellRing
-                      className="absolute inset-0 m-auto w-4 h-4 sm:w-[18px] sm:h-[18px] text-white drop-shadow-sm"
+                      className="absolute inset-0 m-auto w-4 h-4 sm:w-[18px] sm:h-[18px] text-background drop-shadow-sm"
                       strokeWidth={2.4}
                     />
                   </motion.div>
@@ -1220,7 +1220,7 @@ const Index = () => {
                     New Product Launch! <br />
                   </span>{" "}
                   Get Ready For Our New Product Launch -{" "}
-                  <strong className="text-gray-500"> Xerai Studios.</strong>
+                  <strong className="text-gray-500 text-3xl tracking-tighter sm:text-4xl lg:text-[2.4rem]"> Xerai Studios.</strong>
                 </h2>
 
                 <p className="mt-5 text-sm text-muted-foreground leading-relaxed text-balance ">
