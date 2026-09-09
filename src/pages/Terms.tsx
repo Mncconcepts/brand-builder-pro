@@ -350,7 +350,7 @@ const Terms = () => {
               </span>
             </div>
 
-            <h1 className="font-display text-6xl sm:text-6xl lg:text-6xl text-balance font-extrabold tracking-tighter leading-[0.95] mb-4">
+            <h1 className="font-display text-6xl sm:text-6xl lg:text-6xl text-balance font-extrabold tracking-tighter leading-[0.95] mb-2">
               Terms & Privacy.
             </h1>
             <p className="text-sm text-muted-foreground max-w-xl leading-relaxed mb-3">

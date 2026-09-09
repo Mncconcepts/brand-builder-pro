@@ -180,7 +180,7 @@ const BookCallSheet = ({ trigger }: BookCallSheetProps) => {
                           <Input
                             id="email" required type="email" placeholder="" value={email}
                             onChange={(e) => setEmail(e.target.value)}
-                            className="h-11 text-[8px] rounded-xl bg-secondary/30 border-border/60 text-foreground"
+                            className="h-11 rounded-xl bg-secondary/30 border-border/60 text-foreground"
                           />
                         </div>
 

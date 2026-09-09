@@ -381,12 +381,12 @@ const Courses = () => {
                   </span>
                 </div>
 
-                <h2 className="font-display text-3xl sm:text-4xl text-balance lg:text-[2.4rem] font-medium tracking-tight leading-[1.12] text-foreground">
+                <h2 className="font-display text-2xl sm:text-4xl text-balance lg:text-[2.4rem] font-medium tracking-tight leading-[1.12] text-foreground">
                   <span className="text-primary font-extrabold text-4xl sm:text-5xl lg:text-[3rem]">
                     New Product Launch! <br />
                   </span>{" "}
                   Get Ready For Our New Product Launch -{" "}
-                  <strong className="text-gray-500 tracking-tighter"> Xerai Studios.</strong>
+                  <strong className="text-gray-500 text-3xl tracking-tighter sm:text-4xl lg:text-[2.4rem]">Xerai-Studios.</strong>
                 </h2>
 
                 <p className="mt-5 text-sm text-muted-foreground leading-relaxed text-balance ">
@@ -398,7 +398,7 @@ const Courses = () => {
                   {productHighlights.map((item) => (
                     <span
                       key={item}
-                      className="rounded-full border border-border bg-background/60 text-foreground px-3 py-2 text-xs font-normal tracking-tight hover:border-primary/40 hover:bg-primary/5 hover:-translate-y-0.5 transition-all duration-200"
+                      className="rounded-full border border-border cursor-pointer bg-background/60 text-foreground px-3 py-2 text-xs font-normal tracking-tight hover:border-primary/40 hover:bg-primary/5 hover:-translate-y-0.5 transition-all duration-200"
                     >
                       {item}
                     </span>

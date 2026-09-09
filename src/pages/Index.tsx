@@ -1215,12 +1215,12 @@ const Index = () => {
                   </span>
                 </div>
 
-                <h2 className="font-display text-3xl sm:text-4xl text-balance lg:text-[2.4rem] font-medium tracking-tight leading-[1.12] text-foreground">
+                <h2 className="font-display text-2xl sm:text-4xl text-balance lg:text-[2.4rem] font-medium tracking-tight leading-[1.12] text-foreground">
                   <span className="text-primary font-extrabold text-4xl sm:text-5xl lg:text-[3rem]">
                     New Product Launch! <br />
                   </span>{" "}
-                  Get Ready For Our New Product Launch -{" "}
-                  <strong className="text-gray-500 text-3xl tracking-tighter sm:text-4xl lg:text-[2.4rem]"> Xerai Studios.</strong>
+                  Get Ready For Our New Product Launch {" "}
+                  <strong className="text-gray-500 text-3xl tracking-tighter sm:text-4xl lg:text-[2.4rem]">Xerai-Studios.</strong>
                 </h2>
 
                 <p className="mt-5 text-sm text-muted-foreground leading-relaxed text-balance ">

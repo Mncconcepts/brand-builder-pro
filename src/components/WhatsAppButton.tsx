@@ -36,7 +36,7 @@ const WhatsAppButton = () => {
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.5, y: 20 }}
             onClick={scrollToTop}
-            className="group flex items-center justify-center w-12 h-12 rounded-xl bg-background/80 backdrop-blur-md border border-border text-foreground shadow-lg hover:border-primary/50 transition-all duration-300"
+            className="group flex items-center justify-center w-12 h-12 rounded-xl bg-background/80 backdrop-blur-md border border-border text-foreground shadow-sm hover:border-primary/50 transition-all duration-300"
             aria-label="Scroll to top"
           >
             <ChevronUp 
@@ -69,7 +69,7 @@ const WhatsAppButton = () => {
         </span>
 
         {/* Floating Tooltip / Better Chat Box Hint */}
-        <div className="absolute right-[calc(100%+16px)] top-1/2 -translate-y-1/2 px-4 py-2 rounded-xl bg-card border border-border shadow-xl opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none hidden md:block translate-x-4 group-hover:translate-x-0">
+        <div className="absolute right-[calc(100%+16px)] top-1/2 -translate-y-1/2 px-4 py-2 rounded-xl bg-card border border-border shadow-sm opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none hidden md:block translate-x-4 group-hover:translate-x-0">
           <div className="flex flex-col">
             <span className="text-[10px] text-muted-foreground font-bold uppercase tracking-widest">Support</span>
             <span className="text-xs text-foreground font-semibold whitespace-nowrap">Chat on WhatsApp</span>
