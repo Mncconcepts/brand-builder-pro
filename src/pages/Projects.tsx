@@ -41,7 +41,7 @@ const projects = [
       "React Hook Form",
     ],
     image: supersonic,
-    link: null,
+   link:"https://supersonicdynamicservices.nl/",
     caseStudySlug: "Supersonic-Dynamic-Services",
   },
   {
