@@ -93,6 +93,8 @@ const caseStudies: CaseStudyData[] = [
     learnings:
       "Building digital solutions for the logistics and relocation industry reinforced the importance of transparency, trust, and operational visibility throughout the customer journey. Customers want clear pricing, real-time updates, straightforward communication, and confidence that their assignments are being managed professionally. By focusing on accessibility, workflow clarity, and user-friendly interfaces, we learned how technology can significantly improve customer satisfaction while supporting business efficiency and long-term scalability.",
   link:"https://supersonicdynamicservices.nl/",
+},
+
   {
     slug: "Visa-guard-africa App-Landing",
     title: "Visa Guard Africa Technologies Ltd",
