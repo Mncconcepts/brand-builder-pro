@@ -92,8 +92,7 @@ const caseStudies: CaseStudyData[] = [
       "One of the primary challenges was translating complex moving and freight-haulage operational workflows into a simple and intuitive digital experience. The platform needed to accommodate multiple service categories, quotation submissions with supporting media uploads, assignment tracking, digital invoicing, and secure payment journeys while maintaining a clean user interface across desktop and mobile devices. This was addressed through careful information architecture, user-centered design principles, and a modular frontend system that simplifies complex business processes.",
     learnings:
       "Building digital solutions for the logistics and relocation industry reinforced the importance of transparency, trust, and operational visibility throughout the customer journey. Customers want clear pricing, real-time updates, straightforward communication, and confidence that their assignments are being managed professionally. By focusing on accessibility, workflow clarity, and user-friendly interfaces, we learned how technology can significantly improve customer satisfaction while supporting business efficiency and long-term scalability.",
-    link: null,
-  },
+  link:"https://supersonicdynamicservices.nl/",
   {
     slug: "Visa-guard-africa App-Landing",
     title: "Visa Guard Africa Technologies Ltd",
