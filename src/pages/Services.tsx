@@ -222,6 +222,7 @@ function ServiceRow({
 }) {
   const [open, setOpen] = useState(false);
   const Icon = service.icon;
+  const featured = index === 0;
 
   return (
     <motion.div
@@ -229,53 +230,51 @@ function ServiceRow({
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ delay: index * 0.09 }}
-      className="border-b border-border last:border-0"
+      className={`rounded-2xl border border-border bg-card overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:border-foreground/30 ${
+        featured ? "lg:col-span-2" : ""
+      }`}
     >
       <button
         type="button"
         onClick={() => setOpen(!open)}
         aria-expanded={open}
-        className="w-full text-left group"
+        className="w-full text-left group block p-6 sm:p-7"
       >
-        <div className="flex items-center gap-3 sm:gap-6 py-5 sm:py-7 px-4 sm:px-8 transition-colors duration-300 group-hover:bg-foreground/[0.025] active:bg-foreground/[0.04]">
-          {/* Number */}
-          <span className="hidden sm:block text-[10px] font-bold text-muted-foreground/40 tracking-widest w-6 shrink-0">
+        {/* Icon + number */}
+        <div className="flex items-start justify-between mb-5">
+          <div className="w-11 h-11 rounded-xl bg-foreground/5 flex items-center justify-center transition-all duration-300 group-hover:bg-foreground group-hover:scale-110">
+            <Icon className="w-5 h-5 text-foreground transition-colors duration-300 group-hover:text-background" />
+          </div>
+          <span className="text-[10px] font-bold text-muted-foreground/40 tracking-widest">
             {service.number}
           </span>
+        </div>
 
-          {/* Icon bubble */}
-          <div className="w-10 h-10 sm:w-9 sm:h-9 rounded-xl sm:rounded-lg bg-foreground/5 flex items-center justify-center shrink-0 transition-transform duration-300 group-hover:scale-110">
-            <Icon className="w-4 h-4 text-foreground" />
-          </div>
+        {/* Title + tagline */}
+        <h3 className="font-display text-xl sm:text-2xl font-extrabold tracking-tight text-foreground mb-1">
+          {service.title}
+        </h3>
+        <p className="text-xs font-medium text-muted-foreground mb-5">
+          {service.tagline}
+        </p>
 
-          {/* Title + tagline */}
-          <div className="flex-1 min-w-0">
-            <div className="flex items-center gap-3 flex-wrap">
-              <h3 className="font-display text-base sm:text-xl font-extrabold tracking-tight text-foreground group-hover:text-muted-foreground transition-colors">
-                {service.title}
-              </h3>
-              <span className="hidden sm:inline text-xs text-muted-foreground font-medium">
-                — {service.tagline}
-              </span>
-            </div>
-            <p className="sm:hidden text-xs text-muted-foreground font-medium mt-0.5">
-              {service.tagline}
-            </p>
-          </div>
+        {/* Full tag set — visible up front, nothing hidden behind the click */}
+        <div className="flex flex-wrap gap-1.5 mb-1">
+          {service.features.map((f) => (
+            <span
+              key={f}
+              className="font-mono text-[9px] font-semibold tracking-tight px-2.5 py-1 rounded-md bg-foreground/5 text-foreground/70 border border-border transition-colors group-hover:border-foreground/20"
+            >
+              {f}
+            </span>
+          ))}
+        </div>
 
-          {/* Tags preview — desktop only, room enough not to crowd the title */}
-          <div className="hidden lg:flex items-center gap-2 shrink-0">
-            {service.features.slice(0, 3).map((f) => (
-              <span
-                key={f}
-                className="font-mono text-[9px] font-semibold tracking-tight px-2.5 py-1 rounded-md bg-foreground/5 text-foreground/70 border border-border"
-              >
-                {f}
-              </span>
-            ))}
-          </div>
-
-          {/* Chevron */}
+        {/* Expand affordance */}
+        <div className="flex items-center justify-between pt-5 mt-4 border-t border-border">
+          <span className="text-[11px] font-semibold text-muted-foreground transition-colors group-hover:text-foreground">
+            {open ? "Hide details" : "View details"}
+          </span>
           <ChevronDown
             className={`w-4 h-4 text-muted-foreground shrink-0 transition-transform duration-300 ${open ? "rotate-180" : ""}`}
           />
@@ -289,26 +288,21 @@ function ServiceRow({
         transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
         className="overflow-hidden"
       >
-        <div
-          className={`mx-3 sm:mx-6 mb-5 sm:mb-6 rounded-2xl bg-gradient-to-br ${service.accent} border border-border p-5 sm:p-8`}
-        >
-          <div className="grid grid-cols-1 md:grid-cols-5 gap-6 md:gap-8">
-            <div className="md:col-span-2">
-              <p className="text-sm text-muted-foreground leading-relaxed mb-6">
-                {service.description}
-              </p>
-              <Link
-                to="/contact"
-                className="inline-flex w-full sm:w-auto items-center justify-center gap-2 text-xs font-bold px-5 py-2.5 rounded-lg border border-border text-foreground hover:bg-foreground hover:text-background transition-all active:scale-[0.98]"
-              >
-                Book This Service <ArrowUpRight className="w-3.5 h-3.5" />
-              </Link>
-            </div>
-            <div className="md:col-span-3">
-              <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground mb-4">
+        <div className="px-6 sm:px-7 pb-6 sm:pb-7">
+          <div
+            className={`rounded-xl bg-gradient-to-br ${service.accent} border border-border p-5`}
+          >
+            <p className="text-sm text-muted-foreground leading-relaxed mb-5">
+              {service.description}
+            </p>
+
+            <div className="mb-5">
+              <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground mb-3">
                 Tech & Capabilities
               </p>
-              <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+              <ul
+                className={`grid grid-cols-1 ${featured ? "sm:grid-cols-2" : ""} gap-2`}
+              >
                 {service.features.map((f) => (
                   <li
                     key={f}
@@ -322,6 +316,13 @@ function ServiceRow({
                 ))}
               </ul>
             </div>
+
+            <Link
+              to="/contact"
+              className="inline-flex w-full items-center justify-center gap-2 text-xs font-bold px-5 py-2.5 rounded-lg border border-border text-foreground hover:bg-foreground hover:text-background transition-all active:scale-[0.98]"
+            >
+              Book This Service <ArrowUpRight className="w-3.5 h-3.5" />
+            </Link>
           </div>
         </div>
       </motion.div>
@@ -402,7 +403,7 @@ const Services = () => {
             </h2>
           </motion.div>
 
-          <div className="divide-y divide-border rounded-2xl sm:rounded-3xl overflow-hidden bg-card/40 border border-border shadow-sm">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 items-start">
             {services.map((service, i) => (
               <ServiceRow key={service.number} service={service} index={i} />
             ))}

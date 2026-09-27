@@ -288,9 +288,9 @@ const testimonials = [
   },
   {
     quote:
-      "Working with this team was a game-changer for our product. The attention to detail and technical expertise exceeded our expectations.",
-    name: "Sarah Johnson",
-    role: "CEO, TechStart",
+      "Working with this team was a great experience. They understood our vision for Supersonic Dynamic Services and translated it into a professional, modern website that reflects our brand, services, and commitment to excellence. Their attention to detail and dedication throughout the project were impressive.",
+    name: "Eng. Hillary Nweze",
+    role: "Founder, Supersonic Dynamic Services B.V.NL",
   },
 ];
 
@@ -1219,13 +1219,16 @@ const Index = () => {
                   <span className="text-primary font-extrabold text-4xl sm:text-5xl lg:text-[3rem]">
                     New Product Launch! <br />
                   </span>{" "}
-                  Get Ready For Our New Product Launch {" "}
-                  <strong className="text-gray-500 text-3xl tracking-tighter sm:text-4xl lg:text-[2.4rem]">Xerai-Studios.</strong>
+                  Get Ready For Our New Product Launch{" "}
+                  <strong className="text-gray-500 text-3xl tracking-tighter sm:text-4xl lg:text-[2.4rem]">
+                    Xerai-Studios.
+                  </strong>
                 </h2>
 
                 <p className="mt-5 text-sm text-muted-foreground leading-relaxed text-balance ">
                   Our new portfolio and CV reviewing platform, built for
-                  creators who want clarity and expert feedback to secure better job opportunities and role.
+                  creators who want clarity and expert feedback to secure better
+                  job opportunities and role.
                 </p>
 
                 <div className="mt-6 flex flex-wrap gap-1">

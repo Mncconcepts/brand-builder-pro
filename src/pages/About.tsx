@@ -172,14 +172,14 @@ const metrics = [
 ];
 
 const About = () => {
-  const [activeSkill, setActiveSkill] = useState(0);
   const [openExperience, setOpenExperience] = useState<number | null>(0);
 
   return (
     <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
       <Navbar />
+
       {/* ── HERO ── */}
-      <section className="relative pt-28 pb-20 sm:pt-36 sm:pb-28 border-b border-border overflow-hidden">
+      <section className="relative pt-28 pb-20 sm:pt-36 sm:pb-24 border-b border-border overflow-hidden">
         <div className="absolute inset-0 -z-10">
           <div className="absolute inset-0 bg-[linear-gradient(to_right,hsl(var(--border))_1px,transparent_1px),linear-gradient(to_bottom,hsl(var(--border))_1px,transparent_1px)] bg-[size:64px_64px] [mask-image:radial-gradient(ellipse_70%_45%_at_30%_0%,black,transparent)] opacity-[0.15]" />
           <div className="absolute -top-32 -right-24 w-[420px] h-[420px] rounded-full bg-foreground/[0.04] blur-3xl" />
@@ -198,32 +198,37 @@ const About = () => {
               </span>
             </div>
 
-            {/* 12-col grid: headline gets more room than copy, so it doesn't feel like a forced 50/50 split */}
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-y-10 lg:gap-x-10 items-end">
+            {/* Split hero: narrative on the left, a real photo on the right */}
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-y-12 lg:gap-x-12 items-center">
               <div className="lg:col-span-7">
-                <h1 className="font-display text-[2.75rem] leading-[1.01] sm:text-7xl lg:text-7xl font-extrabold text-foreground tracking-tight text-balance">
+                <h1 className="font-display text-[2.75rem] leading-[1.01] sm:text-7xl lg:text-6xl font-extrabold text-foreground tracking-tight text-balance mb-6">
                   Design-Strategy, <br />
                   <span className="text-muted-foreground">Development,</span>
                   <br />
                   Launch-Support.
                 </h1>
-              </div>
-
-              <div className="lg:col-span-5 lg:pl-6 lg:border-border">
-                <p className="text-sm sm:text-[13.5px] text-muted-foreground leading-relaxed mb-5 max-w-md">
+                <p className="text-sm sm:text-[15px] text-muted-foreground leading-relaxed mb-8 max-w-md">
                   A multidisciplinary creative team with over 4 years bridging
                   design and development. We partner with startups and
-                  established brands to ship digital products that look as good
-                  as they run.
+                  established brands to ship digital products that look as
+                  good as they run.
                 </p>
-                <div className="flex flex-wrap gap-5">
-                  <Link
-                    to="/contact"
-                    className="group inline-flex items-center gap-2 bg-foreground text-background px-10 py-3 text-sm font-bold rounded-xl shadow-sm hover:shadow-xs transition-all hover:-translate-y-0.5"
-                  >
-                    Work With Us
-                    <ArrowUpRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-                  </Link>
+                <Link
+                  to="/contact"
+                  className="group inline-flex items-center gap-2 bg-foreground text-background px-10 py-3 text-sm font-bold rounded-xl shadow-sm hover:shadow-xs transition-all hover:-translate-y-0.5"
+                >
+                  Work With Us
+                  <ArrowUpRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                </Link>
+              </div>
+
+              <div className="lg:col-span-5">
+                <div className="relative aspect-[16/10] sm:aspect-[16/10] lg:aspect-[4/5] rounded-3xl overflow-hidden border border-border">
+                  <img
+                    src="/profile3.jpg"
+                    alt="The team working together"
+                    className="h-full w-full object-cover grayscale-[35%] transition-all duration-700 hover:grayscale-0 hover:scale-105"
+                  />
                 </div>
               </div>
             </div>
@@ -279,26 +284,33 @@ const About = () => {
               story here's how a project moves from idea to something real.
             </p>
 
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-px bg-border rounded-2xl overflow-hidden border border-border">
-              {approachPillars.map((pillar) => {
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
+              {approachPillars.map((pillar, i) => {
                 const Icon = pillar.icon;
                 return (
-                  <div
+                  <motion.div
                     key={pillar.title}
-                    className="bg-background p-8 flex flex-col gap-5"
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: i * 0.1, duration: 0.5 }}
+                    className="group rounded-2xl border border-border bg-card p-8 transition-all duration-300 hover:-translate-y-1 hover:border-foreground/30"
                   >
-                    <div className="w-11 h-11 rounded-xl border border-border flex items-center justify-center">
-                      <Icon className="w-5 h-5 text-foreground" />
+                    <div className="flex items-center justify-between mb-6">
+                      <div className="w-11 h-11 rounded-xl bg-foreground/5 flex items-center justify-center transition-all duration-300 group-hover:bg-foreground">
+                        <Icon className="w-5 h-5 text-foreground transition-colors duration-300 group-hover:text-background" />
+                      </div>
+                      <span className="text-[10px] font-bold text-muted-foreground/40 tracking-widest">
+                        0{i + 1}
+                      </span>
                     </div>
-                    <div>
-                      <h3 className="font-display text-base font-bold text-foreground mb-2">
-                        {pillar.title}
-                      </h3>
-                      <p className="text-xs text-muted-foreground leading-relaxed">
-                        {pillar.description}
-                      </p>
-                    </div>
-                  </div>
+                    <h3 className="font-display text-base font-bold text-foreground mb-2">
+                      {pillar.title}
+                    </h3>
+                    <p className="text-xs text-muted-foreground leading-relaxed">
+                      {pillar.description}
+                    </p>
+                  </motion.div>
                 );
               })}
             </div>
@@ -306,89 +318,65 @@ const About = () => {
         </div>
       </section>
 
-      {/* ── TECHNICAL STACK (interactive tabs) ── */}
-      {/* <section className="py-20">
+      {/* ── TECHNICAL STACK ── */}
+      <section className="py-24">
         <div className="max-w-6xl mx-auto px-6">
           <motion.div
             initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.7 }}
+            className="mb-12"
           >
-            <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-10 gap-4">
-              <div>
-                <p className="text-[10px] font-bold tracking-wide uppercase text-muted-foreground mb-2">
-                  Technical Stack
-                </p>
-                <h3 className="font-display lg:text-6xl text-4xl sm:text-5xl font-extrabold text-foreground">
-                  Core Skills.
-                </h3>
-              </div>
-              <p className="text-sm text-muted-foreground max-w-xs leading-5">
-                We use a modern toolkit to build scalable, high-performance
-                digital solutions.
-              </p>
-            </div>
-
-            <div className="border border-border rounded-2xl bg-card overflow-hidden">
-              <div
-                role="tablist"
-                aria-label="Skill categories"
-                className="flex flex-wrap border-b border-border"
-              >
-                {skillGroups.map((group, i) => {
-                  const Icon = group.icon;
-                  const active = activeSkill === i;
-                  return (
-                    <button
-                      key={group.label}
-                      role="tab"
-                      aria-selected={active}
-                      onClick={() => setActiveSkill(i)}
-                      className={`flex items-center gap-2 px-5 sm:px-6 py-4 text-xs font-extrabold uppercase tracking-widest border-b-2 -mb-px transition-colors ${
-                        active
-                          ? "border-foreground text-foreground bg-secondary/40"
-                          : "border-transparent text-muted-foreground hover:text-foreground"
-                      }`}
-                    >
-                      <Icon className="w-4 h-4" />
-                      {group.label}
-                    </button>
-                  );
-                })}
-              </div>
-
-              <div className="p-8 sm:p-10">
-                <AnimatePresence mode="wait">
-                  <motion.div
-                    key={activeSkill}
-                    initial={{ opacity: 0, y: 8 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -8 }}
-                    transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
-                  >
-                    <p className="text-sm text-muted-foreground leading-relaxed mb-6 max-w-lg">
-                      {skillGroups[activeSkill].description}
-                    </p>
-                    <div className="flex flex-wrap gap-2.5">
-                      {skillGroups[activeSkill].skills.map((skill) => (
-                        <span
-                          key={skill}
-                          className="text-xs font-semibold px-3.5 py-2 rounded-lg border border-border bg-background text-foreground"
-                        >
-                          {skill}
-                        </span>
-                      ))}
-                    </div>
-                  </motion.div>
-                </AnimatePresence>
-              </div>
-            </div>
+            <p className="text-[10px] font-bold tracking-wide uppercase text-muted-foreground mb-2">
+              Technical Stack
+            </p>
+            <h2 className="font-display lg:text-6xl text-4xl sm:text-5xl font-extrabold text-foreground tracking-tight">
+              Core Skills.
+            </h2>
           </motion.div>
-        </div>
-      </section> */}
 
-      {/* ── EXPERIENCE (accordion) ── */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+            {skillGroups.map((group, i) => {
+              const Icon = group.icon;
+              return (
+                <motion.div
+                  key={group.label}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: i * 0.08, duration: 0.5 }}
+                  className="group rounded-2xl border border-border bg-card p-8 transition-all duration-300 hover:-translate-y-1 hover:border-foreground/30"
+                >
+                  <div className="flex items-center gap-3 mb-4">
+                    <div className="w-10 h-10 rounded-xl bg-foreground/5 flex items-center justify-center transition-all duration-300 group-hover:bg-foreground">
+                      <Icon className="w-4 h-4 text-foreground transition-colors duration-300 group-hover:text-background" />
+                    </div>
+                    <h3 className="font-display text-lg font-bold text-foreground">
+                      {group.label}
+                    </h3>
+                  </div>
+                  <p className="text-sm text-muted-foreground leading-relaxed mb-6">
+                    {group.description}
+                  </p>
+                  <div className="flex flex-wrap gap-2">
+                    {group.skills.map((skill) => (
+                      <span
+                        key={skill}
+                        className="text-xs font-semibold px-3 py-1.5 rounded-lg border border-border bg-background text-foreground"
+                      >
+                        {skill}
+                      </span>
+                    ))}
+                  </div>
+                </motion.div>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* ── EXPERIENCE (accordion cards) ── */}
       <section className="py-20 bg-secondary/30 border-y border-border">
         <div className="max-w-6xl mx-auto px-6">
           <motion.div
@@ -405,27 +393,25 @@ const About = () => {
             </h2>
           </motion.div>
 
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.1, duration: 0.6 }}
-            className="border border-border rounded-2xl bg-card overflow-hidden"
-          >
+          <div className="flex flex-col gap-4">
             {experience.map((exp, i) => {
               const Icon = exp.icon;
               const isOpen = openExperience === i;
               return (
-                <div
+                <motion.div
                   key={exp.role + exp.company}
-                  className={i !== 0 ? "border-t border-border" : ""}
+                  initial={{ opacity: 0, y: 16 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: i * 0.05, duration: 0.5 }}
+                  className="rounded-2xl border border-border bg-card overflow-hidden transition-colors duration-300 hover:border-foreground/20"
                 >
                   <button
                     onClick={() => setOpenExperience(isOpen ? null : i)}
                     aria-expanded={isOpen}
                     className="w-full flex items-center gap-5 text-left px-6 py-6 sm:px-8 hover:bg-secondary/30 transition-colors"
                   >
-                    <div className="shrink-0 w-11 h-11 rounded-xl bg-foreground/5  flex items-center justify-center">
+                    <div className="shrink-0 w-11 h-11 rounded-xl bg-foreground/5 flex items-center justify-center">
                       <Icon className="w-4 h-4 text-foreground" />
                     </div>
 
@@ -464,16 +450,16 @@ const About = () => {
                         transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
                         className="overflow-hidden"
                       >
-                        <p className="text-medium text-muted-foreground leading-relaxed px-6 sm:px-8 pb-7 pl-[4.75rem] max-w-6xl">
+                        <p className="text-sm text-muted-foreground leading-relaxed px-6 sm:px-8 pb-7 pl-[4.75rem] max-w-3xl">
                           {exp.description}
                         </p>
                       </motion.div>
                     )}
                   </AnimatePresence>
-                </div>
+                </motion.div>
               );
             })}
-          </motion.div>
+          </div>
         </div>
       </section>
 

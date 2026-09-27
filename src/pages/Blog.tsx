@@ -15,6 +15,8 @@ const posts = [
     category: "Engineering",
     date: "Mar 12, 2026",
     readTime: "8 min read",
+    image:
+      "https://images.unsplash.com/photo-1534972195531-d756b9bfa9f2?auto=format&fit=crop&w=1200&q=80",
   },
   {
     slug: "design-systems-small-teams",
@@ -24,6 +26,8 @@ const posts = [
     category: "Design",
     date: "Feb 28, 2026",
     readTime: "6 min read",
+    image:
+      "https://images.unsplash.com/photo-1558655146-d09347e92766?auto=format&fit=crop&w=1200&q=80",
   },
   {
     slug: "ux-lessons-from-failed-products",
@@ -33,6 +37,8 @@ const posts = [
     category: "UX",
     date: "Feb 10, 2026",
     readTime: "7 min read",
+    image:
+      "https://images.unsplash.com/photo-1586717791821-3f44a563fa4c?auto=format&fit=crop&w=1200&q=80",
   },
   {
     slug: "typescript-patterns-react",
@@ -42,6 +48,8 @@ const posts = [
     category: "Engineering",
     date: "Jan 22, 2026",
     readTime: "10 min read",
+    image:
+      "https://images.unsplash.com/photo-1619410283995-43d9134e7656?auto=format&fit=crop&w=1200&q=80",
   },
   {
     slug: "client-communication-freelance",
@@ -51,6 +59,8 @@ const posts = [
     category: "Business",
     date: "Jan 5, 2026",
     readTime: "5 min read",
+    image:
+      "https://images.unsplash.com/photo-1444418776041-9c7e33cc5a9c?auto=format&fit=crop&w=1200&q=80",
   },
   {
     slug: "performance-budgets-real-world",
@@ -60,6 +70,8 @@ const posts = [
     category: "Engineering",
     date: "Dec 18, 2026",
     readTime: "9 min read",
+    image:
+      "https://images.unsplash.com/photo-1518773553398-650c184e0bb3?auto=format&fit=crop&w=1200&q=80",
   },
 ];
 
@@ -78,9 +90,10 @@ const Blog = () => {
     setTimeout(() => setSubscribed(false), 5000);
   };
 
-  const filteredPosts = activeCategory === "All" 
-    ? posts 
-    : posts.filter(post => post.category === activeCategory);
+  const filteredPosts =
+    activeCategory === "All"
+      ? posts
+      : posts.filter((post) => post.category === activeCategory);
 
   return (
     <div className="min-h-screen bg-background text-foreground selection:bg-primary selection:text-primary-foreground overflow-x-hidden">
@@ -89,7 +102,7 @@ const Blog = () => {
       {/* ── HEADER & JOURNAL INTRO ── */}
       <section className="relative pt-40 pb-16 border-b border-border/40 overflow-hidden">
         <div className="absolute inset-0 -z-10 bg-[linear-gradient(to_right,hsl(var(--border))_1px,transparent_1px)] bg-[size:120px] [mask-image:linear-gradient(to_bottom,black,transparent)] opacity-10" />
-        
+
         <div className="max-w-6xl mx-auto px-6">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -100,10 +113,12 @@ const Blog = () => {
               Perspectives & Insights
             </span>
             <h1 className="font-display text-6xl sm:text-6xl lg:text-6xl text-balance font-extrabold tracking-tighter leading-[0.95] mb-2">
-             Software Development Blogs.
+              Software Development Blogs.
             </h1>
             <p className="text-sm text-muted-foreground max-w-xl leading-relaxed font-medium">
-              Deep dives into production web architecture, systematic user interface engineering, and the realities of shipping digital products.
+              Deep dives into production web architecture, systematic user
+              interface engineering, and the realities of shipping digital
+              products.
             </p>
           </motion.div>
 
@@ -125,9 +140,9 @@ const Blog = () => {
             </div>
             <div className="relative hidden sm:block">
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-muted-foreground" />
-              <input 
-                type="text" 
-                placeholder="Search articles..." 
+              <input
+                type="text"
+                placeholder="Search articles..."
                 className="bg-secondary/60 border border-border/40 rounded-xl pl-9 pr-4 py-2 text-xs font-medium placeholder:text-muted-foreground/50 focus:outline-none focus:border-border transition-colors w-48"
               />
             </div>
@@ -139,45 +154,80 @@ const Blog = () => {
       <section className="py-20">
         <div className="max-w-6xl mx-auto px-6">
           <StackingCards offset={12} top={40}>
-            {filteredPosts.map((post) => (
-              /* REDIRECTION LOGIC: We point to an undefined /404 path to trigger the page */
-              <Link
-                to="/content-archived-or-unavailable"
-                key={post.slug}
-                className="group block bg-card/40 backdrop-blur-sm border border-border/60 rounded-3xl p-8 lg:p-10 mb-8 last:mb-0 hover:border-border transition-all duration-300 hover:shadow-2xl hover:shadow-black/[0.02] relative overflow-hidden"
-              >
-                {/* Visual Hint of "Locked" Content */}
-                <div className="absolute top-4 right-10 flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                   <Lock className="w-3 h-3 text-muted-foreground" />
-                   <span className="text-[9px] font-bold uppercase tracking-widest text-muted-foreground">Coming Soon</span>
-                </div>
-
-                <article>
-                  <div className="flex flex-wrap items-center gap-3 text-[11px] font-bold text-muted-foreground mb-4">
-                    <span className="text-foreground tracking-wider uppercase bg-secondary px-2.5 py-1 rounded-md border border-border/20">
-                      {post.category}
-                    </span>
-                    <span className="text-muted-foreground/40">•</span>
-                    <span className="font-medium">{post.date}</span>
-                    <span className="text-muted-foreground/40">•</span>
-                    <span className="font-medium">{post.readTime}</span>
-                  </div>
-
-                  <div className="flex items-start justify-between gap-6 mb-4">
-                    <h2 className="font-display text-xl sm:text-2xl font-bold text-foreground tracking-tight group-hover:text-muted-foreground transition-colors leading-tight">
-                      {post.title}
-                    </h2>
-                    <div className="shrink-0 w-8 h-8 rounded-full border border-border/60 flex items-center justify-center group-hover:bg-foreground group-hover:border-foreground transition-all duration-300">
-                      <ArrowUpRight className="w-3.5 h-3.5 text-muted-foreground group-hover:text-background transition-colors" />
+            {filteredPosts.map((post, i) => {
+              const featured = i === 0;
+              return (
+                /* REDIRECTION LOGIC: We point to an undefined /404 path to trigger the page */
+                <Link
+                  to="/content-archived-or-unavailable"
+                  key={post.slug}
+                  className={`group relative block overflow-hidden rounded-3xl border border-border/60 bg-card/40 backdrop-blur-sm mb-8 last:mb-0 transition-all duration-300 hover:border-border hover:shadow-2xl hover:shadow-black/[0.02] ${
+                    featured ? "" : "sm:flex sm:items-stretch"
+                  }`}
+                >
+                  {/* Cover image */}
+                  <div
+                    className={`relative overflow-hidden bg-secondary shrink-0 ${
+                      featured
+                        ? "aspect-[16/9] sm:aspect-[21/9]"
+                        : "aspect-[4/3] sm:aspect-auto sm:w-64 md:w-72"
+                    }`}
+                  >
+                    <img
+                      src={post.image}
+                      alt=""
+                      className="h-full w-full object-cover grayscale-[45%] transition-all duration-500 group-hover:grayscale-0 group-hover:scale-105"
+                    />
+                    {/* Visual hint of "locked" content, now framed on the image itself */}
+                    <div className="absolute inset-0 flex items-end justify-center bg-gradient-to-t from-black/60 via-black/10 to-transparent pb-6 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+                      <div className="flex items-center gap-2 text-white">
+                        <Lock className="w-3 h-3" />
+                        <span className="text-[9px] font-bold uppercase tracking-widest">
+                          Coming Soon
+                        </span>
+                      </div>
                     </div>
                   </div>
 
-                  <p className="text-muted-foreground text-sm leading-relaxed max-w-3xl font-medium">
-                    {post.excerpt}
-                  </p>
-                </article>
-              </Link>
-            ))}
+                  <article
+                    className={
+                      featured
+                        ? "p-8 lg:p-10"
+                        : "flex flex-1 flex-col justify-center p-6 sm:p-8"
+                    }
+                  >
+                    <div className="flex flex-wrap items-center gap-3 text-[11px] font-bold text-muted-foreground mb-4">
+                      <span className="text-foreground tracking-wider uppercase bg-secondary px-2.5 py-1 rounded-md border border-border/20">
+                        {post.category}
+                      </span>
+                      <span className="text-muted-foreground/40">•</span>
+                      <span className="font-medium">{post.date}</span>
+                      <span className="text-muted-foreground/40">•</span>
+                      <span className="font-medium">{post.readTime}</span>
+                    </div>
+
+                    <div className="flex items-start justify-between gap-6 mb-4">
+                      <h2
+                        className={`font-display font-bold text-foreground tracking-tight group-hover:text-muted-foreground transition-colors leading-tight ${
+                          featured
+                            ? "text-2xl sm:text-3xl"
+                            : "text-xl sm:text-2xl"
+                        }`}
+                      >
+                        {post.title}
+                      </h2>
+                      <div className="shrink-0 w-8 h-8 rounded-full border border-border/60 flex items-center justify-center group-hover:bg-foreground group-hover:border-foreground transition-all duration-300">
+                        <ArrowUpRight className="w-3.5 h-3.5 text-muted-foreground group-hover:text-background transition-colors" />
+                      </div>
+                    </div>
+
+                    <p className="text-muted-foreground text-sm leading-relaxed max-w-2xl font-medium">
+                      {post.excerpt}
+                    </p>
+                  </article>
+                </Link>
+              );
+            })}
           </StackingCards>
         </div>
       </section>
@@ -189,7 +239,8 @@ const Blog = () => {
             Subscribe to Our Newsletter.
           </h2>
           <p className="text-muted-foreground text-sm mb-10 max-w-md mx-auto font-medium leading-relaxed">
-            Get early technical updates and long-form breakdowns once a month directly in your inbox. No spam.
+            Get early technical updates and long-form breakdowns once a month
+            directly in your inbox. No spam.
           </p>
 
           <AnimatePresence>

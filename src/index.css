@@ -1,5 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=League+Spartan:wght@300;400;500;600&family=Manrope:wght@300;400;500;600;700;800&display=swap');
-
+@import url("https://fonts.googleapis.com/css2?family=Urbanist:wght@400;500;600;700&display=swap");
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -45,8 +44,8 @@
     --sidebar-border: 220 13% 91%;
     --sidebar-ring: 217.2 91.2% 59.8%;
 
-    --font-display: 'League Spartan', sans-serif;
-    --font-body: 'League Spartan', sans-serif;
+    --font-display: 'Urbanist', sans-serif;
+    --font-body: 'Urbanist', sans-serif;
   }
 
   .dark {
@@ -80,6 +79,7 @@
   body {
     @apply bg-background text-foreground;
     font-family: var(--font-body);
+    font-weight: 500;
   }
 
   h1, h2, h3, h4, h5, h6 {
