@@ -23,7 +23,7 @@ import logoo0 from "@/assets/logoo0.jpg";
 import logoo33 from "@/assets/logoo33.jpg";
 import logoo4 from "@/assets/logoo4.jpg";
 import projstoreapp22 from "@/assets/proj-storeapp22.png";
-import supersonic from "@/assets/supersonic.png";
+import supersonic from "@/assets/sds000.jpeg";
 import xerai from "@/assets/xerai.jpg";
 
 const projects = [

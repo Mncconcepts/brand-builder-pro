@@ -9,6 +9,7 @@ import BookCallSheet from "@/components/BookCallSheet";
 import {
   Calendar as CalendarIcon,
   ArrowUpRight,
+  ArrowLeft,
   Star,
   Clock,
   FolderCheck,
@@ -62,56 +63,6 @@ const SkeletonImage = ({
         onLoad={() => setIsLoaded(true)}
         className={`${className} transition-opacity duration-500 ${isLoaded ? "opacity-100" : "opacity-0"}`}
       />
-    </div>
-  );
-};
-
-const ComingSoonImage = ({
-  icon: Icon,
-  className,
-}: {
-  icon: React.ElementType;
-  className?: string;
-}) => {
-  const [isLoaded, setIsLoaded] = useState(false);
-
-  useEffect(() => {
-    const t = window.setTimeout(
-      () => setIsLoaded(true),
-      900 + Math.random() * 500,
-    );
-    return () => window.clearTimeout(t);
-  }, []);
-
-  return (
-    <div className={`relative overflow-hidden bg-secondary/40 ${className}`}>
-      <AnimatePresence>
-        {!isLoaded && (
-          <motion.div
-            initial={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="absolute inset-0 z-10 bg-muted/20"
-          >
-            <motion.div
-              className="w-full h-full bg-gradient-to-r from-transparent via-muted-foreground/10 to-transparent"
-              animate={{ x: ["-100%", "100%"] }}
-              transition={{ repeat: Infinity, duration: 1.5, ease: "linear" }}
-            />
-          </motion.div>
-        )}
-      </AnimatePresence>
-
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: isLoaded ? 1 : 0 }}
-        transition={{ duration: 0.5 }}
-        className="absolute inset-0 flex flex-col items-center justify-center gap-2 border border-dashed border-border/60 m-2 rounded-lg"
-      >
-        <Icon className="w-5 h-5 text-muted-foreground/50" />
-        <span className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground/70">
-          Coming Soon
-        </span>
-      </motion.div>
     </div>
   );
 };
@@ -267,7 +218,7 @@ const featuredProjects = [
     title: "Supersonic Dynamic Services",
     category: "Development & Product Design",
     year: "2026",
-    image: "/supersonic.png",
+    image: "/sds000.jpeg",
     tags: ["Logistics", "Haulage-Moving service"],
     color: "from-foreground/5 to-primary/10",
   },
@@ -371,7 +322,7 @@ const courses = [
     title: "Product Design",
     level: "Beginner → Advanced",
     duration: "8 weeks",
-    image: "/proj-oma.png",
+    image: "/course2.jpeg",
     desc: "A guided, project-based track covering research, wireframing, prototyping and high-fidelity UI taught the way we actually work with clients.",
     bullets: [
       "User research & personas",
@@ -379,12 +330,52 @@ const courses = [
       "Design systems & handoff",
       "Portfolio-ready case study",
     ],
+    overview:
+      "Over eight weeks you will design one real product from the first user interview to the final developer handoff. You learn the same process we use on paid client work: understand the problem, structure the solution, design it, test it and hand it over. You finish with a portfolio-ready case study you can show to employers or clients.",
+    audience:
+      "Beginners, career switchers and designers who want a client-ready process.",
+    format: "Project-based, taught step by step with feedback on your work.",
+    curriculum: [
+      {
+        weeks: "Weeks 1-2",
+        topic: "Research & problem framing",
+        detail: "User interviews, personas and journey maps.",
+      },
+      {
+        weeks: "Weeks 3-4",
+        topic: "Structure & wireframes",
+        detail:
+          "User flows, information architecture and low-fidelity screens.",
+      },
+      {
+        weeks: "Weeks 5-6",
+        topic: "High-fidelity UI & prototyping",
+        detail: "Typography, colour, components and interactive prototypes.",
+      },
+      {
+        weeks: "Week 7",
+        topic: "Design systems & handoff",
+        detail: "Reusable components and clean specs for developers.",
+      },
+      {
+        weeks: "Week 8",
+        topic: "Testing & case study",
+        detail: "Usability testing and a portfolio-ready write-up.",
+      },
+    ],
+    goals: [
+      "Start a design career",
+      "Build a stronger portfolio",
+      "Design my own product",
+      "Upskill for my current job",
+    ],
   },
   {
     icon: Layout,
     title: "Frontend Development",
     level: "Intermediate → Advanced",
     duration: "8 weeks",
+    image: "/course1.jpeg",
     desc: "Go deep on React, state management and the interaction details that separate good frontend work from great frontend work.",
     bullets: [
       "React, Vite, TypeScript & hooks",
@@ -392,6 +383,125 @@ const courses = [
       "Animation & micro-interactions",
       "Performance & accessibility",
     ],
+    overview:
+      "This course takes you past tutorials and into how production frontends are really built. You work with React and TypeScript, structure state properly, add polished motion and make your apps fast and accessible. You finish by shipping a capstone application you can put in your portfolio.",
+    audience:
+      "Developers who already know HTML, CSS and basic JavaScript and want to level up.",
+    format:
+      "Project-based, taught step by step with code reviews on your work.",
+    curriculum: [
+      {
+        weeks: "Weeks 1-2",
+        topic: "React & TypeScript foundations",
+        detail: "Components, hooks and typing patterns that scale.",
+      },
+      {
+        weeks: "Weeks 3-4",
+        topic: "State & data fetching",
+        detail: "State management patterns and working with APIs.",
+      },
+      {
+        weeks: "Weeks 5-6",
+        topic: "Animation & micro-interactions",
+        detail:
+          "Motion, transitions and interaction details that feel polished.",
+      },
+      {
+        weeks: "Week 7",
+        topic: "Performance & accessibility",
+        detail: "Faster load times and interfaces everyone can use.",
+      },
+      {
+        weeks: "Week 8",
+        topic: "Capstone project",
+        detail: "Build and ship a production-style application.",
+      },
+    ],
+    goals: [
+      "Land a frontend role",
+      "Build my own product",
+      "Level up at my current job",
+      "Freelance with confidence",
+    ],
+  },
+];
+
+
+type Course = (typeof courses)[number];
+
+type CourseQuestion = {
+  id: string;
+  short: string;
+  label: string;
+  helper?: string;
+  kind: "text" | "choice" | "note";
+  options?: string[];
+  placeholder?: string;
+  required: boolean;
+};
+
+const buildCourseQuestions = (course: Course): CourseQuestion[] => [
+  {
+    id: "name",
+    short: "Name",
+    label: "What's your name?",
+    helper: "So we know who we're talking to on WhatsApp.",
+    kind: "text",
+    placeholder: "Your full name",
+    required: true,
+  },
+  {
+    id: "level",
+    short: "Experience",
+    label: `What's your current level in ${course.title}?`,
+    helper: "Be honest, this helps us place you correctly.",
+    kind: "choice",
+    options: [
+      "Complete beginner",
+      "I know the basics",
+      "Intermediate",
+      "Advanced",
+    ],
+    required: true,
+  },
+  {
+    id: "goal",
+    short: "Goal",
+    label: "What do you want out of this course?",
+    kind: "choice",
+    options: course.goals,
+    required: true,
+  },
+  {
+    id: "hours",
+    short: "Weekly time",
+    label: "How many hours a week can you commit?",
+    helper: "Most students do best with at least 6 hours.",
+    kind: "choice",
+    options: ["3-5 hours", "6-10 hours", "10+ hours"],
+    required: true,
+  },
+  {
+    id: "device",
+    short: "Equipment",
+    label: "Do you have a laptop and stable internet?",
+    kind: "choice",
+    options: [
+      "Yes, both",
+      "Laptop, but internet is unstable",
+      "Internet only, no laptop yet",
+      "Not yet",
+    ],
+    required: true,
+  },
+  {
+    id: "note",
+    short: "Notes",
+    label: "Anything else we should know?",
+    helper: "Optional. Questions, preferred start date, special requests.",
+    kind: "note",
+    placeholder: "type here...",
+    required: false,
   },
 ];
 
@@ -405,6 +515,15 @@ const Index = () => {
   const [selectedTier, setSelectedTier] = useState<string>("growth");
   const [inquiryNote, setInquiryNote] = useState("");
   const [isSubmittingInquiry, setIsSubmittingInquiry] = useState(false);
+
+  /* Course popup state */
+  const [activeCourse, setActiveCourse] = useState<number | null>(null);
+  const [courseStep, setCourseStep] = useState(0);
+  const [courseDir, setCourseDir] = useState(1);
+  const [courseAnswers, setCourseAnswers] = useState<Record<string, string>>(
+    {},
+  );
+  const [isOpeningWhatsApp, setIsOpeningWhatsApp] = useState(false);
 
   const [heroProject, ...otherProjects] = featuredProjects;
   const [featuredPost, ...restPosts] = blogPosts;
@@ -446,7 +565,7 @@ const Index = () => {
     navigate(`/contact?${params.toString()}`);
   };
 
-  // NEW — course WhatsApp quick-reach button
+  // Course WhatsApp quick-reach button
   const handleCourseWhatsApp = (course: (typeof courses)[number]) => {
     const text = encodeURIComponent(
       `Hi! I'm interested in the ${course.title} course. Can you share more details?`,
@@ -456,6 +575,79 @@ const Index = () => {
       "_blank",
       "noopener,noreferrer",
     );
+  };
+
+  /* ─── Course popup logic ─── */
+  const activeCourseData = activeCourse !== null ? courses[activeCourse] : null;
+  const courseQuestions = activeCourseData
+    ? buildCourseQuestions(activeCourseData)
+    : [];
+  const reviewStep = courseQuestions.length + 1;
+  const totalCourseSteps = courseQuestions.length + 2;
+  const currentQuestion =
+    courseStep >= 1 && courseStep <= courseQuestions.length
+      ? courseQuestions[courseStep - 1]
+      : null;
+
+  const canContinueCourse = () => {
+    if (courseStep === 0 || courseStep === reviewStep) return true;
+    if (!currentQuestion) return false;
+    if (!currentQuestion.required) return true;
+    return (courseAnswers[currentQuestion.id] ?? "").trim().length > 0;
+  };
+
+  const openCourseModal = (index: number) => {
+    setActiveCourse(index);
+    setCourseStep(0);
+    setCourseDir(1);
+    setCourseAnswers({});
+    setIsOpeningWhatsApp(false);
+  };
+
+  const closeCourseModal = () => {
+    setActiveCourse(null);
+    setIsOpeningWhatsApp(false);
+  };
+
+  const setCourseAnswer = (id: string, value: string) => {
+    setCourseAnswers((prev) => ({ ...prev, [id]: value }));
+  };
+
+  const goNextCourseStep = () => {
+    if (!canContinueCourse() || courseStep >= reviewStep) return;
+    setCourseDir(1);
+    setCourseStep((s) => s + 1);
+  };
+
+  const goBackCourseStep = () => {
+    if (courseStep <= 0) return;
+    setCourseDir(-1);
+    setCourseStep((s) => s - 1);
+  };
+
+  const handleCourseEnroll = () => {
+    if (!activeCourseData) return;
+    setIsOpeningWhatsApp(true);
+
+    const lines = [
+      `Hi! I'd like to enroll in the ${activeCourseData.title} course (${activeCourseData.duration}).`,
+      "",
+      ...courseQuestions
+        .filter((q) => (courseAnswers[q.id] ?? "").trim())
+        .map((q) => `${q.short}: ${courseAnswers[q.id].trim()}`),
+      "",
+      "Please share the next steps. Thank you!",
+    ];
+
+    const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(
+      lines.join("\n"),
+    )}`;
+
+    window.setTimeout(() => {
+      window.open(url, "_blank", "noopener,noreferrer");
+      setIsOpeningWhatsApp(false);
+      closeCourseModal();
+    }, 500);
   };
 
   const productHighlights = [
@@ -477,6 +669,19 @@ const Index = () => {
       window.removeEventListener("keydown", onKey);
     };
   }, [activeService]);
+
+  useEffect(() => {
+    if (activeCourse === null) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") closeCourseModal();
+    };
+    document.body.style.overflow = "hidden";
+    window.addEventListener("keydown", onKey);
+    return () => {
+      document.body.style.overflow = "";
+      window.removeEventListener("keydown", onKey);
+    };
+  }, [activeCourse]);
 
   return (
     <div className="min-h-screen bg-background overflow-x-hidden">
@@ -801,7 +1006,7 @@ const Index = () => {
       </section>
 
       {/* ═══════════════════════════════════════════════════════
-          NEW — Courses section
+          Courses section — "View Details" opens the enrollment popup
           ═══════════════════════════════════════════════════════ */}
       <section className="py-28 bg-secondary/30 border-y border-border">
         <div className="max-w-6xl mx-auto px-6">
@@ -837,10 +1042,17 @@ const Index = () => {
                   transition={{ delay: i * 0.1 }}
                   className="group flex flex-col bg-card border border-border rounded-2xl overflow-hidden hover:border-primary/30 transition-colors duration-300"
                 >
-                  <ComingSoonImage
-                    icon={Icon}
-                    className="aspect-[16/9] w-full"
-                  />
+                  <div className="relative aspect-[16/9] w-full overflow-hidden bg-secondary">
+                    <SkeletonImage
+                      src={course.image}
+                      alt={`${course.title} course preview`}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-card/60 via-transparent to-transparent pointer-events-none" />
+                    <span className="absolute top-3 left-3 inline-flex items-center justify-center w-8 h-8 rounded-lg bg-background/70 backdrop-blur-sm border border-border/40 text-primary">
+                      <Icon className="w-4 h-4" />
+                    </span>
+                  </div>
 
                   <div className="flex flex-col flex-1 p-5 sm:p-6 text-left">
                     <div className="flex items-center gap-2 mb-3">
@@ -874,10 +1086,11 @@ const Index = () => {
                     <div className="flex items-center gap-2.5 mt-auto pt-4 border-t border-border/60">
                       <button
                         type="button"
+                        onClick={() => openCourseModal(i)}
                         className="flex-1 inline-flex items-center justify-center gap-1.5 bg-primary text-primary-foreground px-4 py-3.5 text-xs font-semibold rounded-lg hover:bg-primary/90 transition-all duration-200"
                       >
                         <Eye className="w-3.5 h-3.5" />
-                        Browse Courses
+                        View Course Details
                       </button>
                       <button
                         type="button"
@@ -1506,6 +1719,377 @@ const Index = () => {
                   We'll take you to the contact form with this pre-filled so you
                   don't have to repeat yourself.
                 </p>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* ─── Course popup: overview → step-by-step questions → WhatsApp ─── */}
+      <AnimatePresence>
+        {activeCourseData && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 flex items-end sm:items-center justify-center"
+          >
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={closeCourseModal}
+              className="absolute inset-0 bg-foreground/40 backdrop-blur-sm"
+            />
+
+            <motion.div
+              initial={{ opacity: 0, y: 40, scale: 0.98 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: 20, scale: 0.98 }}
+              transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+              role="dialog"
+              aria-modal="true"
+              aria-label={`${activeCourseData.title} course details`}
+              className="relative w-full sm:max-w-xl max-h-[92vh] flex flex-col bg-card border border-border rounded-t-2xl sm:rounded-2xl shadow-2md overflow-hidden"
+            >
+              {/* Header */}
+              <div className="shrink-0 bg-card/95 backdrop-blur-sm border-b border-border px-6 py-5 flex items-start justify-between gap-4">
+                <div className="min-w-0">
+                  <p className="text-[10px] font-bold uppercase tracking-widest text-primary mb-1">
+                    {courseStep === 0
+                      ? "Course Details"
+                      : courseStep === reviewStep
+                        ? "Review & Enroll"
+                        : `Question ${courseStep} of ${courseQuestions.length}`}
+                  </p>
+                  <h3 className="font-display text-xl font-bold text-foreground">
+                    {activeCourseData.title}
+                  </h3>
+                </div>
+                <button
+                  type="button"
+                  onClick={closeCourseModal}
+                  aria-label="Close"
+                  className="w-8 h-8 shrink-0 rounded-full border border-border flex items-center justify-center text-muted-foreground hover:text-foreground hover:border-foreground/40 transition-colors"
+                >
+                  <X className="w-4 h-4" />
+                </button>
+              </div>
+
+              {/* Progress bar */}
+              <div className="shrink-0 h-1 w-full bg-secondary">
+                <motion.div
+                  className="h-full bg-primary"
+                  initial={false}
+                  animate={{
+                    width: `${(courseStep / (totalCourseSteps - 1)) * 100}%`,
+                  }}
+                  transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+                />
+              </div>
+
+              {/* Body */}
+              <div className="flex-1 overflow-y-auto px-6 py-6">
+                <AnimatePresence mode="wait" initial={false}>
+                  <motion.div
+                    key={courseStep}
+                    initial={{ opacity: 0, x: courseDir * 24 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    exit={{ opacity: 0, x: courseDir * -24 }}
+                    transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
+                  >
+                    {/* ── Step 0: detailed overview ── */}
+                    {courseStep === 0 && (
+                      <div className="space-y-6">
+                        <div className="flex items-center gap-2 flex-wrap">
+                          <span className="text-[10px] font-semibold uppercase tracking-wider text-primary bg-primary/10 px-2.5 py-1 rounded-full">
+                            {activeCourseData.level}
+                          </span>
+                          <span className="text-[11px] text-muted-foreground">
+                            {activeCourseData.duration}
+                          </span>
+                        </div>
+
+                        <p className="text-sm text-muted-foreground leading-relaxed">
+                          {activeCourseData.overview}
+                        </p>
+
+                        <div>
+                          <p className="text-xs font-semibold text-foreground mb-3">
+                            What you'll learn
+                          </p>
+                          <ul className="space-y-2">
+                            {activeCourseData.bullets.map((b) => (
+                              <li
+                                key={b}
+                                className="flex items-start gap-2 text-xs text-muted-foreground"
+                              >
+                                <CheckCircle2 className="w-3.5 h-3.5 text-primary shrink-0 mt-0.5" />
+                                {b}
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+
+                        <div>
+                          <p className="text-xs font-semibold text-foreground mb-3">
+                            Week by week
+                          </p>
+                          <ol className="border border-border rounded-xl divide-y divide-border overflow-hidden">
+                            {activeCourseData.curriculum.map((item) => (
+                              <li
+                                key={item.topic}
+                                className="flex items-start gap-3 px-4 py-3"
+                              >
+                                <span className="w-16 shrink-0 text-[10px] font-bold uppercase tracking-wider text-primary pt-0.5">
+                                  {item.weeks}
+                                </span>
+                                <div className="min-w-0">
+                                  <p className="text-xs font-bold text-foreground">
+                                    {item.topic}
+                                  </p>
+                                  <p className="text-[11px] text-muted-foreground leading-snug mt-0.5">
+                                    {item.detail}
+                                  </p>
+                                </div>
+                              </li>
+                            ))}
+                          </ol>
+                        </div>
+
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                          <div className="rounded-xl border border-border bg-background px-4 py-3">
+                            <p className="text-xs font-bold text-foreground mb-1">
+                              Who it's for
+                            </p>
+                            <p className="text-[11px] text-muted-foreground leading-snug">
+                              {activeCourseData.audience}
+                            </p>
+                          </div>
+                          <div className="rounded-xl border border-border bg-background px-4 py-3">
+                            <p className="text-xs font-bold text-foreground mb-1">
+                              How it works
+                            </p>
+                            <p className="text-[11px] text-muted-foreground leading-snug">
+                              {activeCourseData.format}
+                            </p>
+                          </div>
+                        </div>
+
+                        <p className="text-[11px] text-muted-foreground leading-relaxed">
+                          Ready? Answer a few quick questions and we'll send
+                          your details straight to our WhatsApp.
+                        </p>
+                      </div>
+                    )}
+
+                    {/* ── Steps 1..n: one question at a time ── */}
+                    {currentQuestion && (
+                      <div className="space-y-5">
+                        <div>
+                          <h4 className="font-display text-lg font-bold text-foreground leading-snug">
+                            {currentQuestion.label}
+                          </h4>
+                          {currentQuestion.helper && (
+                            <p className="text-xs text-muted-foreground leading-relaxed mt-1.5">
+                              {currentQuestion.helper}
+                            </p>
+                          )}
+                        </div>
+
+                        {currentQuestion.kind === "text" && (
+                          <input
+                            type="text"
+                            autoFocus
+                            value={courseAnswers[currentQuestion.id] ?? ""}
+                            onChange={(e) =>
+                              setCourseAnswer(
+                                currentQuestion.id,
+                                e.target.value,
+                              )
+                            }
+                            onKeyDown={(e) => {
+                              if (e.key === "Enter") {
+                                e.preventDefault();
+                                goNextCourseStep();
+                              }
+                            }}
+                            placeholder={currentQuestion.placeholder}
+                            aria-label={currentQuestion.label}
+                            className="w-full text-sm rounded-xl border border-border bg-background px-3.5 py-3 text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-primary/40 focus:border-primary/40"
+                          />
+                        )}
+
+                        {currentQuestion.kind === "note" && (
+                          <textarea
+                            value={courseAnswers[currentQuestion.id] ?? ""}
+                            onChange={(e) =>
+                              setCourseAnswer(
+                                currentQuestion.id,
+                                e.target.value,
+                              )
+                            }
+                            rows={4}
+                            placeholder={currentQuestion.placeholder}
+                            aria-label={currentQuestion.label}
+                            className="w-full text-xs rounded-xl border border-border bg-background px-3 py-2.5 text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-primary/40 focus:border-primary/40 resize-none"
+                          />
+                        )}
+
+                        {currentQuestion.kind === "choice" && (
+                          <div
+                            role="radiogroup"
+                            aria-label={currentQuestion.label}
+                            className="grid grid-cols-1 sm:grid-cols-2 gap-2"
+                          >
+                            {currentQuestion.options?.map((option) => {
+                              const selected =
+                                courseAnswers[currentQuestion.id] === option;
+                              return (
+                                <button
+                                  key={option}
+                                  type="button"
+                                  role="radio"
+                                  aria-checked={selected}
+                                  onClick={() =>
+                                    setCourseAnswer(currentQuestion.id, option)
+                                  }
+                                  className={`flex items-center justify-between gap-3 text-left rounded-xl border px-3.5 py-3 transition-all duration-200 ${
+                                    selected
+                                      ? "border-primary/50 bg-primary/10 shadow-xs"
+                                      : "border-border hover:border-primary/20"
+                                  }`}
+                                >
+                                  <span
+                                    className={`text-xs font-semibold ${
+                                      selected
+                                        ? "text-primary"
+                                        : "text-foreground"
+                                    }`}
+                                  >
+                                    {option}
+                                  </span>
+                                  <span
+                                    className={`w-4 h-4 shrink-0 rounded-full border flex items-center justify-center transition-colors ${
+                                      selected
+                                        ? "border-primary bg-primary"
+                                        : "border-border"
+                                    }`}
+                                  >
+                                    {selected && (
+                                      <span className="w-1.5 h-1.5 rounded-full bg-primary-foreground" />
+                                    )}
+                                  </span>
+                                </button>
+                              );
+                            })}
+                          </div>
+                        )}
+                      </div>
+                    )}
+
+                    {/* ── Final step: review ── */}
+                    {courseStep === reviewStep && (
+                      <div className="space-y-5">
+                        <div>
+                          <h4 className="font-display text-lg font-bold text-foreground leading-snug">
+                            Looks good? Let's chat.
+                          </h4>
+                          <p className="text-xs text-muted-foreground leading-relaxed mt-1.5">
+                            Tapping the button below opens WhatsApp with your
+                            answers already written, so you only need to press
+                            send.
+                          </p>
+                        </div>
+
+                        <dl className="border border-border rounded-xl divide-y divide-border overflow-hidden">
+                          <div className="flex items-start justify-between gap-4 px-4 py-3">
+                            <dt className="text-[11px] text-muted-foreground shrink-0">
+                              Course
+                            </dt>
+                            <dd className="text-xs font-semibold text-foreground text-right">
+                              {activeCourseData.title} ·{" "}
+                              {activeCourseData.duration}
+                            </dd>
+                          </div>
+                          {courseQuestions.map((q) => {
+                            const value = (courseAnswers[q.id] ?? "").trim();
+                            if (!value) return null;
+                            return (
+                              <div
+                                key={q.id}
+                                className="flex items-start justify-between gap-4 px-4 py-3"
+                              >
+                                <dt className="text-[11px] text-muted-foreground shrink-0">
+                                  {q.short}
+                                </dt>
+                                <dd className="text-xs font-semibold text-foreground text-right break-words min-w-0">
+                                  {value}
+                                </dd>
+                              </div>
+                            );
+                          })}
+                        </dl>
+                      </div>
+                    )}
+                  </motion.div>
+                </AnimatePresence>
+              </div>
+
+              {/* Footer actions */}
+              <div className="shrink-0 border-t border-border bg-card px-6 py-4">
+                <div className="flex flex-col-reverse sm:flex-row gap-2">
+                  {courseStep === 0 ? (
+                    <button
+                      type="button"
+                      onClick={closeCourseModal}
+                      className="flex-1 text-center text-sm font-semibold py-2.5 rounded-lg border border-border text-foreground hover:bg-secondary transition-all duration-200"
+                    >
+                      Close
+                    </button>
+                  ) : (
+                    <button
+                      type="button"
+                      onClick={goBackCourseStep}
+                      disabled={isOpeningWhatsApp}
+                      className="flex-1 inline-flex items-center justify-center gap-1.5 text-sm font-semibold py-2.5 rounded-lg border border-border text-foreground hover:bg-secondary transition-all duration-200 disabled:opacity-60"
+                    >
+                      <ArrowLeft className="w-3.5 h-3.5" />
+                      Back
+                    </button>
+                  )}
+
+                  {courseStep < reviewStep ? (
+                    <button
+                      type="button"
+                      onClick={goNextCourseStep}
+                      disabled={!canContinueCourse()}
+                      className="flex-1 inline-flex items-center justify-center gap-2 text-sm font-semibold py-3.5 rounded-lg bg-primary text-primary-foreground hover:bg-primary/90 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+                    >
+                      {courseStep === 0 ? "Start Enrollment" : "Continue"}
+                      <ArrowRight className="w-3.5 h-3.5" />
+                    </button>
+                  ) : (
+                    <button
+                      type="button"
+                      onClick={handleCourseEnroll}
+                      disabled={isOpeningWhatsApp}
+                      className="flex-1 inline-flex items-center justify-center gap-2 text-sm font-semibold py-3.5 rounded-lg bg-primary text-primary-foreground hover:bg-primary/90 transition-all duration-200 disabled:opacity-70"
+                    >
+                      {isOpeningWhatsApp ? (
+                        <>
+                          <span className="w-3.5 h-3.5 text-xs rounded-full border-2 border-primary-foreground/40 border-t-primary-foreground animate-spin" />
+                          Opening WhatsApp...
+                        </>
+                      ) : (
+                        <>
+                          <WhatsAppIcon className="w-4 h-4" />
+                          Continue on WhatsApp
+                        </>
+                      )}
+                    </button>
+                  )}
+                </div>
               </div>
             </motion.div>
           </motion.div>

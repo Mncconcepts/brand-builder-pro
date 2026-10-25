@@ -1,9 +1,11 @@
 import { useState } from "react";
+import type { ReactNode } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Link } from "react-router-dom";
 import {
   Calendar as CalendarIcon,
   ArrowUpRight,
+  ArrowRight,
   ChevronDown,
   Compass,
   Rocket,
@@ -19,29 +21,75 @@ import {
   Terminal,
   PenTool,
   CalendarDays,
+  FolderCheck,
 } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import BookCallSheet from "@/components/BookCallSheet";
 
+/* ─── Skeleton Component ─── */
+const SkeletonImage = ({
+  src,
+  alt,
+  className,
+}: {
+  src: string;
+  alt: string;
+  className?: string;
+}) => {
+  const [isLoaded, setIsLoaded] = useState(false);
+
+  return (
+    <div className={`relative overflow-hidden ${className}`}>
+      {/* Shimmer/Skeleton Effect */}
+      <AnimatePresence>
+        {!isLoaded && (
+          <motion.div
+            initial={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="absolute inset-0 z-10 bg-muted/20"
+          >
+            <motion.div
+              className="w-full h-full bg-gradient-to-r from-transparent via-muted-foreground/10 to-transparent"
+              animate={{ x: ["-100%", "100%"] }}
+              transition={{ repeat: Infinity, duration: 1.5, ease: "linear" }}
+            />
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      <img
+        src={src}
+        alt={alt}
+        onLoad={() => setIsLoaded(true)}
+        className={`${className} transition-opacity duration-500 ${isLoaded ? "opacity-100" : "opacity-0"}`}
+      />
+    </div>
+  );
+};
+
+/* ─── data ─── */
 const approachPillars = [
   {
     icon: Compass,
     title: "Design & Strategy",
     description:
       "We start with research and product strategy, mapping user needs and business goals before a single screen gets designed. Every decision has a reason behind it.",
+    tags: ["User research", "Product strategy", "UX & UI design"],
   },
   {
     icon: Code2,
     title: "Development",
     description:
       "Clean, scalable code that mirrors the design intent exactly. We build with modern frameworks so what ships matches what was designed, pixel for pixel.",
+    tags: ["Modern frameworks", "Scalable code", "Design fidelity"],
   },
   {
     icon: Rocket,
     title: "Launch & Support",
     description:
       "We don't disappear after launch. Ongoing iteration, monitoring, and support keep the product improving long after the first release date.",
+    tags: ["Deployment", "Monitoring", "Ongoing iteration"],
   },
 ];
 
@@ -70,7 +118,7 @@ const skillGroups = [
       "Fast-Api",
       "MongoDB",
       "PostgreSQL",
-      "Firebase",
+      "Supabase",
     ],
   },
   {
@@ -171,18 +219,64 @@ const metrics = [
   { value: "100%", label: "Remote-Friendly" },
 ];
 
+const trustedBy = [
+  "SUPERSONIC Dynamic Services",
+  "Visa Guard Africa",
+  "Oonsa Events",
+  "Computer Village Marketplace",
+  "DAPSVERSE",
+];
+
+/* ─── shared section heading ─── */
+function SectionHeading({
+  eyebrow,
+  title,
+  description,
+}: {
+  eyebrow: string;
+  title: ReactNode;
+  description?: string;
+}) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+      className="max-w-2xl"
+    >
+      <div className="inline-flex items-center gap-2 mb-4">
+        <span className="w-6 h-px bg-foreground/40" />
+        <p className="text-[10px] font-bold tracking-widest uppercase text-muted-foreground">
+          {eyebrow}
+        </p>
+      </div>
+      <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl tracking-tight text-balance font-extrabold text-foreground leading-[1.02]">
+        {title}
+      </h2>
+      {description && (
+        <p className="text-sm text-muted-foreground leading-relaxed mt-4">
+          {description}
+        </p>
+      )}
+    </motion.div>
+  );
+}
+
 const About = () => {
   const [openExperience, setOpenExperience] = useState<number | null>(0);
+  const currentRoles = experience.filter((e) => e.period === "Present").length;
 
   return (
     <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
       <Navbar />
 
       {/* ── HERO ── */}
-      <section className="relative pt-28 pb-20 sm:pt-36 sm:pb-24 border-b border-border overflow-hidden">
-        <div className="absolute inset-0 -z-10">
-          <div className="absolute inset-0 bg-[linear-gradient(to_right,hsl(var(--border))_1px,transparent_1px),linear-gradient(to_bottom,hsl(var(--border))_1px,transparent_1px)] bg-[size:64px_64px] [mask-image:radial-gradient(ellipse_70%_45%_at_30%_0%,black,transparent)] opacity-[0.15]" />
-          <div className="absolute -top-32 -right-24 w-[420px] h-[420px] rounded-full bg-foreground/[0.04] blur-3xl" />
+      <section className="relative pt-28 pb-16 sm:pt-40 sm:pb-20 border-b border-border overflow-hidden">
+        <div className="absolute inset-0 -z-10 pointer-events-none">
+          <div className="absolute -top-24 -left-24 w-[480px] h-[480px] rounded-full bg-primary/5 blur-[120px]" />
+          <div className="absolute top-1/3 -right-32 w-[380px] h-[380px] rounded-full bg-blue-500/5 blur-[100px]" />
+          <div className="absolute inset-0 bg-[linear-gradient(to_right,hsl(var(--border))_1px,transparent_1px),linear-gradient(to_bottom,hsl(var(--border))_1px,transparent_1px)] bg-[size:72px_72px] [mask-image:radial-gradient(ellipse_70%_55%_at_30%_0%,black,transparent)] opacity-30" />
         </div>
 
         <div className="max-w-6xl mx-auto px-6">
@@ -191,99 +285,152 @@ const About = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
           >
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-border bg-foreground/5 mb-6">
-              <span className="w-1 h-1 rounded-full bg-foreground animate-pulse" />
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-border bg-foreground/5 backdrop-blur-sm mb-6">
+              <span className="relative flex h-1.5 w-1.5">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-70" />
+                <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-emerald-500" />
+              </span>
               <span className="text-[10px] font-bold text-foreground tracking-widest uppercase">
                 About the Team
               </span>
             </div>
 
             {/* Split hero: narrative on the left, a real photo on the right */}
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-y-12 lg:gap-x-12 items-center">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-y-12 lg:gap-x-14 items-center">
               <div className="lg:col-span-7">
-                <h1 className="font-display text-[2.75rem] leading-[1.01] sm:text-7xl lg:text-6xl font-extrabold text-foreground tracking-tight text-balance mb-6">
+                <h1 className="font-display text-[2.75rem] leading-[1.01] sm:text-7xl lg:text-7xl font-extrabold text-foreground tracking-tight text-balance mb-6">
                   Design-Strategy, <br />
                   <span className="text-muted-foreground">Development,</span>
                   <br />
                   Launch-Support.
                 </h1>
-                <p className="text-sm sm:text-[15px] text-muted-foreground leading-relaxed mb-8 max-w-md">
+                <p className="text-sm sm:text-base text-muted-foreground leading-relaxed mb-8 max-w-lg">
                   A multidisciplinary creative team with over 4 years bridging
                   design and development. We partner with startups and
-                  established brands to ship digital products that look as
-                  good as they run.
+                  established brands to ship digital products that look as good
+                  as they run.
                 </p>
-                <Link
-                  to="/contact"
-                  className="group inline-flex items-center gap-2 bg-foreground text-background px-10 py-3 text-sm font-bold rounded-xl shadow-sm hover:shadow-xs transition-all hover:-translate-y-0.5"
-                >
-                  Work With Us
-                  <ArrowUpRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-                </Link>
+                <div className="flex flex-col sm:flex-row gap-3">
+                  <Link
+                    to="/contact"
+                    className="group inline-flex items-center justify-center gap-2 bg-foreground text-background px-9 py-3.5 text-sm font-bold rounded-xl shadow-sm hover:shadow-xs transition-all hover:-translate-y-0.5 active:scale-[0.98]"
+                  >
+                    Work With Us
+                    <ArrowUpRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                  </Link>
+                  <Link
+                    to="/projects"
+                    className="inline-flex items-center justify-center gap-2 border border-border text-foreground px-9 py-3.5 text-sm font-semibold rounded-xl hover:bg-secondary transition-all hover:-translate-y-0.5 active:scale-[0.98]"
+                  >
+                    View Our Work
+                  </Link>
+                </div>
               </div>
 
               <div className="lg:col-span-5">
-                <div className="relative aspect-[16/10] sm:aspect-[16/10] lg:aspect-[4/5] rounded-3xl overflow-hidden border border-border">
-                  <img
-                    src="/profile3.jpg"
-                    alt="The team working together"
-                    className="h-full w-full object-cover grayscale-[35%] transition-all duration-700 hover:grayscale-0 hover:scale-105"
-                  />
+                <div className="relative">
+                  <div className="absolute -inset-3 rounded-[2rem] border border-border/40 bg-secondary/20 backdrop-blur-sm -z-10" />
+                  <div className="group relative aspect-[16/10] lg:aspect-[4/5] rounded-3xl overflow-hidden border border-border shadow-l">
+                    <div className="w-full h-full grayscale-[35%] transition-all duration-700 group-hover:grayscale-0 group-hover:scale-105">
+                      <SkeletonImage
+                        src="/profile3.jpg"
+                        alt="The team working together"
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
+                    <div className="absolute inset-0 bg-gradient-to-t from-foreground/30 via-transparent to-transparent pointer-events-none" />
+                  </div>
+
+                  <div className="absolute -top-3 -right-3 flex items-center gap-2 bg-card border border-border rounded-full px-3 py-2 shadow-l">
+                    <span className="relative flex h-2 w-2">
+                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
+                      <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
+                    </span>
+                    <span className="text-[11px] font-semibold text-foreground">
+                      Available for work
+                    </span>
+                  </div>
+
+                  <div className="absolute -bottom-5 -left-3 sm:-left-6 flex items-center gap-3 bg-card border border-border rounded-xl px-4 py-3 shadow-md">
+                    <div className="w-8 h-8 rounded-lg bg-foreground/5 border border-border flex items-center justify-center">
+                      <FolderCheck className="w-4 h-4 text-foreground" />
+                    </div>
+                    <div>
+                      <p className="text-xs font-bold text-foreground">
+                        50+ Projects
+                      </p>
+                      <p className="text-[10px] text-muted-foreground">
+                        Successfully Delivered
+                      </p>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
           </motion.div>
 
+          {/* Metrics */}
           <motion.div
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3, duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-            className="mt-14 sm:mt-16 rounded-xl border border-border bg-foreground/[0.02] overflow-hidden"
+            className="grid grid-cols-2 md:grid-cols-4 mt-16 sm:mt-20 border-t border-l border-border rounded-tl-2xl"
           >
-            <div className="grid grid-cols-2 sm:grid-cols-4">
-              {metrics.map((m, i) => (
-                <div
-                  key={m.label}
-                  className={`text-center sm:text-left py-6 px-5 ${
-                    i % 2 === 0 ? "border-r border-border" : ""
-                  } ${i < 2 ? "border-b sm:border-b-0 border-border" : ""} ${
-                    i > 0 ? "sm:border-l sm:border-r-0" : ""
-                  }`}
-                >
-                  <p className="font-display text-3xl sm:text-4xl font-extrabold text-foreground tracking-tight tabular-nums">
-                    {m.value}
-                  </p>
-                  <p className="text-[10px] text-muted-foreground mt-1.5 font-semibold uppercase tracking-wide">
-                    {m.label}
-                  </p>
-                </div>
-              ))}
-            </div>
+            {metrics.map((m) => (
+              <div
+                key={m.label}
+                className="border-r border-b border-border px-5 py-6 sm:px-7 sm:py-7"
+              >
+                <p className="font-display text-3xl sm:text-4xl font-extrabold text-foreground tracking-tight tabular-nums leading-none">
+                  {m.value}
+                </p>
+                <p className="text-[10px] text-muted-foreground mt-2.5 font-semibold uppercase tracking-wide">
+                  {m.label}
+                </p>
+              </div>
+            ))}
           </motion.div>
         </div>
       </section>
 
+      {/* ── TRUSTED BY ── */}
+      <section className="py-10 border-b border-border bg-secondary/20">
+        <div className="max-w-6xl mx-auto px-6 flex flex-col lg:flex-row lg:items-center gap-5 lg:gap-10">
+          <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground shrink-0">
+            Teams we've built with
+          </p>
+          <div className="flex flex-wrap gap-x-8 gap-y-3">
+            {trustedBy.map((name) => (
+              <span
+                key={name}
+                className="font-display text-sm sm:text-[15px] font-bold tracking-tight text-foreground/55 hover:text-foreground transition-colors"
+              >
+                {name}
+              </span>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* ── APPROACH ── */}
-      <section className="py-28 border-b border-border">
+      <section className="py-24 sm:py-32 border-b border-border">
         <div className="max-w-6xl mx-auto px-6">
-          <motion.div
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.7 }}
-          >
-            <p className="text-[10px] font-bold tracking-wide uppercase text-muted-foreground mb-2">
-              How We Work
-            </p>
-            <h2 className="font-display text-balance text-4xl lg:text-6xl sm:text-5xl font-extrabold text-foreground tracking-tight leading-[1.05] mb-3 max-w-2xl">
-              Our Approach.
-            </h2>
-            <p className="text-sm text-muted-foreground leading-relaxed max-w-xl mb-14">
+          <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-14">
+            <SectionHeading eyebrow="How We Work" title="Our Approach." />
+            <motion.p
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="text-sm text-muted-foreground leading-relaxed max-w-md"
+            >
               Great products emerge when aesthetics and engineering work in
               harmony. Every pixel has a purpose, every line of code tells a
               story here's how a project moves from idea to something real.
-            </p>
+            </motion.p>
+          </div>
 
+          <div className="relative">
+            <div className="hidden sm:block absolute top-6 left-[3.5rem] right-[3.5rem] h-px bg-border" />
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
               {approachPillars.map((pillar, i) => {
                 const Icon = pillar.icon;
@@ -294,47 +441,53 @@ const About = () => {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ delay: i * 0.1, duration: 0.5 }}
-                    className="group rounded-2xl border border-border bg-card p-8 transition-all duration-300 hover:-translate-y-1 hover:border-foreground/30"
+                    className="group relative"
                   >
-                    <div className="flex items-center justify-between mb-6">
-                      <div className="w-11 h-11 rounded-xl bg-foreground/5 flex items-center justify-center transition-all duration-300 group-hover:bg-foreground">
-                        <Icon className="w-5 h-5 text-foreground transition-colors duration-300 group-hover:text-background" />
-                      </div>
-                      <span className="text-[10px] font-bold text-muted-foreground/40 tracking-widest">
+                    <div className="relative z-10 w-12 h-12 rounded-xl bg-background border border-border shadow-sm flex items-center justify-center mb-5 transition-all duration-300 group-hover:bg-foreground group-hover:border-foreground">
+                      <span className="font-display text-sm font-extrabold text-foreground transition-colors duration-300 group-hover:text-background">
                         0{i + 1}
                       </span>
                     </div>
-                    <h3 className="font-display text-base font-bold text-foreground mb-2">
-                      {pillar.title}
-                    </h3>
-                    <p className="text-xs text-muted-foreground leading-relaxed">
-                      {pillar.description}
-                    </p>
+
+                    <div className="rounded-2xl border border-border bg-card p-7 h-[calc(100%-4.25rem)] flex flex-col transition-all duration-300 group-hover:-translate-y-1 group-hover:border-foreground/30 group-hover:shadow-l">
+                      <div className="w-10 h-10 rounded-xl bg-foreground/5 border border-border flex items-center justify-center mb-5">
+                        <Icon className="w-4 h-4 text-foreground" />
+                      </div>
+                      <h3 className="font-display text-lg font-bold text-foreground mb-2">
+                        {pillar.title}
+                      </h3>
+                      <p className="text-sm text-muted-foreground leading-relaxed mb-6 flex-1">
+                        {pillar.description}
+                      </p>
+                      <div className="flex flex-wrap gap-1.5 pt-5 border-t border-border">
+                        {pillar.tags.map((t) => (
+                          <span
+                            key={t}
+                            className="text-[10px] font-semibold px-2.5 py-1 rounded-md bg-foreground/5 text-foreground/70 border border-border"
+                          >
+                            {t}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
                   </motion.div>
                 );
               })}
             </div>
-          </motion.div>
+          </div>
         </div>
       </section>
 
       {/* ── TECHNICAL STACK ── */}
-      <section className="py-24">
+      <section className="py-24 sm:py-28">
         <div className="max-w-6xl mx-auto px-6">
-          <motion.div
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.7 }}
-            className="mb-12"
-          >
-            <p className="text-[10px] font-bold tracking-wide uppercase text-muted-foreground mb-2">
-              Technical Stack
-            </p>
-            <h2 className="font-display lg:text-6xl text-4xl sm:text-5xl font-extrabold text-foreground tracking-tight">
-              Core Skills.
-            </h2>
-          </motion.div>
+          <div className="mb-12 sm:mb-14">
+            <SectionHeading
+              eyebrow="Technical Stack"
+              title="Core Skills."
+              description="The tools and disciplines we use to take products from first sketch to production."
+            />
+          </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
             {skillGroups.map((group, i) => {
@@ -346,15 +499,22 @@ const About = () => {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: i * 0.08, duration: 0.5 }}
-                  className="group rounded-2xl border border-border bg-card p-8 transition-all duration-300 hover:-translate-y-1 hover:border-foreground/30"
+                  className="group relative rounded-2xl border border-border bg-card p-7 sm:p-8 overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:border-foreground/30 hover:shadow-l"
                 >
-                  <div className="flex items-center gap-3 mb-4">
-                    <div className="w-10 h-10 rounded-xl bg-foreground/5 flex items-center justify-center transition-all duration-300 group-hover:bg-foreground">
-                      <Icon className="w-4 h-4 text-foreground transition-colors duration-300 group-hover:text-background" />
+                  <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-foreground/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+
+                  <div className="flex items-center justify-between mb-5">
+                    <div className="flex items-center gap-3">
+                      <div className="w-11 h-11 rounded-xl bg-foreground/5 border border-border flex items-center justify-center transition-all duration-300 group-hover:bg-foreground group-hover:border-foreground">
+                        <Icon className="w-4 h-4 text-foreground transition-colors duration-300 group-hover:text-background" />
+                      </div>
+                      <h3 className="font-display text-lg font-bold text-foreground">
+                        {group.label}
+                      </h3>
                     </div>
-                    <h3 className="font-display text-lg font-bold text-foreground">
-                      {group.label}
-                    </h3>
+                    <span className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/60">
+                      {group.skills.length} skills
+                    </span>
                   </div>
                   <p className="text-sm text-muted-foreground leading-relaxed mb-6">
                     {group.description}
@@ -363,7 +523,7 @@ const About = () => {
                     {group.skills.map((skill) => (
                       <span
                         key={skill}
-                        className="text-xs font-semibold px-3 py-1.5 rounded-lg border border-border bg-background text-foreground"
+                        className="font-mono text-[11px] font-semibold tracking-tight px-3 py-1.5 rounded-lg border border-border bg-background text-foreground/80 transition-colors group-hover:border-foreground/20"
                       >
                         {skill}
                       </span>
@@ -376,27 +536,48 @@ const About = () => {
         </div>
       </section>
 
-      {/* ── EXPERIENCE (accordion cards) ── */}
-      <section className="py-20 bg-secondary/30 border-y border-border">
-        <div className="max-w-6xl mx-auto px-6">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="mb-14"
-          >
-            <p className="text-[10px] font-bold tracking-wide uppercase text-muted-foreground mb-2">
-              Track Record
-            </p>
-            <h2 className="font-display lg:text-6xl text-4xl sm:text-5xl text-foreground font-extrabold tracking-tight">
-              Industry Experience.
-            </h2>
-          </motion.div>
+      {/* ── EXPERIENCE ── */}
+      <section className="py-24 sm:py-28 bg-secondary/30 border-y border-border">
+        <div className="max-w-6xl mx-auto px-6 grid lg:grid-cols-12 gap-12 lg:gap-16">
+          <div className="lg:col-span-4">
+            <div className="lg:sticky lg:top-28">
+              <SectionHeading
+                eyebrow="Track Record"
+                title="Industry Experience."
+                description="Selected roles across logistics, travel security, events and commerce platforms."
+              />
 
-          <div className="flex flex-col gap-4">
+              <motion.div
+                initial={{ opacity: 0, y: 16 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                className="mt-8 grid grid-cols-2 gap-3 max-w-xs"
+              >
+                <div className="rounded-xl border border-border bg-card px-4 py-3.5">
+                  <p className="font-display text-2xl font-extrabold text-foreground leading-none">
+                    {experience.length}
+                  </p>
+                  <p className="text-[10px] text-muted-foreground font-semibold uppercase tracking-wide mt-1.5">
+                    Roles
+                  </p>
+                </div>
+                <div className="rounded-xl border border-border bg-card px-4 py-3.5">
+                  <p className="font-display text-2xl font-extrabold text-foreground leading-none">
+                    {currentRoles}
+                  </p>
+                  <p className="text-[10px] text-muted-foreground font-semibold uppercase tracking-wide mt-1.5">
+                    Current
+                  </p>
+                </div>
+              </motion.div>
+            </div>
+          </div>
+
+          <div className="lg:col-span-8 flex flex-col gap-3">
             {experience.map((exp, i) => {
               const Icon = exp.icon;
               const isOpen = openExperience === i;
+              const isCurrent = exp.period === "Present";
               return (
                 <motion.div
                   key={exp.role + exp.company}
@@ -404,31 +585,52 @@ const About = () => {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: i * 0.05, duration: 0.5 }}
-                  className="rounded-2xl border border-border bg-card overflow-hidden transition-colors duration-300 hover:border-foreground/20"
+                  className={`rounded-2xl border bg-card overflow-hidden transition-all duration-300 ${
+                    isOpen
+                      ? "border-foreground/25 shadow-xm"
+                      : "border-border hover:border-foreground/20"
+                  }`}
                 >
                   <button
+                    type="button"
                     onClick={() => setOpenExperience(isOpen ? null : i)}
                     aria-expanded={isOpen}
-                    className="w-full flex items-center gap-5 text-left px-6 py-6 sm:px-8 hover:bg-secondary/30 transition-colors"
+                    className="w-full flex items-center gap-4 sm:gap-5 text-left px-5 py-5 sm:px-7 sm:py-6 hover:bg-secondary/30 transition-colors"
                   >
-                    <div className="shrink-0 w-11 h-11 rounded-xl bg-foreground/5 flex items-center justify-center">
-                      <Icon className="w-4 h-4 text-foreground" />
+                    <div
+                      className={`shrink-0 w-11 h-11 rounded-xl border flex items-center justify-center transition-colors duration-300 ${
+                        isOpen
+                          ? "bg-foreground border-foreground"
+                          : "bg-foreground/5 border-border"
+                      }`}
+                    >
+                      <Icon
+                        className={`w-4 h-4 transition-colors duration-300 ${
+                          isOpen ? "text-background" : "text-foreground"
+                        }`}
+                      />
                     </div>
 
                     <div className="flex-1 min-w-0 grid sm:grid-cols-[1fr_auto] gap-2 sm:gap-6 items-start sm:items-center">
                       <div className="min-w-0">
-                        <h3 className="font-display text-base sm:text-lg font-bold text-foreground truncate">
+                        <h3 className="font-display text-base sm:text-lg font-bold text-foreground leading-snug">
                           {exp.role}
                         </h3>
                         <p className="text-sm text-muted-foreground font-medium mt-0.5">
                           {exp.company}
                         </p>
                       </div>
-                      <div className="flex items-center gap-2 shrink-0">
+                      <div className="flex items-center gap-2 shrink-0 flex-wrap">
                         <span className="text-[10px] font-bold uppercase tracking-widest px-2.5 py-1 rounded-full bg-secondary text-foreground border border-border">
                           {exp.type}
                         </span>
-                        <span className="text-sm font-semibold text-muted-foreground whitespace-nowrap">
+                        <span className="inline-flex items-center gap-1.5 text-sm font-semibold text-muted-foreground whitespace-nowrap">
+                          {isCurrent && (
+                            <span className="relative flex h-1.5 w-1.5">
+                              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-70" />
+                              <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-emerald-500" />
+                            </span>
+                          )}
                           {exp.period}
                         </span>
                       </div>
@@ -450,9 +652,11 @@ const About = () => {
                         transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
                         className="overflow-hidden"
                       >
-                        <p className="text-sm text-muted-foreground leading-relaxed px-6 sm:px-8 pb-7 pl-[4.75rem] max-w-3xl">
-                          {exp.description}
-                        </p>
+                        <div className="mx-5 sm:mx-7 pt-5 pb-6 border-t border-border">
+                          <p className="text-sm text-muted-foreground leading-relaxed max-w-3xl">
+                            {exp.description}
+                          </p>
+                        </div>
                       </motion.div>
                     )}
                   </AnimatePresence>
@@ -463,57 +667,58 @@ const About = () => {
         </div>
       </section>
 
-      {/* ── VALUES ── */}
-      {/* <section className="py-28">
-        <div className="max-w-6xl mx-auto px-6">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="mb-14"
-          >
-            <p className="text-[10px] font-bold tracking-wide uppercase text-muted-foreground mb-2">
-              How We Work
-            </p>
-            <h2 className="font-display lg:text-6xl text-4xl sm:text-5xl text-foreground font-extrabold tracking-tight">
-              Execution Process.
-            </h2>
-          </motion.div>
+      {/* ── PRINCIPLES ── */}
+      <section className="py-24 sm:py-32">
+        <div className="max-w-6xl mx-auto px-6 grid lg:grid-cols-12 gap-12 lg:gap-16">
+          <div className="lg:col-span-4">
+            <div className="lg:sticky lg:top-28">
+              <SectionHeading
+                eyebrow="What We Stand For"
+                title="Our Principles."
+                description="The standards we hold ourselves to on every project, big or small."
+              />
+            </div>
+          </div>
 
-          <motion.div
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="border-t border-border"
-          >
-            {values.map((v) => {
+          <div className="lg:col-span-8 grid grid-cols-1 sm:grid-cols-2 border-t border-l border-border rounded-tl-2xl overflow-hidden">
+            {values.map((v, i) => {
               const Icon = v.icon;
               return (
-                <div
+                <motion.div
                   key={v.title}
-                  className="grid grid-cols-1 sm:grid-cols-12 gap-3 sm:gap-8 py-8 border-b border-border items-start"
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: i * 0.08 }}
+                  className="group border-r border-b border-border p-7 sm:p-8 hover:bg-secondary/40 transition-colors duration-300"
                 >
-                  <div className="sm:col-span-1">
-                    <div className="w-10 h-10 rounded-lg bg-secondary flex items-center justify-center">
-                      <Icon className="w-4 h-4 text-foreground" />
+                  <div className="flex items-center justify-between mb-6">
+                    <div className="w-11 h-11 rounded-xl bg-foreground/5 border border-border flex items-center justify-center transition-all duration-300 group-hover:bg-foreground group-hover:border-foreground">
+                      <Icon className="w-4 h-4 text-foreground transition-colors duration-300 group-hover:text-background" />
                     </div>
+                    <span className="font-display text-sm font-extrabold text-muted-foreground/40">
+                      0{i + 1}
+                    </span>
                   </div>
-                  <h3 className="sm:col-span-3 font-display text-lg font-bold text-foreground leading-snug">
+                  <h3 className="font-display text-lg font-bold text-foreground leading-snug mb-2">
                     {v.title}
                   </h3>
-                  <p className="sm:col-span-8 text-sm text-muted-foreground leading-relaxed max-w-xl">
+                  <p className="text-sm text-muted-foreground leading-relaxed">
                     {v.description}
                   </p>
-                </div>
+                </motion.div>
               );
             })}
-          </motion.div>
+          </div>
         </div>
-      </section> */}
+      </section>
 
       {/* ── CTA ── */}
-      <section className="py-24 bg-foreground text-background relative overflow-hidden">
+      <section className="py-24 sm:py-28 bg-foreground text-background relative overflow-hidden">
+        <div className="absolute inset-0 -z-0 bg-[linear-gradient(to_right,hsl(var(--background))_1px,transparent_1px),linear-gradient(to_bottom,hsl(var(--background))_1px,transparent_1px)] bg-[size:64px_64px] [mask-image:radial-gradient(ellipse_70%_60%_at_50%_50%,black,transparent)] opacity-[0.06]" />
+        <div className="absolute -top-20 -left-20 w-72 h-72 rounded-full bg-background/10 blur-3xl pointer-events-none" />
+        <div className="absolute -bottom-20 -right-20 w-96 h-96 rounded-full bg-background/10 blur-3xl pointer-events-none" />
+
         <div className="max-w-3xl mx-auto px-6 text-center relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -529,17 +734,17 @@ const About = () => {
                 Available for new projects
               </span>
             </div>
-            <h2 className="font-display text-balance lg:text-6xl text-4xl sm:text-5xl font-extrabold tracking-tighter mb-1">
+            <h2 className="font-display text-balance lg:text-6xl text-4xl sm:text-5xl font-extrabold tracking-tighter mb-3">
               Interested in Working With Us?
             </h2>
-            <p className="opacity-60 text-sm max-w-lg mx-auto leading-5 mb-8">
-              We are always open to new opportunities and collaborations. Send us messages let's
-              build something great together.
+            <p className="opacity-60 text-sm max-w-lg mx-auto leading-5 mb-9">
+              We are always open to new opportunities and collaborations. Send
+              us messages let's build something great together.
             </p>
             <div className="flex flex-col sm:flex-row gap-3 justify-center">
               <Link
                 to="/contact"
-                className="inline-flex items-center justify-center gap-2 bg-background text-foreground px-8 py-3.5 text-sm font-bold rounded-xl hover:opacity-90 transition-all hover:-translate-y-0.5"
+                className="inline-flex items-center justify-center gap-2 bg-background text-foreground px-8 py-3.5 text-sm font-bold rounded-xl hover:opacity-90 transition-all hover:-translate-y-0.5 active:scale-[0.97]"
               >
                 Get in Touch <ArrowUpRight className="w-3.5 h-3.5" />
               </Link>
