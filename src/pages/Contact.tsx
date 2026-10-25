@@ -37,7 +37,7 @@ const faqs = [
   },
   {
     q: "What technologies do you specialize in?",
-    a: "Primarily React, TypeScript, Node.js, and modern CSS frameworks. We also work with Figma for design and various backend technologies.",
+    a: "Primarily React, Nextjs, TypeScript, Node.js, Tailwind and modern CSS frameworks. We also work with Figma for design and various backend technologies.",
   },
   {
     q: "Do you offer ongoing maintenance?",
@@ -242,7 +242,7 @@ const Contact = () => {
                     Prefer a direct conversation?
                   </h3>
                   <p className="text-xs text-muted-foreground">
-                    Skip the form and chat with me directly on WhatsApp.
+                    Skip the form and chat with us directly on WhatsApp.
                   </p>
                 </div>
                 <a
@@ -399,7 +399,7 @@ const Contact = () => {
                           required
                           rows={5}
                           defaultValue={prefillMessage}
-                          placeholder="Tell me about your project, goals, and timeline..."
+                          placeholder="Tell us about your project, goals, and timeline..."
                           className="w-full bg-background border border-border/80 rounded-xl px-4 py-3.5 text-xs text-foreground placeholder:text-muted-foreground/60 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all resize-none shadow-xs"
                         />
                       </div>
