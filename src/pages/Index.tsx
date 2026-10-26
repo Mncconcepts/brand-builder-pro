@@ -1,6 +1,7 @@
 import { Link, useNavigate } from "react-router-dom";
 import { motion, useInView, AnimatePresence } from "framer-motion";
 import { useRef, useEffect, useState } from "react";
+import type { ReactNode } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import TestimonialsCarousel from "@/components/TestimonialsCarousel";
@@ -120,6 +121,56 @@ function AnimatedStat({
   );
 }
 
+/* ─── shared section header ─── */
+function SectionHeader({
+  eyebrow,
+  title,
+  description,
+  href,
+  linkLabel,
+}: {
+  eyebrow: string;
+  title: ReactNode;
+  description?: string;
+  href?: string;
+  linkLabel?: string;
+}) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+      className="flex flex-col md:flex-row md:items-end justify-between mb-12 sm:mb-14 gap-5"
+    >
+      <div className="max-w-2xl">
+        <div className="inline-flex items-center gap-2 mb-4">
+          <span className="w-6 h-px bg-foreground/40" />
+          <p className="text-[10px] font-bold tracking-widest uppercase text-muted-foreground">
+            {eyebrow}
+          </p>
+        </div>
+        <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl tracking-tight text-balance text-foreground font-extrabold leading-[1.02]">
+          {title}
+        </h2>
+        {description && (
+          <p className="text-sm text-muted-foreground leading-relaxed mt-4 max-w-lg">
+            {description}
+          </p>
+        )}
+      </div>
+      {href && linkLabel && (
+        <Link
+          to={href}
+          className="inline-flex items-center gap-1.5 text-sm font-semibold text-foreground border-b border-foreground/30 pb-0.5 hover:border-foreground hover:gap-2.5 transition-all self-start md:self-auto shrink-0"
+        >
+          {linkLabel} <ArrowUpRight className="w-3.5 h-3.5" />
+        </Link>
+      )}
+    </motion.div>
+  );
+}
+
 /* ─── data ── */
 const stats = [
   {
@@ -155,7 +206,15 @@ const stats = [
 const trustedAvatars = [
   { src: "/cc1.png", name: "Oonsa" },
   { src: "/cc2.png", name: "Oonsa" },
-  { src: "/cc1.png", name: "Oonsa" },
+];
+
+const trustedBy = [
+  "SUPERSONIC Dynamic Services",
+  "Visa Guard Africa",
+  "Oonsa Events",
+  "Computer Village Marketplace",
+  "DAPSVERSE",
+  "OMA",
 ];
 
 const featuredServices = [
@@ -197,6 +256,37 @@ const featuredServices = [
   },
 ];
 
+const processSteps = [
+  {
+    step: "01",
+    title: "Discovery",
+    description:
+      "We learn your business, goals, audience and technical requirements through in-depth consultation.",
+    duration: "Week 1",
+  },
+  {
+    step: "02",
+    title: "Planning",
+    description:
+      "Scope, timelines, wireframes and the technical architecture are defined before building starts.",
+    duration: "Week 1-2",
+  },
+  {
+    step: "03",
+    title: "Design & Build",
+    description:
+      "Iterative design and development with regular check-ins to keep everything aligned with your vision.",
+    duration: "Week 3-10",
+  },
+  {
+    step: "04",
+    title: "Launch & Support",
+    description:
+      "Thorough testing, deployment and ongoing support so your product thrives after launch.",
+    duration: "Week 11+",
+  },
+];
+
 const featuredProjects = [
   {
     title: "Multiple Vendor Store CVMP",
@@ -227,13 +317,13 @@ const featuredProjects = [
 const testimonials = [
   {
     quote:
-      "Working with this team was a game-changer for our product. The attention to detail and technical expertise exceeded our expectations.",
+      "Working with this team was a game-changer for our product. Their attention to detail, technical expertise, and commitment to delivering high-quality results exceeded our expectations at every stage of the project. From the initial planning to the final implementation, they demonstrated a clear understanding.",
     name: "John Chukwudi Eze",
     role: "FOUNDER, Visa Guard Africa",
   },
   {
     quote:
-      "Delivered a stunning website that perfectly captures our brand. Professional, responsive, and a pleasure to work with.",
+      "Delivered a stunning website that perfectly captures our brand identity and communicates our vision effectively. The team demonstrated exceptional professionalism, creativity, and technical expertise throughout the entire process.",
     name: "Oonsa",
     role: "Founder, Oonsa Event WebApp",
   },
@@ -426,7 +516,6 @@ const courses = [
   },
 ];
 
-
 type Course = (typeof courses)[number];
 
 type CourseQuestion = {
@@ -577,6 +666,10 @@ const Index = () => {
     );
   };
 
+  const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(
+    "Hi! I'd like to discuss a project with you.",
+  )}`;
+
   /* ─── Course popup logic ─── */
   const activeCourseData = activeCourse !== null ? courses[activeCourse] : null;
   const courseQuestions = activeCourseData
@@ -715,7 +808,7 @@ const Index = () => {
               </div>
             </div>
 
-            <h1 className="font-Display text-balance text-6xl sm:text-6xl lg:text-7xl font-black leading-[1.01] tracking-tighter text-foreground mb-4">
+            <h1 className="font-Display text-balance text-7xl sm:text-6xl lg:text-7xl font-black leading-[1.01] tracking-tighter text-foreground mb-5">
               <TypewriterText
                 text="Creating Digital Experiences That Work."
                 speed={55}
@@ -723,32 +816,32 @@ const Index = () => {
               />
             </h1>
 
-            <p className="text-sm text-muted-foreground max-w-md leading-relaxed mb-8">
+            <p className="text-sm sm:text-base text-muted-foreground max-w-md leading-relaxed mb-8">
               From strategy and design to development and deployment, we craft
               world-class web applications and digital solutions that empower
               businesses to innovate and scale.
             </p>
 
-            <div className="flex flex-wrap gap-3 mb-8">
+            <div className="flex flex-wrap gap-3 mb-10">
               <Link
                 to="/projects"
-                className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-7 py-3 text-sm font-semibold rounded-lg hover:bg-primary/90 transition-all hover:-translate-y-0.5"
+                className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-7 py-3.5 text-sm font-semibold rounded-xl hover:bg-primary/90 transition-all hover:-translate-y-0.5 active:scale-[0.98]"
               >
                 View Projects <ArrowUpRight className="w-4 h-4" />
               </Link>
               <Link
                 to="/contact"
-                className="inline-flex items-center gap-2 border border-border text-foreground px-7 py-3 text-sm font-semibold rounded-lg hover:bg-secondary transition-all hover:-translate-y-0.5"
+                className="inline-flex items-center gap-2 border border-border text-foreground px-7 py-3.5 text-sm font-semibold rounded-xl hover:bg-secondary transition-all hover:-translate-y-0.5 active:scale-[0.98]"
               >
                 Get in Touch
               </Link>
             </div>
 
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-3 pt-6 border-t border-border/70 max-w-md">
               <div className="flex items-center">
                 {trustedAvatars.map((av, i) => (
                   <div
-                    key={av.name}
+                    key={av.name + i}
                     className="relative w-9 h-9 rounded-full border-2 border-background overflow-hidden shadow-md ring-1 ring-border/30"
                     style={{
                       marginLeft: i === 0 ? 0 : "-10px",
@@ -842,10 +935,24 @@ const Index = () => {
         </div>
       </section>
 
-      {/* ═══════════════════════════════════════════════════════
-          Stats — signature dark band: hairline-divided table of
-          figures instead of identical rounded cards. Tap to expand.
-          ═══════════════════════════════════════════════════════ */}
+      <section className="py-9 border-y border-border bg-secondary/20">
+        <div className="max-w-6xl mx-auto px-6 flex flex-col lg:flex-row lg:items-center gap-4 lg:gap-10">
+          <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground shrink-0">
+            Teams we've built with
+          </p>
+          <div className="flex flex-wrap gap-x-8 gap-y-2.5">
+            {trustedBy.map((name) => (
+              <span
+                key={name}
+                className="font-display uppercase text-sm sm:text-[15px] font-bold tracking-tight text-foreground/50 hover:text-foreground transition-colors"
+              >
+                {name}
+              </span>
+            ))}
+          </div>
+        </div>
+      </section>
+
       <section className="relative bg-foreground text-background overflow-hidden">
         <div className="absolute inset-0 -z-10 bg-[linear-gradient(to_right,hsl(var(--background))_1px,transparent_1px),linear-gradient(to_bottom,hsl(var(--background))_1px,transparent_1px)] bg-[size:56px_56px] opacity-[0.06]" />
         <div className="absolute -top-32 left-1/4 w-[420px] h-[420px] rounded-full bg-background/[0.05] blur-[110px] pointer-events-none" />
@@ -857,9 +964,12 @@ const Index = () => {
         >
           <div className="flex items-end justify-between mb-12 gap-4">
             <div>
-              <p className="text-[10px] font-bold tracking-wide uppercase text-background/50 mb-2">
-                Track Record
-              </p>
+              <div className="inline-flex items-center gap-2 mb-3">
+                <span className="w-6 h-px bg-background/40" />
+                <p className="text-[10px] font-bold tracking-widest uppercase text-background/50">
+                  Track Record
+                </p>
+              </div>
               <h2 className="text-3xl sm:text-4xl tracking-tight font-extrabold text-background">
                 By The Numbers.
               </h2>
@@ -927,29 +1037,18 @@ const Index = () => {
         </div>
       </section>
 
-      <section className="py-28">
+      {/* ═══════════════════════════════════════════════════════
+          Services
+          ═══════════════════════════════════════════════════════ */}
+      <section className="py-24 sm:py-32">
         <div className="max-w-6xl mx-auto px-6">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="flex flex-col md:flex-row md:items-end justify-between mb-14 gap-4"
-          >
-            <div>
-              <p className="text-[10px] font-bold tracking-wide uppercase text-muted-foreground mb-2">
-                Our Services
-              </p>
-              <h2 className="font-display leading-10 text-balance lg:text-6xl mt-2 text-4xl sm:text-6xl tracking-tight text-foreground font-extrabold">
-                Services We Offer.
-              </h2>
-            </div>
-            <Link
-              to="/services"
-              className="inline-flex items-center gap-1.5 text-sm font-semibold text-foreground border-b border-foreground/30 pb-0.5 hover:border-foreground hover:gap-2.5 transition-all self-start md:self-auto"
-            >
-              View All Services <ArrowUpRight className="w-3.5 h-3.5" />
-            </Link>
-          </motion.div>
+          <SectionHeader
+            eyebrow="Our Services"
+            title="Services We Offer."
+            description="Everything you need to take a product from first idea to a live, scalable release."
+            href="/services"
+            linkLabel="View All Services"
+          />
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {featuredServices.map((service, i) => (
@@ -959,15 +1058,17 @@ const Index = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.12 }}
-                className="group bg-card border border-border rounded-2xl overflow-hidden shadow-xm hover:shadow-l hover:-translate-y-1 transition-all duration-300 flex flex-col"
+                className="group bg-card border border-border rounded-2xl overflow-hidden shadow-xm hover:shadow-l hover:-translate-y-1 hover:border-foreground/20 transition-all duration-300 flex flex-col"
               >
-                <div className="relative w-full h-48 bg-secondary overflow-hidden">
-                  <SkeletonImage
-                    src={service.image}
-                    alt={service.title}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-card/80 via-transparent to-transparent" />
+                <div className="relative w-full h-52 bg-secondary overflow-hidden">
+                  <div className="w-full h-full transition-transform duration-500 group-hover:scale-105">
+                    <SkeletonImage
+                      src={service.image}
+                      alt={service.title}
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                  <div className="absolute inset-0 bg-gradient-to-t from-card/80 via-transparent to-transparent pointer-events-none" />
                   <span className="absolute top-3 left-3 text-[10px] font-bold text-muted-foreground/70 tracking-widest uppercase bg-background/60 backdrop-blur-sm border border-border/40 px-2 py-1 rounded-md">
                     {service.number}
                   </span>
@@ -994,9 +1095,9 @@ const Index = () => {
                   <button
                     type="button"
                     onClick={() => openServiceModal(i)}
-                    className="w-full text-center text-xs font-semibold py-2.5 rounded-lg bg-background border border-border text-foreground hover:bg-primary hover:text-primary-foreground hover:border-primary transition-all duration-200"
+                    className="w-full inline-flex items-center justify-center gap-1.5 text-xs font-semibold py-3 rounded-lg bg-background border border-border text-foreground hover:bg-primary hover:text-primary-foreground hover:border-primary transition-all duration-200 active:scale-[0.98]"
                   >
-                    Book This Service
+                    Book This Service <ArrowUpRight className="w-3.5 h-3.5" />
                   </button>
                 </div>
               </motion.div>
@@ -1006,29 +1107,62 @@ const Index = () => {
       </section>
 
       {/* ═══════════════════════════════════════════════════════
+          How we work
+          ═══════════════════════════════════════════════════════ */}
+      <section className="py-24 sm:py-32 bg-secondary/30 border-y border-border">
+        <div className="max-w-6xl mx-auto px-6">
+          <SectionHeader
+            eyebrow="How We Work"
+            title="A Clear Process, Every Time."
+            description="Four phases, clear deliverables and regular check-ins, so you always know what's next."
+            href="/services"
+            linkLabel="See Full Process"
+          />
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 border-t border-l border-border rounded-tl-2xl overflow-hidden bg-card">
+            {processSteps.map((p, i) => (
+              <motion.div
+                key={p.step}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.08 }}
+                className="group border-r border-b border-border p-6 sm:p-7 hover:bg-secondary/40 transition-colors duration-300"
+              >
+                <div className="flex items-center justify-between mb-8">
+                  <span className="w-11 h-11 rounded-xl bg-foreground/5 border border-border flex items-center justify-center transition-all duration-300 group-hover:bg-foreground group-hover:border-foreground">
+                    <span className="font-display text-sm font-extrabold text-foreground transition-colors duration-300 group-hover:text-background">
+                      {p.step}
+                    </span>
+                  </span>
+                  <span className="text-[9px] font-bold uppercase tracking-widest text-muted-foreground border border-border px-2.5 py-1 rounded-full">
+                    {p.duration}
+                  </span>
+                </div>
+                <h3 className="font-display text-lg font-bold text-foreground mb-2">
+                  {p.title}
+                </h3>
+                <p className="text-xs text-muted-foreground leading-relaxed">
+                  {p.description}
+                </p>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ═══════════════════════════════════════════════════════
           Courses section — "View Details" opens the enrollment popup
           ═══════════════════════════════════════════════════════ */}
-      <section className="py-28 bg-secondary/30 border-y border-border">
+      <section className="py-24 sm:py-32">
         <div className="max-w-6xl mx-auto px-6">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="mb-14 text-left"
-          >
-            <p className="text-[10px] font-bold tracking-wide uppercase text-muted-foreground mb-1">
-              Learn & Earn
-            </p>
-            <h2 className="font-display leading-10 text-balance lg:text-6xl mt-2 text-4xl sm:text-6xl tracking-tight text-foreground font-extrabold mb-2">
-              Featured Courses.
-            </h2>
-            <Link
-              to="/courses"
-              className="inline-flex items-center gap-1.5 text-sm font-semibold text-foreground border-b border-foreground/30 pb-0.5 hover:border-foreground hover:gap-2.5 transition-all self-start md:self-auto"
-            >
-              View All Courses <ArrowUpRight className="w-3.5 h-3.5" />
-            </Link>
-          </motion.div>
+          <SectionHeader
+            eyebrow="Learn & Earn"
+            title="Featured Courses."
+            description="Hands-on, project-based tracks taught by the team building products in production."
+            href="/courses"
+            linkLabel="View All Courses"
+          />
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
             {courses.map((course, i) => {
@@ -1040,17 +1174,23 @@ const Index = () => {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: i * 0.1 }}
-                  className="group flex flex-col bg-card border border-border rounded-2xl overflow-hidden hover:border-primary/30 transition-colors duration-300"
+                  className="group flex flex-col bg-card border border-border rounded-2xl overflow-hidden hover:border-primary/30 hover:shadow-xm hover:-translate-y-1 transition-all duration-300"
                 >
                   <div className="relative aspect-[16/9] w-full overflow-hidden bg-secondary">
-                    <SkeletonImage
-                      src={course.image}
-                      alt={`${course.title} course preview`}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                    />
+                    <div className="w-full h-full transition-transform duration-500 group-hover:scale-105">
+                      <SkeletonImage
+                        src={course.image}
+                        alt={`${course.title} course preview`}
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
                     <div className="absolute inset-0 bg-gradient-to-t from-card/60 via-transparent to-transparent pointer-events-none" />
                     <span className="absolute top-3 left-3 inline-flex items-center justify-center w-8 h-8 rounded-lg bg-background/70 backdrop-blur-sm border border-border/40 text-primary">
                       <Icon className="w-4 h-4" />
+                    </span>
+                    <span className="absolute top-3 right-3 inline-flex items-center gap-1.5 text-[10px] font-semibold text-foreground bg-background/80 backdrop-blur-sm border border-border/40 px-2.5 py-1.5 rounded-full">
+                      <Clock className="w-3 h-3" />
+                      {course.duration}
                     </span>
                   </div>
 
@@ -1058,9 +1198,6 @@ const Index = () => {
                     <div className="flex items-center gap-2 mb-3">
                       <span className="text-[10px] font-semibold uppercase tracking-wider text-primary bg-primary/10 px-2.5 py-1 rounded-full">
                         {course.level}
-                      </span>
-                      <span className="text-[11px] text-muted-foreground">
-                        {course.duration}
                       </span>
                     </div>
 
@@ -1087,7 +1224,7 @@ const Index = () => {
                       <button
                         type="button"
                         onClick={() => openCourseModal(i)}
-                        className="flex-1 inline-flex items-center justify-center gap-1.5 bg-primary text-primary-foreground px-4 py-3.5 text-xs font-semibold rounded-lg hover:bg-primary/90 transition-all duration-200"
+                        className="flex-1 inline-flex items-center justify-center gap-1.5 bg-primary text-primary-foreground px-4 py-3.5 text-xs font-semibold rounded-lg hover:bg-primary/90 transition-all duration-200 active:scale-[0.98]"
                       >
                         <Eye className="w-3.5 h-3.5" />
                         View Course Details
@@ -1096,7 +1233,7 @@ const Index = () => {
                         type="button"
                         onClick={() => handleCourseWhatsApp(course)}
                         aria-label={`Chat about ${course.title} on WhatsApp`}
-                        className="inline-flex items-center justify-center w-10 h-10 border border-border rounded-lg text-foreground hover:bg-background hover:border-emerald-500/40 hover:text-emerald-500 transition-all duration-200 shrink-0"
+                        className="inline-flex items-center justify-center w-10 h-10 border border-border rounded-lg text-foreground hover:bg-background hover:border-emerald-500/40 hover:text-emerald-500 transition-all duration-200 shrink-0 active:scale-95"
                       >
                         <WhatsAppIcon className="w-4 h-4" />
                       </button>
@@ -1110,32 +1247,18 @@ const Index = () => {
       </section>
 
       {/* ═══════════════════════════════════════════════════════
-          Shipped Products — asymmetric editorial gallery: one
-          featured case study up top, two supporting pieces below.
+          Shipped Products — one featured case study as a split
+          card, two supporting pieces below.
           ═══════════════════════════════════════════════════════ */}
-      <section className="py-28">
+      <section className="py-24 sm:py-32 bg-secondary/30 border-y border-border">
         <div className="max-w-6xl mx-auto px-6">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="flex flex-col md:flex-row md:items-end justify-between mb-14 gap-4"
-          >
-            <div>
-              <p className="text-[10px] font-bold tracking-wide uppercase text-muted-foreground mb-2">
-                Production Based
-              </p>
-              <h2 className="font-display lg:text-6xl text-4xl sm:text-6xl tracking-tight font-extrabold text-foreground">
-                Shipped Products.
-              </h2>
-            </div>
-            <Link
-              to="/projects"
-              className="inline-flex items-center gap-1.5 text-sm font-semibold text-foreground border-b border-foreground/30 pb-0.5 hover:border-foreground hover:gap-2.5 transition-all self-start md:self-auto"
-            >
-              View All Projects <ArrowUpRight className="w-3.5 h-3.5" />
-            </Link>
-          </motion.div>
+          <SectionHeader
+            eyebrow="Production Based"
+            title="Shipped Products."
+            description="Digital products running in production today, from marketplaces to logistics and travel safety."
+            href="/projects"
+            linkLabel="View All Projects"
+          />
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 sm:gap-6">
             {featuredProjects.map((project, i) => {
@@ -1155,23 +1278,25 @@ const Index = () => {
                 >
                   <Link
                     to="/projects"
-                    className={`group relative flex flex-col bg-card border border-border overflow-hidden transition-all duration-500 hover:border-foreground/25 hover:shadow-2md hover:-translate-y-1 ${
-                      isFeatured ? "rounded-3xl" : "rounded-2xl"
+                    className={`group relative flex flex-col h-full bg-card border border-border overflow-hidden transition-all duration-500 hover:border-foreground/25 hover:shadow-2md hover:-translate-y-1 ${
+                      isFeatured ? "rounded-3xl lg:flex-row" : "rounded-2xl"
                     }`}
                   >
                     <div
                       className={`relative overflow-hidden bg-gradient-to-br ${project.color} ${
                         isFeatured
-                          ? "aspect-[15/9] sm:aspect-[14/8]"
+                          ? "aspect-[15/9] sm:aspect-[14/8] lg:aspect-auto lg:w-[58%] lg:min-h-[420px] shrink-0"
                           : "aspect-[3/1.9] sm:aspect-[3/1.9]"
                       }`}
                     >
-                      <SkeletonImage
-                        src={project.image}
-                        alt={project.title}
-                        className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.06]"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/45 via-black/0 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                      <div className="absolute inset-0 transition-transform duration-700 ease-out group-hover:scale-[1.06]">
+                        <SkeletonImage
+                          src={project.image}
+                          alt={project.title}
+                          className="w-full h-full object-cover"
+                        />
+                      </div>
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/45 via-black/0 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
 
                       <div className="absolute top-4 left-4 text-[10px] font-bold text-foreground bg-background/85 backdrop-blur-sm border border-border/40 px-2.5 py-1 rounded-full">
                         {project.year}
@@ -1182,7 +1307,11 @@ const Index = () => {
                       </div>
                     </div>
 
-                    <div className="p-5 sm:p-6 flex flex-col gap-3 flex-1">
+                    <div
+                      className={`p-5 sm:p-6 flex flex-col gap-3 flex-1 ${
+                        isFeatured ? "lg:p-10 lg:justify-center lg:gap-4" : ""
+                      }`}
+                    >
                       <div className="flex items-center gap-2 flex-wrap">
                         {project.tags.map((tag) => (
                           <span
@@ -1196,7 +1325,9 @@ const Index = () => {
 
                       <h3
                         className={`font-display font-bold text-foreground group-hover:text-primary transition-colors leading-snug ${
-                          isFeatured ? "text-xl sm:text-2xl" : "text-base"
+                          isFeatured
+                            ? "text-xl sm:text-2xl lg:text-3xl tracking-tight"
+                            : "text-base"
                         }`}
                       >
                         {project.title}
@@ -1223,26 +1354,38 @@ const Index = () => {
       </section>
 
       {/* ═══════════════════════════════════════════════════════
-          Testimonials — framed panel with corner marks, trust row
-          up top; carousel itself is untouched.
+          Testimonials — carousel itself is untouched.
           ═══════════════════════════════════════════════════════ */}
-      <section className="py-20 relative overflow-hidden">
+      <section className="py-24 sm:py-32 relative overflow-hidden">
         <div className="max-w-6xl mx-auto px-6">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-12"
+            className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-12 sm:mb-14"
           >
             <div className="max-w-xl">
-              <p className="text-[10px] font-bold tracking-wide uppercase text-muted-foreground mb-2">
-                Client Reviews
-              </p>
-              <h2 className="font-display lg:text-6xl text-4xl sm:text-6xl tracking-tight text-foreground font-extrabold leading-[1.05]">
+              <div className="inline-flex items-center gap-2 mb-4">
+                <span className="w-6 h-px bg-foreground/40" />
+                <p className="text-[10px] font-bold tracking-widest uppercase text-muted-foreground">
+                  Client Reviews
+                </p>
+              </div>
+              <h2 className="font-display lg:text-6xl text-4xl sm:text-5xl tracking-tight text-foreground font-extrabold leading-[1.02]">
                 Testimonials.
               </h2>
             </div>
-            <div className="flex items-center gap-1">
+            <div className="flex items-center gap-3">
+              <div className="flex items-center gap-0.5">
+                {Array(5)
+                  .fill(0)
+                  .map((_, i) => (
+                    <Star
+                      key={i}
+                      className="w-3.5 h-3.5 fill-amber-400 text-amber-400"
+                    />
+                  ))}
+              </div>
               <p className="hidden sm:block text-xs text-muted-foreground">
                 <span className="font-medium text-foreground">
                   30+ Customers
@@ -1257,36 +1400,18 @@ const Index = () => {
       </section>
 
       {/* ═══════════════════════════════════════════════════════
-          Blog — editorial index: one featured story, two compact
+          Blog — editorial index: one featured story, compact
           list rows.
           ═══════════════════════════════════════════════════════ */}
-      <section className="py-28 bg-secondary/30 border-y border-border">
+      <section className="py-24 sm:py-32 bg-secondary/30 border-y border-border">
         <div className="max-w-6xl mx-auto px-6">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="flex flex-col md:flex-row md:items-end justify-between mb-14 gap-4 text-left"
-          >
-            <div className="max-w-lg">
-              <p className="text-[10px] font-bold tracking-wide uppercase text-muted-foreground mb-2">
-                Insights
-              </p>
-              <h2 className="font-display leading-10 text-balance lg:text-6xl mt-2 text-4xl sm:text-6xl tracking-tight text-foreground font-extrabold">
-                From The Blogs.
-              </h2>
-              <p className="text-sm text-muted-foreground tracking-tight mt-1 leading-5">
-                Notes on design, development, engineering and the decisions
-                behind the products we build.
-              </p>
-            </div>
-            <Link
-              to="/blog"
-              className="inline-flex items-center gap-1.5 text-sm font-semibold text-foreground border-b border-foreground/30 pb-0.5 hover:border-foreground hover:gap-2.5 transition-all self-start md:self-auto shrink-0"
-            >
-              Visit Blog <ArrowUpRight className="w-3.5 h-3.5" />
-            </Link>
-          </motion.div>
+          <SectionHeader
+            eyebrow="Insights"
+            title="From The Blogs."
+            description="Notes on design, development, engineering and the decisions behind the products we build."
+            href="/blog"
+            linkLabel="Visit Blog"
+          />
 
           <div className="grid grid-cols-1 lg:grid-cols-5 gap-6 lg:gap-8">
             {/* Featured story */}
@@ -1297,11 +1422,13 @@ const Index = () => {
               className="lg:col-span-3 group flex flex-col bg-card border border-border rounded-2xl overflow-hidden hover:border-primary/30 hover:shadow-xm transition-all duration-300"
             >
               <div className="aspect-[16/9] overflow-hidden">
-                <SkeletonImage
-                  src={featuredPost.image}
-                  alt={featuredPost.title}
-                  className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
-                />
+                <div className="w-full h-full transition-transform duration-700 ease-out group-hover:scale-105">
+                  <SkeletonImage
+                    src={featuredPost.image}
+                    alt={featuredPost.title}
+                    className="w-full h-full object-cover"
+                  />
+                </div>
               </div>
 
               <div className="flex flex-col flex-1 p-6 sm:p-8 text-left">
@@ -1337,7 +1464,7 @@ const Index = () => {
             </motion.article>
 
             {/* Supporting list */}
-            <div className="lg:col-span-2 flex flex-col  gap-5 divide-border">
+            <div className="lg:col-span-2 flex flex-col rounded-2xl border border-border bg-card px-5 sm:px-6 divide-y divide-border">
               {restPosts.map((post, i) => (
                 <motion.article
                   key={post.title}
@@ -1348,14 +1475,16 @@ const Index = () => {
                 >
                   <Link
                     to="/blog"
-                    className="group flex items-start gap-4 py-6 first:pt-0 last:pb-0"
+                    className="group flex items-start gap-4 py-5"
                   >
                     <div className="w-20 h-20 sm:w-24 sm:h-24 shrink-0 rounded-xl overflow-hidden">
-                      <SkeletonImage
-                        src={post.image}
-                        alt={post.title}
-                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                      />
+                      <div className="w-full h-full transition-transform duration-500 group-hover:scale-110">
+                        <SkeletonImage
+                          src={post.image}
+                          alt={post.title}
+                          className="w-full h-full object-cover"
+                        />
+                      </div>
                     </div>
                     <div className="flex flex-col gap-1.5 min-w-0">
                       <div className="flex items-center gap-2.5">
@@ -1385,6 +1514,9 @@ const Index = () => {
         </div>
       </section>
 
+      {/* ═══════════════════════════════════════════════════════
+          Xerai-Studios launch
+          ═══════════════════════════════════════════════════════ */}
       <section className="py-20 sm:py-28">
         <div className="max-w-6xl mx-auto px-4">
           <motion.div
@@ -1506,7 +1638,7 @@ const Index = () => {
       {/* ═══════════════════════════════════════════════════════
           Final CTA — same actions and handlers, refined visuals.
           ═══════════════════════════════════════════════════════ */}
-      <section className="relative py-28 bg-foreground text-background overflow-hidden">
+      <section className="relative py-24 sm:py-32 bg-foreground text-background overflow-hidden">
         <div className="absolute inset-0 -z-10 bg-[linear-gradient(to_right,hsl(var(--background))_1px,transparent_1px),linear-gradient(to_bottom,hsl(var(--background))_1px,transparent_1px)] bg-[size:64px_64px] [mask-image:radial-gradient(ellipse_70%_60%_at_50%_50%,black,transparent)] opacity-[0.06]" />
         <div className="absolute -top-20 -left-20 w-72 h-72 rounded-full bg-background/10 blur-3xl pointer-events-none" />
         <div className="absolute -bottom-20 -right-20 w-96 h-96 rounded-full bg-background/10 blur-3xl pointer-events-none" />
@@ -1527,7 +1659,7 @@ const Index = () => {
               </span>
             </div>
 
-            <h2 className="font-display text-balance lg:text-6xl text-4xl sm:text-5xl font-extrabold tracking-tight mb-2">
+            <h2 className="font-display text-balance lg:text-6xl text-4xl sm:text-5xl font-extrabold tracking-tight mb-3">
               Let's Build Something Real.
             </h2>
             <p className="opacity-60 text-sm max-w-md mx-auto leading-relaxed mb-9">
@@ -1537,7 +1669,7 @@ const Index = () => {
             <div className="flex flex-col sm:flex-row gap-3 justify-center">
               <Link
                 to="/contact"
-                className="group inline-flex items-center justify-center gap-2 bg-background text-foreground px-8 py-3.5 text-sm font-bold rounded-xl hover:opacity-90 transition-all hover:-translate-y-0.5 hover:shadow-2md"
+                className="group inline-flex items-center justify-center gap-2 bg-background text-foreground px-8 py-3.5 text-sm font-bold rounded-xl hover:opacity-90 transition-all hover:-translate-y-0.5 hover:shadow-2md active:scale-[0.98]"
               >
                 Get in Touch{" "}
                 <ArrowUpRight className="w-3.5 h-3.5 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
@@ -1553,6 +1685,14 @@ const Index = () => {
                   </button>
                 }
               />
+              <a
+                href={whatsappUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center gap-2 border-2 border-background/30 text-background px-8 py-3.5 text-sm font-bold rounded-xl transition-all hover:-translate-y-0.5 hover:border-background/55 hover:bg-background/10 active:scale-[0.98]"
+              >
+                <WhatsAppIcon className="w-3.5 h-3.5" /> WhatsApp
+              </a>
             </div>
           </motion.div>
         </div>

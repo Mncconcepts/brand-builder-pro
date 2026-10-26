@@ -197,7 +197,7 @@ const process = [
   },
   {
     step: "03",
-    title: "Design & Build",
+    title: "Design-Build",
     description:
       "Iterative design and development with regular check-ins to ensure alignment with your vision.",
     duration: "Week 3-10",
@@ -214,7 +214,7 @@ const process = [
   },
   {
     step: "04",
-    title: "Launch & Support",
+    title: "Launch-Support",
     description:
       "Thorough testing, deployment, and ongoing support to ensure your product thrives post-launch.",
     duration: "Week 11+",
