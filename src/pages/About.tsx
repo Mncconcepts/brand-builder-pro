@@ -333,7 +333,7 @@ const About = () => {
                   <div className="group relative aspect-[16/10] lg:aspect-[4/5] rounded-3xl overflow-hidden border border-border shadow-l">
                     <div className="w-full h-full grayscale-[35%] transition-all duration-700 group-hover:grayscale-0 group-hover:scale-105">
                       <SkeletonImage
-                        src="/profile3.jpg"
+                        src="/profile33.jpeg"
                         alt="The team working together"
                         className="w-full h-full object-cover"
                       />

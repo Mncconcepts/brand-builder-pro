@@ -33,7 +33,7 @@ const Navbar = () => {
               )}
 
               <img
-                src="/profile3.jpg"
+                src="/profile33.jpeg"
                 alt="Profile"
                 className={`w-full h-full object-cover transform transition-all border-none duration-500 group-hover:scale-110 ${
                   imageLoaded ? "opacity-100 scale-100" : "opacity-0 scale-95"
