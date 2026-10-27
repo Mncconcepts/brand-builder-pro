@@ -794,19 +794,18 @@ const Index = () => {
             transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
             className="flex flex-col"
           >
-            <div className="mb-6 flex items-center gap-3">
+            {/* <div className="mb-6 flex items-center gap-3">
               <div className="relative inline-flex items-center gap-2 px-4 py-2 rounded-full border border-primary/25 bg-primary/8 backdrop-blur-sm group cursor-default select-none overflow-hidden">
                 <span className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-700 bg-gradient-to-r from-transparent via-primary/10 to-transparent" />
                 <span className="relative flex h-2 w-2 shrink-0">
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-60" />
                   <span className="relative inline-flex rounded-full h-2 w-2 bg-primary" />
                 </span>
-                {/* <Sparkles className="w-3.5 h-3.5 text-primary shrink-0" /> */}
                 <span className="text-xs font-extra-small text-primary tracking-tight uppercase">
                   Design & Development
                 </span>
               </div>
-            </div>
+            </div> */}
 
             <h1 className="font-Display text-balance text-7xl sm:text-6xl lg:text-7xl font-black leading-[1.01] tracking-tighter text-foreground mb-5">
               <TypewriterText

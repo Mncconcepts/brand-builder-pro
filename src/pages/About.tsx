@@ -225,6 +225,7 @@ const trustedBy = [
   "Oonsa Events",
   "Computer Village Marketplace",
   "DAPSVERSE",
+  "OMA",
 ];
 
 /* ─── shared section heading ─── */
@@ -285,7 +286,7 @@ const About = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
           >
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-border bg-foreground/5 backdrop-blur-sm mb-6">
+            {/* <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-border bg-foreground/5 backdrop-blur-sm">
               <span className="relative flex h-1.5 w-1.5">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-70" />
                 <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-emerald-500" />
@@ -293,12 +294,12 @@ const About = () => {
               <span className="text-[10px] font-bold text-foreground tracking-widest uppercase">
                 About the Team
               </span>
-            </div>
+            </div> */}
 
             {/* Split hero: narrative on the left, a real photo on the right */}
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-y-12 lg:gap-x-14 items-center">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-y-10 lg:gap-x-14 items-center">
               <div className="lg:col-span-7">
-                <h1 className="font-display text-[2.75rem] leading-[1.01] sm:text-7xl lg:text-7xl font-extrabold text-foreground tracking-tight text-balance mb-6">
+                <h1 className="font-display -mt-3 text-[2.75rem] leading-[1.01] sm:text-7xl lg:text-7xl font-extrabold text-foreground tracking-tight text-balance mb-6">
                   Design-Strategy, <br />
                   <span className="text-muted-foreground">Development,</span>
                   <br />
@@ -403,7 +404,7 @@ const About = () => {
             {trustedBy.map((name) => (
               <span
                 key={name}
-                className="font-display text-sm sm:text-[15px] font-bold tracking-tight text-foreground/55 hover:text-foreground transition-colors"
+                className="font-display uppercase text-sm sm:text-[15px] font-bold tracking-tight text-foreground/55 hover:text-foreground transition-colors"
               >
                 {name}
               </span>

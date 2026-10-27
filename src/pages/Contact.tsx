@@ -113,7 +113,7 @@ const Contact = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
           >
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-border bg-foreground/5 backdrop-blur-sm mb-6">
+            {/* <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-border bg-foreground/5 backdrop-blur-sm mb-6">
               <span className="relative flex h-1.5 w-1.5">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-70" />
                 <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-emerald-500" />
@@ -121,12 +121,12 @@ const Contact = () => {
               <span className="text-[10px] font-bold text-foreground tracking-widest uppercase">
                 Contact Us
               </span>
-            </div>
+            </div> */}
 
             <h1 className="font-display text-balance max-w-3xl text-4xl sm:text-6xl lg:text-7xl text-foreground leading-[1.08] font-extrabold tracking-tight mb-4">
               Get in Touch. Let's Talk About Your Project.
             </h1>
-            <p className="text-sm sm:text-base text-muted-foreground max-w-xl leading-relaxed mb-8">
+            <p className="text-sm sm:text-base text-muted-foreground max-w-xl leading-relaxed -mb-12">
               Have a project in mind or want to discuss a potential
               collaboration? We would love to hear from you. Fill out the form
               below or reach out directly.
@@ -452,7 +452,7 @@ const Contact = () => {
                 <AccordionTrigger className="text-sm font-semibold text-foreground py-5 hover:no-underline text-left">
                   {faq.q}
                 </AccordionTrigger>
-                <AccordionContent className="text-xs text-muted-foreground pb-5 leading-relaxed">
+                <AccordionContent className="text-sm text-muted-foreground pb-5 leading-relaxed">
                   {faq.a}
                 </AccordionContent>
               </AccordionItem>
