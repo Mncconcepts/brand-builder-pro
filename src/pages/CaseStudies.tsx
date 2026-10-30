@@ -111,33 +111,34 @@ const caseStudies = [
     ],
     tech: ["Figma", "FigJam", "Prototyping", "Design System", "User Research"],
   },
+
   {
-    slug: "oonsa-event-discovery-planning",
-    title: "Oonsa Event Discovery & Planning",
-    client: "Oonsa",
-    industry: "Events · SaaS",
-    duration: "10 Weeks",
-    year: "2025",
-    image: "/case-oonsa.svg",
+    slug: "Supersonic-Dynamic-Services",
+    title: "Supersonic Dynamic Services B.V",
+    client: "Supersonic Dynamic Services B.V",
+    industry: "Logistics · Haulage · Moving Services",
+    duration: "4 Months",
+    year: "2026",
+    image: "/supersonic.jpeg",
     summary:
-      "Led the end-to-end product design for Oonsa an event discovery and planning management platform for the web. Designed an intuitive experience that empowers both event planners and attendees to discover, manage, and attend events seamlessly.",
+      "Supersonic Dynamic Services B.V is a high-performance functional operations configuration and logistics platform. We engineered a seamless web experience powered by precision logistics and a carbon-neutral fleet, allowing businesses and individuals in the Netherlands to effortlessly manage, calculate, and coordinate complex relocation and freight haulage requests.",
     challenge:
-      "Event planners lacked a centralised tool to manage the full event lifecycle from creation and promotion to ticketing and guest coordination. Attendees struggled to discover relevant events in one place. Existing solutions were either too complex or too basic.",
+      "Many moving and freight haulage companies in the Netherlands still rely on manual quotation processes, disconnected communication channels, paper-based documentation, and limited visibility into assignment progress. This often results in delayed responses, inefficient customer experiences, a lack of pricing transparency, and difficulty tracking relocation projects from quotation to completion. Customers needed a modern, technology-driven platform that would simplify the entire relocation journey while providing real-time access to quotations, assignment tracking, invoicing, payments, and customer support.",
     solution:
-      "Conducted user research and competitive analysis, then designed the complete web product from wireframes to high-fidelity UI. Delivered a clean planner dashboard covering event creation, vendor coordination, guest management, budget tracking, and real-time analytics alongside a polished public-facing event discovery interface for attendees.",
+      "We designed and developed a modern digital platform for SUPERSONIC DYNAMIC SERVICES B.V. that centralizes and automates key moving and freight haulage operations. Built with React, TypeScript, and contemporary frontend technologies, the platform enables customers to request quotations online, upload assignment details and videos, monitor assignment progress in real time, access digital invoices, complete secure online payments, and communicate efficiently with the company. The solution delivers a seamless, transparent, and user-friendly experience while supporting the company's vision of leveraging digital innovation, operational excellence, and sustainable logistics services across the Netherlands.",
     results: [
-      { metric: "Design Screens", value: "60+" },
-      { metric: "Planner Efficiency", value: "+70%" },
-      { metric: "User Onboarding", value: "-55%" },
-      { metric: "Design-Dev Handoff", value: "Seamless" },
+      { metric: "Quotation Requests", value: "Online" },
+      { metric: "Assignment Tracking", value: "Real-time" },
+      { metric: "Invoicing & Payments", value: "Digital" },
+      { metric: "Experience", value: "Fully Responsive" },
     ],
-    tech: ["Figma", "FigJam", "Prototyping", "Design System", "User Research"],
-    testimonial: {
-      quote:
-        "Delivered a stunning website that perfectly captures our brand. Professional, responsive, and a pleasure to work with.",
-      name: "Oonsa",
-      role: "Founder, Oonsa Event WebApp",
-    },
+    tech: [
+      "React",
+      "TypeScript",
+      "Tailwind CSS",
+      "Framer Motion",
+      "React Hook Form",
+    ],
   },
 ];
 

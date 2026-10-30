@@ -1375,16 +1375,6 @@ const Index = () => {
               </h2>
             </div>
             <div className="flex items-center gap-3">
-              <div className="flex items-center gap-0.5">
-                {Array(5)
-                  .fill(0)
-                  .map((_, i) => (
-                    <Star
-                      key={i}
-                      className="w-3.5 h-3.5 fill-amber-400 text-amber-400"
-                    />
-                  ))}
-              </div>
               <p className="hidden sm:block text-xs text-muted-foreground">
                 <span className="font-medium text-foreground">
                   30+ Customers

@@ -33,7 +33,7 @@ const faqs = [
   },
   {
     q: "Do you work with international clients?",
-    a: "Absolutely. We work with clients worldwide and am comfortable with remote collaboration across time zones.",
+    a: "Absolutely. We work with clients worldwide and we are comfortable with remote collaboration across time zones.",
   },
   {
     q: "What technologies do you specialize in?",

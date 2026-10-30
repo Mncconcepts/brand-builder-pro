@@ -1,20 +1,52 @@
+import { useEffect, useState } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
-import { motion } from "framer-motion";
+import { AnimatePresence, motion, useScroll, useSpring } from "framer-motion";
 import {
   ArrowLeft,
+  ArrowRight,
   ExternalLink,
   Users,
   Clock,
   Target,
   Lightbulb,
   Calendar,
+  ImageIcon,
+  ChevronLeft,
+  ChevronRight,
+  X,
 } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import visaguard from "@/assets/visaguard.jpg";
+import vgalanding2 from "@/assets/vgalanding2.jpg";
+import visaguardd from "@/assets/visaguardd.jpg";
+import supersonic from "@/assets/supersonic.jpeg";
+import supersonic2 from "@/assets/supersonic2.png";
+import supersonic3 from "@/assets/supersonic3.png";
+import oonsa from "@/assets/Oonsa.png";
+import storeapp from "@/assets/proj-storeapp2.png";
+import storeapp2 from "@/assets/proj-storeapp22.png";
+import storeapp3 from "@/assets/repost5.png";
+import oma from "@/assets/proj-oma.png";
+import oma1 from "@/assets/oma5.png";
+import oma2 from "@/assets/omapost15.png";
+import pearlz from "@/assets/proj-pearlz-store.png";
+import pearlz1 from "@/assets/pearlzmock1.png";
+import pearlz2 from "@/assets/pearlzmock2.png";
+import dapstore from "@/assets/post1dap.png";
+import dapstore1 from "@/assets/Dashboard.png";
+import dapstore2 from "@/assets/dapstore1.png";
+import dapstore3 from "@/assets/post-2dap.png";
 
 interface ProcessStep {
   phase: string;
   description: string;
+}
+
+interface CaseStudyImage {
+  src: string;
+  alt?: string;
+  caption?: string;
 }
 
 interface CaseStudyData {
@@ -35,6 +67,8 @@ interface CaseStudyData {
   challenges: string;
   learnings: string;
   link?: string | null;
+  cover?: string;
+  images?: CaseStudyImage[];
 }
 
 const caseStudies: CaseStudyData[] = [
@@ -92,8 +126,19 @@ const caseStudies: CaseStudyData[] = [
       "One of the primary challenges was translating complex moving and freight-haulage operational workflows into a simple and intuitive digital experience. The platform needed to accommodate multiple service categories, quotation submissions with supporting media uploads, assignment tracking, digital invoicing, and secure payment journeys while maintaining a clean user interface across desktop and mobile devices. This was addressed through careful information architecture, user-centered design principles, and a modular frontend system that simplifies complex business processes.",
     learnings:
       "Building digital solutions for the logistics and relocation industry reinforced the importance of transparency, trust, and operational visibility throughout the customer journey. Customers want clear pricing, real-time updates, straightforward communication, and confidence that their assignments are being managed professionally. By focusing on accessibility, workflow clarity, and user-friendly interfaces, we learned how technology can significantly improve customer satisfaction while supporting business efficiency and long-term scalability.",
-  link:"https://supersonicdynamicservices.nl/",
-},
+    link: "https://supersonicdynamicservices.nl/",
+
+    cover: supersonic,
+    images: [
+      {
+        src: supersonic,
+        alt: "supersonic",
+        caption: "Supersonic Dynamic Services",
+      },
+      { src: supersonic2, alt: "Landing page", caption: "Branding01" },
+      { src: supersonic3, alt: "Landing page", caption: "Branding02" },
+    ],
+  },
 
   {
     slug: "Visa-guard-africa App-Landing",
@@ -153,7 +198,23 @@ const caseStudies: CaseStudyData[] = [
     learnings:
       "Building for vulnerable users demands an unusually high standard of trust design. Every label, every empty state, every error message must communicate safety. This project has fundamentally changed how we think about designing for high-stakes environments.",
     link: "https://waitlist.visaguardafrica.com",
+
+    cover: vgalanding2,
+    images: [
+      { src: vgalanding2, alt: "Landing page", caption: "Landing page" },
+      {
+        src: visaguard,
+        alt: "Visa Guard Africa app",
+        caption: "Visa Guard Africa app",
+      },
+      {
+        src: visaguardd,
+        alt: "Visa Guard Africa app",
+        caption: "Visa Guard Africa app",
+      },
+    ],
   },
+
   {
     slug: "Oonsa-event-Webapp",
     title: "Oonsa Event WebApp",
@@ -204,7 +265,11 @@ const caseStudies: CaseStudyData[] = [
     learnings:
       "Cultural context is everything in product design. Austrailian events have unique social dynamics group ticket purchases, last-minute RSVPs, and organiser reputation systems — that don't exist in Western event apps. We had to unlearn global patterns and design locally.",
     link: "https://oonsa.com",
+
+    cover: oonsa,
+    images: [{ src: oonsa, alt: "oonsa", caption: "Oonsa-event-Webapp" }],
   },
+
   {
     slug: "Pearlz-store Website",
     title: "E-Commerce Skincare Website",
@@ -256,7 +321,15 @@ const caseStudies: CaseStudyData[] = [
     learnings:
       "E-commerce design is fundamentally about reducing doubt. Every product image, every review, every delivery detail exists to answer an unspoken customer question: 'Can I trust this?' We now design e-commerce with that lens from day one.",
     link: "https://pearlz-store.vercel.app",
+
+    cover: pearlz2,
+    images: [
+      { src: pearlz2, alt: "pearlz", caption: "Skin care website" },
+      { src: pearlz, alt: "pearlz", caption: "Skin care website" },
+      { src: pearlz1, alt: "pearlz", caption: "Skin care website" },
+    ],
   },
+
   {
     slug: "CVMP App",
     title: "Computer Village MarketPlace (CVMP)",
@@ -307,6 +380,13 @@ const caseStudies: CaseStudyData[] = [
     learnings:
       "The most impactful design work happens when you deeply understand and respect the existing system you're digitising. Computer Village isn't broken — it's just unscalable. Our job was to amplify what works, not replace it.",
     link: "https://b2b.cvmarket.ng/",
+
+    cover: storeapp2,
+    images: [
+      { src: storeapp3, alt: "cvmp", caption: "Cvmarket App" },
+      { src: storeapp, alt: "cvmp", caption: "Cvmarket App" },
+      { src: storeapp2, alt: "cvmp", caption: "Cvmarket App" },
+    ],
   },
   {
     slug: "Oma-crypto App",
@@ -358,6 +438,12 @@ const caseStudies: CaseStudyData[] = [
     learnings:
       "Designing for crypto taught us that emotion drives adoption more than information. Users don't need to understand how mining works they need to feel that it's working for them. Simplicity, visibility, and reward loops do more than any technical explanation.",
     link: null,
+    cover: oma,
+    images: [
+      { src: oma, alt: "oma", caption: "Oma Game Mining App" },
+      { src: oma1, alt: "oma", caption: "Oma Game Mining App" },
+      { src: oma2, alt: "oma", caption: "Oma Game Mining App" },
+    ],
   },
   {
     slug: "Paywithpi Website",
@@ -460,369 +546,653 @@ const caseStudies: CaseStudyData[] = [
     learnings:
       "Designing a two-sided marketplace taught us the importance of designing for both ends of a transaction simultaneously. A great seller experience drives supply; a great buyer experience drives demand. Both have to work together.",
     link: null,
+
+    cover: dapstore1,
+    images: [
+      {
+        src: dapstore,
+        alt: "Multiple vendor store",
+        caption: "Multiple vendor store",
+      },
+      { src: dapstore2, alt: "Multiple vendor store", caption: "Branding01" },
+      { src: dapstore3, alt: "Multiple vendor store", caption: "Branding02" },
+    ],
   },
 ];
 
-/* ─── animation variants ── */
-const fadeUp = {
-  hidden: { opacity: 0, y: 20 },
-  visible: (i = 0) => ({
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.5, delay: i * 0.08, ease: [0.22, 1, 0.36, 1] },
-  }),
+/** Set to false to hide the empty "add image" frames for projects that have no images yet */
+const SHOW_PLACEHOLDERS = true;
+
+const sections = [
+  { id: "overview", label: "Overview" },
+  { id: "problem-solution", label: "Problem & Solution" },
+  { id: "gallery", label: "Project Gallery" },
+  { id: "process", label: "Our Process" },
+  { id: "outcomes", label: "Outcomes & Impact" },
+  { id: "reflections", label: "Challenges & Learnings" },
+];
+
+const reveal = {
+  initial: { opacity: 0, y: 18 },
+  whileInView: { opacity: 1, y: 0 },
+  viewport: { once: true, margin: "-60px" },
+  transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] as const },
 };
 
-const fadeIn = {
-  hidden: { opacity: 0 },
-  visible: { opacity: 1, transition: { duration: 0.4 } },
-};
-
-/* ─── small shared primitives ─ */
-const Divider = () => <div className="w-full h-px bg-border/60" />;
-
-const EyebrowLabel = ({
+const SectionHeading = ({
+  id,
+  title,
   children,
-  className = "",
 }: {
-  children: React.ReactNode;
-  className?: string;
+  id?: string;
+  title: string;
+  children?: React.ReactNode;
 }) => (
-  <p
-    className={`text-[10px] font-bold uppercase tracking-[0.14em] text-muted-foreground ${className}`}
+  <div
+    id={id}
+    className="mb-6 flex scroll-mt-28 items-end justify-between gap-4"
   >
+    <h2 className="font-display text-2xl font-bold tracking-tight text-foreground sm:text-3xl">
+      {title}
+    </h2>
+    {children}
+  </div>
+);
+
+const Body = ({ children }: { children: React.ReactNode }) => (
+  <p className="max-w-[68ch] text-[15px] leading-8 text-foreground/75 sm:text-base">
     {children}
   </p>
 );
 
-/* ─── main component ─ */
 const CaseStudySheet = () => {
   const { slug } = useParams<{ slug: string }>();
   const navigate = useNavigate();
-  const study = caseStudies.find((c) => c.slug === slug);
+
+  const index = caseStudies.findIndex((c) => c.slug === slug);
+  const study = index >= 0 ? caseStudies[index] : undefined;
+  const prev =
+    index >= 0
+      ? caseStudies[(index - 1 + caseStudies.length) % caseStudies.length]
+      : undefined;
+  const next =
+    index >= 0 ? caseStudies[(index + 1) % caseStudies.length] : undefined;
+
+  const [activeSection, setActiveSection] = useState("overview");
+  const [lightbox, setLightbox] = useState<number | null>(null);
+
+  const { scrollYProgress } = useScroll();
+  const progress = useSpring(scrollYProgress, { stiffness: 120, damping: 30 });
+
+  const images = study?.images ?? [];
+  const cover = study?.cover ?? images[0]?.src;
+
+  // Start at the top whenever a different case study opens
+  useEffect(() => {
+    window.scrollTo({ top: 0 });
+    setLightbox(null);
+    setActiveSection("overview");
+  }, [slug]);
+
+  // Highlight the section currently in view
+  useEffect(() => {
+    if (!study) return;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) setActiveSection(e.target.id);
+        });
+      },
+      { rootMargin: "-20% 0px -70% 0px" },
+    );
+    sections.forEach(({ id }) => {
+      const el = document.getElementById(id);
+      if (el) observer.observe(el);
+    });
+    return () => observer.disconnect();
+  }, [study]);
+
+  // Lightbox keyboard controls
+  useEffect(() => {
+    if (lightbox === null) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setLightbox(null);
+      if (e.key === "ArrowRight")
+        setLightbox((i) => (i === null ? i : (i + 1) % images.length));
+      if (e.key === "ArrowLeft")
+        setLightbox((i) =>
+          i === null ? i : (i - 1 + images.length) % images.length,
+        );
+    };
+    window.addEventListener("keydown", onKey);
+    document.body.style.overflow = "hidden";
+    return () => {
+      window.removeEventListener("keydown", onKey);
+      document.body.style.overflow = "";
+    };
+  }, [lightbox, images.length]);
 
   if (!study) {
     return (
-      <div className="min-h-screen bg-background flex flex-col">
+      <div className="flex min-h-screen flex-col bg-background">
         <Navbar />
-        <div className="flex-1 py-28 flex flex-col items-center justify-center gap-4">
+        <div className="flex flex-1 flex-col items-center justify-center gap-4 py-28">
           <p className="text-2xl font-bold text-foreground">
             Case Study Not Found.
           </p>
-          <Link to="/projects" className="text-primary underline text-xs">
+          <Link to="/projects" className="text-sm text-primary underline">
             ← Back to Projects
           </Link>
         </div>
+        <Footer />
       </div>
     );
   }
 
   const metaItems = [
+    { icon: <Target className="h-4 w-4" />, label: "Role", value: study.role },
     {
-      icon: <Target className="w-3.5 h-3.5" />,
-      label: "Role",
-      value: study.role,
-    },
-    {
-      icon: <Clock className="w-3.5 h-3.5" />,
+      icon: <Clock className="h-4 w-4" />,
       label: "Timeline",
       value: study.duration,
     },
+    { icon: <Users className="h-4 w-4" />, label: "Team", value: study.team },
     {
-      icon: <Users className="w-3.5 h-3.5" />,
-      label: "Team",
-      value: study.team,
-    },
-    {
-      icon: <Calendar className="w-3.5 h-3.5" />,
+      icon: <Calendar className="h-4 w-4" />,
       label: "Year",
       value: study.year,
     },
   ];
 
+  const categoryTags = study.category
+    .split("·")
+    .map((c) => c.trim())
+    .filter(Boolean);
+
   return (
     <div className="min-h-screen bg-background">
       <Navbar />
 
-      {/* ── Hero ── */}
-      <section className="pt-24 pb-16 border-b border-border">
-        <div className="max-w-6xl mx-auto px-6">
-          {/* Back nav */}
-          <motion.div
-            variants={fadeIn}
-            initial="hidden"
-            animate="visible"
-            className="mb-10"
+      {/* Reading progress */}
+      <motion.div
+        style={{ scaleX: progress }}
+        className="fixed inset-x-0 top-0 z-[60] h-0.5 origin-left bg-primary"
+      />
+
+      {/* ───────── Hero ───────── */}
+      <section className="border-b border-border pb-14 pt-28 sm:pt-32">
+        <div className="mx-auto max-w-6xl px-6">
+          <button
+            onClick={() => navigate(-1)}
+            className="group mb-10 inline-flex items-center gap-2 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
           >
-            <button
-              onClick={() => navigate(-1)}
-              className="inline-flex items-center gap-2 text-xs font-medium text-muted-foreground hover:text-foreground transition-colors group"
-            >
-              <ArrowLeft className="w-3.5 h-3.5 group-hover:-translate-x-0.5 transition-transform" />
-              Back to Projects
-            </button>
+            <ArrowLeft className="h-4 w-4 transition-transform group-hover:-translate-x-0.5" />
+            Back to Projects
+          </button>
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+          >
+            <div className="mb-5 flex flex-wrap gap-2">
+              {categoryTags.map((tag) => (
+                <span
+                  key={tag}
+                  className="rounded-full border border-border bg-secondary/50 px-3 py-1 text-[11px] font-semibold tracking-wide text-muted-foreground"
+                >
+                  {tag}
+                </span>
+              ))}
+            </div>
+
+            <h1 className="font-display max-w-4xl text-balance text-4xl font-extrabold leading-[1.08] tracking-tight text-foreground sm:text-5xl lg:text-6xl">
+              {study.title}
+            </h1>
+            <p className="mt-5 max-w-2xl text-lg leading-relaxed text-muted-foreground sm:text-xl">
+              {study.tagline}
+            </p>
+
+            <div className="mt-8 flex flex-wrap items-center gap-3">
+              {study.link && (
+                <a
+                  href={study.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 rounded-full bg-foreground px-6 py-3 text-sm font-semibold text-background transition-opacity hover:opacity-85 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+                >
+                  Visit Live Project
+                  <ExternalLink className="h-4 w-4" />
+                </a>
+              )}
+              <a
+                href="#gallery"
+                className="inline-flex items-center gap-2 rounded-full border border-border px-6 py-3 text-sm font-semibold text-foreground transition-colors hover:border-foreground/40"
+              >
+                <ImageIcon className="h-4 w-4" />
+                View designs
+              </a>
+            </div>
           </motion.div>
 
-          {/* Category eyebrow */}
+          {/* Cover image */}
           <motion.div
-            variants={fadeUp}
-            initial="hidden"
-            animate="visible"
-            custom={0}
+            initial={{ opacity: 0, y: 24 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{
+              duration: 0.7,
+              delay: 0.15,
+              ease: [0.22, 1, 0.36, 1],
+            }}
+            className="mt-12"
           >
-            <EyebrowLabel>{study.category}</EyebrowLabel>
+            {cover ? (
+              <button
+                type="button"
+                onClick={() => images.length && setLightbox(0)}
+                aria-label="Open project image"
+                className="group relative block w-full overflow-hidden rounded-2xl border border-border bg-secondary"
+              >
+                <img
+                  src={cover}
+                  alt={`${study.title} cover`}
+                  className="aspect-[16/9] w-full object-cover transition-transform duration-700 group-hover:scale-[1.02]"
+                />
+              </button>
+            ) : (
+              SHOW_PLACEHOLDERS && (
+                <div className="flex aspect-[16/9] w-full flex-col items-center justify-center gap-2 rounded-2xl border border-dashed border-border bg-secondary/30 text-muted-foreground">
+                  <ImageIcon className="h-8 w-8" />
+                  <p className="text-sm font-medium"></p>
+                  <p className="text-xs">
+                    {" "}
+                    <code className="rounded bg-secondary px-1.5 py-0.5">
+                    </code>{" "}
+                  </p>
+                </div>
+              )
+            )}
           </motion.div>
 
-          {/* Title */}
-          <motion.h1
-            variants={fadeUp}
-            initial="hidden"
-            animate="visible"
-            custom={1}
-            className="font-display text-[2rem] sm:text-4xl font-extrabold text-foreground leading-[1.15] tracking-tight mt-4 mb-5 max-w-3xl"
-          >
-            {study.title}
-          </motion.h1>
-
-          {/* Tagline */}
-          <motion.p
-            variants={fadeUp}
-            initial="hidden"
-            animate="visible"
-            custom={2}
-            className="text-sm text-muted-foreground leading-relaxed max-w-2xl mb-10"
-          >
-            {study.tagline}
-          </motion.p>
-
-          {/* Meta strip */}
-          <motion.div
-            variants={fadeUp}
-            initial="hidden"
-            animate="visible"
-            custom={3}
-            className="grid grid-cols-2 sm:grid-cols-4 gap-px bg-border rounded-xl overflow-hidden border border-border"
-          >
+          {/* Meta */}
+          <div className="mt-8 grid grid-cols-1 gap-px overflow-hidden rounded-2xl border border-border bg-border sm:grid-cols-2 lg:grid-cols-4">
             {metaItems.map((m) => (
               <div
                 key={m.label}
-                className="bg-background p-4 flex flex-col gap-2"
+                className="flex flex-col gap-2 bg-background p-5"
               >
-                <div className="flex items-center gap-1.5 text-muted-foreground">
+                <div className="flex items-center gap-2 text-muted-foreground">
                   {m.icon}
-                  <EyebrowLabel>{m.label}</EyebrowLabel>
+                  <span className="text-xs font-semibold">{m.label}</span>
                 </div>
-                <p className="text-xs font-medium text-foreground leading-snug">
+                <p className="text-sm font-medium leading-snug text-foreground">
                   {m.value}
                 </p>
               </div>
             ))}
-          </motion.div>
+          </div>
+
+          {/* Tech */}
+          <div className="mt-8 flex flex-wrap items-center gap-2">
+            <span className="mr-2 text-xs font-semibold text-muted-foreground">
+              Tech Stack
+            </span>
+            {study.tech.map((t) => (
+              <span
+                key={t}
+                className="rounded-full bg-secondary px-3 py-1.5 text-xs font-semibold text-foreground"
+              >
+                {t}
+              </span>
+            ))}
+          </div>
         </div>
       </section>
 
-      {/* ── Body ── */}
+      {/* ───────── Body ───────── */}
       <section className="py-16 lg:py-20">
-        <div className="max-w-6xl mx-auto px-6 space-y-16">
-          {/* Tech stack */}
-          <motion.div
-            variants={fadeUp}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-          >
-            <EyebrowLabel className="mb-4">Tech Stack</EyebrowLabel>
-            <div className="flex flex-wrap gap-2">
-              {study.tech.map((t) => (
-                <span
-                  key={t}
-                  className="text-[11px] font-semibold text-foreground bg-secondary/60 px-3 py-1.5 rounded-full tracking-wide"
-                >
-                  {t}
-                </span>
-              ))}
-            </div>
-          </motion.div>
+        <div className="mx-auto grid max-w-6xl gap-12 px-6 lg:grid-cols-[210px_minmax(0,1fr)] lg:gap-16">
+          {/* Sticky section nav */}
+          <aside className="hidden lg:block">
+            <nav aria-label="On this page" className="sticky top-28">
+              <p className="mb-4 text-xs font-semibold text-muted-foreground">
+                On this page
+              </p>
+              <ul className="space-y-1 border-l border-border">
+                {sections.map(({ id, label }) => {
+                  const active = activeSection === id;
+                  return (
+                    <li key={id}>
+                      <a
+                        href={`#${id}`}
+                        className={`-ml-px block border-l-2 py-1.5 pl-4 text-sm transition-colors ${
+                          active
+                            ? "border-primary font-semibold text-foreground"
+                            : "border-transparent text-muted-foreground hover:text-foreground"
+                        }`}
+                      >
+                        {label}
+                      </a>
+                    </li>
+                  );
+                })}
+              </ul>
+            </nav>
+          </aside>
 
-          <Divider />
-
-          {/* Overview */}
-          <motion.div
-            variants={fadeUp}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-          >
-            <EyebrowLabel className="mb-4">Overview</EyebrowLabel>
-            <p className="text-sm sm:text-[15px] text-muted-foreground leading-[1.85] max-w-3xl">
-              {study.overview}
-            </p>
-          </motion.div>
-
-          <Divider />
-
-          {/* Problem / Solution */}
-          <div className="grid md:grid-cols-2 gap-6 md:gap-8">
-            {[
-              {
-                icon: <Target className="w-4 h-4" />,
-                label: "The Problem",
-                body: study.problem,
-              },
-              {
-                icon: <Lightbulb className="w-4 h-4" />,
-                label: "Our Solution",
-                body: study.solution,
-              },
-            ].map((card, i) => (
-              <motion.div
-                key={card.label}
-                variants={fadeUp}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true }}
-                custom={i * 0.15}
-                className="rounded-2xl bg-secondary/30 p-6 sm:p-8 flex flex-col gap-4"
-              >
-                <div className="flex items-center gap-2">
-                  <span className="text-primary">{card.icon}</span>
-                  <EyebrowLabel>{card.label}</EyebrowLabel>
-                </div>
-                <p className="text-xs sm:text-[13px] text-muted-foreground leading-[1.9]">
-                  {card.body}
-                </p>
-              </motion.div>
-            ))}
-          </div>
-
-          <Divider />
-
-          {/* Process */}
-          <motion.div
-            variants={fadeUp}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-          >
-            <EyebrowLabel className="mb-8">Our Process</EyebrowLabel>
-
-            <div className="space-y-0">
-              {study.process.map((step, i) => (
-                <motion.div
-                  key={step.phase}
-                  variants={fadeUp}
-                  initial="hidden"
-                  whileInView="visible"
-                  viewport={{ once: true }}
-                  custom={i * 0.1}
-                  className="flex gap-5 group"
-                >
-                  {/* Timeline column */}
-                  <div className="flex flex-col items-center flex-shrink-0">
-                    <div className="w-7 h-7 rounded-full flex items-center justify-center text-[10px] font-bold text-primary-foreground bg-primary z-10">
-                      {i + 1}
-                    </div>
-                    {i < study.process.length - 1 && (
-                      <div className="w-px flex-1 bg-border my-2 min-h-[32px]" />
-                    )}
-                  </div>
-
-                  {/* Text */}
-                  <div
-                    className={`pb-8 ${
-                      i === study.process.length - 1 ? "pb-0" : ""
-                    }`}
-                  >
-                    <p className="text-sm font-semibold text-foreground mb-1.5 leading-snug">
-                      {step.phase}
-                    </p>
-                    <p className="text-xs sm:text-[13px] text-muted-foreground leading-[1.9]">
-                      {step.description}
-                    </p>
-                  </div>
-                </motion.div>
-              ))}
-            </div>
-          </motion.div>
-
-          <Divider />
-
-          {/* Outcomes */}
-          <motion.div
-            variants={fadeUp}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-          >
-            <EyebrowLabel className="mb-6">Outcomes & Impact</EyebrowLabel>
-            <div className="grid sm:grid-cols-2 gap-3">
-              {study.outcomes.map((item, i) => (
-                <motion.div
-                  key={i}
-                  variants={fadeUp}
-                  initial="hidden"
-                  whileInView="visible"
-                  viewport={{ once: true }}
-                  custom={i * 0.08}
-                  className="flex items-start gap-3 bg-secondary/30 rounded-xl p-4"
-                >
-                  <span className="mt-1.5 flex-shrink-0 w-1.5 h-1.5 rounded-full bg-primary" />
-                  <span className="text-xs sm:text-[13px] text-foreground leading-[1.85]">
-                    {item}
-                  </span>
-                </motion.div>
-              ))}
-            </div>
-          </motion.div>
-
-          <Divider />
-
-          {/* Challenges & Learnings */}
-          <div className="grid md:grid-cols-2 gap-10">
-            {[
-              { label: "Challenges", body: study.challenges },
-              { label: "Key Learnings", body: study.learnings },
-            ].map((section, i) => (
-              <motion.div
-                key={section.label}
-                variants={fadeUp}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true }}
-                custom={i * 0.15}
-              >
-                <EyebrowLabel className="mb-3">{section.label}</EyebrowLabel>
-                <p className="text-xs sm:text-[13px] text-muted-foreground leading-[1.9]">
-                  {section.body}
-                </p>
-              </motion.div>
-            ))}
-          </div>
-
-          {/* CTA */}
-          {study.link && (
-            <motion.div
-              variants={fadeUp}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-              className="pt-2 flex justify-start"
-            >
-              <a
-                href={study.link}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-primary text-primary-foreground text-xs font-bold tracking-wide transition-opacity hover:opacity-90 active:scale-[0.98]"
-              >
-                Visit Live Project
-                <ExternalLink className="w-3.5 h-3.5" />
-              </a>
+          {/* Content */}
+          <div className="min-w-0 space-y-20">
+            {/* Overview */}
+            <motion.div {...reveal}>
+              <SectionHeading id="overview" title="Overview" />
+              <p className="max-w-[68ch] text-lg leading-9 text-foreground/85 sm:text-xl sm:leading-10">
+                {study.overview}
+              </p>
             </motion.div>
-          )}
+
+            {/* Problem / Solution */}
+            <div
+              id="problem-solution"
+              className="grid scroll-mt-28 gap-6 md:grid-cols-2"
+            >
+              {[
+                {
+                  icon: <Target className="h-4 w-4" />,
+                  label: "The Problem",
+                  body: study.problem,
+                },
+                {
+                  icon: <Lightbulb className="h-4 w-4" />,
+                  label: "Our Solution",
+                  body: study.solution,
+                },
+              ].map((card, i) => (
+                <motion.div
+                  key={card.label}
+                  {...reveal}
+                  transition={{ ...reveal.transition, delay: i * 0.1 }}
+                  className="flex flex-col gap-4 rounded-2xl border border-border bg-secondary/30 p-6 sm:p-8"
+                >
+                  <div className="flex items-center gap-2.5">
+                    <span className="flex h-8 w-8 items-center justify-center rounded-full bg-primary/10 text-primary">
+                      {card.icon}
+                    </span>
+                    <h3 className="font-display text-lg font-bold text-foreground">
+                      {card.label}
+                    </h3>
+                  </div>
+                  <p className="text-[15px] leading-8 text-foreground/75">
+                    {card.body}
+                  </p>
+                </motion.div>
+              ))}
+            </div>
+
+            {/* Gallery */}
+            <motion.div {...reveal}>
+              <SectionHeading id="gallery" title="Project Gallery">
+                {images.length > 0 && (
+                  <span className="text-sm text-muted-foreground">
+                    {images.length} {images.length === 1 ? "image" : "images"}
+                  </span>
+                )}
+              </SectionHeading>
+
+              {images.length > 0 ? (
+                <div className="grid gap-4 sm:grid-cols-2">
+                  {images.map((img, i) => (
+                    <figure
+                      key={`${img.src}-${i}`}
+                      className={i === 0 ? "sm:col-span-2" : ""}
+                    >
+                      <button
+                        type="button"
+                        onClick={() => setLightbox(i)}
+                        aria-label={`Open ${img.alt ?? `image ${i + 1}`} full screen`}
+                        className="group block w-full overflow-hidden rounded-xl border border-border bg-secondary"
+                      >
+                        <img
+                          src={img.src}
+                          alt={img.alt ?? `${study.title} design ${i + 1}`}
+                          loading="lazy"
+                          className={`w-full object-cover transition-transform duration-500 group-hover:scale-[1.03] ${
+                            i === 0 ? "aspect-[16/9]" : "aspect-[4/3]"
+                          }`}
+                        />
+                      </button>
+                      {img.caption && (
+                        <figcaption className="mt-2 text-sm text-muted-foreground">
+                          {img.caption}
+                        </figcaption>
+                      )}
+                    </figure>
+                  ))}
+                </div>
+              ) : (
+                SHOW_PLACEHOLDERS && (
+                  <div className="grid gap-4 sm:grid-cols-2">
+                    {[0, 1, 2].map((n) => (
+                      <div
+                        key={n}
+                        className={`flex flex-col items-center justify-center gap-2 rounded-xl border border-dashed border-border bg-secondary/30 text-muted-foreground ${
+                          n === 0
+                            ? "aspect-[16/9] sm:col-span-2"
+                            : "aspect-[4/3]"
+                        }`}
+                      >
+                        <ImageIcon className="h-6 w-6" />
+                        <p className="text-sm font-medium"></p>
+                      </div>
+                    ))}
+                    <p className="text-sm text-muted-foreground sm:col-span-2">
+                      {" "}
+                      <code className="rounded bg-secondary px-1.5 py-0.5">
+                      </code>{" "}
+                      {" "}
+                      <code className="rounded bg-secondary px-1.5 py-0.5">
+                      </code>{" "}
+                    </p>
+                  </div>
+                )
+              )}
+            </motion.div>
+
+            {/* Process */}
+            <motion.div {...reveal}>
+              <SectionHeading id="process" title="Our Process" />
+              <ol className="space-y-0">
+                {study.process.map((step, i) => (
+                  <li key={step.phase} className="flex gap-5">
+                    <div className="flex flex-shrink-0 flex-col items-center">
+                      <span className="z-10 flex h-9 w-9 items-center justify-center rounded-full bg-primary text-sm font-bold text-primary-foreground">
+                        {i + 1}
+                      </span>
+                      {i < study.process.length - 1 && (
+                        <span className="my-2 min-h-[32px] w-px flex-1 bg-border" />
+                      )}
+                    </div>
+                    <div
+                      className={i === study.process.length - 1 ? "" : "pb-10"}
+                    >
+                      <h3 className="mb-2 text-lg font-semibold leading-snug text-foreground">
+                        {step.phase}
+                      </h3>
+                      <p className="max-w-[68ch] text-[15px] leading-8 text-foreground/75">
+                        {step.description}
+                      </p>
+                    </div>
+                  </li>
+                ))}
+              </ol>
+            </motion.div>
+
+            {/* Outcomes */}
+            <motion.div {...reveal}>
+              <SectionHeading id="outcomes" title="Outcomes & Impact" />
+              <ul className="grid gap-3 sm:grid-cols-2">
+                {study.outcomes.map((item, i) => (
+                  <li
+                    key={i}
+                    className="flex items-start gap-3 rounded-xl border border-border bg-secondary/30 p-5"
+                  >
+                    <span className="mt-2.5 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-primary" />
+                    <span className="text-[15px] leading-8 text-foreground/85">
+                      {item}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            </motion.div>
+
+            {/* Challenges & Learnings */}
+            <motion.div {...reveal}>
+              <div
+                id="reflections"
+                className="grid scroll-mt-28 gap-10 md:grid-cols-2"
+              >
+                {[
+                  { label: "Challenges", body: study.challenges },
+                  { label: "Key Learnings", body: study.learnings },
+                ].map((s) => (
+                  <div key={s.label}>
+                    <h2 className="font-display mb-4 text-2xl font-bold tracking-tight text-foreground">
+                      {s.label}
+                    </h2>
+                    <p className="text-[15px] leading-8 text-foreground/75">
+                      {s.body}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </motion.div>
+
+            {/* Live link CTA */}
+            {study.link && (
+              <motion.div
+                {...reveal}
+                className="flex flex-col items-start justify-between gap-4 rounded-2xl border border-border bg-secondary/30 p-6 sm:flex-row sm:items-center sm:p-8"
+              >
+                <p className="font-display text-xl font-bold text-foreground">
+                  See it in action
+                </p>
+                <a
+                  href={study.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground transition-opacity hover:opacity-90 active:scale-[0.98]"
+                >
+                  Visit Live Project
+                  <ExternalLink className="h-4 w-4" />
+                </a>
+              </motion.div>
+            )}
+          </div>
         </div>
       </section>
+
+      {/* ───────── Previous / next ───────── */}
+      {prev && next && caseStudies.length > 1 && (
+        <section className="border-t border-border">
+          <div className="mx-auto grid max-w-6xl grid-cols-1 sm:grid-cols-2">
+            <Link
+              to={`/projects/case-study/${prev.slug}`}
+              className="group flex flex-col gap-2 border-b border-border px-6 py-10 transition-colors hover:bg-secondary/40 sm:border-b-0 sm:border-r"
+            >
+              <span className="inline-flex items-center gap-2 text-xs font-semibold text-muted-foreground">
+                <ArrowLeft className="h-3.5 w-3.5 transition-transform group-hover:-translate-x-0.5" />
+                Previous project
+              </span>
+              <span className="font-display text-xl font-bold text-foreground">
+                {prev.title}
+              </span>
+            </Link>
+            <Link
+              to={`/projects/case-study/${next.slug}`}
+              className="group flex flex-col items-start gap-2 px-6 py-10 transition-colors hover:bg-secondary/40 sm:items-end sm:text-right"
+            >
+              <span className="inline-flex items-center gap-2 text-xs font-semibold text-muted-foreground">
+                Next project
+                <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
+              </span>
+              <span className="font-display text-xl font-bold text-foreground">
+                {next.title}
+              </span>
+            </Link>
+          </div>
+        </section>
+      )}
 
       <Footer />
+
+      {/* ───────── Lightbox ───────── */}
+      <AnimatePresence>
+        {lightbox !== null && images[lightbox] && (
+          <motion.div
+            role="dialog"
+            aria-modal="true"
+            aria-label="Project image viewer"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[100] flex flex-col bg-background/95 backdrop-blur-sm"
+            onClick={() => setLightbox(null)}
+          >
+            <div className="flex items-center justify-between px-6 py-4">
+              <p className="text-sm text-muted-foreground">
+                {lightbox + 1} / {images.length}
+              </p>
+              <button
+                onClick={() => setLightbox(null)}
+                aria-label="Close viewer"
+                className="flex h-10 w-10 items-center justify-center rounded-full border border-border text-foreground transition-colors hover:bg-secondary"
+              >
+                <X className="h-5 w-5" />
+              </button>
+            </div>
+
+            <div
+              className="relative flex flex-1 items-center justify-center px-4 pb-6 sm:px-16"
+              onClick={(e) => e.stopPropagation()}
+            >
+              {images.length > 1 && (
+                <button
+                  onClick={() =>
+                    setLightbox((lightbox - 1 + images.length) % images.length)
+                  }
+                  aria-label="Previous image"
+                  className="absolute left-2 flex h-11 w-11 items-center justify-center rounded-full border border-border bg-background text-foreground transition-colors hover:bg-secondary sm:left-4"
+                >
+                  <ChevronLeft className="h-5 w-5" />
+                </button>
+              )}
+              <figure className="flex max-h-full max-w-5xl flex-col items-center gap-3">
+                <img
+                  src={images[lightbox].src}
+                  alt={
+                    images[lightbox].alt ??
+                    `${study.title} design ${lightbox + 1}`
+                  }
+                  className="max-h-[75vh] w-auto max-w-full rounded-lg object-contain"
+                />
+                {images[lightbox].caption && (
+                  <figcaption className="text-sm text-muted-foreground">
+                    {images[lightbox].caption}
+                  </figcaption>
+                )}
+              </figure>
+              {images.length > 1 && (
+                <button
+                  onClick={() => setLightbox((lightbox + 1) % images.length)}
+                  aria-label="Next image"
+                  className="absolute right-2 flex h-11 w-11 items-center justify-center rounded-full border border-border bg-background text-foreground transition-colors hover:bg-secondary sm:right-4"
+                >
+                  <ChevronRight className="h-5 w-5" />
+                </button>
+              )}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 };

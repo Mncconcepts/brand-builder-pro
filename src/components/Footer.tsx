@@ -1,62 +1,83 @@
 import { Link } from "react-router-dom";
+import { ArrowUpRight, Facebook, Github, Linkedin, Mail, Twitter } from "lucide-react";
+
+
+const CONTACT_EMAIL = "clintonnweze111@gmail.com";
+
+const socials = [
+  { label: "GitHub",   url: "https://github.com/Mncconcepts",              icon: Github },
+  { label: "LinkedIn", url: "https://linkedin.com/in/miracle-nweze-52aab330b",       icon: Linkedin },
+  // { label: "Twitter",  url: "https://twitter.com/mncconcepts",            icon: Twitter },
+  { label: "Facebook", url: "https://facebook.com/miracle.nweze.524",          icon: Facebook },
+];
+
+const navLinks = [
+  { label: "Home", to: "/" },
+  { label: "Services", to: "/services" },
+  { label: "Contact", to: "/contact" },
+];
+
+const legalLinks = [
+  { label: "Privacy", to: "/terms" },
+  { label: "Terms", to: "/terms" },
+];
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="border-t border-border/50 bg-background pt-24 pb-12">
-      <div className="max-w-6xl mx-auto px-6">
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-16 mb-20">
-          
-          {/* Brand Identity */}
-          <div className="md:col-span-5 lg:col-span-6">
-            <Link 
-              to="/" 
-              className="text-xm font-bold tracking-tighter text-foreground hover:opacity-70 transition-opacity"
+    <footer className="border-t border-border bg-background">
+      <div className="mx-auto max-w-6xl px-6">
+        {/* Middle: brand, navigation, socials */}
+        <div className="grid grid-cols-1 gap-12 border-t border-border py-14 md:grid-cols-12">
+          <div className="md:col-span-5">
+            <Link
+              to="/"
+              className="text-xl font-bold tracking-tight text-foreground transition-opacity hover:opacity-70"
             >
-              Mncconcepts<span className="text-muted-foreground opacity-50">.</span>
+              Mncconcepts<span className="text-primary">.</span>
             </Link>
-            <p className="mt-6 text-sm text-muted-foreground leading-relaxed max-w-sm">
-              An independent team of developers and designers crafting digital experiences 
-              that bridge the gap between complex engineering and human-centric design.
+            <p className="mt-4 max-w-sm text-sm leading-relaxed text-muted-foreground">
+              An independent team of developers and designers building digital products that
+              pair solid engineering with human-centred design.
             </p>
           </div>
 
-          {/* Quick Links */}
-          <div className="md:col-span-3 lg:col-span-3">
-            <h4 className="text-[10px] font-black uppercase tracking-[0.3em] text-foreground mb-8">
-              Navigation
-            </h4>
-            <ul className="space-y-4">
-              {["Home", "Services", "Blog", "Contact"].map((item) => (
-                <li key={item}>
+          <nav aria-label="Footer" className="md:col-span-3 md:col-start-7">
+            <h3 className="mb-5 text-sm font-semibold text-foreground">Navigate</h3>
+            <ul className="space-y-3">
+              {navLinks.map(({ label, to }) => (
+                <li key={label}>
                   <Link
-                    to={item === "Home" ? "/" : `/${item.toLowerCase().replace(/ /g, "-")}`}
-                    className="text-xs font-medium text-muted-foreground hover:text-foreground transition-all flex items-center group"
+                    to={to}
+                    className="text-sm text-muted-foreground transition-colors hover:text-foreground"
                   >
-                    <span className="w-0 group-hover:w-4 h-px bg-foreground mr-0 group-hover:mr-2 transition-all duration-300" />
-                    {item}
+                    {label}
                   </Link>
                 </li>
               ))}
             </ul>
-          </div>
+          </nav>
 
-          {/* Social Presence */}
-          <div className="md:col-span-3 lg:col-span-3">
-            <h4 className="text-[10px] font-black uppercase tracking-[0.3em] text-foreground mb-8">
-              Connect
-            </h4>
-            <ul className="space-y-4">
-              {["GitHub", "LinkedIn", "Twitter", "Facebook"].map((item) => (
-                <li key={item}>
-                  <a 
-                    href="/" 
-                    target="_blank" 
+          <div className="md:col-span-3">
+            <h3 className="mb-5 text-sm font-semibold text-foreground">Follow us</h3>
+            <ul className="space-y-3">
+              {socials.map(({ label, handle, url, icon: Icon }) => (
+                <li key={label}>
+                  <a
+                    href={url}
+                    target="_blank"
                     rel="noopener noreferrer"
-                    className="text-xs font-medium text-muted-foreground hover:text-foreground transition-all"
+                    aria-label={`${label}: ${handle}`}
+                    className="group flex items-center gap-3 text-sm text-muted-foreground transition-colors hover:text-foreground"
                   >
-                    {item}
+                    <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-md border border-border bg-secondary/50 transition-colors group-hover:border-foreground/30 group-hover:bg-secondary">
+                      <Icon className="h-4 w-4" aria-hidden="true" />
+                    </span>
+                    <span className="flex flex-col leading-tight">
+                      <span className="font-medium text-foreground">{label}</span>
+                      <span className="text-xs">{handle}</span>
+                    </span>
                   </a>
                 </li>
               ))}
@@ -64,28 +85,32 @@ const Footer = () => {
           </div>
         </div>
 
-        {/* Bottom Bar */}
-        <div className="pt-8 border-t border-border/40 flex flex-col md:flex-row items-center justify-between gap-6">
-          <div className="flex flex-col sm:flex-row items-center gap-2 sm:gap-6">
-             <p className="text-[10px] font-medium text-muted-foreground/60 uppercase tracking-widest">
-               © {currentYear} Mncconcepts
-             </p>
-             <div className="flex gap-4">
-                <Link to="/terms" className="text-[10px] font-medium text-muted-foreground/40 hover:text-foreground transition-colors uppercase tracking-widest">
-                  Privacy
-                </Link>
-                <Link to="/terms" className="text-[10px] font-medium text-muted-foreground/40 hover:text-foreground transition-colors uppercase tracking-widest">
-                  Terms
-                </Link>
-             </div>
+        {/* Bottom bar */}
+        <div className="flex flex-col items-center justify-between gap-4 border-t border-border py-6 sm:flex-row">
+          <div className="flex flex-col items-center gap-3 sm:flex-row sm:gap-6">
+            <p className="text-xs text-muted-foreground">
+              © {currentYear} Mncconcepts. All rights reserved.
+            </p>
+            <ul className="flex gap-4">
+              {legalLinks.map(({ label, to }) => (
+                <li key={label}>
+                  <Link
+                    to={to}
+                    className="text-xs text-muted-foreground transition-colors hover:text-foreground"
+                  >
+                    {label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
           </div>
 
-          {/* Status Indicator */}
-          <div className="flex items-center gap-2 px-3 py-1 rounded-full bg-secondary/50 border border-border/50">
-            <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-            <span className="text-[9px] font-bold text-foreground/70 uppercase tracking-widest">
-              Available for projects
+          <div className="flex items-center gap-2 rounded-full border border-border bg-secondary/50 px-3 py-1.5">
+            <span className="relative flex h-2 w-2">
+              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-500 opacity-60 motion-reduce:animate-none" />
+              <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500" />
             </span>
+            <span className="text-xs font-medium text-foreground/80">Available for projects</span>
           </div>
         </div>
       </div>

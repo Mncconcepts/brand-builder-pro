@@ -546,7 +546,7 @@ const Terms = () => {
                 <div className="rounded-xl border border-border bg-card p-6 sm:p-8 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                   <div>
                     <h3 className="font-display text-base text-balance font-bold text-foreground mb-1">
-                      Have a question about these terms?
+                      Have A Question About These Terms?
                     </h3>
                     <p className="text-sm text-muted-foreground">
                       We're happy to clarify anything before you start a project

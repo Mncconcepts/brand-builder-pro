@@ -814,7 +814,7 @@ const Services = () => {
                 </p>
 
                 {/* Timeline overview */}
-                <div className="rounded-2xl border border-border bg-card p-5 mb-8 max-w-md">
+                {/* <div className="rounded-2xl border border-border bg-card p-5 mb-8 max-w-md">
                   <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground mb-4">
                     Typical timeline
                   </p>
@@ -831,7 +831,7 @@ const Services = () => {
                       </div>
                     ))}
                   </div>
-                </div>
+                </div> */}
 
                 <div className="flex flex-col sm:flex-row gap-3">
                   <Link

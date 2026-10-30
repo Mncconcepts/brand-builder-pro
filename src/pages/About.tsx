@@ -668,52 +668,7 @@ const About = () => {
         </div>
       </section>
 
-      {/* ── PRINCIPLES ── */}
-      <section className="py-24 sm:py-32">
-        <div className="max-w-6xl mx-auto px-6 grid lg:grid-cols-12 gap-12 lg:gap-16">
-          <div className="lg:col-span-4">
-            <div className="lg:sticky lg:top-28">
-              <SectionHeading
-                eyebrow="What We Stand For"
-                title="Our Principles."
-                description="The standards we hold ourselves to on every project, big or small."
-              />
-            </div>
-          </div>
-
-          <div className="lg:col-span-8 grid grid-cols-1 sm:grid-cols-2 border-t border-l border-border rounded-tl-2xl overflow-hidden">
-            {values.map((v, i) => {
-              const Icon = v.icon;
-              return (
-                <motion.div
-                  key={v.title}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: i * 0.08 }}
-                  className="group border-r border-b border-border p-7 sm:p-8 hover:bg-secondary/40 transition-colors duration-300"
-                >
-                  <div className="flex items-center justify-between mb-6">
-                    <div className="w-11 h-11 rounded-xl bg-foreground/5 border border-border flex items-center justify-center transition-all duration-300 group-hover:bg-foreground group-hover:border-foreground">
-                      <Icon className="w-4 h-4 text-foreground transition-colors duration-300 group-hover:text-background" />
-                    </div>
-                    <span className="font-display text-sm font-extrabold text-muted-foreground/40">
-                      0{i + 1}
-                    </span>
-                  </div>
-                  <h3 className="font-display text-lg font-bold text-foreground leading-snug mb-2">
-                    {v.title}
-                  </h3>
-                  <p className="text-sm text-muted-foreground leading-relaxed">
-                    {v.description}
-                  </p>
-                </motion.div>
-              );
-            })}
-          </div>
-        </div>
-      </section>
-
+      
       {/* ── CTA ── */}
       <section className="py-24 sm:py-28 bg-foreground text-background relative overflow-hidden">
         <div className="absolute inset-0 -z-0 bg-[linear-gradient(to_right,hsl(var(--background))_1px,transparent_1px),linear-gradient(to_bottom,hsl(var(--background))_1px,transparent_1px)] bg-[size:64px_64px] [mask-image:radial-gradient(ellipse_70%_60%_at_50%_50%,black,transparent)] opacity-[0.06]" />
