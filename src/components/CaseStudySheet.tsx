@@ -158,7 +158,7 @@ const caseStudies: CaseStudyData[] = [
     overview:
       "Visa scams are rampant across Africa, costing applicants thousands of dollars and devastating life opportunities. Visa Guard Africa is our most ambitious undertaking a secure, full-stack platform built to verify travel visa agencies, track applications in real time, and flag fraudulent actors before any damage is done.",
     role: "Product Design · Full Stack Development",
-    duration: "Ongoing (2025 - Present)",
+    duration: "Ongoing (2026 - Present)",
     team: "3 Engineers · 1 Designers · 1 Product Manager",
     problem:
       "Millions of Africans fall victim to visa scams annually. Fake agencies collect fees, submit falsified documents, and vanish leaving applicants banned, broke, and without recourse. There was no centralised, trustworthy platform that could verify agencies, track applications, and alert users in real time.",
