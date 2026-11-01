@@ -148,7 +148,7 @@ const Contact = () => {
             >
               <div className="p-8 sm:p-10 rounded-3xl border border-border/80 bg-card/50 backdrop-blur-sm shadow-xs">
                 <h2 className="text-lg font-bold text-foreground mb-6 pb-4 border-b border-border/60">
-                  Contact Information
+                  Contact Information.
                 </h2>
 
                 <div className="space-y-6">

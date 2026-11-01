@@ -33,9 +33,8 @@ import oma2 from "@/assets/omapost15.png";
 import pearlz from "@/assets/proj-pearlz-store.png";
 import pearlz1 from "@/assets/pearlzmock1.png";
 import pearlz2 from "@/assets/pearlzmock2.png";
-import dapstore from "@/assets/post1dap.png";
 import dapstore1 from "@/assets/Dashboard.png";
-import dapstore2 from "@/assets/dapstore1.png";
+import dapstore2 from "@/assets/post1dap.png";
 import dapstore3 from "@/assets/post-2dap.png";
 
 interface ProcessStep {
@@ -146,7 +145,7 @@ const caseStudies: CaseStudyData[] = [
     category: "DESIGN · DEVELOPMENT · FULL STACK · APP",
     tagline:
       "Protecting Africans from visa fraud one verified application at a time.",
-    year: "Coming Soon",
+    year: "2026",
     tech: [
       "Figma",
       "React Native",
@@ -547,10 +546,10 @@ const caseStudies: CaseStudyData[] = [
       "Designing a two-sided marketplace taught us the importance of designing for both ends of a transaction simultaneously. A great seller experience drives supply; a great buyer experience drives demand. Both have to work together.",
     link: null,
 
-    cover: dapstore1,
+    cover: dapstore2,
     images: [
       {
-        src: dapstore,
+        src: dapstore1,
         alt: "Multiple vendor store",
         caption: "Multiple vendor store",
       },
