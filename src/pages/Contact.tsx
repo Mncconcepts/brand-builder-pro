@@ -236,7 +236,7 @@ const Contact = () => {
               </div>
 
               {/* WhatsApp Direct Chat Card */}
-              <div className="p-8 rounded-3xl border border-primary/20 bg-primary/5 backdrop-blur-sm flex flex-col sm:flex-row items-center justify-between gap-6 shadow-sm">
+              <div className="p-8 rounded-3xl border border-border/80 bg-card/50 backdrop-blur-sm flex flex-col sm:flex-row items-center justify-between gap-6 shadow-sm">
                 <div className="text-center sm:text-left">
                   <h3 className="text-base font-bold text-foreground mb-1">
                     Prefer a direct conversation?
