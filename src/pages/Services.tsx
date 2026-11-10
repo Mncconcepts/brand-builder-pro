@@ -32,7 +32,7 @@ const services = [
     title: "Web & App Development",
     tagline: "Ship fast. Scale further.",
     description:
-      "Full-stack web applications and mobile apps built with modern frameworks. Clean architecture, responsive layouts, and performant code that scales with your business.",
+      "Full-stack websites, applications and mobile apps built with modern frameworks and technologies. Clean design and architecture, responsive layouts on all screens and devices, and performant code that scales with your business.",
     features: [
       "React / Next.js",
       "Node.js & Express",

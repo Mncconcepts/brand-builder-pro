@@ -968,7 +968,7 @@ const Courses = () => {
         <div className="max-w-6xl mx-auto px-6">
           <SectionHeading
             eyebrow="How enrollment works"
-            title="From Interest To Day One."
+            title="How enrollment works."
             description="Four simple steps. No long forms, no waiting around."
           />
 
