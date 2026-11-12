@@ -497,19 +497,14 @@ function SectionHeading({
       transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
       className={`mb-12 sm:mb-14 ${center ? "text-center mx-auto max-w-2xl" : "max-w-2xl"}`}
     >
-      <div
-        className={`inline-flex items-center gap-2 mb-4 ${center ? "justify-center" : ""}`}
-      >
-        <span className="w-6 h-px bg-foreground/40" />
-        <p className="text-[10px] font-bold tracking-widest uppercase text-muted-foreground">
-          {eyebrow}
-        </p>
-      </div>
-      <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl tracking-tight text-balance font-extrabold text-foreground leading-[1.02]">
+      <p className="mb-4 text-xs font-bold tracking-widest uppercase text-muted-foreground sm:text-[13px]">
+        {eyebrow}
+      </p>
+      <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl tracking-tight text-balance font-extrabold text-foreground leading-[1.05]">
         {title}
       </h2>
       {description && (
-        <p className="text-sm text-muted-foreground leading-relaxed mt-4">
+        <p className="mt-4 text-base leading-6 text-muted-foreground sm:text-lg sm:leading-6">
           {description}
         </p>
       )}
@@ -541,21 +536,17 @@ function FaqItem({
         aria-expanded={open}
         className="w-full flex items-center justify-between gap-4 text-left px-5 sm:px-6 py-5"
       >
-        <span className="font-display text-sm sm:text-base font-bold text-foreground">
+        <span className="font-display text-base sm:text-lg font-bold text-foreground">
           {item.q}
         </span>
         <span
-          className={`w-7 h-7 shrink-0 rounded-full border flex items-center justify-center transition-colors ${
+          className={`w-8 h-8 shrink-0 rounded-full border flex items-center justify-center transition-colors ${
             open
               ? "bg-foreground text-background border-foreground"
               : "border-border text-muted-foreground"
           }`}
         >
-          {open ? (
-            <Minus className="w-3.5 h-3.5" />
-          ) : (
-            <Plus className="w-3.5 h-3.5" />
-          )}
+          {open ? <Minus className="w-4 h-4" /> : <Plus className="w-4 h-4" />}
         </span>
       </button>
       <AnimatePresence initial={false}>
@@ -567,7 +558,7 @@ function FaqItem({
             transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
             className="overflow-hidden"
           >
-            <p className="px-5 sm:px-6 pb-5 text-sm text-muted-foreground leading-relaxed">
+            <p className="px-5 sm:px-6 pb-5 text-base text-muted-foreground leading-7">
               {item.a}
             </p>
           </motion.div>
@@ -704,14 +695,15 @@ const Courses = () => {
       <Navbar />
 
       {/* ── HERO ── */}
-      <section className="relative pt-32 sm:pt-40 pb-16 sm:pb-20 border-b border-border overflow-hidden">
-        <div className="absolute inset-0 -z-10 pointer-events-none">
-          <div className="absolute -top-24 -left-24 w-[480px] h-[480px] rounded-full bg-primary/5 blur-[120px]" />
-          <div className="absolute top-1/3 -right-32 w-[380px] h-[380px] rounded-full bg-blue-500/5 blur-[100px]" />
-          <div className="absolute inset-0 bg-[linear-gradient(to_right,hsl(var(--border))_1px,transparent_1px),linear-gradient(to_bottom,hsl(var(--border))_1px,transparent_1px)] bg-[size:72px_72px] [mask-image:radial-gradient(ellipse_70%_60%_at_50%_0%,black,transparent)] opacity-30" />
+      <section className="relative isolate overflow-hidden pt-28 pb-16 sm:pt-36 lg:pb-24">
+        <div className="pointer-events-none absolute inset-0 -z-10">
+          <div className="absolute -top-40 left-1/2 h-[420px] w-[720px] -translate-x-1/2 rounded-full bg-primary/1 blur-[130px]" />
+          <div className="absolute inset-0 bg-[linear-gradient(to_right,hsl(var(--border))_1px,transparent_1px),linear-gradient(to_bottom,hsl(var(--border))_1px,transparent_1px)] bg-[size:80px_80px] opacity-50 [mask-image:linear-gradient(to_bottom,black_30%,transparent_95%)]" />
+          <div className="absolute inset-y-0 left-1/2 w-full max-w-6xl -translate-x-1/2 border-x border-border/70" />
+          <div className="absolute inset-x-0 bottom-0 h-px bg-border" />
         </div>
 
-        <div className="max-w-6xl mx-auto px-6">
+        <div className="mx-auto max-w-6xl px-5 sm:px-6">
           <motion.div
             initial={{ opacity: 0, y: -30 }}
             animate={{ opacity: 1, y: 0 }}
@@ -732,7 +724,7 @@ const Courses = () => {
               Courses &{" "}
               <span className="text-muted-foreground">Mentorship Program.</span>
             </h1>
-            <p className="text-sm sm:text-base text-muted-foreground max-w-xl leading-relaxed mb-8">
+            <p className="mb-8 max-w-xl text-base leading-7 text-muted-foreground sm:text-lg sm:leading-8">
               Hands-on, project-based tracks taught by the same team building
               products in production. Cohorts open soon, book your spot to be
               first in line.
@@ -776,7 +768,7 @@ const Courses = () => {
                 <p className="font-display text-3xl sm:text-4xl font-extrabold tracking-tight text-foreground leading-none">
                   {s.n}
                 </p>
-                <p className="text-xs text-muted-foreground font-medium mt-2.5">
+                <p className="mt-2.5 text-sm font-medium text-muted-foreground sm:text-base">
                   {s.label}
                 </p>
               </div>
@@ -800,15 +792,16 @@ const Courses = () => {
               viewport={{ once: true }}
               className="max-w-xl"
             >
-              <div className="inline-flex items-center gap-2 mb-4">
-                <span className="w-6 h-px bg-foreground/40" />
-                <p className="text-[10px] font-bold tracking-widest uppercase text-muted-foreground">
-                  Learn & Earn
-                </p>
-              </div>
-              <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl tracking-tight text-balance font-extrabold text-foreground leading-[1.02]">
+              <p className="mb-4 text-xs font-bold tracking-widest uppercase text-muted-foreground sm:text-[13px]">
+                Learn & Earn
+              </p>
+              <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl tracking-tight text-balance font-extrabold text-foreground leading-[1.05]">
                 Choose Your Track.
               </h2>
+              <p className="mt-4 text-base leading-7 text-muted-foreground sm:text-lg sm:leading-8">
+                Pick a track, open it to see the full week-by-week plan, then
+                enroll in a few quick steps.
+              </p>
             </motion.div>
 
             {/* Filter tabs */}
@@ -826,7 +819,7 @@ const Courses = () => {
                     role="tab"
                     aria-selected={active}
                     onClick={() => setActiveFilter(f.id)}
-                    className={`px-4 py-2 text-xs font-semibold rounded-lg transition-all duration-200 ${
+                    className={`px-4 py-2.5 text-sm font-semibold rounded-lg transition-all duration-200 ${
                       active
                         ? "bg-foreground text-background shadow-sm"
                         : "text-muted-foreground hover:text-foreground"
@@ -863,36 +856,36 @@ const Courses = () => {
                       />
                     </div>
                     <div className="absolute inset-0 bg-gradient-to-t from-card/70 via-transparent to-transparent pointer-events-none" />
-                    <span className="absolute top-3 left-3 inline-flex items-center justify-center w-8 h-8 rounded-lg bg-background/70 backdrop-blur-sm border border-border/40 text-primary">
+                    <span className="absolute top-3 left-3 inline-flex items-center justify-center w-9 h-9 rounded-lg bg-background/70 backdrop-blur-sm border border-border/40 text-primary">
                       <Icon className="w-4 h-4" />
                     </span>
-                    <span className="absolute top-3 right-3 inline-flex items-center gap-1.5 text-[10px] font-semibold text-foreground bg-background/80 backdrop-blur-sm border border-border/40 px-2.5 py-1.5 rounded-full">
-                      <Clock className="w-3 h-3" />
+                    <span className="absolute top-3 right-3 inline-flex items-center gap-1.5 text-xs font-semibold text-foreground bg-background/80 backdrop-blur-sm border border-border/40 px-3 py-1.5 rounded-full">
+                      <Clock className="w-3.5 h-3.5" />
                       {course.duration}
                     </span>
                   </div>
 
                   <div className="flex flex-col flex-1 p-5 sm:p-6 text-left">
                     <div className="flex items-center gap-2 mb-3">
-                      <span className="text-[10px] font-semibold uppercase tracking-wider text-primary bg-primary/10 px-2.5 py-1 rounded-full">
+                      <span className="text-xs font-semibold uppercase tracking-wider text-primary bg-primary/10 px-3 py-1 rounded-full">
                         {course.level}
                       </span>
                     </div>
 
-                    <h3 className="font-display text-lg font-bold text-foreground leading-snug mb-2 group-hover:text-primary transition-colors">
+                    <h3 className="font-display text-xl font-bold text-foreground leading-snug mb-2 group-hover:text-primary transition-colors">
                       {course.title}
                     </h3>
-                    <p className="text-sm text-muted-foreground leading-5 mb-5">
+                    <p className="mb-5 text-[15px] leading-7 text-muted-foreground">
                       {course.desc}
                     </p>
 
-                    <ul className="space-y-2 mb-6 flex-1">
+                    <ul className="space-y-2.5 mb-6 flex-1">
                       {course.bullets.map((b) => (
                         <li
                           key={b}
-                          className="flex items-start gap-2 text-xs text-muted-foreground"
+                          className="flex items-start gap-2.5 text-[15px] leading-6 text-foreground/85"
                         >
-                          <CheckCircle2 className="w-3.5 h-3.5 text-primary mt-0.5 shrink-0" />
+                          <CheckCircle2 className="w-4 h-4 text-primary mt-1 shrink-0" />
                           {b}
                         </li>
                       ))}
@@ -902,18 +895,18 @@ const Courses = () => {
                       <button
                         type="button"
                         onClick={() => openCourseModal(index)}
-                        className="group/btn flex-1 inline-flex items-center justify-center gap-1.5 bg-primary text-primary-foreground px-4 py-3.5 text-xs font-semibold rounded-lg hover:bg-primary/90 transition-all duration-200 active:scale-[0.98]"
+                        className="group/btn flex-1 inline-flex items-center justify-center gap-1.5 bg-primary text-primary-foreground px-4 py-3.5 text-sm font-semibold rounded-lg hover:bg-primary/90 transition-all duration-200 active:scale-[0.98]"
                       >
-                        <Eye className="w-3.5 h-3.5" />
+                        <Eye className="w-4 h-4" />
                         See Full Details
                       </button>
                       <button
                         type="button"
                         onClick={() => handleCourseWhatsApp(course)}
                         aria-label={`Chat about ${course.title} on WhatsApp`}
-                        className="inline-flex items-center justify-center w-10 h-10 border border-border rounded-lg text-foreground hover:bg-background hover:border-emerald-500/40 hover:text-emerald-500 transition-all duration-200 shrink-0 active:scale-95"
+                        className="inline-flex items-center justify-center w-11 h-11 border border-border rounded-lg text-foreground hover:bg-background hover:border-emerald-500/40 hover:text-emerald-500 transition-all duration-200 shrink-0 active:scale-95"
                       >
-                        <WhatsAppIcon className="w-4 h-4" />
+                        <WhatsAppIcon className="w-5 h-5" />
                       </button>
                     </div>
                   </div>
@@ -945,13 +938,13 @@ const Courses = () => {
                   transition={{ delay: i * 0.08 }}
                   className="group border-r border-b border-border p-6 sm:p-7 hover:bg-secondary/40 transition-colors duration-300"
                 >
-                  <div className="w-10 h-10 rounded-xl bg-foreground/5 border border-border flex items-center justify-center mb-5 transition-all duration-300 group-hover:bg-foreground group-hover:border-foreground">
-                    <Icon className="w-4 h-4 text-foreground transition-colors duration-300 group-hover:text-background" />
+                  <div className="w-11 h-11 rounded-xl bg-foreground/5 border border-border flex items-center justify-center mb-5 transition-all duration-300 group-hover:bg-foreground group-hover:border-foreground">
+                    <Icon className="w-5 h-5 text-foreground transition-colors duration-300 group-hover:text-background" />
                   </div>
-                  <h3 className="font-display text-base font-bold text-foreground mb-2">
+                  <h3 className="font-display text-lg font-bold text-foreground mb-2">
                     {item.title}
                   </h3>
-                  <p className="text-xs text-muted-foreground leading-relaxed">
+                  <p className="text-[15px] leading-7 text-muted-foreground">
                     {item.description}
                   </p>
                 </motion.div>
@@ -994,15 +987,15 @@ const Courses = () => {
                         {s.step}
                       </span>
                     </div>
-                    <span className="text-[10px] font-bold text-muted-foreground/60 tracking-widest uppercase">
+                    <span className="text-xs font-bold text-muted-foreground/70 tracking-widest uppercase">
                       Step 0{i + 1}
                     </span>
                   </div>
 
-                  <h3 className="font-display text-lg font-bold text-foreground mb-2 group-hover:text-primary transition-colors duration-300">
+                  <h3 className="font-display text-xl font-bold text-foreground mb-2 group-hover:text-primary transition-colors duration-300">
                     {s.title}
                   </h3>
-                  <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">
+                  <p className="text-[15px] leading-7 text-muted-foreground">
                     {s.description}
                   </p>
 
@@ -1151,9 +1144,9 @@ const Courses = () => {
                 href={waitlistUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="-mt-6 inline-flex items-center gap-1.5 text-sm font-semibold text-foreground border-b border-foreground/30 pb-0.5 hover:border-foreground hover:gap-2.5 transition-all"
+                className="-mt-6 inline-flex items-center gap-1.5 text-base font-semibold text-foreground border-b border-foreground/30 pb-0.5 hover:border-foreground hover:gap-2.5 transition-all"
               >
-                Ask on WhatsApp <ArrowUpRight className="w-3.5 h-3.5" />
+                Ask on WhatsApp <ArrowUpRight className="w-4 h-4" />
               </a>
             </div>
           </div>
@@ -1195,31 +1188,31 @@ const Courses = () => {
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-70" />
                 <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-emerald-400" />
               </span>
-              <span className="text-[11px] font-semibold text-background/80">
+              <span className="text-sm font-semibold text-background/85">
                 Cohorts opening soon
               </span>
             </div>
-            <h2 className="font-display text-balance lg:text-6xl text-4xl sm:text-5xl font-extrabold tracking-tight mb-3">
+            <h2 className="font-display text-balance lg:text-6xl text-4xl sm:text-5xl font-extrabold tracking-tight mb-4">
               Ready To Start Learning?
             </h2>
-            <p className="opacity-60 text-sm max-w-md mx-auto leading-relaxed mb-9">
+            <p className="mx-auto mb-9 max-w-md text-base leading-7 opacity-75 sm:text-lg sm:leading-8">
               Join the waitlist and be first to know when the next cohort opens.
               We'll reply with a clear path forward.
             </p>
             <div className="flex flex-col sm:flex-row gap-3 justify-center">
               <a
                 href="#courses"
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-background text-foreground px-8 py-3.5 text-xs font-bold rounded-xl hover:bg-background/90 transition-all hover:-translate-y-0.5 active:scale-[0.97]"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-background text-foreground px-8 py-3.5 text-sm font-bold rounded-xl hover:bg-background/90 transition-all hover:-translate-y-0.5 active:scale-[0.97]"
               >
-                Browse Courses <ArrowRight className="w-3.5 h-3.5" />
+                Browse Courses <ArrowRight className="w-4 h-4" />
               </a>
               <a
                 href={waitlistUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 border-2 border-background/30 text-background px-8 py-3.5 text-xs font-bold rounded-xl hover:border-background/55 hover:bg-background/10 transition-all hover:-translate-y-0.5 active:scale-[0.97]"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 border-2 border-background/30 text-background px-8 py-3.5 text-sm font-bold rounded-xl hover:border-background/55 hover:bg-background/10 transition-all hover:-translate-y-0.5 active:scale-[0.97]"
               >
-                <WhatsAppIcon className="w-3.5 h-3.5" /> Join the Waitlist
+                <WhatsAppIcon className="w-4 h-4" /> Join the Waitlist
               </a>
             </div>
           </motion.div>
@@ -1258,7 +1251,7 @@ const Courses = () => {
               {/* Header */}
               <div className="shrink-0 bg-card/95 backdrop-blur-sm border-b border-border px-6 py-5 flex items-start justify-between gap-4">
                 <div className="min-w-0">
-                  <p className="text-[10px] font-bold uppercase tracking-widest text-primary mb-1">
+                  <p className="text-xs font-bold uppercase tracking-widest text-primary mb-1">
                     {courseStep === 0
                       ? "Course Details"
                       : courseStep === reviewStep
@@ -1273,7 +1266,7 @@ const Courses = () => {
                   type="button"
                   onClick={closeCourseModal}
                   aria-label="Close"
-                  className="w-8 h-8 shrink-0 rounded-full border border-border flex items-center justify-center text-muted-foreground hover:text-foreground hover:border-foreground/40 transition-colors"
+                  className="w-9 h-9 shrink-0 rounded-full border border-border flex items-center justify-center text-muted-foreground hover:text-foreground hover:border-foreground/40 transition-colors"
                 >
                   <X className="w-4 h-4" />
                 </button>
@@ -1313,29 +1306,29 @@ const Courses = () => {
                         </div>
 
                         <div className="flex items-center gap-2 flex-wrap">
-                          <span className="text-[10px] font-semibold uppercase tracking-wider text-primary bg-primary/10 px-2.5 py-1 rounded-full">
+                          <span className="text-xs font-semibold uppercase tracking-wider text-primary bg-primary/10 px-3 py-1 rounded-full">
                             {activeCourseData.level}
                           </span>
-                          <span className="text-[11px] text-muted-foreground">
+                          <span className="text-sm text-muted-foreground">
                             {activeCourseData.duration}
                           </span>
                         </div>
 
-                        <p className="text-sm text-muted-foreground leading-relaxed">
+                        <p className="text-[15px] leading-7 text-muted-foreground">
                           {activeCourseData.overview}
                         </p>
 
                         <div>
-                          <p className="text-xs font-semibold text-foreground mb-3">
+                          <p className="text-sm font-semibold text-foreground mb-3">
                             What you'll learn
                           </p>
-                          <ul className="space-y-2">
+                          <ul className="space-y-2.5">
                             {activeCourseData.bullets.map((b) => (
                               <li
                                 key={b}
-                                className="flex items-start gap-2 text-xs text-muted-foreground"
+                                className="flex items-start gap-2.5 text-sm leading-6 text-muted-foreground"
                               >
-                                <CheckCircle2 className="w-3.5 h-3.5 text-primary shrink-0 mt-0.5" />
+                                <CheckCircle2 className="w-4 h-4 text-primary shrink-0 mt-1" />
                                 {b}
                               </li>
                             ))}
@@ -1343,23 +1336,23 @@ const Courses = () => {
                         </div>
 
                         <div>
-                          <p className="text-xs font-semibold text-foreground mb-3">
+                          <p className="text-sm font-semibold text-foreground mb-3">
                             Week by week
                           </p>
                           <ol className="border border-border rounded-xl divide-y divide-border overflow-hidden">
                             {activeCourseData.curriculum.map((item) => (
                               <li
                                 key={item.topic}
-                                className="flex items-start gap-3 px-4 py-3"
+                                className="flex items-start gap-3 px-4 py-3.5"
                               >
-                                <span className="w-20 shrink-0 text-[10px] font-bold uppercase tracking-wider text-primary pt-0.5">
+                                <span className="w-20 shrink-0 text-xs font-bold uppercase tracking-wider text-primary pt-0.5">
                                   {item.weeks}
                                 </span>
                                 <div className="min-w-0">
-                                  <p className="text-xs font-bold text-foreground">
+                                  <p className="text-sm font-bold text-foreground">
                                     {item.topic}
                                   </p>
-                                  <p className="text-[11px] text-muted-foreground leading-snug mt-0.5">
+                                  <p className="text-[13px] text-muted-foreground leading-snug mt-0.5">
                                     {item.detail}
                                   </p>
                                 </div>
@@ -1370,24 +1363,24 @@ const Courses = () => {
 
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                           <div className="rounded-xl border border-border bg-background px-4 py-3">
-                            <p className="text-xs font-bold text-foreground mb-1">
+                            <p className="text-sm font-bold text-foreground mb-1">
                               Who it's for
                             </p>
-                            <p className="text-[11px] text-muted-foreground leading-snug">
+                            <p className="text-[13px] text-muted-foreground leading-snug">
                               {activeCourseData.audience}
                             </p>
                           </div>
                           <div className="rounded-xl border border-border bg-background px-4 py-3">
-                            <p className="text-xs font-bold text-foreground mb-1">
+                            <p className="text-sm font-bold text-foreground mb-1">
                               How it works
                             </p>
-                            <p className="text-[11px] text-muted-foreground leading-snug">
+                            <p className="text-[13px] text-muted-foreground leading-snug">
                               {activeCourseData.format}
                             </p>
                           </div>
                         </div>
 
-                        <p className="text-[11px] text-muted-foreground leading-relaxed">
+                        <p className="text-[13px] text-muted-foreground leading-relaxed">
                           Ready? Answer a few quick questions and we'll send
                           your details straight to our WhatsApp.
                         </p>
@@ -1402,7 +1395,7 @@ const Courses = () => {
                             {currentQuestion.label}
                           </h4>
                           {currentQuestion.helper && (
-                            <p className="text-xs text-muted-foreground leading-relaxed mt-1.5">
+                            <p className="text-sm text-muted-foreground leading-relaxed mt-1.5">
                               {currentQuestion.helper}
                             </p>
                           )}
@@ -1427,7 +1420,7 @@ const Courses = () => {
                             }}
                             placeholder={currentQuestion.placeholder}
                             aria-label={currentQuestion.label}
-                            className="w-full text-sm rounded-xl border border-border bg-background px-3.5 py-3 text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-primary/40 focus:border-primary/40"
+                            className="w-full text-base rounded-xl border border-border bg-background px-4 py-3 text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-primary/40 focus:border-primary/40"
                           />
                         )}
 
@@ -1443,7 +1436,7 @@ const Courses = () => {
                             rows={4}
                             placeholder={currentQuestion.placeholder}
                             aria-label={currentQuestion.label}
-                            className="w-full text-xs rounded-xl border border-border bg-background px-3 py-2.5 text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-primary/40 focus:border-primary/40 resize-none"
+                            className="w-full text-base rounded-xl border border-border bg-background px-4 py-3 text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-primary/40 focus:border-primary/40 resize-none"
                           />
                         )}
 
@@ -1465,14 +1458,14 @@ const Courses = () => {
                                   onClick={() =>
                                     setCourseAnswer(currentQuestion.id, option)
                                   }
-                                  className={`flex items-center justify-between gap-3 text-left rounded-xl border px-3.5 py-3 transition-all duration-200 ${
+                                  className={`flex items-center justify-between gap-3 text-left rounded-xl border px-4 py-3.5 transition-all duration-200 ${
                                     selected
                                       ? "border-primary/50 bg-primary/10 shadow-xs"
                                       : "border-border hover:border-primary/20"
                                   }`}
                                 >
                                   <span
-                                    className={`text-xs font-semibold ${
+                                    className={`text-sm font-semibold ${
                                       selected
                                         ? "text-primary"
                                         : "text-foreground"
@@ -1506,7 +1499,7 @@ const Courses = () => {
                           <h4 className="font-display text-lg font-bold text-foreground leading-snug">
                             Looks good? Let's chat.
                           </h4>
-                          <p className="text-xs text-muted-foreground leading-relaxed mt-1.5">
+                          <p className="text-sm text-muted-foreground leading-relaxed mt-1.5">
                             Tapping the button below opens WhatsApp with your
                             answers already written, so you only need to press
                             send.
@@ -1515,10 +1508,10 @@ const Courses = () => {
 
                         <dl className="border border-border rounded-xl divide-y divide-border overflow-hidden">
                           <div className="flex items-start justify-between gap-4 px-4 py-3">
-                            <dt className="text-[11px] text-muted-foreground shrink-0">
+                            <dt className="text-sm text-muted-foreground shrink-0">
                               Course
                             </dt>
-                            <dd className="text-xs font-semibold text-foreground text-right">
+                            <dd className="text-sm font-semibold text-foreground text-right">
                               {activeCourseData.title} ·{" "}
                               {activeCourseData.duration}
                             </dd>
@@ -1531,10 +1524,10 @@ const Courses = () => {
                                 key={q.id}
                                 className="flex items-start justify-between gap-4 px-4 py-3"
                               >
-                                <dt className="text-[11px] text-muted-foreground shrink-0">
+                                <dt className="text-sm text-muted-foreground shrink-0">
                                   {q.short}
                                 </dt>
-                                <dd className="text-xs font-semibold text-foreground text-right break-words min-w-0">
+                                <dd className="text-sm font-semibold text-foreground text-right break-words min-w-0">
                                   {value}
                                 </dd>
                               </div>
@@ -1565,7 +1558,7 @@ const Courses = () => {
                       disabled={isOpeningWhatsApp}
                       className="flex-1 inline-flex items-center justify-center gap-1.5 text-sm font-semibold py-2.5 rounded-lg border border-border text-foreground hover:bg-secondary transition-all duration-200 disabled:opacity-60"
                     >
-                      <ArrowLeft className="w-3.5 h-3.5" />
+                      <ArrowLeft className="w-4 h-4" />
                       Back
                     </button>
                   )}
@@ -1578,7 +1571,7 @@ const Courses = () => {
                       className="flex-1 inline-flex items-center justify-center gap-2 text-sm font-semibold py-3.5 rounded-lg bg-primary text-primary-foreground hover:bg-primary/90 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
                     >
                       {courseStep === 0 ? "Start Enrollment" : "Continue"}
-                      <ArrowRight className="w-3.5 h-3.5" />
+                      <ArrowRight className="w-4 h-4" />
                     </button>
                   ) : (
                     <button
@@ -1589,7 +1582,7 @@ const Courses = () => {
                     >
                       {isOpeningWhatsApp ? (
                         <>
-                          <span className="w-3.5 h-3.5 text-xs rounded-full border-2 border-primary-foreground/40 border-t-primary-foreground animate-spin" />
+                          <span className="w-4 h-4 text-xs rounded-full border-2 border-primary-foreground/40 border-t-primary-foreground animate-spin" />
                           Opening WhatsApp...
                         </>
                       ) : (

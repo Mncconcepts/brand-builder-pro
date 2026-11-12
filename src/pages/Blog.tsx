@@ -135,7 +135,10 @@ const posts = [
 ];
 
 // Built from the posts so every category (including Business) can be filtered
-const categories = ["All", ...Array.from(new Set(posts.map((p) => p.category)))];
+const categories = [
+  "All",
+  ...Array.from(new Set(posts.map((p) => p.category))),
+];
 
 const avgReadTime = Math.round(
   posts.reduce((sum, p) => sum + parseInt(p.readTime, 10), 0) / posts.length,
@@ -201,14 +204,15 @@ const Blog = () => {
       <Navbar />
 
       {/* ── HEADER & JOURNAL INTRO ── */}
-      <section className="relative pt-32 sm:pt-40 pb-14 sm:pb-16 border-b border-border overflow-hidden">
-        <div className="absolute inset-0 -z-10 pointer-events-none">
-          <div className="absolute -top-24 -left-24 w-[480px] h-[480px] rounded-full bg-primary/5 blur-[120px]" />
-          <div className="absolute top-1/3 -right-32 w-[380px] h-[380px] rounded-full bg-blue-500/5 blur-[100px]" />
-          <div className="absolute inset-0 bg-[linear-gradient(to_right,hsl(var(--border))_1px,transparent_1px),linear-gradient(to_bottom,hsl(var(--border))_1px,transparent_1px)] bg-[size:72px_72px] [mask-image:radial-gradient(ellipse_70%_60%_at_50%_0%,black,transparent)] opacity-30" />
+      <section className="relative isolate overflow-hidden pt-28 pb-16 sm:pt-36 lg:pb-24">
+        <div className="pointer-events-none absolute inset-0 -z-10">
+          <div className="absolute -top-40 left-1/2 h-[420px] w-[720px] -translate-x-1/2 rounded-full bg-primary/1 blur-[130px]" />
+          <div className="absolute inset-0 bg-[linear-gradient(to_right,hsl(var(--border))_1px,transparent_1px),linear-gradient(to_bottom,hsl(var(--border))_1px,transparent_1px)] bg-[size:80px_80px] opacity-50 [mask-image:linear-gradient(to_bottom,black_30%,transparent_95%)]" />
+          <div className="absolute inset-y-0 left-1/2 w-full max-w-6xl -translate-x-1/2 border-x border-border/70" />
+          <div className="absolute inset-x-0 bottom-0 h-px bg-border" />
         </div>
 
-        <div className="max-w-6xl mx-auto px-6">
+        <div className="mx-auto max-w-6xl px-5 sm:px-6">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}

@@ -1,17 +1,17 @@
-import { useState } from "react";
 import type { ReactNode } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, useReducedMotion, type Variants } from "framer-motion";
 import { Link } from "react-router-dom";
 import {
   Calendar as CalendarIcon,
   ArrowUpRight,
-  ArrowRight,
-  ChevronDown,
+  CheckCircle2,
   Compass,
   Rocket,
   Code2,
   Palette,
   Zap,
+  Lightbulb,
+  Pen,
   Trophy,
   Users,
   MessageSquare,
@@ -20,76 +20,301 @@ import {
   Database,
   Terminal,
   PenTool,
-  CalendarDays,
-  FolderCheck,
+  Target,
+  Eye,
+  Globe2,
 } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import BookCallSheet from "@/components/BookCallSheet";
 
-/* ─── Skeleton Component ─── */
-const SkeletonImage = ({
-  src,
-  alt,
-  className,
-}: {
-  src: string;
-  alt: string;
-  className?: string;
-}) => {
-  const [isLoaded, setIsLoaded] = useState(false);
+const COMPANY = "mnconcepts";
+const LINKEDIN_URL = "https://www.linkedin.com/company/mncconcepts";
 
-  return (
-    <div className={`relative overflow-hidden ${className}`}>
-      {/* Shimmer/Skeleton Effect */}
-      <AnimatePresence>
-        {!isLoaded && (
-          <motion.div
-            initial={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="absolute inset-0 z-10 bg-muted/20"
-          >
-            <motion.div
-              className="w-full h-full bg-gradient-to-r from-transparent via-muted-foreground/10 to-transparent"
-              animate={{ x: ["-100%", "100%"] }}
-              transition={{ repeat: Infinity, duration: 1.5, ease: "linear" }}
-            />
-          </motion.div>
-        )}
-      </AnimatePresence>
+const EASE = [0.22, 1, 0.36, 1] as const;
 
-      <img
-        src={src}
-        alt={alt}
-        onLoad={() => setIsLoaded(true)}
-        className={`${className} transition-opacity duration-500 ${isLoaded ? "opacity-100" : "opacity-0"}`}
-      />
-    </div>
-  );
+const stagger: Variants = {
+  hidden: {},
+  show: { transition: { staggerChildren: 0.09, delayChildren: 0.1 } },
+};
+const rise: Variants = {
+  hidden: { opacity: 0, y: 24 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.7, ease: EASE } },
 };
 
-/* ─── data ─── */
-const approachPillars = [
+function Reveal({
+  children,
+  delay = 0,
+  className,
+}: {
+  children: ReactNode;
+  delay?: number;
+  className?: string;
+}) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 28 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-60px" }}
+      transition={{ duration: 0.7, delay, ease: EASE }}
+      className={className}
+    >
+      {children}
+    </motion.div>
+  );
+}
+
+const LinkedInIcon = ({ className }: { className?: string }) => (
+  <svg
+    viewBox="0 0 24 24"
+    fill="currentColor"
+    className={className}
+    aria-hidden="true"
+  >
+    <path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z" />
+  </svg>
+);
+
+function SectionHeader({
+  title,
+  description,
+  tone = "light",
+  action,
+}: {
+  title: string;
+  description?: string;
+  tone?: "light" | "dark";
+  action?: ReactNode;
+}) {
+  const dark = tone === "dark";
+  return (
+    <Reveal className="mb-12 flex flex-col gap-5 sm:mb-16 md:flex-row md:items-end md:justify-between">
+      <div className="max-w-2xl">
+        <h2
+          className={`font-display text-balance text-4xl font-extrabold leading-[1.08] tracking-tight sm:text-5xl ${
+            dark ? "text-background" : "text-foreground"
+          }`}
+        >
+          {title}
+        </h2>
+        {description && (
+          <p
+            className={`mt-4 max-w-xl text-base leading-6 sm:text-lg sm:leading-7 ${
+              dark ? "text-background/75" : "text-muted-foreground"
+            }`}
+          >
+            {description}
+          </p>
+        )}
+      </div>
+      {action}
+    </Reveal>
+  );
+}
+
+function Marquee({ items }: { items: string[] }) {
+  const reduce = useReducedMotion();
+  const loop = [...items, ...items];
+  return (
+    <div
+      className="relative overflow-hidden"
+      style={{
+        maskImage:
+          "linear-gradient(to right, transparent, black 10%, black 90%, transparent)",
+        WebkitMaskImage:
+          "linear-gradient(to right, transparent, black 10%, black 90%, transparent)",
+      }}
+    >
+      <motion.div
+        className="flex w-max items-center"
+        animate={reduce ? undefined : { x: ["0%", "-50%"] }}
+        transition={{ duration: 32, ease: "linear", repeat: Infinity }}
+      >
+        {loop.map((name, i) => (
+          <div key={name + i} className="flex items-center">
+            <span className="whitespace-nowrap px-8 font-display text-xl font-bold tracking-tight text-foreground/60 transition-colors hover:text-foreground sm:px-12 sm:text-2xl">
+              {name}
+            </span>
+            <span className="h-1.5 w-1.5 rounded-full bg-primary/50" />
+          </div>
+        ))}
+      </motion.div>
+    </div>
+  );
+}
+
+/* ═════════════ Data ═════════════ */
+const metrics = [
+  { value: "4+", label: "Years in business" },
+  { value: "50+", label: "Products delivered" },
+  { value: "30+", label: "Clients served" },
+  { value: "99%", label: "Client satisfaction" },
+];
+
+const trustedBy = [
+  "SUPERSONIC DYAMIC SERVICES B.V.",
+  "VISA GUARD AFRICA TECHNOLOGIES LTD",
+  "OONSA EVENTS",
+  "CV MARKETPLACE",
+  "DAPSVERSE",
+  "OMA",
+];
+
+const facts = [
+  { label: "Company", value: COMPANY },
+  { label: "What we do", value: "Product design and software development" },
+  { label: "Who we serve", value: "Startups and established brands" },
+  {
+    label: "How we work",
+    value: "Remote-first, with clients across time zones",
+  },
+  { label: "Experience", value: "4+ years, 50+ products delivered" },
+];
+
+const principles = [
+  {
+    icon: Target,
+    title: "Our mission",
+    description:
+      "To help businesses turn ideas into dependable digital products through clear thinking, careful design and clean engineering.",
+  },
+  {
+    icon: Eye,
+    title: "Our vision",
+    description:
+      "To be the studio growing companies across Africa and beyond trust first when a product needs to be built properly.",
+  },
+];
+
+const offerings = [
+  {
+    icon: Code2,
+    title: "Web & App Development",
+    description:
+      "Websites, web apps and mobile apps built to be fast, secure and easy to scale.",
+  },
+  {
+    icon: Palette,
+    title: "Product Design",
+    description:
+      "Research, flows and prototypes that turn a business goal into a product people understand.",
+  },
+  {
+    icon: Zap,
+    title: "UI/UX Design",
+    description:
+      "Clear interfaces and design systems that stay consistent as your product grows.",
+  },
+  {
+    icon: Lightbulb,
+    title: "Design Consulting",
+    description:
+      "Audits, reviews and practical recommendations for teams that already have a product.",
+  },
+  {
+    icon: Pen,
+    title: "Logo & Brand Design",
+    description:
+      "Visual identities and brand assets that make your business easy to recognise.",
+  },
+];
+
+const engagements = [
+  {
+    client: "SUPERSONIC Dynamic Services B.V.",
+    sector: "Logistics",
+    region: "Netherlands",
+    status: "Ongoing",
+    description:
+      "Design and frontend development for a moving and freight haulage platform, covering product strategy, UI/UX, a design system and responsive web experiences.",
+    scope: ["Product strategy", "UI/UX", "Design system", "Frontend"],
+  },
+  {
+    client: "Visa Guard Africa Technologies Ltd",
+    sector: "Travel security",
+    region: "Africa",
+    status: "Ongoing",
+    description:
+      "Product design and strategy for a visa security platform that protects travellers from immigration scams, including verified agent onboarding, secure applications and fraud-detection workflows.",
+    scope: ["Product design", "Strategy", "Design system"],
+  },
+  {
+    client: "Oonsa Event WebApp",
+    sector: "Events & ticketing",
+    region: "Australia",
+    status: "2025",
+    description:
+      "An event discovery and ticketing platform where people explore local experiences, buy tickets and manage their bookings.",
+    scope: ["Product design", "UX", "UI"],
+  },
+  {
+    client: "Computer Village Marketplace (CVMP)",
+    sector: "B2B marketplace",
+    region: "Nigeria",
+    status: "2025",
+    description:
+      "A B2B classified marketplace connecting verified technology buyers, sellers, wholesalers and service providers, with listings, vendor management, messaging and transaction flows.",
+    scope: ["UX research", "Prototyping", "Design system"],
+  },
+  {
+    client: "Multiple Vendor Store (DAPSVERSE)",
+    sector: "Commerce",
+    region: "Nigeria",
+    status: "2025",
+    description:
+      "A multi-vendor commerce platform with a mobile app and marketing site, covering vendor management, product listings, payments, orders and inventory.",
+    scope: ["Mobile app", "Landing page", "UI design"],
+  },
+];
+
+const approach = [
   {
     icon: Compass,
     title: "Design & Strategy",
     description:
-      "We start with research and product strategy, mapping user needs and business goals before a single screen gets designed. Every decision has a reason behind it.",
+      "We start with research and product strategy, mapping user needs and business goals before any screen is designed.",
     tags: ["User research", "Product strategy", "UX & UI design"],
   },
   {
     icon: Code2,
     title: "Development",
     description:
-      "Clean, scalable code that mirrors the design intent exactly. We build with modern frameworks so what ships matches what was designed, pixel for pixel.",
+      "Clean, scalable code built with modern frameworks, so what ships matches what was designed.",
     tags: ["Modern frameworks", "Scalable code", "Design fidelity"],
   },
   {
     icon: Rocket,
     title: "Launch & Support",
     description:
-      "We don't disappear after launch. Ongoing iteration, monitoring, and support keep the product improving long after the first release date.",
+      "We stay on after launch with monitoring, fixes and iteration, so the product keeps improving.",
     tags: ["Deployment", "Monitoring", "Ongoing iteration"],
+  },
+];
+
+const values = [
+  {
+    icon: Trophy,
+    title: "Quality over quantity",
+    description:
+      "Every project gets our full attention. We take on only what we can deliver to a high standard.",
+  },
+  {
+    icon: MessageSquare,
+    title: "Clear communication",
+    description:
+      "Regular updates, honest timelines and plain-language documentation. No surprises.",
+  },
+  {
+    icon: Users,
+    title: "User-first thinking",
+    description:
+      "Good design starts with the people who will use it. Research and empathy drive our decisions.",
+  },
+  {
+    icon: Layers,
+    title: "Maintainable code",
+    description:
+      "Code that is easy to read, test and extend, built for the long term and not just the deadline.",
   },
 ];
 
@@ -98,7 +323,7 @@ const skillGroups = [
     label: "Frontend",
     icon: Monitor,
     description:
-      "Building fast, accessible interfaces that hold up from first prototype to production traffic.",
+      "Fast, accessible interfaces that hold up from prototype to production traffic.",
     skills: [
       "React / Next.js",
       "React Native",
@@ -111,7 +336,7 @@ const skillGroups = [
     label: "Backend",
     icon: Database,
     description:
-      "Reliable APIs and data infrastructure engineered to handle real-world load without surprises.",
+      "Reliable APIs and data infrastructure built for real-world load.",
     skills: [
       "Node.js",
       "Express",
@@ -125,267 +350,148 @@ const skillGroups = [
     label: "Design",
     icon: PenTool,
     description:
-      "Systems-driven design that stays consistent as a product's surface area grows.",
+      "Systems-driven design that stays consistent as a product grows.",
     skills: ["Figma", "UI/UX Design", "Design Systems", "Prototyping"],
   },
   {
     label: "Workflow",
     icon: Terminal,
     description:
-      "The processes and tooling that keep delivery predictable, from commit to release.",
+      "Processes and tooling that keep delivery predictable, from commit to release.",
     skills: ["Git & CI/CD", "Agile / Scrum", "REST & GraphQL", "Python"],
   },
 ];
 
-const experience = [
-  {
-    role: "Software Developer & Lead Product Designer",
-    company: "SUPERSONIC Dynamic Services B.V.",
-    period: "Present",
-    type: "Full-Time",
-    description:
-      "Co-leading the design and frontend development of a next-generation moving and freight haulage platform for the Netherlands. Spearheading product strategy, UI/UX design, design systems, and responsive web experiences while collaborating on scalable frontend architecture and digital workflows. The platform delivers professional moving and freight haulage services powered by precision logistics, real-time operations, and carbon-neutral fleet solutions, creating a seamless, technology-driven relocation experience for individuals, families, and businesses.",
-    icon: Code2,
-  },
-  {
-    role: "Lead Product Designer & Product Manager",
-    company: "Visa Guard Africa Technologies Ltd",
-    period: "Present",
-    type: "Full-Time",
-    description:
-      "Leading product design and strategy for a visa security platform dedicated to protecting Africans from travel and immigration scams. Designed intuitive experiences for verified agent onboarding, secure visa applications, fraud detection workflows, and travel safety features while building scalable design systems and collaborating closely with engineering to deliver a reliable, high-security digital product.",
-    icon: Palette,
-  },
-  {
-    role: "Product Designer",
-    company: "Oonsa Event WebApp",
-    period: "2025",
-    type: "Contract",
-    description:
-      "Designed a modern event discovery and ticketing platform that enables users to explore local experiences, purchase tickets, manage bookings, and seamlessly connect with events across Australia through an intuitive and user-centered digital experience.",
-    icon: CalendarDays,
-  },
-  {
-    role: "Product Designer",
-    company: "Computer Village Marketplace (CVMP)",
-    period: "2025",
-    type: "Contract",
-    description:
-      "Designed a B2B classified marketplace connecting verified technology buyers, sellers, wholesalers, and service providers. Led UX research, wireframing, prototyping, design system creation, and high-fidelity interfaces for product listings, vendor management, messaging, and transaction workflows while collaborating with engineering for seamless implementation.",
-    icon: Palette,
-  },
-  {
-    role: "UI/UX Designer",
-    company: "Multiple Vendor Store (DAPSVERSE)",
-    period: "2025",
-    type: "Internship",
-    description:
-      "Designed a modern multi-vendor commerce platform, covering both the mobile application and marketing landing page. Led UX research, user flows, design system creation, and high-fidelity UI design for vendor management, product listings, payments, orders, inventory, and customer experiences while collaborating with developers to ensure responsive, pixel-perfect implementation.",
-    icon: Zap,
-  },
-];
-
-const values = [
-  {
-    title: "Quality Over Quantity",
-    description:
-      "Every project gets our full attention. We don't take on more than we can deliver at the highest standard.",
-    icon: Trophy,
-  },
-  {
-    title: "Clear Communication",
-    description:
-      "Regular updates, honest timelines, and clear documentation. No surprises, no jargon just straight talk.",
-    icon: MessageSquare,
-  },
-  {
-    title: "User-First Thinking",
-    description:
-      "Good design starts with understanding the people who will use it. Research and empathy drive every decision.",
-    icon: Users,
-  },
-  {
-    title: "Clean, Maintainable Code",
-    description:
-      "Code that is easy to read, test, and extend. Built for the long term, not just the deadline.",
-    icon: Layers,
-  },
-];
-
-const metrics = [
-  { value: "4+", label: "Years of Experience" },
-  { value: "50+", label: "Projects Completed" },
-  { value: "30+", label: "Happy Clients" },
-  { value: "100%", label: "Remote-Friendly" },
-];
-
-const trustedBy = [
-  "SUPERSONIC Dynamic Services",
-  "Visa Guard Africa",
-  "Oonsa Events",
-  "Computer Village Marketplace",
-  "DAPSVERSE",
-  "OMA",
-];
-
-/* ─── shared section heading ─── */
-function SectionHeading({
-  eyebrow,
-  title,
-  description,
-}: {
-  eyebrow: string;
-  title: ReactNode;
-  description?: string;
-}) {
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-      className="max-w-2xl"
-    >
-      <div className="inline-flex items-center gap-2 mb-4">
-        <span className="w-6 h-px bg-foreground/40" />
-        <p className="text-[10px] font-bold tracking-widest uppercase text-muted-foreground">
-          {eyebrow}
-        </p>
-      </div>
-      <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl tracking-tight text-balance font-extrabold text-foreground leading-[1.02]">
-        {title}
-      </h2>
-      {description && (
-        <p className="text-sm text-muted-foreground leading-relaxed mt-4">
-          {description}
-        </p>
-      )}
-    </motion.div>
-  );
-}
-
+/* ═════════════ Page ═════════════ */
 const About = () => {
-  const [openExperience, setOpenExperience] = useState<number | null>(0);
-  const currentRoles = experience.filter((e) => e.period === "Present").length;
+  const primaryBtn =
+    "inline-flex items-center justify-center gap-2 rounded-xl bg-primary px-7 py-3.5 text-sm font-semibold text-primary-foreground transition-all duration-300 hover:-translate-y-0.5 hover:bg-primary/90 hover:shadow-sm active:scale-[0.98]";
+  const ghostBtn =
+    "inline-flex items-center justify-center gap-2 rounded-xl border border-border px-7 py-3.5 text-sm font-semibold text-foreground transition-all duration-300 hover:-translate-y-0.5 hover:bg-secondary active:scale-[0.98]";
 
   return (
-    <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
+    <div className="min-h-screen overflow-x-hidden bg-background text-foreground">
       <Navbar />
 
-      {/* ── HERO ── */}
-      <section className="relative pt-28 pb-16 sm:pt-40 sm:pb-20 border-b border-border overflow-hidden">
-        <div className="absolute inset-0 -z-10 pointer-events-none">
-          <div className="absolute -top-24 -left-24 w-[480px] h-[480px] rounded-full bg-primary/5 blur-[120px]" />
-          <div className="absolute top-1/3 -right-32 w-[380px] h-[380px] rounded-full bg-blue-500/5 blur-[100px]" />
-          <div className="absolute inset-0 bg-[linear-gradient(to_right,hsl(var(--border))_1px,transparent_1px),linear-gradient(to_bottom,hsl(var(--border))_1px,transparent_1px)] bg-[size:72px_72px] [mask-image:radial-gradient(ellipse_70%_55%_at_30%_0%,black,transparent)] opacity-30" />
+      {/* ═══════════ HERO ═══════════ */}
+      <section className="relative isolate overflow-hidden pt-28 pb-16 sm:pt-36 lg:pb-24">
+        <div className="pointer-events-none absolute inset-0 -z-10">
+          <div className="absolute -top-40 left-1/2 h-[420px] w-[720px] -translate-x-1/2 rounded-full bg-primary/1 blur-[130px]" />
+          <div className="absolute inset-0 bg-[linear-gradient(to_right,hsl(var(--border))_1px,transparent_1px),linear-gradient(to_bottom,hsl(var(--border))_1px,transparent_1px)] bg-[size:80px_80px] opacity-50 [mask-image:linear-gradient(to_bottom,black_30%,transparent_95%)]" />
+          <div className="absolute inset-y-0 left-1/2 w-full max-w-6xl -translate-x-1/2 border-x border-border/70" />
+          <div className="absolute inset-x-0 bottom-0 h-px bg-border" />
         </div>
 
-        <div className="max-w-6xl mx-auto px-6">
-          <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-          >
-            {/* <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-border bg-foreground/5 backdrop-blur-sm">
-              <span className="relative flex h-1.5 w-1.5">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-70" />
-                <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-emerald-500" />
-              </span>
-              <span className="text-[10px] font-bold text-foreground tracking-widest uppercase">
-                About the Team
-              </span>
-            </div> */}
+        <div className="mx-auto max-w-6xl px-5 sm:px-6">
+          <div className="grid items-center gap-12 lg:grid-cols-12 lg:gap-14">
+            <motion.div
+              variants={stagger}
+              initial="hidden"
+              animate="show"
+              className="lg:col-span-7"
+            >
+              <motion.h1
+                variants={rise}
+                className="font-display text-balance text-[2.5rem] font-black leading-[1.05] tracking-tighter sm:text-6xl lg:text-7xl"
+              >
+                A digital product studio businesses can rely on.
+              </motion.h1>
+              <motion.p
+                variants={rise}
+                className="mt-6 max-w-xl text-base leading-6 text-muted-foreground sm:text-lg sm:leading-7"
+              >
+                {COMPANY} brings product design and software engineering under
+                one roof. For over four years we have helped startups and
+                established brands plan, design, build and launch web and mobile
+                products that look good and run well.
+              </motion.p>
+              <motion.div
+                variants={rise}
+                className="mt-8 flex flex-col gap-3 sm:flex-row"
+              >
+                <Link to="/contact" className={primaryBtn}>
+                  Work with us <ArrowUpRight className="h-4 w-4" />
+                </Link>
+                <a
+                  href={LINKEDIN_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={ghostBtn}
+                >
+                  <LinkedInIcon className="h-4 w-4" /> Follow on LinkedIn
+                </a>
+              </motion.div>
+            </motion.div>
 
-            {/* Split hero: narrative on the left, a real photo on the right */}
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-y-10 lg:gap-x-14 items-center">
-              <div className="lg:col-span-7">
-                <h1 className="font-display -mt-3 text-[2.75rem] leading-[1.01] sm:text-7xl lg:text-7xl font-extrabold text-foreground tracking-tight text-balance mb-6">
-                  Design-Strategy, <br />
-                  <span className="text-muted-foreground">Development,</span>
-                  <br />
-                  Launch-Support.
-                </h1>
-                <p className="text-sm sm:text-base text-muted-foreground leading-relaxed mb-8 max-w-lg">
-                  A multidisciplinary creative team with over 4 years bridging
-                  design and development. We partner with startups and
-                  established brands to ship digital products that look as good
-                  as they run.
-                </p>
-                <div className="flex flex-col sm:flex-row gap-3">
-                  <Link
-                    to="/contact"
-                    className="group inline-flex items-center justify-center gap-2 bg-foreground text-background px-9 py-3.5 text-sm font-bold rounded-xl shadow-sm hover:shadow-xs transition-all hover:-translate-y-0.5 active:scale-[0.98]"
-                  >
-                    Work With Us
-                    <ArrowUpRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-                  </Link>
-                  <Link
-                    to="/projects"
-                    className="inline-flex items-center justify-center gap-2 border border-border text-foreground px-9 py-3.5 text-sm font-semibold rounded-xl hover:bg-secondary transition-all hover:-translate-y-0.5 active:scale-[0.98]"
-                  >
-                    View Our Work
-                  </Link>
-                </div>
-              </div>
-
-              <div className="lg:col-span-5">
-                <div className="relative">
-                  <div className="absolute -inset-3 rounded-[2rem] border border-border/40 bg-secondary/20 backdrop-blur-sm -z-10" />
-                  <div className="group relative aspect-[16/10] lg:aspect-[4/5] rounded-3xl overflow-hidden border border-border shadow-l">
-                    <div className="w-full h-full grayscale-[35%] transition-all duration-700 group-hover:grayscale-0 group-hover:scale-105">
-                      <SkeletonImage
-                        src="/profile33.jpeg"
-                        alt="The team working together"
-                        className="w-full h-full object-cover"
-                      />
-                    </div>
-                    <div className="absolute inset-0 bg-gradient-to-t from-foreground/30 via-transparent to-transparent pointer-events-none" />
-                  </div>
-
-                  <div className="absolute -top-3 -right-3 flex items-center gap-2 bg-card border border-border rounded-full px-3 py-2 shadow-l">
+            {/* Company fact sheet */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.9, delay: 0.25, ease: EASE }}
+              className="lg:col-span-5"
+            >
+              <div className="rounded-2xl border border-border bg-card/95 shadow-sm backdrop-blur">
+                <div className="flex items-center justify-between border-b border-border px-6 py-4">
+                  <p className="font-display text-base font-bold text-foreground">
+                    Our Company Info.
+                  </p>
+                  <span className="inline-flex items-center gap-2 text-sm font-medium text-muted-foreground">
                     <span className="relative flex h-2 w-2">
-                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
-                      <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
+                      <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
+                      <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500" />
                     </span>
-                    <span className="text-[11px] font-semibold text-foreground">
-                      Available for work
-                    </span>
-                  </div>
-
-                  <div className="absolute -bottom-5 -left-3 sm:-left-6 flex items-center gap-3 bg-card border border-border rounded-xl px-4 py-3 shadow-md">
-                    <div className="w-8 h-8 rounded-lg bg-foreground/5 border border-border flex items-center justify-center">
-                      <FolderCheck className="w-4 h-4 text-foreground" />
-                    </div>
-                    <div>
-                      <p className="text-xs font-bold text-foreground">
-                        50+ Projects
-                      </p>
-                      <p className="text-[10px] text-muted-foreground">
-                        Successfully Delivered
-                      </p>
-                    </div>
-                  </div>
+                    At a glance.
+                  </span>
                 </div>
+                <dl className="divide-y divide-border">
+                  {facts.map((f) => (
+                    <div
+                      key={f.label}
+                      className="grid grid-cols-[110px_1fr] gap-4 px-6 py-4 sm:grid-cols-[130px_1fr]"
+                    >
+                      <dt className="text-sm text-muted-foreground">
+                        {f.label}
+                      </dt>
+                      <dd className="text-[15px] font-semibold leading-6 text-foreground">
+                        {f.value}
+                      </dd>
+                    </div>
+                  ))}
+                  <div className="grid grid-cols-[110px_1fr] gap-4 px-6 py-4 sm:grid-cols-[130px_1fr]">
+                    <dt className="text-sm text-muted-foreground">Follow us</dt>
+                    <dd>
+                      <a
+                        href={LINKEDIN_URL}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-2 text-[15px] font-semibold text-foreground underline-offset-4 hover:underline"
+                      >
+                        <LinkedInIcon className="h-4 w-4" /> {COMPANY} on
+                        LinkedIn
+                      </a>
+                    </dd>
+                  </div>
+                </dl>
               </div>
-            </div>
-          </motion.div>
+            </motion.div>
+          </div>
 
           {/* Metrics */}
           <motion.div
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.3, duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-            className="grid grid-cols-2 md:grid-cols-4 mt-16 sm:mt-20 border-t border-l border-border rounded-tl-2xl"
+            transition={{ delay: 0.4, duration: 0.7, ease: EASE }}
+            className="mt-16 grid grid-cols-2 border-t border-l border-border bg-card/60 backdrop-blur md:grid-cols-4"
           >
             {metrics.map((m) => (
               <div
                 key={m.label}
                 className="border-r border-b border-border px-5 py-6 sm:px-7 sm:py-7"
               >
-                <p className="font-display text-3xl sm:text-4xl font-extrabold text-foreground tracking-tight tabular-nums leading-none">
+                <p className="font-display text-3xl font-extrabold leading-none tracking-tight text-foreground tabular-nums sm:text-4xl">
                   {m.value}
                 </p>
-                <p className="text-[10px] text-muted-foreground mt-2.5 font-semibold uppercase tracking-wide">
+                <p className="mt-2.5 text-sm font-medium text-muted-foreground sm:text-base">
                   {m.label}
                 </p>
               </div>
@@ -394,84 +500,233 @@ const About = () => {
         </div>
       </section>
 
-      {/* ── TRUSTED BY ── */}
-      <section className="py-10 border-b border-border bg-secondary/20">
-        <div className="max-w-6xl mx-auto px-6 flex flex-col lg:flex-row lg:items-center gap-5 lg:gap-10">
-          <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground shrink-0">
-            Teams we've built with
-          </p>
-          <div className="flex flex-wrap gap-x-8 gap-y-3">
-            {trustedBy.map((name) => (
-              <span
-                key={name}
-                className="font-display uppercase text-sm sm:text-[15px] font-bold tracking-tight text-foreground/55 hover:text-foreground transition-colors"
+      {/* ═══════════ CLIENT MARQUEE ═══════════ */}
+      <section
+        aria-label="Companies we've worked with"
+        className="border-y border-border bg-secondary/30 py-8 sm:py-10"
+      >
+        <p className="mb-6 text-center text-base font-medium text-muted-foreground">
+          Trusted by growing teams and brands
+        </p>
+        <Marquee items={trustedBy} />
+      </section>
+
+      {/* ═══════════ WHO WE ARE ═══════════ */}
+      <section className="py-20 sm:py-28">
+        <div className="mx-auto grid max-w-6xl gap-12 px-5 sm:px-6 lg:grid-cols-12 lg:gap-16">
+          <Reveal className="lg:col-span-6">
+            <h2 className="font-display text-balance text-4xl font-extrabold leading-[1.08] tracking-tight sm:text-5xl">
+              Who we are.
+            </h2>
+            <div className="mt-6 space-y-5 text-base leading-7 text-muted-foreground sm:text-lg sm:leading-8">
+              <p>
+                {COMPANY} is a multidisciplinary team of designers and
+                engineers. We work with founders and product teams who need a
+                partner that can think through the problem, design the solution
+                and build it properly.
+              </p>
+              <p>
+                Because strategy, design and development sit in one team,
+                nothing is lost between handoffs. What gets designed is what
+                gets built, and the people who built it stay available after
+                launch.
+              </p>
+              <p>
+                We work remotely with clients across time zones, using regular
+                check-ins and written updates so you always know where your
+                project stands.
+              </p>
+            </div>
+            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+              <Link to="/services" className={primaryBtn}>
+                Explore our services <ArrowUpRight className="h-4 w-4" />
+              </Link>
+              <Link to="/projects" className={ghostBtn}>
+                See our work
+              </Link>
+            </div>
+          </Reveal>
+
+          <div className="grid gap-5 lg:col-span-6">
+            {principles.map((p, i) => {
+              const Icon = p.icon;
+              return (
+                <Reveal key={p.title} delay={i * 0.1}>
+                  <div className="group rounded-2xl border border-border bg-card p-7 transition-all duration-300 hover:-translate-y-1 hover:border-foreground/25 hover:shadow-sm">
+                    <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-xl border border-border bg-secondary transition-colors duration-300 group-hover:border-foreground group-hover:bg-foreground">
+                      <Icon className="h-5 w-5 text-foreground transition-colors duration-300 group-hover:text-background" />
+                    </div>
+                    <h3 className="font-display text-xl font-bold text-foreground">
+                      {p.title}
+                    </h3>
+                    <p className="mt-2 text-[15px] leading-7 text-muted-foreground sm:text-base">
+                      {p.description}
+                    </p>
+                  </div>
+                </Reveal>
+              );
+            })}
+            <Reveal delay={0.2}>
+              <div className="flex items-center gap-4 rounded-2xl border border-border bg-secondary/50 p-6">
+                <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl border border-border bg-card">
+                  <Globe2 className="h-5 w-5 text-foreground" />
+                </div>
+                <p className="text-[15px] leading-7 text-foreground/85 sm:text-base">
+                  Clients in Africa, Europe and Australia, served by a
+                  remote-first team.
+                </p>
+              </div>
+            </Reveal>
+          </div>
+        </div>
+      </section>
+
+      {/* ═══════════ WHAT WE DO (dark) ═══════════ */}
+      <section className="relative overflow-hidden bg-foreground py-20 text-background sm:py-28">
+        <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(to_right,hsl(var(--background))_1px,transparent_1px),linear-gradient(to_bottom,hsl(var(--background))_1px,transparent_1px)] bg-[size:80px_80px] opacity-[0.05]" />
+        <div className="relative mx-auto max-w-6xl px-5 sm:px-6">
+          <SectionHeader
+            tone="dark"
+            title="What we do."
+            description="Five services that cover a product from first idea to a live, supported release."
+            action={
+              <Link
+                to="/services"
+                className="group inline-flex shrink-0 items-center gap-1.5 self-start border-b border-background/40 pb-0.5 text-sm font-semibold text-background transition-all hover:border-background md:self-auto"
               >
-                {name}
-              </span>
+                View all services
+                <ArrowUpRight className="h-4 w-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+              </Link>
+            }
+          />
+          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            {offerings.map((o, i) => {
+              const Icon = o.icon;
+              return (
+                <Reveal key={o.title} delay={i * 0.07}>
+                  <div className="group h-full rounded-2xl border border-background/15 bg-background/[0.06] p-7 transition-all duration-300 hover:-translate-y-1 hover:border-background/40">
+                    <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-xl border border-background/20 bg-background/10 transition-colors duration-300 group-hover:bg-background group-hover:text-foreground">
+                      <Icon className="h-5 w-5" />
+                    </div>
+                    <h3 className="font-display text-xl font-bold text-background">
+                      {o.title}
+                    </h3>
+                    <p className="mt-2 text-[15px] leading-7 text-background/75 sm:text-base">
+                      {o.description}
+                    </p>
+                  </div>
+                </Reveal>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* ═══════════ SELECTED ENGAGEMENTS ═══════════ */}
+      <section className="py-20 sm:py-28">
+        <div className="mx-auto max-w-6xl px-5 sm:px-6">
+          <SectionHeader
+            title="Selected client work."
+            description="A look at the industries we have worked in and what we delivered for each client."
+            action={
+              <Link
+                to="/projects"
+                className="group inline-flex shrink-0 items-center gap-1.5 self-start border-b border-foreground/30 pb-0.5 text-sm font-semibold text-foreground transition-all hover:border-foreground md:self-auto"
+              >
+                View all projects
+                <ArrowUpRight className="h-4 w-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+              </Link>
+            }
+          />
+          <div className="grid gap-5 md:grid-cols-2">
+            {engagements.map((e, i) => (
+              <Reveal
+                key={e.client}
+                delay={(i % 2) * 0.08}
+                className={i === 0 ? "md:col-span-2" : ""}
+              >
+                <article className="group h-full rounded-2xl border border-border bg-card p-7 transition-all duration-300 hover:-translate-y-1 hover:border-foreground/25 hover:shadow-sm sm:p-8">
+                  <div className="mb-5 flex flex-wrap items-center gap-2">
+                    <span className="rounded-full bg-primary/10 px-3 py-1 text-sm font-semibold text-primary">
+                      {e.sector}
+                    </span>
+                    <span className="rounded-full border border-border px-3 py-1 text-sm text-muted-foreground">
+                      {e.region}
+                    </span>
+                    <span className="ml-auto inline-flex items-center gap-2 text-sm font-medium text-muted-foreground">
+                      {e.status === "Ongoing" && (
+                        <span className="relative flex h-2 w-2">
+                          <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-70" />
+                          <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500" />
+                        </span>
+                      )}
+                      {e.status}
+                    </span>
+                  </div>
+                  <h3 className="font-display text-xl font-bold leading-snug text-foreground sm:text-2xl">
+                    {e.client}
+                  </h3>
+                  <p className="mt-3 max-w-3xl text-[15px] leading-7 text-muted-foreground sm:text-base">
+                    {e.description}
+                  </p>
+                  <div className="mt-6 flex flex-wrap gap-2 border-t border-border pt-5">
+                    {e.scope.map((s) => (
+                      <span
+                        key={s}
+                        className="rounded-md border border-border bg-secondary/60 px-3 py-1.5 text-sm font-medium text-foreground/80"
+                      >
+                        {s}
+                      </span>
+                    ))}
+                  </div>
+                </article>
+              </Reveal>
             ))}
           </div>
         </div>
       </section>
 
-      {/* ── APPROACH ── */}
-      <section className="py-24 sm:py-32 border-b border-border">
-        <div className="max-w-6xl mx-auto px-6">
-          <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-14">
-            <SectionHeading eyebrow="How We Work" title="Our Approach." />
-            <motion.p
-              initial={{ opacity: 0, y: 16 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              className="text-sm text-muted-foreground leading-relaxed max-w-md"
-            >
-              Great products emerge when aesthetics and engineering work in
-              harmony. Every pixel has a purpose, every line of code tells a
-              story here's how a project moves from idea to something real.
-            </motion.p>
-          </div>
-
+      {/* ═══════════ HOW WE WORK ═══════════ */}
+      <section className="border-y border-border bg-secondary/40 py-20 sm:py-28">
+        <div className="mx-auto max-w-6xl px-5 sm:px-6">
+          <SectionHeader
+            title="How we work."
+            description="Great products come from design and engineering working together. This is how a project moves from idea to launch."
+          />
           <div className="relative">
-            <div className="hidden sm:block absolute top-6 left-[3.5rem] right-[3.5rem] h-px bg-border" />
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
-              {approachPillars.map((pillar, i) => {
-                const Icon = pillar.icon;
+            <div className="pointer-events-none absolute top-6 right-[10%] left-[10%] hidden h-px bg-border sm:block" />
+            <div className="grid gap-5 sm:grid-cols-3">
+              {approach.map((a, i) => {
+                const Icon = a.icon;
                 return (
-                  <motion.div
-                    key={pillar.title}
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: i * 0.1, duration: 0.5 }}
-                    className="group relative"
-                  >
-                    <div className="relative z-10 w-12 h-12 rounded-xl bg-background border border-border shadow-sm flex items-center justify-center mb-5 transition-all duration-300 group-hover:bg-foreground group-hover:border-foreground">
-                      <span className="font-display text-sm font-extrabold text-foreground transition-colors duration-300 group-hover:text-background">
+                  <Reveal key={a.title} delay={i * 0.1}>
+                    <div className="group relative">
+                      <div className="relative z-10 mb-5 flex h-12 w-12 items-center justify-center rounded-xl border border-border bg-background font-display text-sm font-extrabold text-foreground transition-all duration-300 group-hover:border-foreground group-hover:bg-foreground group-hover:text-background">
                         0{i + 1}
-                      </span>
-                    </div>
-
-                    <div className="rounded-2xl border border-border bg-card p-7 h-[calc(100%-4.25rem)] flex flex-col transition-all duration-300 group-hover:-translate-y-1 group-hover:border-foreground/30 group-hover:shadow-l">
-                      <div className="w-10 h-10 rounded-xl bg-foreground/5 border border-border flex items-center justify-center mb-5">
-                        <Icon className="w-4 h-4 text-foreground" />
                       </div>
-                      <h3 className="font-display text-lg font-bold text-foreground mb-2">
-                        {pillar.title}
-                      </h3>
-                      <p className="text-sm text-muted-foreground leading-relaxed mb-6 flex-1">
-                        {pillar.description}
-                      </p>
-                      <div className="flex flex-wrap gap-1.5 pt-5 border-t border-border">
-                        {pillar.tags.map((t) => (
-                          <span
-                            key={t}
-                            className="text-[10px] font-semibold px-2.5 py-1 rounded-md bg-foreground/5 text-foreground/70 border border-border"
-                          >
-                            {t}
-                          </span>
-                        ))}
+                      <div className="flex h-[calc(100%-4.25rem)] flex-col rounded-2xl border border-border bg-card p-7 transition-all duration-300 group-hover:-translate-y-1 group-hover:border-foreground/25 group-hover:shadow-sm">
+                        <div className="mb-5 flex h-10 w-10 items-center justify-center rounded-xl border border-border bg-secondary">
+                          <Icon className="h-5 w-5 text-foreground" />
+                        </div>
+                        <h3 className="font-display text-xl font-bold text-foreground">
+                          {a.title}
+                        </h3>
+                        <p className="mt-2 mb-6 flex-1 text-[15px] leading-7 text-muted-foreground sm:text-base">
+                          {a.description}
+                        </p>
+                        <div className="flex flex-wrap gap-2 border-t border-border pt-5">
+                          {a.tags.map((t) => (
+                            <span
+                              key={t}
+                              className="rounded-md border border-border bg-secondary/60 px-3 py-1 text-sm font-medium text-foreground/80"
+                            >
+                              {t}
+                            </span>
+                          ))}
+                        </div>
                       </div>
                     </div>
-                  </motion.div>
+                  </Reveal>
                 );
               })}
             </div>
@@ -479,244 +734,126 @@ const About = () => {
         </div>
       </section>
 
-      {/* ── TECHNICAL STACK ── */}
-      <section className="py-24 sm:py-28">
-        <div className="max-w-6xl mx-auto px-6">
-          <div className="mb-12 sm:mb-14">
-            <SectionHeading
-              eyebrow="Technical Stack"
-              title="Core Skills."
-              description="The tools and disciplines we use to take products from first sketch to production."
-            />
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-            {skillGroups.map((group, i) => {
-              const Icon = group.icon;
+      {/* ═══════════ VALUES ═══════════ */}
+      <section className="py-20 sm:py-28">
+        <div className="mx-auto max-w-6xl px-5 sm:px-6">
+          <div className="grid overflow-hidden border-t border-l border-border sm:grid-cols-2 lg:grid-cols-4">
+            {values.map((v, i) => {
+              const Icon = v.icon;
               return (
-                <motion.div
-                  key={group.label}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: i * 0.08, duration: 0.5 }}
-                  className="group relative rounded-2xl border border-border bg-card p-7 sm:p-8 overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:border-foreground/30 hover:shadow-l"
-                >
-                  <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-foreground/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                <Reveal key={v.title} delay={i * 0.08}>
+                  <div className="group h-full border-r border-b border-border p-6 transition-colors duration-300 hover:bg-secondary/50 sm:p-7">
+                    <div className="mb-5 flex h-11 w-11 items-center justify-center rounded-xl border border-border bg-secondary transition-colors duration-300 group-hover:border-foreground group-hover:bg-foreground">
+                      <Icon className="h-5 w-5 text-foreground transition-colors duration-300 group-hover:text-background" />
+                    </div>
+                    <h3 className="font-display text-lg font-bold text-foreground">
+                      {v.title}
+                    </h3>
+                    <p className="mt-2 text-[15px] leading-7 text-muted-foreground">
+                      {v.description}
+                    </p>
+                  </div>
+                </Reveal>
+              );
+            })}
+          </div>
+        </div>
+      </section>
 
-                  <div className="flex items-center justify-between mb-5">
-                    <div className="flex items-center gap-3">
-                      <div className="w-11 h-11 rounded-xl bg-foreground/5 border border-border flex items-center justify-center transition-all duration-300 group-hover:bg-foreground group-hover:border-foreground">
-                        <Icon className="w-4 h-4 text-foreground transition-colors duration-300 group-hover:text-background" />
+      {/* ═══════════ CAPABILITIES ═══════════ */}
+      <section className="border-y border-border bg-secondary/40 py-20 sm:py-28">
+        <div className="mx-auto max-w-6xl px-5 sm:px-6">
+          <SectionHeader
+            title="Capabilities and tools."
+            description="The technologies and disciplines we use to take products from first sketch to production."
+          />
+          <div className="grid gap-5 sm:grid-cols-2">
+            {skillGroups.map((g, i) => {
+              const Icon = g.icon;
+              return (
+                <Reveal key={g.label} delay={(i % 2) * 0.08}>
+                  <div className="group h-full rounded-2xl border border-border bg-card p-7 transition-all duration-300 hover:-translate-y-1 hover:border-foreground/25 hover:shadow-sm sm:p-8">
+                    <div className="mb-4 flex items-center gap-3">
+                      <div className="flex h-11 w-11 items-center justify-center rounded-xl border border-border bg-secondary transition-colors duration-300 group-hover:border-foreground group-hover:bg-foreground">
+                        <Icon className="h-5 w-5 text-foreground transition-colors duration-300 group-hover:text-background" />
                       </div>
-                      <h3 className="font-display text-lg font-bold text-foreground">
-                        {group.label}
+                      <h3 className="font-display text-xl font-bold text-foreground">
+                        {g.label}
                       </h3>
                     </div>
-                    <span className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/60">
-                      {group.skills.length} skills
-                    </span>
+                    <p className="mb-6 text-[15px] leading-7 text-muted-foreground sm:text-base">
+                      {g.description}
+                    </p>
+                    <div className="flex flex-wrap gap-2">
+                      {g.skills.map((s) => (
+                        <span
+                          key={s}
+                          className="rounded-lg border border-border bg-background px-3 py-1.5 font-mono text-sm font-medium text-foreground/85"
+                        >
+                          {s}
+                        </span>
+                      ))}
+                    </div>
                   </div>
-                  <p className="text-sm text-muted-foreground leading-relaxed mb-6">
-                    {group.description}
-                  </p>
-                  <div className="flex flex-wrap gap-2">
-                    {group.skills.map((skill) => (
-                      <span
-                        key={skill}
-                        className="font-mono text-[11px] font-semibold tracking-tight px-3 py-1.5 rounded-lg border border-border bg-background text-foreground/80 transition-colors group-hover:border-foreground/20"
-                      >
-                        {skill}
-                      </span>
-                    ))}
-                  </div>
-                </motion.div>
+                </Reveal>
               );
             })}
           </div>
         </div>
       </section>
 
-      {/* ── EXPERIENCE ── */}
-      <section className="py-24 sm:py-28 bg-secondary/30 border-y border-border">
-        <div className="max-w-6xl mx-auto px-6 grid lg:grid-cols-12 gap-12 lg:gap-16">
-          <div className="lg:col-span-4">
-            <div className="lg:sticky lg:top-28">
-              <SectionHeading
-                eyebrow="Track Record"
-                title="Industry Experience."
-                description="Selected roles across logistics, travel security, events and commerce platforms."
-              />
+      {/* ═══════════ CTA ═══════════ */}
+      <section className="relative overflow-hidden bg-foreground py-20 text-background sm:py-28">
+        <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(to_right,hsl(var(--background))_1px,transparent_1px),linear-gradient(to_bottom,hsl(var(--background))_1px,transparent_1px)] bg-[size:64px_64px] opacity-[0.06] [mask-image:radial-gradient(ellipse_70%_60%_at_50%_50%,black,transparent)]" />
+        <div className="pointer-events-none absolute -top-20 -left-20 h-72 w-72 rounded-full bg-background/10 blur-3xl" />
+        <div className="pointer-events-none absolute -right-20 -bottom-20 h-96 w-96 rounded-full bg-background/10 blur-3xl" />
 
-              <motion.div
-                initial={{ opacity: 0, y: 16 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                className="mt-8 grid grid-cols-2 gap-3 max-w-xs"
-              >
-                <div className="rounded-xl border border-border bg-card px-4 py-3.5">
-                  <p className="font-display text-2xl font-extrabold text-foreground leading-none">
-                    {experience.length}
-                  </p>
-                  <p className="text-[10px] text-muted-foreground font-semibold uppercase tracking-wide mt-1.5">
-                    Roles
-                  </p>
-                </div>
-                <div className="rounded-xl border border-border bg-card px-4 py-3.5">
-                  <p className="font-display text-2xl font-extrabold text-foreground leading-none">
-                    {currentRoles}
-                  </p>
-                  <p className="text-[10px] text-muted-foreground font-semibold uppercase tracking-wide mt-1.5">
-                    Current
-                  </p>
-                </div>
-              </motion.div>
-            </div>
-          </div>
-
-          <div className="lg:col-span-8 flex flex-col gap-3">
-            {experience.map((exp, i) => {
-              const Icon = exp.icon;
-              const isOpen = openExperience === i;
-              const isCurrent = exp.period === "Present";
-              return (
-                <motion.div
-                  key={exp.role + exp.company}
-                  initial={{ opacity: 0, y: 16 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: i * 0.05, duration: 0.5 }}
-                  className={`rounded-2xl border bg-card overflow-hidden transition-all duration-300 ${
-                    isOpen
-                      ? "border-foreground/25 shadow-xm"
-                      : "border-border hover:border-foreground/20"
-                  }`}
-                >
-                  <button
-                    type="button"
-                    onClick={() => setOpenExperience(isOpen ? null : i)}
-                    aria-expanded={isOpen}
-                    className="w-full flex items-center gap-4 sm:gap-5 text-left px-5 py-5 sm:px-7 sm:py-6 hover:bg-secondary/30 transition-colors"
-                  >
-                    <div
-                      className={`shrink-0 w-11 h-11 rounded-xl border flex items-center justify-center transition-colors duration-300 ${
-                        isOpen
-                          ? "bg-foreground border-foreground"
-                          : "bg-foreground/5 border-border"
-                      }`}
-                    >
-                      <Icon
-                        className={`w-4 h-4 transition-colors duration-300 ${
-                          isOpen ? "text-background" : "text-foreground"
-                        }`}
-                      />
-                    </div>
-
-                    <div className="flex-1 min-w-0 grid sm:grid-cols-[1fr_auto] gap-2 sm:gap-6 items-start sm:items-center">
-                      <div className="min-w-0">
-                        <h3 className="font-display text-base sm:text-lg font-bold text-foreground leading-snug">
-                          {exp.role}
-                        </h3>
-                        <p className="text-sm text-muted-foreground font-medium mt-0.5">
-                          {exp.company}
-                        </p>
-                      </div>
-                      <div className="flex items-center gap-2 shrink-0 flex-wrap">
-                        <span className="text-[10px] font-bold uppercase tracking-widest px-2.5 py-1 rounded-full bg-secondary text-foreground border border-border">
-                          {exp.type}
-                        </span>
-                        <span className="inline-flex items-center gap-1.5 text-sm font-semibold text-muted-foreground whitespace-nowrap">
-                          {isCurrent && (
-                            <span className="relative flex h-1.5 w-1.5">
-                              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-70" />
-                              <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-emerald-500" />
-                            </span>
-                          )}
-                          {exp.period}
-                        </span>
-                      </div>
-                    </div>
-
-                    <ChevronDown
-                      className={`w-4 h-4 text-muted-foreground shrink-0 transition-transform duration-300 ${
-                        isOpen ? "rotate-180" : ""
-                      }`}
-                    />
-                  </button>
-
-                  <AnimatePresence initial={false}>
-                    {isOpen && (
-                      <motion.div
-                        initial={{ height: 0, opacity: 0 }}
-                        animate={{ height: "auto", opacity: 1 }}
-                        exit={{ height: 0, opacity: 0 }}
-                        transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
-                        className="overflow-hidden"
-                      >
-                        <div className="mx-5 sm:mx-7 pt-5 pb-6 border-t border-border">
-                          <p className="text-sm text-muted-foreground leading-relaxed max-w-3xl">
-                            {exp.description}
-                          </p>
-                        </div>
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
-                </motion.div>
-              );
-            })}
-          </div>
-        </div>
-      </section>
-
-      
-      {/* ── CTA ── */}
-      <section className="py-24 sm:py-28 bg-foreground text-background relative overflow-hidden">
-        <div className="absolute inset-0 -z-0 bg-[linear-gradient(to_right,hsl(var(--background))_1px,transparent_1px),linear-gradient(to_bottom,hsl(var(--background))_1px,transparent_1px)] bg-[size:64px_64px] [mask-image:radial-gradient(ellipse_70%_60%_at_50%_50%,black,transparent)] opacity-[0.06]" />
-        <div className="absolute -top-20 -left-20 w-72 h-72 rounded-full bg-background/10 blur-3xl pointer-events-none" />
-        <div className="absolute -bottom-20 -right-20 w-96 h-96 rounded-full bg-background/10 blur-3xl pointer-events-none" />
-
-        <div className="max-w-3xl mx-auto px-6 text-center relative z-10">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-          >
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-background/15 bg-background/5 backdrop-blur-sm mb-6">
-              <span className="relative flex h-1.5 w-1.5">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-70" />
-                <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-emerald-400" />
+        <div className="relative mx-auto max-w-3xl px-5 text-center sm:px-6">
+          <Reveal>
+            <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-background/20 bg-background/5 px-4 py-1.5 backdrop-blur">
+              <span className="relative flex h-2 w-2">
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-70" />
+                <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-400" />
               </span>
-              <span className="text-[11px] font-semibold text-background/80">
+              <span className="text-sm font-medium text-background/85">
                 Available for new projects
               </span>
             </div>
-            <h2 className="font-display text-balance lg:text-6xl text-4xl sm:text-5xl font-extrabold tracking-tighter mb-3">
-              Interested in Working With Us?
+            <h2 className="font-display text-balance text-4xl font-extrabold tracking-tight sm:text-5xl lg:text-6xl">
+              Let's talk about your product.
             </h2>
-            <p className="opacity-60 text-sm max-w-lg mx-auto leading-5 mb-9">
-              We are always open to new opportunities and collaborations. Send
-              us messages let's build something great together.
+            <p className="mx-auto mt-5 mb-10 max-w-lg text-base leading-7 text-background/75 sm:text-lg sm:leading-8">
+              Tell us what you are building. We reply within 24 hours with a
+              clear next step, or follow {COMPANY} on LinkedIn for company news.
             </p>
-            <div className="flex flex-col sm:flex-row gap-3 justify-center">
+            <div className="flex flex-col justify-center gap-3 sm:flex-row">
               <Link
                 to="/contact"
-                className="inline-flex items-center justify-center gap-2 bg-background text-foreground px-8 py-3.5 text-sm font-bold rounded-xl hover:opacity-90 transition-all hover:-translate-y-0.5 active:scale-[0.97]"
+                className="group inline-flex items-center justify-center gap-2 rounded-xl bg-background px-8 py-3.5 text-sm font-bold text-foreground transition-all hover:-translate-y-0.5 hover:opacity-90 active:scale-[0.98]"
               >
-                Get in Touch <ArrowUpRight className="w-3.5 h-3.5" />
+                Get in touch
+                <ArrowUpRight className="h-4 w-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
               </Link>
               <BookCallSheet
                 trigger={
                   <button
                     type="button"
-                    className="group relative inline-flex items-center justify-center gap-2 overflow-hidden border-2 border-background/30 text-background px-8 py-3.5 text-sm font-bold rounded-xl transition-all hover:-translate-y-0.5 hover:border-background/55"
+                    className="inline-flex w-full items-center justify-center gap-2 rounded-xl border-2 border-background/30 px-8 py-3.5 text-sm font-bold text-background transition-all hover:-translate-y-0.5 hover:border-background/60 hover:bg-background/10 active:scale-[0.98] sm:w-auto"
                   >
-                    <span className="absolute inset-0 -z-10 bg-background/10 scale-x-0 origin-left transition-transform duration-300 ease-out group-hover:scale-x-100" />
-                    <CalendarIcon className="h-3.5 w-3.5" /> Book A Call Session
+                    <CalendarIcon className="h-4 w-4" /> Book a call
                   </button>
                 }
               />
+              <a
+                href={LINKEDIN_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center gap-2 rounded-xl border-2 border-background/30 px-8 py-3.5 text-sm font-bold text-background transition-all hover:-translate-y-0.5 hover:border-background/60 hover:bg-background/10 active:scale-[0.98]"
+              >
+                <LinkedInIcon className="h-4 w-4" /> LinkedIn
+              </a>
             </div>
-          </motion.div>
+          </Reveal>
         </div>
       </section>
 

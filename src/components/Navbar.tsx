@@ -5,9 +5,9 @@ import ThemeToggle from "@/components/ThemeToggle";
 
 const navItems = [
   { label: "Home", href: "/" },
+  { label: "About", href: "/about" },
   { label: "Services", href: "/services" },
   { label: "All Courses", href: "/courses" },
-  { label: "About", href: "/about" },
   { label: "Live Projects", href: "/projects" },
   { label: "Case Studies", href: "/case-studies" },
   { label: "Blog", href: "/blog" },
@@ -20,12 +20,10 @@ const Navbar = () => {
 
   return (
     <header className="fixed top-3 left-0 right-0 z-50 w-full px-4 sm:px-6 pointer-events-none">
-      {/* ── DESKTOP & MOBILE MAIN WRAPPER ── */}
       <nav className="max-w-6xl mx-auto bg-background/50 backdrop-blur-xl border border-border/20 rounded-2xl shadow-md shadow-black/[0.02] pointer-events-auto transition-all">
         <div className="px-6 flex items-center justify-between h-16">
           <Link to="/" className="flex items-center gap-2 group select-none">
             <div className="relative w-9 h-9  shrink-0 overflow-hidden rounded-lg border border-border/40 bg-secondary/50 group-hover:border-foreground/20 transition-all duration-300">
-              {/* Shimmer Skeleton Placeholder */}
               {!imageLoaded && (
                 <div className="absolute inset-0 bg-gray-800/80 animate-pulse overflow-hidden">
                   <div className="absolute inset-0 -translate-x-full animate-[shimmer_1.5s_infinite] bg-gradient-to-r from-transparent via-white/10 to-transparent" />
@@ -33,7 +31,7 @@ const Navbar = () => {
               )}
 
               <img
-                src="/profile33.jpeg"
+                src="/profile333.jpeg"
                 alt="Profile"
                 className={`w-full h-full object-cover transform transition-all border-none duration-500 group-hover:scale-110 ${
                   imageLoaded ? "opacity-100 scale-100" : "opacity-0 scale-95"
