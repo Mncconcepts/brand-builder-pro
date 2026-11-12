@@ -849,7 +849,7 @@ const Index = () => {
               </a>
             </motion.div>
 
-            <h1 className="font-display text-balance text-[2.75rem] font-black leading-[1.03] tracking-tighter text-foreground sm:text-6xl lg:text-7xl">
+            <h1 className="font-display text-balance text-5xl font-black leading-[1.03] tracking-tighter text-foreground sm:text-7xl lg:text-7xl">
               {headlineWords.map((w, i) => (
                 <span
                   key={i}
