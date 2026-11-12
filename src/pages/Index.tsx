@@ -1,68 +1,93 @@
 import { Link, useNavigate } from "react-router-dom";
-import { motion, useInView, AnimatePresence } from "framer-motion";
+import {
+  motion,
+  useInView,
+  useReducedMotion,
+  AnimatePresence,
+  type Variants,
+} from "framer-motion";
 import { useRef, useEffect, useState } from "react";
 import type { ReactNode } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import TestimonialsCarousel from "@/components/TestimonialsCarousel";
-import TypewriterText from "@/components/TypewriterText";
 import BookCallSheet from "@/components/BookCallSheet";
 import {
   Calendar as CalendarIcon,
   ArrowUpRight,
   ArrowLeft,
+  ArrowRight,
   Star,
   Clock,
   FolderCheck,
   Users,
   Award,
-  ChevronDown,
   CheckCircle2,
   X,
   Palette,
   Layout,
   Eye,
-  ArrowRight,
   BellRing,
 } from "lucide-react";
-import { Button } from "@/components/ui/button";
 
-/* ─── Skeleton Component ─── */
+/* ═════════════ Motion presets ═════════════ */
+const EASE = [0.22, 1, 0.36, 1] as const;
+
+const stagger: Variants = {
+  hidden: {},
+  show: { transition: { staggerChildren: 0.09, delayChildren: 0.1 } },
+};
+const rise: Variants = {
+  hidden: { opacity: 0, y: 24 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.7, ease: EASE } },
+};
+
+function Reveal({
+  children,
+  delay = 0,
+  className,
+}: {
+  children: ReactNode;
+  delay?: number;
+  className?: string;
+}) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 28 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-60px" }}
+      transition={{ duration: 0.7, delay, ease: EASE }}
+      className={className}
+    >
+      {children}
+    </motion.div>
+  );
+}
+
+/* ═════════════ Small building blocks ═════════════ */
 const SkeletonImage = ({
   src,
   alt,
-  className,
+  className = "",
 }: {
   src: string;
   alt: string;
   className?: string;
 }) => {
-  const [isLoaded, setIsLoaded] = useState(false);
-
+  const [loaded, setLoaded] = useState(false);
   return (
-    <div className={`relative overflow-hidden ${className}`}>
-      {/* Shimmer/Skeleton Effect */}
-      <AnimatePresence>
-        {!isLoaded && (
-          <motion.div
-            initial={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="absolute inset-0 z-10 bg-muted/20"
-          >
-            <motion.div
-              className="w-full h-full bg-gradient-to-r from-transparent via-muted-foreground/10 to-transparent"
-              animate={{ x: ["-100%", "100%"] }}
-              transition={{ repeat: Infinity, duration: 1.5, ease: "linear" }}
-            />
-          </motion.div>
-        )}
-      </AnimatePresence>
-
+    <div className={`relative overflow-hidden bg-muted/30 ${className}`}>
+      {!loaded && (
+        <div className="absolute inset-0 animate-pulse bg-muted/40" />
+      )}
       <img
         src={src}
         alt={alt}
-        onLoad={() => setIsLoaded(true)}
-        className={`${className} transition-opacity duration-500 ${isLoaded ? "opacity-100" : "opacity-0"}`}
+        loading="lazy"
+        onLoad={() => setLoaded(true)}
+        className={`h-full w-full object-cover transition-opacity duration-700 ${
+          loaded ? "opacity-100" : "opacity-0"
+        }`}
       />
     </div>
   );
@@ -79,82 +104,44 @@ const WhatsAppIcon = ({ className }: { className?: string }) => (
   </svg>
 );
 
-function useCountUp(target: number, duration = 1800, triggered = false) {
-  const [count, setCount] = useState(0);
-  useEffect(() => {
-    if (!triggered) return;
-    let start: number | null = null;
-    const step = (ts: number) => {
-      if (!start) start = ts;
-      const p = Math.min((ts - start) / duration, 1);
-      setCount(Math.floor((1 - Math.pow(1 - p, 3)) * target));
-      if (p < 1) requestAnimationFrame(step);
-      else setCount(target);
-    };
-    requestAnimationFrame(step);
-  }, [triggered, target, duration]);
-  return count;
-}
-
-function AnimatedStat({
-  value,
-  label,
-  triggered,
-}: {
-  value: string;
-  label: string;
-  triggered: boolean;
-}) {
-  const match = value.match(/^(\d+)(.*)$/);
-  const numeric = match ? parseInt(match[1], 10) : 0;
-  const suffix = match ? match[2] : value;
-  const count = useCountUp(numeric, 1800, triggered);
-  return (
-    <div>
-      <p className="font-display text-4xl sm:text-5xl font-extrabold text-background tracking-tight leading-none">
-        {triggered ? `${count}${suffix}` : `0${suffix}`}
-      </p>
-      <p className="text-xs text-background/55 mt-2.5 tracking-tight font-medium">
-        {label}
-      </p>
-    </div>
-  );
-}
-
-/* ─── shared section header ─── */
 function SectionHeader({
-  eyebrow,
   title,
   description,
   href,
   linkLabel,
+  center = false,
+  tone = "light",
 }: {
-  eyebrow: string;
-  title: ReactNode;
+  title: string;
   description?: string;
   href?: string;
   linkLabel?: string;
+  center?: boolean;
+  tone?: "light" | "dark";
 }) {
+  const dark = tone === "dark";
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-      className="flex flex-col md:flex-row md:items-end justify-between mb-12 sm:mb-14 gap-5"
+    <Reveal
+      className={`mb-12 flex flex-col gap-5 sm:mb-16 ${
+        center
+          ? "items-center text-center"
+          : "md:flex-row md:items-end md:justify-between"
+      }`}
     >
       <div className="max-w-2xl">
-        <div className="inline-flex items-center gap-2 mb-4">
-          <span className="w-6 h-px bg-foreground/40" />
-          <p className="text-[10px] font-bold tracking-widest uppercase text-muted-foreground">
-            {eyebrow}
-          </p>
-        </div>
-        <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl tracking-tight text-balance text-foreground font-extrabold leading-[1.02]">
+        <h2
+          className={`font-display text-balance text-4xl font-extrabold leading-[1.08] tracking-tight sm:text-5xl ${
+            dark ? "text-background" : "text-foreground"
+          }`}
+        >
           {title}
         </h2>
         {description && (
-          <p className="text-sm text-muted-foreground leading-relaxed mt-4 max-w-lg">
+          <p
+            className={`mt-4 max-w-xl text-base leading-7 sm:text-lg sm:leading-6 ${
+              dark ? "text-background/75" : "text-muted-foreground"
+            }`}
+          >
             {description}
           </p>
         )}
@@ -162,57 +149,200 @@ function SectionHeader({
       {href && linkLabel && (
         <Link
           to={href}
-          className="inline-flex items-center gap-1.5 text-sm font-semibold text-foreground border-b border-foreground/30 pb-0.5 hover:border-foreground hover:gap-2.5 transition-all self-start md:self-auto shrink-0"
+          className={`group inline-flex shrink-0 items-center gap-1.5 self-start border-b pb-0.5 text-sm font-semibold transition-all md:self-auto ${
+            dark
+              ? "border-background/40 text-background hover:border-background"
+              : "border-foreground/30 text-foreground hover:border-foreground"
+          }`}
         >
-          {linkLabel} <ArrowUpRight className="w-3.5 h-3.5" />
+          {linkLabel}
+          <ArrowUpRight className="h-4 w-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
         </Link>
       )}
-    </motion.div>
+    </Reveal>
   );
 }
 
-/* ─── data ── */
+function Modal({
+  open,
+  onClose,
+  label,
+  maxWidth = "sm:max-w-lg",
+  children,
+}: {
+  open: boolean;
+  onClose: () => void;
+  label: string;
+  maxWidth?: string;
+  children: ReactNode;
+}) {
+  useEffect(() => {
+    if (!open) return;
+    const onKey = (e: KeyboardEvent) => e.key === "Escape" && onClose();
+    document.body.style.overflow = "hidden";
+    window.addEventListener("keydown", onKey);
+    return () => {
+      document.body.style.overflow = "";
+      window.removeEventListener("keydown", onKey);
+    };
+  }, [open, onClose]);
+
+  return (
+    <AnimatePresence>
+      {open && (
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          className="fixed inset-0 z-50 flex items-end justify-center sm:items-center"
+        >
+          <div
+            onClick={onClose}
+            className="absolute inset-0 bg-foreground/50 backdrop-blur-sm"
+          />
+          <motion.div
+            initial={{ opacity: 0, y: 48, scale: 0.98 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 24, scale: 0.98 }}
+            transition={{ duration: 0.4, ease: EASE }}
+            role="dialog"
+            aria-modal="true"
+            aria-label={label}
+            className={`relative flex max-h-[92vh] w-full flex-col overflow-hidden rounded-t-3xl border border-border bg-card shadow-lg sm:rounded-3xl ${maxWidth}`}
+          >
+            {children}
+          </motion.div>
+        </motion.div>
+      )}
+    </AnimatePresence>
+  );
+}
+
+function ModalHeader({
+  kicker,
+  title,
+  onClose,
+}: {
+  kicker: string;
+  title: string;
+  onClose: () => void;
+}) {
+  return (
+    <div className="flex shrink-0 items-start justify-between gap-4 border-b border-border px-6 py-5">
+      <div className="min-w-0">
+        <p className="mb-1 text-xs font-semibold text-primary">{kicker}</p>
+        <h3 className="font-display text-xl font-bold text-foreground">
+          {title}
+        </h3>
+      </div>
+      <button
+        type="button"
+        onClick={onClose}
+        aria-label="Close"
+        className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-border text-muted-foreground transition-colors hover:border-foreground/40 hover:text-foreground"
+      >
+        <X className="h-4 w-4" />
+      </button>
+    </div>
+  );
+}
+
+/* Infinite right-to-left marquee */
+function Marquee({ items }: { items: string[] }) {
+  const reduce = useReducedMotion();
+  const loop = [...items, ...items];
+  return (
+    <div
+      className="group relative overflow-hidden"
+      style={{
+        maskImage:
+          "linear-gradient(to right, transparent, black 10%, black 90%, transparent)",
+        WebkitMaskImage:
+          "linear-gradient(to right, transparent, black 10%, black 90%, transparent)",
+      }}
+    >
+      <motion.div
+        className="flex w-max items-center"
+        animate={reduce ? undefined : { x: ["0%", "-50%"] }}
+        transition={{ duration: 32, ease: "linear", repeat: Infinity }}
+      >
+        {loop.map((name, i) => (
+          <div key={name + i} className="flex items-center">
+            <span className="whitespace-nowrap px-8 font-display text-xl font-bold tracking-tight text-foreground/60 transition-colors hover:text-foreground sm:px-12 sm:text-2xl">
+              {name}
+            </span>
+            <span className="h-1.5 w-1.5 rounded-full bg-primary/50" />
+          </div>
+        ))}
+      </motion.div>
+    </div>
+  );
+}
+
+/* Count-up stats */
+function useCountUp(target: number, triggered: boolean, duration = 1800) {
+  const [count, setCount] = useState(0);
+  useEffect(() => {
+    if (!triggered) return;
+    let start: number | null = null;
+    let raf = 0;
+    const step = (ts: number) => {
+      if (start === null) start = ts;
+      const p = Math.min((ts - start) / duration, 1);
+      setCount(Math.round((1 - Math.pow(1 - p, 3)) * target));
+      if (p < 1) raf = requestAnimationFrame(step);
+    };
+    raf = requestAnimationFrame(step);
+    return () => cancelAnimationFrame(raf);
+  }, [triggered, target, duration]);
+  return count;
+}
+
+function Stat({
+  value,
+  label,
+  icon: Icon,
+  triggered,
+}: {
+  value: string;
+  label: string;
+  icon: typeof Clock;
+  triggered: boolean;
+}) {
+  const m = value.match(/^(\d+)(.*)$/);
+  const n = useCountUp(m ? parseInt(m[1], 10) : 0, triggered);
+  return (
+    <div className="border-r border-b border-background/15 p-6 sm:p-8">
+      <Icon className="mb-6 h-5 w-5 text-background/50" strokeWidth={1.75} />
+      <p className="font-display text-4xl font-extrabold leading-none tracking-tight text-background sm:text-5xl">
+        {n}
+        {m?.[2]}
+      </p>
+      <p className="mt-3 text-base font-medium text-background/75">{label}</p>
+    </div>
+  );
+}
+
+/* ═════════════ Data ═════════════ */
+const WHATSAPP_NUMBER = "2349020495756";
+
 const stats = [
-  {
-    value: "4+",
-    label: "Years Experience",
-    icon: Clock,
-    detail:
-      "Four years shipping production-grade products across fintech, e-commerce, and events.",
-  },
-  {
-    value: "50+",
-    label: "Projects Delivered",
-    icon: FolderCheck,
-    detail:
-      "From single-flow MVPs to multi-phase platforms, all taken from brief to launch.",
-  },
-  {
-    value: "30+",
-    label: "Happy Clients",
-    icon: Users,
-    detail:
-      "Founders and teams who came back for their next build instead of shopping around.",
-  },
-  {
-    value: "99%",
-    label: "Client Satisfaction",
-    icon: Award,
-    detail:
-      "Measured after handover, not just at kickoff quality that holds once we're gone.",
-  },
+  { value: "4+", label: "Years experience", icon: Clock },
+  { value: "50+", label: "Projects delivered", icon: FolderCheck },
+  { value: "30+", label: "Happy clients", icon: Users },
+  { value: "99%", label: "Client satisfaction", icon: Award },
 ];
 
 const trustedAvatars = [
-  { src: "/cc1.png", name: "Oonsa" },
-  { src: "/cc2.png", name: "Oonsa" },
+  { src: "/cc1.png", name: "Client 1" },
+  { src: "/cc2.png", name: "Client 2" },
 ];
 
 const trustedBy = [
-  "SUPERSONIC Dynamic Services",
-  "Visa Guard Africa",
-  "Oonsa Events",
-  "Computer Village Marketplace",
+  "SUPERSONIC DYNAMIC SERVICES B.V.",
+  "VISA GUARD AFRICA",
+  "OONSA EVENTS",
+  "CV MARKETPLACE",
   "DAPSVERSE",
   "OMA",
 ];
@@ -221,7 +351,7 @@ const featuredServices = [
   {
     number: "01",
     title: "Web & App Development",
-    desc: "Modern, scalable websites & applications built with the latest technologies.",
+    desc: "Fast, scalable websites and applications built with modern technology.",
     image: "/proj-pearlz-store.png",
     bullets: [
       "React / Next.js applications",
@@ -245,7 +375,7 @@ const featuredServices = [
   {
     number: "03",
     title: "UI/UX Design",
-    desc: "Intuitive interfaces and seamless experiences across all devices.",
+    desc: "Clear interfaces and smooth experiences across every device.",
     image: "/post-2dap.png",
     bullets: [
       "Interface & interaction design",
@@ -260,57 +390,57 @@ const processSteps = [
   {
     step: "01",
     title: "Discovery",
-    description:
-      "We learn your business, goals, audience and technical requirements through in-depth consultation.",
     duration: "Week 1",
+    description:
+      "We learn your business, goals, audience and technical needs through an in-depth consultation.",
   },
   {
     step: "02",
     title: "Planning",
-    description:
-      "Scope, timelines, wireframes and the technical architecture are defined before building starts.",
     duration: "Week 1-2",
+    description:
+      "Scope, timelines, wireframes and architecture are agreed before building starts.",
   },
   {
     step: "03",
     title: "Design & Build",
-    description:
-      "Iterative design and development with regular check-ins to keep everything aligned with your vision.",
     duration: "Week 3-10",
+    description:
+      "Iterative design and development with regular check-ins to stay aligned with your vision.",
   },
   {
     step: "04",
     title: "Launch & Support",
+    duration: "Week 11+",
     description:
       "Thorough testing, deployment and ongoing support so your product thrives after launch.",
-    duration: "Week 11+",
   },
 ];
 
 const featuredProjects = [
   {
     title: "Multiple Vendor Store CVMP",
+    desc: "A multi-vendor marketplace app where sellers list products and buyers browse and contact them directly.",
     category: "App Design",
     year: "2025",
     image: "/proj-storeapp22.png",
-    tags: ["Mobile", "B2B", "CLASSIFIED"],
-    color: "from-primary/15 to-primary/5",
+    tags: ["Mobile", "B2B", "Classified"],
   },
   {
     title: "Visa Guard Africa",
+    desc: "A web platform that helps travellers stay informed and protected through every step of their visa journey.",
     category: "Product Design & Development",
     year: "2026",
     image: "/visaguard.jpg",
-    tags: ["WebApp", " FINTECH", "TRAVEL SAFETY"],
-    color: "from-primary/10 to-transparent",
+    tags: ["Web app", "Fintech", "Travel safety"],
   },
   {
     title: "Supersonic Dynamic Services",
+    desc: "A modern website for a haulage and moving company that presents its services clearly and makes quotes easy to request.",
     category: "Development & Product Design",
     year: "2026",
     image: "/sds000.jpeg",
-    tags: ["Logistics", "Haulage-Moving service"],
-    color: "from-foreground/5 to-primary/10",
+    tags: ["Logistics", "Haulage & moving"],
   },
 ];
 
@@ -356,56 +486,6 @@ const scopeTiers = [
   },
 ];
 
-const WHATSAPP_NUMBER = "2349020495756";
-
-const blogPosts = [
-  {
-    title: "Design Systems That Scale With Your Product",
-    excerpt:
-      "How we build reusable component libraries that keep teams shipping fast without sacrificing consistency.",
-    category: "Design",
-    date: "Jul 2026",
-    readTime: "6 min read",
-    image: "/blog3.jpg",
-  },
-  {
-    title: "From MVP to Series A: Choosing the Right Stack",
-    excerpt:
-      "A practical breakdown of the framework and infrastructure decisions that still hold up once you scale.",
-    category: "Engineering",
-    date: "Jun 2026",
-    readTime: "8 min read",
-    image: "/hero-tech-design.jpg",
-  },
-  {
-    title: "The Real Cost of Skipping UX Research",
-    excerpt:
-      "Why the fastest route to product-market fit still starts with talking to your users first.",
-    category: "Strategy",
-    date: "May 2026",
-    readTime: "5 min read",
-    image: "/blog7.jpg",
-  },
-  {
-    title: "How I Communicate With Clients to Avoid Scope Creep",
-    excerpt:
-      "Frameworks and templates I use for proposals, check-ins, and change requests that keep projects on track and profitable.",
-    category: "Business",
-    date: "Jun 2026",
-    readTime: "8 min read",
-    image: "/blog9.jpg",
-  },
-  {
-    title: "Modern Web Architecture: What Actually Matters in 2026",
-    excerpt:
-      "An opinionated guide to choosing the right tools, patterns, and trade-offs when building production web applications today.",
-    category: "Engineering",
-    date: "Jul 2026",
-    readTime: "6 min read",
-    image: "/blog3.jpg",
-  },
-];
-
 const courses = [
   {
     icon: Palette,
@@ -413,7 +493,7 @@ const courses = [
     level: "Beginner → Advanced",
     duration: "8 weeks",
     image: "/course2.jpeg",
-    desc: "A guided, project-based track covering research, wireframing, prototyping and high-fidelity UI taught the way we actually work with clients.",
+    desc: "A guided, project-based track covering research, wireframing, prototyping and high-fidelity UI, taught the way we work with clients.",
     bullets: [
       "User research & personas",
       "Wireframes to high-fidelity UI",
@@ -589,7 +669,7 @@ const buildCourseQuestions = (course: Course): CourseQuestion[] => [
     label: "Anything else we should know?",
     helper: "Optional. Questions, preferred start date, special requests.",
     kind: "note",
-    placeholder: "type here...",
+    placeholder: "Type here...",
     required: false,
   },
 ];
@@ -598,14 +678,14 @@ const Index = () => {
   const navigate = useNavigate();
   const statsRef = useRef<HTMLDivElement>(null);
   const statsInView = useInView(statsRef, { once: true, margin: "-80px" });
-  const [expandedStat, setExpandedStat] = useState<number | null>(null);
 
+  /* Service modal */
   const [activeService, setActiveService] = useState<number | null>(null);
-  const [selectedTier, setSelectedTier] = useState<string>("growth");
+  const [selectedTier, setSelectedTier] = useState("growth");
   const [inquiryNote, setInquiryNote] = useState("");
   const [isSubmittingInquiry, setIsSubmittingInquiry] = useState(false);
 
-  /* Course popup state */
+  /* Course modal */
   const [activeCourse, setActiveCourse] = useState<number | null>(null);
   const [courseStep, setCourseStep] = useState(0);
   const [courseDir, setCourseDir] = useState(1);
@@ -615,15 +695,13 @@ const Index = () => {
   const [isOpeningWhatsApp, setIsOpeningWhatsApp] = useState(false);
 
   const [heroProject, ...otherProjects] = featuredProjects;
-  const [featuredPost, ...restPosts] = blogPosts;
 
-  const openServiceModal = (index: number) => {
-    setActiveService(index);
+  const openServiceModal = (i: number) => {
+    setActiveService(i);
     setSelectedTier("growth");
     setInquiryNote("");
     setIsSubmittingInquiry(false);
   };
-
   const closeServiceModal = () => {
     setActiveService(null);
     setIsSubmittingInquiry(false);
@@ -640,22 +718,10 @@ const Index = () => {
       timeline: tier?.timeline ?? "",
     });
     if (inquiryNote.trim()) params.set("notes", inquiryNote.trim());
-    window.setTimeout(() => {
-      navigate(`/contact?${params.toString()}`);
-    }, 550);
+    window.setTimeout(() => navigate(`/contact?${params.toString()}`), 550);
   };
 
-  const handleCourseBook = (course: (typeof courses)[number]) => {
-    const params = new URLSearchParams({
-      course: course.title,
-      interest: "Course Enrollment",
-      level: course.level,
-    });
-    navigate(`/contact?${params.toString()}`);
-  };
-
-  // Course WhatsApp quick-reach button
-  const handleCourseWhatsApp = (course: (typeof courses)[number]) => {
+  const handleCourseWhatsApp = (course: Course) => {
     const text = encodeURIComponent(
       `Hi! I'm interested in the ${course.title} course. Can you share more details?`,
     );
@@ -670,7 +736,6 @@ const Index = () => {
     "Hi! I'd like to discuss a project with you.",
   )}`;
 
-  /* ─── Course popup logic ─── */
   const activeCourseData = activeCourse !== null ? courses[activeCourse] : null;
   const courseQuestions = activeCourseData
     ? buildCourseQuestions(activeCourseData)
@@ -689,29 +754,25 @@ const Index = () => {
     return (courseAnswers[currentQuestion.id] ?? "").trim().length > 0;
   };
 
-  const openCourseModal = (index: number) => {
-    setActiveCourse(index);
+  const openCourseModal = (i: number) => {
+    setActiveCourse(i);
     setCourseStep(0);
     setCourseDir(1);
     setCourseAnswers({});
     setIsOpeningWhatsApp(false);
   };
-
   const closeCourseModal = () => {
     setActiveCourse(null);
     setIsOpeningWhatsApp(false);
   };
-
-  const setCourseAnswer = (id: string, value: string) => {
+  const setCourseAnswer = (id: string, value: string) =>
     setCourseAnswers((prev) => ({ ...prev, [id]: value }));
-  };
 
   const goNextCourseStep = () => {
     if (!canContinueCourse() || courseStep >= reviewStep) return;
     setCourseDir(1);
     setCourseStep((s) => s + 1);
   };
-
   const goBackCourseStep = () => {
     if (courseStep <= 0) return;
     setCourseDir(-1);
@@ -721,7 +782,6 @@ const Index = () => {
   const handleCourseEnroll = () => {
     if (!activeCourseData) return;
     setIsOpeningWhatsApp(true);
-
     const lines = [
       `Hi! I'd like to enroll in the ${activeCourseData.title} course (${activeCourseData.duration}).`,
       "",
@@ -731,11 +791,7 @@ const Index = () => {
       "",
       "Please share the next steps. Thank you!",
     ];
-
-    const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(
-      lines.join("\n"),
-    )}`;
-
+    const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(lines.join("\n"))}`;
     window.setTimeout(() => {
       window.open(url, "_blank", "noopener,noreferrer");
       setIsOpeningWhatsApp(false);
@@ -743,190 +799,180 @@ const Index = () => {
     }, 500);
   };
 
-  const productHighlights = [
-    "Expert Reviewers",
-    "Quality Feedbacks",
-    "Timely Support",
-    "Fast Response",
+  const primaryBtn =
+    "inline-flex items-center justify-center gap-2 rounded-xl bg-primary px-7 py-3.5 text-sm font-semibold text-primary-foreground transition-all duration-300 hover:-translate-y-0.5 hover:bg-primary/90 hover:shadow-sm active:scale-[0.98]";
+  const ghostBtn =
+    "inline-flex items-center justify-center gap-2 rounded-xl border border-border px-7 py-3.5 text-sm font-semibold text-foreground transition-all duration-300 hover:-translate-y-0.5 hover:bg-secondary active:scale-[0.98]";
+
+  const headlineWords = [
+    "Digital",
+    "products",
+    "that",
+    "work",
+    "for",
+    "your",
+    "business.",
   ];
 
-  useEffect(() => {
-    if (activeService === null) return;
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") closeServiceModal();
-    };
-    document.body.style.overflow = "hidden";
-    window.addEventListener("keydown", onKey);
-    return () => {
-      document.body.style.overflow = "";
-      window.removeEventListener("keydown", onKey);
-    };
-  }, [activeService]);
-
-  useEffect(() => {
-    if (activeCourse === null) return;
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") closeCourseModal();
-    };
-    document.body.style.overflow = "hidden";
-    window.addEventListener("keydown", onKey);
-    return () => {
-      document.body.style.overflow = "";
-      window.removeEventListener("keydown", onKey);
-    };
-  }, [activeCourse]);
-
   return (
-    <div className="min-h-screen bg-background overflow-x-hidden">
+    <div className="min-h-screen overflow-x-hidden bg-background">
       <Navbar />
 
-      <section className="relative min-h-screen flex items-center pt-8">
-        <div className="absolute inset-0 -z-10 overflow-hidden pointer-events-none">
-          <div className="absolute -top-24 -left-24 w-[500px] h-[500px] rounded-full bg-primary/5 blur-[120px]" />
-          <div className="absolute top-1/2 -right-32 w-[400px] h-[400px] rounded-full bg-blue-500/5 blur-[100px]" />
-          <div className="absolute inset-0 bg-[linear-gradient(to_right,hsl(var(--border))_1px,transparent_1px),linear-gradient(to_bottom,hsl(var(--border))_1px,transparent_1px)] bg-[size:64px_64px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,black,transparent)] opacity-40" />
+      {/* ═══════════ HERO ═══════════ */}
+      <section className="relative isolate overflow-hidden pt-28 pb-16 sm:pt-32 lg:pt-36 lg:pb-24">
+        <div className="pointer-events-none absolute inset-0 -z-10">
+          <div className="absolute -top-40 left-1/2 h-[420px] w-[720px] -translate-x-1/2 rounded-full bg-primary/1 blur-[130px]" />
+          <div className="absolute inset-0 bg-[linear-gradient(to_right,hsl(var(--border))_1px,transparent_1px),linear-gradient(to_bottom,hsl(var(--border))_1px,transparent_1px)] bg-[size:80px_80px] opacity-50 [mask-image:linear-gradient(to_bottom,black_30%,transparent_95%)]" />
+          <div className="absolute inset-y-0 left-1/2 w-full max-w-6xl -translate-x-1/2 border-x border-border/70" />
+          {/* closing line */}
+          <div className="absolute inset-x-0 bottom-0 h-px bg-border" />
         </div>
 
-        <div className="max-w-6xl mx-auto px-6 w-full grid lg:grid-cols-2 gap-12 lg:gap-16 items-center py-20">
+        <div className="mx-auto grid max-w-6xl items-center gap-12 px-5 sm:px-6 lg:grid-cols-[1.05fr_1fr] lg:gap-16">
           <motion.div
-            initial={{ opacity: 0, y: -40 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
-            className="flex flex-col"
+            variants={stagger}
+            initial="hidden"
+            animate="show"
+            className="flex flex-col items-start"
           >
-            {/* <div className="mb-6 flex items-center gap-3">
-              <div className="relative inline-flex items-center gap-2 px-4 py-2 rounded-full border border-primary/25 bg-primary/8 backdrop-blur-sm group cursor-default select-none overflow-hidden">
-                <span className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-700 bg-gradient-to-r from-transparent via-primary/10 to-transparent" />
-                <span className="relative flex h-2 w-2 shrink-0">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-60" />
-                  <span className="relative inline-flex rounded-full h-2 w-2 bg-primary" />
+            <motion.div variants={rise}>
+              <a
+                href=""
+                className="group mb-6 inline-flex items-center gap-2.5 rounded-full border border-border bg-card/70 py-1.5 pr-4 pl-1.5 text-sm backdrop-blur transition-colors hover:border-primary/40"
+              >
+                <span className="flex h-7 w-7 items-center justify-center rounded-full bg-primary text-primary-foreground">
+                  <BellRing className="h-3.5 w-3.5" />
                 </span>
-                <span className="text-xs font-extra-small text-primary tracking-tight uppercase">
-                  Design & Development
+                <span className="font-medium text-foreground">
+                  Design, Development, Launch, Support.
                 </span>
-              </div>
-            </div> */}
+              </a>
+            </motion.div>
 
-            <h1 className="font-Display text-balance text-7xl sm:text-6xl lg:text-7xl font-black leading-[1.01] tracking-tighter text-foreground mb-5">
-              <TypewriterText
-                text="Creating Digital Experiences That Work."
-                speed={55}
-                startDelay={200}
-              />
+            <h1 className="font-display text-balance text-[2.75rem] font-black leading-[1.03] tracking-tighter text-foreground sm:text-6xl lg:text-7xl">
+              {headlineWords.map((w, i) => (
+                <span
+                  key={i}
+                  className="mr-[0.25em]  overflow-hidden align-bottom"
+                >
+                  <motion.span
+                    className="inline-block"
+                    initial={{ y: "110%" }}
+                    animate={{ y: 0 }}
+                    transition={{
+                      duration: 0.8,
+                      delay: 0.15 + i * 0.07,
+                      ease: EASE,
+                    }}
+                  >
+                    {w}
+                  </motion.span>
+                </span>
+              ))}
             </h1>
 
-            <p className="text-sm sm:text-base text-muted-foreground max-w-md leading-relaxed mb-8">
-              From strategy and design to development and deployment, we craft
-              world-class web applications and digital solutions that empower
-              businesses to innovate and scale.
-            </p>
+            <motion.p
+              variants={rise}
+              className="mt-6 max-w-lg text-base leading-5 text-muted-foreground sm:text-lg"
+            >
+              We handle strategy, design, development and launch, so you get a
+              fast, reliable product your customers enjoy using.
+            </motion.p>
 
-            <div className="flex flex-wrap gap-3 mb-10">
-              <Link
-                to="/projects"
-                className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-7 py-3.5 text-sm font-semibold rounded-xl hover:bg-primary/90 transition-all hover:-translate-y-0.5 active:scale-[0.98]"
-              >
-                View Projects <ArrowUpRight className="w-4 h-4" />
+            <motion.div
+              variants={rise}
+              className="mt-8 flex w-full flex-col gap-3 sm:w-auto sm:flex-row"
+            >
+              <Link to="/projects" className={primaryBtn}>
+                View Projects <ArrowUpRight className="h-4 w-4" />
               </Link>
-              <Link
-                to="/contact"
-                className="inline-flex items-center gap-2 border border-border text-foreground px-7 py-3.5 text-sm font-semibold rounded-xl hover:bg-secondary transition-all hover:-translate-y-0.5 active:scale-[0.98]"
-              >
-                Get in Touch
+              <Link to="/contact" className={ghostBtn}>
+                Start a Project
               </Link>
-            </div>
+            </motion.div>
 
-            <div className="flex items-center gap-3 pt-6 border-t border-border/70 max-w-md">
+            <motion.div
+              variants={rise}
+              className="mt-10 flex items-center gap-4 border-t border-border/70 pt-6"
+            >
               <div className="flex items-center">
                 {trustedAvatars.map((av, i) => (
                   <div
-                    key={av.name + i}
-                    className="relative w-9 h-9 rounded-full border-2 border-background overflow-hidden shadow-md ring-1 ring-border/30"
-                    style={{
-                      marginLeft: i === 0 ? 0 : "-10px",
-                      zIndex: trustedAvatars.length - i,
-                    }}
-                    title={av.name}
+                    key={av.name}
+                    className="h-10 w-10 overflow-hidden rounded-full border-2 border-background ring-1 ring-border/40"
+                    style={{ marginLeft: i === 0 ? 0 : -12 }}
                   >
                     <SkeletonImage
                       src={av.src}
                       alt={av.name}
-                      className="w-full h-full object-cover"
+                      className="h-full w-full"
                     />
                   </div>
                 ))}
                 <div
-                  className="relative w-9 h-9 rounded-full border-2 border-background bg-primary flex items-center justify-center text-[10px] font-bold text-primary-foreground shadow-md"
-                  style={{ marginLeft: "-10px", zIndex: 0 }}
+                  className="flex h-10 w-10 items-center justify-center rounded-full border-2 border-background bg-primary text-xs font-bold text-primary-foreground"
+                  style={{ marginLeft: -12 }}
                 >
                   +12
                 </div>
               </div>
-
               <div>
-                <div className="flex items-center gap-0.5 mb-0.5">
-                  {Array(5)
-                    .fill(0)
-                    .map((_, i) => (
-                      <Star
-                        key={i}
-                        className="w-3 h-3 fill-amber-400 text-amber-400"
-                      />
-                    ))}
+                <div className="mb-0.5 flex gap-0.5">
+                  {Array.from({ length: 5 }).map((_, i) => (
+                    <Star
+                      key={i}
+                      className="h-3.5 w-3.5 fill-amber-400 text-amber-400"
+                    />
+                  ))}
                 </div>
-                <p className="text-xs text-muted-foreground leading-tight">
+                <p className="text-sm text-muted-foreground">
                   Trusted by{" "}
                   <span className="font-semibold text-foreground">
                     30+ clients
                   </span>
                 </p>
               </div>
-            </div>
+            </motion.div>
           </motion.div>
 
+          {/* Visual */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.95, y: 20 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            transition={{
-              duration: 0.9,
-              delay: 0.25,
-              ease: [0.22, 1, 0.36, 1],
-            }}
-            className="relative hidden sm:block sm:mt-10 lg:mt-0"
+            initial={{ opacity: 0, y: 40, scale: 0.97 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            transition={{ duration: 1, delay: 0.3, ease: EASE }}
+            className="relative mx-auto hidden w-full lg:block lg:max-w-none"
           >
-            <div className="absolute -inset-4 rounded-2xl border border-border/40 bg-secondary/20 backdrop-blur-sm -z-10" />
-            <div className="absolute -inset-1 rounded-xl bg-gradient-to-br from-primary/10 via-transparent to-blue-500/10 -z-10" />
-
-            <div className="aspect-[4/4] overflow-hidden rounded-xl border border-border/60 shadow-1md">
+            <div className="absolute -inset-3 -z-10 rounded-3xl sm:-inset-4" />
+            <div className="aspect-[5/4] overflow-hidden rounded-2xl border border-border/60 shadow-sm lg:aspect-square">
               <SkeletonImage
-                src="/proj-oma.png"
+                src="/profile33.jpeg"
                 alt="Featured project preview"
-                className="w-full h-full object-cover"
+                className="h-full w-full"
               />
             </div>
 
-            <div className="absolute -bottom-5 -left-6 flex items-center gap-3 bg-card border border-border rounded-xl px-4 py-3 shadow-m backdrop-blur-md">
-              <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center">
-                <span>
-                  <ArrowUpRight className="w-4 h-4" />
-                </span>
+            <motion.div
+              animate={{ y: [0, -8, 0] }}
+              transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
+              className="absolute -bottom-5 left-3 flex items-center gap-3 rounded-xl border border-border bg-card/95 px-4 py-3 shadow-sm backdrop-blur sm:-left-6"
+            >
+              <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-primary/10 text-primary">
+                <FolderCheck className="h-4 w-4" />
               </div>
               <div>
-                <p className="text-xs font-bold text-foreground">
-                  50+ Projects
+                <p className="text-sm font-bold text-foreground">
+                  50+ projects
                 </p>
-                <p className="text-[10px] text-muted-foreground">
-                  Successfully Delivered
-                </p>
+                <p className="text-xs text-muted-foreground">Delivered</p>
               </div>
-            </div>
+            </motion.div>
 
-            <div className="absolute -top-4 -right-4 flex items-center gap-2 bg-card border border-border rounded-full px-3 py-2 shadow-l">
+            <div className="absolute -top-3 right-3 flex items-center gap-2 rounded-full border border-border bg-card/95 px-3.5 py-2 shadow-sm backdrop-blur sm:-right-4">
               <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
+                <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500" />
               </span>
-              <span className="text-[11px] font-semibold text-foreground">
+              <span className="text-xs font-semibold text-foreground">
                 Available for work
               </span>
             </div>
@@ -934,743 +980,345 @@ const Index = () => {
         </div>
       </section>
 
-      <section className="py-9 border-y border-border bg-secondary/20">
-        <div className="max-w-6xl mx-auto px-6 flex flex-col lg:flex-row lg:items-center gap-4 lg:gap-10">
-          <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground shrink-0">
-            Teams we've built with
-          </p>
-          <div className="flex flex-wrap gap-x-8 gap-y-2.5">
-            {trustedBy.map((name) => (
-              <span
-                key={name}
-                className="font-display uppercase text-sm sm:text-[15px] font-bold tracking-tight text-foreground/50 hover:text-foreground transition-colors"
-              >
-                {name}
-              </span>
-            ))}
-          </div>
-        </div>
+      {/* ═══════════ CLIENT MARQUEE ═══════════ */}
+      <section
+        aria-label="Companies we've worked with"
+        className="border-y border-border bg-secondary/30 py-8 sm:py-10"
+      >
+        {/* <p className="mb-2 text-center text-xs font-medium text-muted-foreground">
+          Trusted by growing teams and brands
+        </p> */}
+        <Marquee items={trustedBy} />
       </section>
 
-      <section className="relative bg-foreground text-background overflow-hidden">
-        <div className="absolute inset-0 -z-10 bg-[linear-gradient(to_right,hsl(var(--background))_1px,transparent_1px),linear-gradient(to_bottom,hsl(var(--background))_1px,transparent_1px)] bg-[size:56px_56px] opacity-[0.06]" />
-        <div className="absolute -top-32 left-1/4 w-[420px] h-[420px] rounded-full bg-background/[0.05] blur-[110px] pointer-events-none" />
-        <div className="absolute -bottom-32 right-0 w-[360px] h-[360px] rounded-full bg-background/[0.04] blur-[100px] pointer-events-none" />
-
-        <div
-          ref={statsRef}
-          className="font-display max-w-6xl mx-auto px-6 py-20 sm:py-24 relative"
-        >
-          <div className="flex items-end justify-between mb-12 gap-4">
-            <div>
-              <div className="inline-flex items-center gap-2 mb-3">
-                <span className="w-6 h-px bg-background/40" />
-                <p className="text-[10px] font-bold tracking-widest uppercase text-background/50">
-                  Track Record
-                </p>
-              </div>
-              <h2 className="text-3xl sm:text-4xl tracking-tight font-extrabold text-background">
-                By The Numbers.
-              </h2>
-            </div>
-            <p className="hidden sm:block text-xs text-background/45 max-w-[190px] text-right leading-4">
-              Tap any figure to see what's behind it.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-2 md:grid-cols-4 border-t border-l border-background/15">
-            {stats.map((stat, i) => {
-              const isOpen = expandedStat === i;
-              const Icon = stat.icon;
-              return (
-                <motion.button
-                  type="button"
-                  key={stat.label}
-                  onClick={() => setExpandedStat(isOpen ? null : i)}
-                  initial={{ opacity: 0 }}
-                  whileInView={{ opacity: 1 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: i * 0.08, duration: 0.5 }}
-                  aria-expanded={isOpen}
-                  className={`group relative text-left border-r border-b border-background/15 p-6 sm:p-7 transition-colors duration-300 focus-visible:outline-none focus-visible:bg-background/[0.07] ${
-                    isOpen
-                      ? "bg-background/[0.07]"
-                      : "hover:bg-background/[0.04]"
-                  }`}
-                >
-                  <div className="flex items-start justify-between mb-6 sm:mb-8">
-                    <Icon
-                      className="w-4 h-4 text-background/40 group-hover:text-background/75 transition-colors duration-300"
-                      strokeWidth={1.75}
-                    />
-                    <ChevronDown
-                      className={`w-3.5 h-3.5 text-background/40 transition-transform duration-300 ${
-                        isOpen ? "rotate-180 text-background/75" : ""
-                      }`}
-                    />
-                  </div>
-
-                  <AnimatedStat
-                    value={stat.value}
-                    label={stat.label}
-                    triggered={statsInView}
-                  />
-
-                  <AnimatePresence initial={false}>
-                    {isOpen && (
-                      <motion.p
-                        initial={{ opacity: 0, height: 0, marginTop: 0 }}
-                        animate={{ opacity: 1, height: "auto", marginTop: 14 }}
-                        exit={{ opacity: 0, height: 0, marginTop: 0 }}
-                        transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
-                        className="text-xs text-background/55 leading-relaxed overflow-hidden pt-4 border-t border-background/15"
-                      >
-                        {stat.detail}
-                      </motion.p>
-                    )}
-                  </AnimatePresence>
-                </motion.button>
-              );
-            })}
-          </div>
-        </div>
-      </section>
-
-      {/* ═══════════════════════════════════════════════════════
-          Services
-          ═══════════════════════════════════════════════════════ */}
-      <section className="py-24 sm:py-32">
-        <div className="max-w-6xl mx-auto px-6">
+      {/* ═══════════ SERVICES ═══════════ */}
+      <section id="services" className="py-20 sm:py-28">
+        <div className="mx-auto max-w-6xl px-5 sm:px-6">
           <SectionHeader
-            eyebrow="Our Services"
             title="Services We Offer."
             description="Everything you need to take a product from first idea to a live, scalable release."
             href="/services"
-            linkLabel="View All Services"
+            linkLabel="View all services"
           />
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {featuredServices.map((service, i) => (
-              <motion.div
-                key={service.number}
-                initial={{ opacity: 0, y: 24 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.12 }}
-                className="group bg-card border border-border rounded-2xl overflow-hidden shadow-xm hover:shadow-l hover:-translate-y-1 hover:border-foreground/20 transition-all duration-300 flex flex-col"
-              >
-                <div className="relative w-full h-52 bg-secondary overflow-hidden">
-                  <div className="w-full h-full transition-transform duration-500 group-hover:scale-105">
-                    <SkeletonImage
-                      src={service.image}
-                      alt={service.title}
-                      className="w-full h-full object-cover"
-                    />
-                  </div>
-                  <div className="absolute inset-0 bg-gradient-to-t from-card/80 via-transparent to-transparent pointer-events-none" />
-                  <span className="absolute top-3 left-3 text-[10px] font-bold text-muted-foreground/70 tracking-widest uppercase bg-background/60 backdrop-blur-sm border border-border/40 px-2 py-1 rounded-md">
-                    {service.number}
-                  </span>
-                </div>
-
-                <div className="p-6 flex flex-col flex-1">
-                  <h3 className="font-display text-lg font-bold text-foreground mb-2 group-hover:text-primary transition-colors">
-                    {service.title}
-                  </h3>
-                  <p className="text-sm text-muted-foreground leading-5 mb-5">
-                    {service.desc}
-                  </p>
-                  <ul className="space-y-2 mb-6 flex-1">
-                    {service.bullets.map((b) => (
-                      <li
-                        key={b}
-                        className="text-xs text-muted-foreground flex items-start gap-2"
-                      >
-                        <span className="mt-1.5 w-1 h-1 rounded-full bg-primary shrink-0" />
-                        {b}
-                      </li>
-                    ))}
-                  </ul>
-                  <button
-                    type="button"
-                    onClick={() => openServiceModal(i)}
-                    className="w-full inline-flex items-center justify-center gap-1.5 text-xs font-semibold py-3 rounded-lg bg-background border border-border text-foreground hover:bg-primary hover:text-primary-foreground hover:border-primary transition-all duration-200 active:scale-[0.98]"
-                  >
-                    Book This Service <ArrowUpRight className="w-3.5 h-3.5" />
-                  </button>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ═══════════════════════════════════════════════════════
-          How we work
-          ═══════════════════════════════════════════════════════ */}
-      <section className="py-24 sm:py-32 bg-secondary/30 border-y border-border">
-        <div className="max-w-6xl mx-auto px-6">
-          <SectionHeader
-            eyebrow="How We Work"
-            title="A Clear Process, Every Time."
-            description="Four phases, clear deliverables and regular check-ins, so you always know what's next."
-            href="/services"
-            linkLabel="See Full Process"
-          />
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 border-t border-l border-border rounded-tl-2xl overflow-hidden bg-card">
-            {processSteps.map((p, i) => (
-              <motion.div
-                key={p.step}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.08 }}
-                className="group border-r border-b border-border p-6 sm:p-7 hover:bg-secondary/40 transition-colors duration-300"
-              >
-                <div className="flex items-center justify-between mb-8">
-                  <span className="w-11 h-11 rounded-xl bg-foreground/5 border border-border flex items-center justify-center transition-all duration-300 group-hover:bg-foreground group-hover:border-foreground">
-                    <span className="font-display text-sm font-extrabold text-foreground transition-colors duration-300 group-hover:text-background">
-                      {p.step}
-                    </span>
-                  </span>
-                  <span className="text-[9px] font-bold uppercase tracking-widest text-muted-foreground border border-border px-2.5 py-1 rounded-full">
-                    {p.duration}
-                  </span>
-                </div>
-                <h3 className="font-display text-lg font-bold text-foreground mb-2">
-                  {p.title}
-                </h3>
-                <p className="text-xs text-muted-foreground leading-relaxed">
-                  {p.description}
-                </p>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ═══════════════════════════════════════════════════════
-          Courses section — "View Details" opens the enrollment popup
-          ═══════════════════════════════════════════════════════ */}
-      <section className="py-24 sm:py-32">
-        <div className="max-w-6xl mx-auto px-6">
-          <SectionHeader
-            eyebrow="Learn & Earn"
-            title="Featured Courses."
-            description="Hands-on, project-based tracks taught by the team building products in production."
-            href="/courses"
-            linkLabel="View All Courses"
-          />
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-            {courses.map((course, i) => {
-              const Icon = course.icon;
-              return (
-                <motion.div
-                  key={course.title}
-                  initial={{ opacity: 0, y: 24 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: i * 0.1 }}
-                  className="group flex flex-col bg-card border border-border rounded-2xl overflow-hidden hover:border-primary/30 hover:shadow-xm hover:-translate-y-1 transition-all duration-300"
-                >
-                  <div className="relative aspect-[16/9] w-full overflow-hidden bg-secondary">
-                    <div className="w-full h-full transition-transform duration-500 group-hover:scale-105">
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {featuredServices.map((s, i) => (
+              <Reveal key={s.number} delay={i * 0.1} className="h-full">
+                <div className="group flex h-full flex-col overflow-hidden rounded-2xl border border-border bg-card transition-all duration-500 hover:-translate-y-1.5 hover:border-foreground/20 hover:shadow-sm">
+                  <div className="relative h-52 overflow-hidden bg-secondary">
+                    <div className="h-full w-full transition-transform duration-700 group-hover:scale-105">
                       <SkeletonImage
-                        src={course.image}
-                        alt={`${course.title} course preview`}
-                        className="w-full h-full object-cover"
+                        src={s.image}
+                        alt={s.title}
+                        className="h-full w-full"
                       />
                     </div>
-                    <div className="absolute inset-0 bg-gradient-to-t from-card/60 via-transparent to-transparent pointer-events-none" />
-                    <span className="absolute top-3 left-3 inline-flex items-center justify-center w-8 h-8 rounded-lg bg-background/70 backdrop-blur-sm border border-border/40 text-primary">
-                      <Icon className="w-4 h-4" />
-                    </span>
-                    <span className="absolute top-3 right-3 inline-flex items-center gap-1.5 text-[10px] font-semibold text-foreground bg-background/80 backdrop-blur-sm border border-border/40 px-2.5 py-1.5 rounded-full">
-                      <Clock className="w-3 h-3" />
-                      {course.duration}
-                    </span>
+                    <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-card/70 via-transparent to-transparent" />
                   </div>
-
-                  <div className="flex flex-col flex-1 p-5 sm:p-6 text-left">
-                    <div className="flex items-center gap-2 mb-3">
-                      <span className="text-[10px] font-semibold uppercase tracking-wider text-primary bg-primary/10 px-2.5 py-1 rounded-full">
-                        {course.level}
-                      </span>
-                    </div>
-
-                    <h3 className="font-display text-lg font-bold text-foreground leading-snug mb-2 group-hover:text-primary transition-colors">
-                      {course.title}
+                  <div className="flex flex-1 flex-col p-6">
+                    <h3 className="font-display text-xl font-bold text-foreground">
+                      {s.title}
                     </h3>
-                    <p className="text-sm text-muted-foreground leading-5 mb-5">
-                      {course.desc}
+                    <p className="mt-2 text-[15px] leading-5 text-muted-foreground">
+                      {s.desc}
                     </p>
-
-                    <ul className="space-y-2 mb-6 flex-1">
-                      {course.bullets.map((b) => (
+                    <ul className="mt-5 mb-6 flex-1 space-y-2.5">
+                      {s.bullets.map((b) => (
                         <li
                           key={b}
-                          className="flex items-start gap-2 text-xs text-muted-foreground"
+                          className="flex items-start gap-2.5 text-[15px] text-foreground/85"
                         >
-                          <CheckCircle2 className="w-3.5 h-3.5 text-primary mt-0.5 shrink-0" />
+                          <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
                           {b}
                         </li>
                       ))}
                     </ul>
-
-                    <div className="flex items-center gap-2.5 mt-auto pt-4 border-t border-border/60">
-                      <button
-                        type="button"
-                        onClick={() => openCourseModal(i)}
-                        className="flex-1 inline-flex items-center justify-center gap-1.5 bg-primary text-primary-foreground px-4 py-3.5 text-xs font-semibold rounded-lg hover:bg-primary/90 transition-all duration-200 active:scale-[0.98]"
-                      >
-                        <Eye className="w-3.5 h-3.5" />
-                        View Course Details
-                      </button>
-                      <button
-                        type="button"
-                        onClick={() => handleCourseWhatsApp(course)}
-                        aria-label={`Chat about ${course.title} on WhatsApp`}
-                        className="inline-flex items-center justify-center w-10 h-10 border border-border rounded-lg text-foreground hover:bg-background hover:border-emerald-500/40 hover:text-emerald-500 transition-all duration-200 shrink-0 active:scale-95"
-                      >
-                        <WhatsAppIcon className="w-4 h-4" />
-                      </button>
-                    </div>
+                    <button
+                      type="button"
+                      onClick={() => openServiceModal(i)}
+                      className="inline-flex w-full items-center justify-center gap-1.5 rounded-xl border border-border bg-background py-3 text-sm font-semibold text-foreground transition-all duration-300 hover:border-primary hover:bg-primary hover:text-primary-foreground active:scale-[0.98]"
+                    >
+                      Book this service <ArrowUpRight className="h-4 w-4" />
+                    </button>
                   </div>
-                </motion.div>
-              );
-            })}
+                </div>
+              </Reveal>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* ═══════════════════════════════════════════════════════
-          Shipped Products — one featured case study as a split
-          card, two supporting pieces below.
-          ═══════════════════════════════════════════════════════ */}
-      <section className="py-24 sm:py-32 bg-secondary/30 border-y border-border">
-        <div className="max-w-6xl mx-auto px-6">
+      {/* ═══════════ SHIPPED PRODUCTS ═══════════ */}
+      <section
+        id="work"
+        className="relative overflow-hidden bg-foreground py-20 text-background sm:py-28"
+      >
+        <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(to_right,hsl(var(--background))_1px,transparent_1px),linear-gradient(to_bottom,hsl(var(--background))_1px,transparent_1px)] bg-[size:80px_80px] opacity-[0.05]" />
+        <div className="relative mx-auto max-w-6xl px-5 sm:px-6">
           <SectionHeader
-            eyebrow="Production Based"
-            title="Shipped Products."
-            description="Digital products running in production today, from marketplaces to logistics and travel safety."
+            tone="dark"
+            title="Products running in production."
+            description="Real platforms used every day, from marketplaces to logistics and travel safety."
             href="/projects"
-            linkLabel="View All Projects"
+            linkLabel="View all projects"
           />
-
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 sm:gap-6">
-            {featuredProjects.map((project, i) => {
-              const isFeatured = i === 0;
+          <div className="grid gap-6 lg:grid-cols-2">
+            {[heroProject, ...otherProjects].map((p, i) => {
+              const featured = i === 0;
               return (
-                <motion.div
-                  key={project.title}
-                  initial={{ opacity: 0, y: 28 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{
-                    delay: i * 0.12,
-                    duration: 0.6,
-                    ease: [0.22, 1, 0.36, 1],
-                  }}
-                  className={isFeatured ? "lg:col-span-2" : ""}
+                <Reveal
+                  key={p.title}
+                  delay={i * 0.1}
+                  className={featured ? "lg:col-span-2" : ""}
                 >
                   <Link
                     to="/projects"
-                    className={`group relative flex flex-col h-full bg-card border border-border overflow-hidden transition-all duration-500 hover:border-foreground/25 hover:shadow-2md hover:-translate-y-1 ${
-                      isFeatured ? "rounded-3xl lg:flex-row" : "rounded-2xl"
+                    className={`group flex h-full flex-col overflow-hidden border border-background/15 bg-background/[0.06] transition-all duration-500 hover:-translate-y-1 hover:border-background/40 hover:shadow-sm ${
+                      featured ? "rounded-3xl lg:flex-row" : "rounded-2xl"
                     }`}
                   >
                     <div
-                      className={`relative overflow-hidden bg-gradient-to-br ${project.color} ${
-                        isFeatured
-                          ? "aspect-[15/9] sm:aspect-[14/8] lg:aspect-auto lg:w-[58%] lg:min-h-[420px] shrink-0"
-                          : "aspect-[3/1.9] sm:aspect-[3/1.9]"
+                      className={`relative shrink-0 overflow-hidden ${
+                        featured
+                          ? "aspect-[16/10] lg:aspect-auto lg:min-h-[400px] lg:w-[58%]"
+                          : "aspect-[16/10]"
                       }`}
                     >
-                      <div className="absolute inset-0 transition-transform duration-700 ease-out group-hover:scale-[1.06]">
+                      <div className="absolute inset-0 transition-transform duration-700 ease-out group-hover:scale-[1.05]">
                         <SkeletonImage
-                          src={project.image}
-                          alt={project.title}
-                          className="w-full h-full object-cover"
+                          src={p.image}
+                          alt={p.title}
+                          className="h-full w-full"
                         />
                       </div>
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/45 via-black/0 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
-
-                      <div className="absolute top-4 left-4 text-[10px] font-bold text-foreground bg-background/85 backdrop-blur-sm border border-border/40 px-2.5 py-1 rounded-full">
-                        {project.year}
-                      </div>
-
-                      <div className="absolute top-4 right-4 w-9 h-9 rounded-full bg-background/90 backdrop-blur-sm border border-border/30 flex items-center justify-center opacity-0 scale-75 -rotate-45 group-hover:opacity-100 group-hover:scale-100 group-hover:rotate-0 transition-all duration-400 ease-out">
-                        <ArrowUpRight className="w-4 h-4 text-foreground" />
-                      </div>
+                      <span className="absolute top-4 left-4 rounded-full border border-border/40 bg-background/90 px-3 py-1 text-xs font-semibold text-foreground backdrop-blur">
+                        {p.year}
+                      </span>
+                      <span className="absolute top-4 right-4 flex h-10 w-10 scale-75 items-center justify-center rounded-full bg-background/90 opacity-0 backdrop-blur transition-all duration-300 group-hover:scale-100 group-hover:opacity-100">
+                        <ArrowUpRight className="h-4 w-4 text-foreground" />
+                      </span>
                     </div>
-
                     <div
-                      className={`p-5 sm:p-6 flex flex-col gap-3 flex-1 ${
-                        isFeatured ? "lg:p-10 lg:justify-center lg:gap-4" : ""
-                      }`}
+                      className={`flex flex-1 flex-col gap-3 p-6 ${featured ? "lg:justify-center lg:gap-4 lg:p-10" : ""}`}
                     >
-                      <div className="flex items-center gap-2 flex-wrap">
-                        {project.tags.map((tag) => (
+                      <div className="flex flex-wrap gap-2">
+                        {p.tags.map((t) => (
                           <span
-                            key={tag}
-                            className="text-[10px] font-semibold tracking-wide uppercase px-2.5 py-1 rounded-full bg-primary/8 text-primary border border-primary/15"
+                            key={t}
+                            className="rounded-full border border-background/20 bg-background/10 px-3 py-1 text-xs font-medium text-background"
                           >
-                            {tag}
+                            {t}
                           </span>
                         ))}
                       </div>
-
                       <h3
-                        className={`font-display font-bold text-foreground group-hover:text-primary transition-colors leading-snug ${
-                          isFeatured
-                            ? "text-xl sm:text-2xl lg:text-3xl tracking-tight"
-                            : "text-base"
-                        }`}
+                        className={`font-display font-bold leading-snug tracking-tight text-background ${featured ? "text-2xl lg:text-4xl" : "text-xl"}`}
                       >
-                        {project.title}
+                        {p.title}
                       </h3>
-
-                      <p className="text-sm text-balance  text-muted-foreground leading-5">
-                        List of digital products shipped and running on
-                        production successfully: websites & applications.
+                      <p className="text-base leading-7 text-background/75">
+                        {p.desc}
                       </p>
-
-                      <div className="flex items-center justify-between mt-auto pt-3 border-t border-border/50">
-                        <p className="text-xs text-muted-foreground font-semibold">
-                          {project.category}
-                        </p>
-                        <ArrowUpRight className="w-3.5 h-3.5 text-muted-foreground group-hover:text-primary group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all duration-200" />
-                      </div>
+                      <p className="mt-auto border-t border-background/15 pt-4 text-sm font-medium text-background/60">
+                        {p.category}
+                      </p>
                     </div>
                   </Link>
-                </motion.div>
+                </Reveal>
               );
             })}
           </div>
         </div>
       </section>
 
-      {/* ═══════════════════════════════════════════════════════
-          Testimonials — carousel itself is untouched.
-          ═══════════════════════════════════════════════════════ */}
-      <section className="py-24 sm:py-32 relative overflow-hidden">
-        <div className="max-w-6xl mx-auto px-6">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-12 sm:mb-14"
-          >
-            <div className="max-w-xl">
-              <div className="inline-flex items-center gap-2 mb-4">
-                <span className="w-6 h-px bg-foreground/40" />
-                <p className="text-[10px] font-bold tracking-widest uppercase text-muted-foreground">
-                  Client Reviews
-                </p>
-              </div>
-              <h2 className="font-display lg:text-6xl text-4xl sm:text-5xl tracking-tight text-foreground font-extrabold leading-[1.02]">
-                Testimonials.
-              </h2>
-            </div>
-            <div className="flex items-center gap-3">
-              <p className="hidden sm:block text-xs text-muted-foreground">
-                <span className="font-medium text-foreground">
-                  30+ Customers
-                </span>{" "}
-                trust our work
-              </p>
-            </div>
-          </motion.div>
+      {/* ═══════════ PROCESS ═══════════ */}
+      <section
+        id="process"
+        className="border-y border-border bg-secondary/40 py-20 sm:py-28"
+      >
+        <div className="mx-auto max-w-6xl px-5 sm:px-6">
+          <SectionHeader
+            title="A clear process, every time."
+            description="Four phases, clear deliverables and regular check-ins, so you always know what's next."
+            href="/services"
+            linkLabel="See the full process"
+          />
+          <div className="relative grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+            <div className="pointer-events-none absolute top-6 right-[12%] left-[12%] hidden h-px bg-border lg:block" />
+            {processSteps.map((p, i) => (
+              <Reveal key={p.step} delay={i * 0.1}>
+                <div className="group relative h-full rounded-2xl border border-border bg-card p-6 transition-all duration-300 hover:-translate-y-1 hover:border-foreground/20 hover:shadow-sm">
+                  <div className="mb-6 flex items-center justify-between">
+                    <span className="flex h-12 w-12 items-center justify-center rounded-xl border border-border bg-secondary font-display text-base font-extrabold text-foreground transition-colors duration-300 group-hover:border-foreground group-hover:bg-foreground group-hover:text-background">
+                      {p.step}
+                    </span>
+                    <span className="rounded-full border border-border px-3 py-1 text-xs font-medium text-muted-foreground">
+                      {p.duration}
+                    </span>
+                  </div>
+                  <h3 className="font-display text-xl font-bold text-foreground">
+                    {p.title}
+                  </h3>
+                  <p className="mt-2 text-[15px] leading-7 text-muted-foreground">
+                    {p.description}
+                  </p>
+                </div>
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      </section>
 
+      {/* ═══════════ STATS ═══════════ */}
+      <section className="relative overflow-hidden bg-foreground text-background">
+        <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(to_right,hsl(var(--background))_1px,transparent_1px),linear-gradient(to_bottom,hsl(var(--background))_1px,transparent_1px)] bg-[size:80px_80px] opacity-[0.05]" />
+        <div className="relative mx-auto max-w-6xl px-5 py-20 sm:px-6 sm:py-24">
+          <SectionHeader
+            tone="dark"
+            title="Numbers that back the work."
+            description="Years of shipping real products for real clients, measured after handover and not just at kickoff."
+          />
+          <div
+            ref={statsRef}
+            className="grid grid-cols-2 border-t border-l border-background/15 md:grid-cols-4"
+          >
+            {stats.map((s) => (
+              <Stat key={s.label} {...s} triggered={statsInView} />
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ═══════════ COURSES ═══════════ */}
+      <section
+        id="courses"
+        className="border-y border-border bg-secondary/40 py-20 sm:py-28"
+      >
+        <div className="mx-auto max-w-6xl px-5 sm:px-6">
+          <SectionHeader
+            title="Learn from people who ship."
+            description="Hands-on, project-based courses taught by the team building products in production."
+            href="/courses"
+            linkLabel="View all courses"
+          />
+          <div className="grid gap-6 md:grid-cols-2">
+            {courses.map((course, i) => {
+              const Icon = course.icon;
+              return (
+                <Reveal key={course.title} delay={i * 0.1} className="h-full">
+                  <div className="group flex h-full flex-col overflow-hidden rounded-2xl border border-border bg-card transition-all duration-500 hover:-translate-y-1.5 hover:border-primary/30 hover:shadow-sm">
+                    <div className="relative aspect-[16/9] overflow-hidden bg-secondary">
+                      <div className="h-full w-full transition-transform duration-700 group-hover:scale-105">
+                        <SkeletonImage
+                          src={course.image}
+                          alt={`${course.title} course preview`}
+                          className="h-full w-full"
+                        />
+                      </div>
+                      <span className="absolute top-3 left-3 flex h-9 w-9 items-center justify-center rounded-lg border border-border/40 bg-background/80 text-primary backdrop-blur">
+                        <Icon className="h-4 w-4" />
+                      </span>
+                      <span className="absolute top-3 right-3 inline-flex items-center gap-1.5 rounded-full border border-border/40 bg-background/85 px-3 py-1.5 text-xs font-semibold text-foreground backdrop-blur">
+                        <Clock className="h-3.5 w-3.5" />
+                        {course.duration}
+                      </span>
+                    </div>
+                    <div className="flex flex-1 flex-col p-6">
+                      <span className="mb-3 w-fit rounded-full bg-primary/10 px-3 py-1 text-xs font-semibold text-primary">
+                        {course.level}
+                      </span>
+                      <h3 className="font-display text-xl font-bold text-foreground">
+                        {course.title}
+                      </h3>
+                      <p className="mt-2 text-[15px] leading-7 text-muted-foreground">
+                        {course.desc}
+                      </p>
+                      <ul className="mt-5 mb-6 flex-1 space-y-2.5">
+                        {course.bullets.map((b) => (
+                          <li
+                            key={b}
+                            className="flex items-start gap-2.5 text-[15px] text-foreground/85"
+                          >
+                            <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
+                            {b}
+                          </li>
+                        ))}
+                      </ul>
+                      <div className="flex items-center gap-2.5 border-t border-border/60 pt-5">
+                        <button
+                          type="button"
+                          onClick={() => openCourseModal(i)}
+                          className={`${primaryBtn} flex-1 py-3`}
+                        >
+                          <Eye className="h-4 w-4" /> View course details
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => handleCourseWhatsApp(course)}
+                          aria-label={`Chat about ${course.title} on WhatsApp`}
+                          className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-border text-foreground transition-all duration-300 hover:border-emerald-500/40 hover:text-emerald-500 active:scale-95"
+                        >
+                          <WhatsAppIcon className="h-5 w-5" />
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </Reveal>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* ═══════════ TESTIMONIALS ═══════════ */}
+      <section className="py-20 sm:py-28">
+        <div className="mx-auto max-w-6xl px-5 sm:px-6">
+          <SectionHeader
+            title="What clients say."
+            description="Founders and teams who trusted us with their product."
+          />
           <TestimonialsCarousel items={testimonials} />
         </div>
       </section>
 
-      {/* ═══════════════════════════════════════════════════════
-          Blog — editorial index: one featured story, compact
-          list rows.
-          ═══════════════════════════════════════════════════════ */}
-      <section className="py-24 sm:py-32 bg-secondary/30 border-y border-border">
-        <div className="max-w-6xl mx-auto px-6">
-          <SectionHeader
-            eyebrow="Insights"
-            title="From The Blogs."
-            description="Notes on design, development, engineering and the decisions behind the products we build."
-            href="/blog"
-            linkLabel="Visit Blog"
-          />
+      {/* ═══════════ FINAL CTA ═══════════ */}
+      <section className="relative overflow-hidden bg-foreground py-20 text-background sm:py-28">
+        <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(to_right,hsl(var(--background))_1px,transparent_1px),linear-gradient(to_bottom,hsl(var(--background))_1px,transparent_1px)] bg-[size:64px_64px] opacity-[0.06] [mask-image:radial-gradient(ellipse_70%_60%_at_50%_50%,black,transparent)]" />
+        <div className="pointer-events-none absolute -top-20 -left-20 h-72 w-72 rounded-full bg-background/10 blur-3xl" />
+        <div className="pointer-events-none absolute -right-20 -bottom-20 h-96 w-96 rounded-full bg-background/10 blur-3xl" />
 
-          <div className="grid grid-cols-1 lg:grid-cols-5 gap-6 lg:gap-8">
-            {/* Featured story */}
-            <motion.article
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              className="lg:col-span-3 group flex flex-col bg-card border border-border rounded-2xl overflow-hidden hover:border-primary/30 hover:shadow-xm transition-all duration-300"
-            >
-              <div className="aspect-[16/9] overflow-hidden">
-                <div className="w-full h-full transition-transform duration-700 ease-out group-hover:scale-105">
-                  <SkeletonImage
-                    src={featuredPost.image}
-                    alt={featuredPost.title}
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-              </div>
-
-              <div className="flex flex-col flex-1 p-6 sm:p-8 text-left">
-                <div className="flex items-center gap-2 mb-3">
-                  <span className="text-[10px] font-semibold uppercase tracking-wider text-primary bg-primary/10 px-2.5 py-1 rounded-full">
-                    {featuredPost.category}
-                  </span>
-                  <span className="text-[11px] text-muted-foreground">
-                    {featuredPost.readTime}
-                  </span>
-                </div>
-
-                <h3 className="font-display text-xl sm:text-2xl font-bold text-foreground leading-snug mb-3 group-hover:text-primary transition-colors">
-                  {featuredPost.title}
-                </h3>
-                <p className="text-sm text-muted-foreground leading-relaxed mb-6 flex-1">
-                  {featuredPost.excerpt}
-                </p>
-
-                <div className="flex items-center justify-between pt-4 border-t border-border/60">
-                  <span className="text-[11px] text-muted-foreground">
-                    {featuredPost.date}
-                  </span>
-                  <Link
-                    to="/blog"
-                    className="inline-flex items-center gap-1 text-xs font-semibold text-foreground hover:text-primary transition-colors group/btn"
-                  >
-                    Read More
-                    <ArrowUpRight className="w-3.5 h-3.5 transition-transform group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5" />
-                  </Link>
-                </div>
-              </div>
-            </motion.article>
-
-            {/* Supporting list */}
-            <div className="lg:col-span-2 flex flex-col rounded-2xl border border-border bg-card px-5 sm:px-6 divide-y divide-border">
-              {restPosts.map((post, i) => (
-                <motion.article
-                  key={post.title}
-                  initial={{ opacity: 0, y: 16 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: 0.1 + i * 0.1 }}
-                >
-                  <Link
-                    to="/blog"
-                    className="group flex items-start gap-4 py-5"
-                  >
-                    <div className="w-20 h-20 sm:w-24 sm:h-24 shrink-0 rounded-xl overflow-hidden">
-                      <div className="w-full h-full transition-transform duration-500 group-hover:scale-110">
-                        <SkeletonImage
-                          src={post.image}
-                          alt={post.title}
-                          className="w-full h-full object-cover"
-                        />
-                      </div>
-                    </div>
-                    <div className="flex flex-col gap-1.5 min-w-0">
-                      <div className="flex items-center gap-2.5">
-                        <span className="text-[9px] font-semibold uppercase tracking-wider text-primary">
-                          {post.category}
-                        </span>
-                        <span className="text-[10px] text-muted-foreground">
-                          {post.readTime}
-                        </span>
-                      </div>
-                      <h4 className="font-display text-sm font-bold text-foreground leading-snug group-hover:text-primary transition-colors line-clamp-2">
-                        {post.title}
-                      </h4>
-                      <p className="hidden sm:block text-xs text-muted-foreground leading-snug line-clamp-1">
-                        {post.excerpt}
-                      </p>
-                      <span className="inline-flex items-center gap-1 text-[11px] text-muted-foreground mt-0.5">
-                        {post.date}
-                        <ArrowUpRight className="w-3 h-3 opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300" />
-                      </span>
-                    </div>
-                  </Link>
-                </motion.article>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ═══════════════════════════════════════════════════════
-          Xerai-Studios launch
-          ═══════════════════════════════════════════════════════ */}
-      <section className="py-20 sm:py-28">
-        <div className="max-w-6xl mx-auto px-4">
-          <motion.div
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-            className="group relative rounded-3xl border border-border bg-card overflow-hidden shadow-sm hover:shadow-sm transition-shadow duration-500"
-          >
-            <div className="grid md:grid-cols-2">
-              {/* Text column */}
-              <div className="order-1 md:order-2 p-6 sm:p-8 lg:p-10 flex flex-col justify-center">
-                <div className="inline-flex items-center gap-2.5 w-fit mt-3 mb-5">
-                  {/* 3D-styled bell — the attention-grabbing addition */}
-                  <motion.div
-                    aria-hidden="true"
-                    animate={{ rotate: [0, -15, 12, -10, 8, -5, 0] }}
-                    transition={{
-                      duration: 1.8,
-                      repeat: Infinity,
-                      repeatDelay: 2.4,
-                      ease: "easeInOut",
-                    }}
-                    style={{ transformOrigin: "50% 12%" }}
-                    className="relative shrink-0 w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-gradient-to-b from-primary via-primary to-primary/70 shadow-[0_4px_10px_-2px_rgba(0,0,0,0.4),inset_0_1px_1px_rgba(255,255,255,0.5)] ring-1 ring-black/5"
-                  >
-                    <span className="absolute -inset-1 rounded-full bg-primary/25 animate-ping" />
-                    <span className="absolute inset-x-1.5 top-1 h-1/2 rounded-full bg-white/30 blur-[2px]" />
-                    <BellRing
-                      className="absolute inset-0 m-auto w-4 h-4 sm:w-[18px] sm:h-[18px] text-background drop-shadow-sm"
-                      strokeWidth={2.4}
-                    />
-                  </motion.div>
-
-                  <span className="relative flex h-1.5 w-1.5">
-                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-70" />
-                    <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-emerald-500" />
-                  </span>
-                  <span className="text-[13px] font-extrabold uppercase tracking-wide text-muted-foreground">
-                    Launching Soon
-                  </span>
-                </div>
-
-                <h2 className="font-display text-2xl sm:text-4xl text-balance lg:text-[2.4rem] font-medium tracking-tight leading-[1.12] text-foreground">
-                  <span className="text-primary font-extrabold text-4xl sm:text-5xl lg:text-[3rem]">
-                    New Product Launch! <br />
-                  </span>{" "}
-                  Get Ready For Our New Product Launch{" "}
-                  <strong className="text-gray-500 text-3xl tracking-tighter sm:text-4xl lg:text-[2.4rem]">
-                    Xerai-Studios.
-                  </strong>
-                </h2>
-
-                <p className="mt-5 text-sm text-muted-foreground leading-relaxed text-balance ">
-                  Our new portfolio and CV reviewing platform, built for
-                  creators who want clarity and expert feedback to secure better
-                  job opportunities and role.
-                </p>
-
-                <div className="mt-6 flex flex-wrap gap-1">
-                  {productHighlights.map((item) => (
-                    <span
-                      key={item}
-                      className="rounded-full cursor-pointer border border-border bg-background/60 text-foreground px-3 py-2 text-xs font-normal tracking-tight hover:border-primary/40 hover:bg-primary/5 hover:-translate-y-0.5 transition-all duration-200"
-                    >
-                      {item}
-                    </span>
-                  ))}
-                </div>
-
-                <div className="mt-8">
-                  <Link to="#">
-                    <Button className="group/cta rounded-xl px-6 h-11 text-sm font-bold">
-                      Browse Product
-                      <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover/cta:translate-x-1" />
-                    </Button>
-                  </Link>
-                </div>
-              </div>
-
-              <div className="order-1 md:order-2 relative aspect-[16/10] md:aspect-auto min-h-[260px] md:min-h-[440px]">
-                <SkeletonImage
-                  src="/hero-abstract.jpg"
-                  alt="Xerai Studios product preview"
-                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04]"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t md:bg-gradient-to-l from-background via-background/10 md:via-background/10 to-transparent" />
-
-                <div className="absolute top-3 right-3 sm:top-4 sm:right-4 md:top-5 md:right-5 flex items-center gap-2 bg-card/90 backdrop-blur-sm border border-border rounded-full px-3 py-2 shadow-lg">
-                  <span className="relative flex h-2 w-2">
-                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
-                    <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
-                  </span>
-                  <span className="text-[11px] font-semibold text-foreground">
-                    Early Access Opening
-                  </span>
-                </div>
-
-                {/* Bottom-left info chip — mirrors the homepage hero's "50+ Projects" card */}
-                <div className="absolute bottom-4 left-4 md:bottom-5 md:left-5 flex items-center gap-3 bg-card/95 backdrop-blur-md border border-border rounded-xl px-4 py-3 shadow-md max-w-[230px]">
-                  <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
-                    <Eye className="w-4 h-4 text-primary" />
-                  </div>
-                  <div>
-                    <p className="text-xs font-bold text-foreground leading-tight">
-                      Portfolio & CV Reviews
-                    </p>
-                    <p className="text-[10px] text-muted-foreground">
-                      By vetted industry experts
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* ═══════════════════════════════════════════════════════
-          Final CTA — same actions and handlers, refined visuals.
-          ═══════════════════════════════════════════════════════ */}
-      <section className="relative py-24 sm:py-32 bg-foreground text-background overflow-hidden">
-        <div className="absolute inset-0 -z-10 bg-[linear-gradient(to_right,hsl(var(--background))_1px,transparent_1px),linear-gradient(to_bottom,hsl(var(--background))_1px,transparent_1px)] bg-[size:64px_64px] [mask-image:radial-gradient(ellipse_70%_60%_at_50%_50%,black,transparent)] opacity-[0.06]" />
-        <div className="absolute -top-20 -left-20 w-72 h-72 rounded-full bg-background/10 blur-3xl pointer-events-none" />
-        <div className="absolute -bottom-20 -right-20 w-96 h-96 rounded-full bg-background/10 blur-3xl pointer-events-none" />
-
-        <div className="max-w-3xl mx-auto px-6 text-center relative z-10">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-          >
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-background/15 bg-background/5 backdrop-blur-sm mb-6">
-              <span className="relative flex h-1.5 w-1.5">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-70" />
-                <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-emerald-400" />
+        <div className="relative mx-auto max-w-3xl px-5 text-center sm:px-6">
+          <Reveal>
+            <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-background/20 bg-background/5 px-4 py-1.5 backdrop-blur">
+              <span className="relative flex h-2 w-2">
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-70" />
+                <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-400" />
               </span>
-              <span className="text-[11px] font-semibold text-background/80">
+              <span className="text-sm font-medium text-background/85">
                 Available for new projects
               </span>
             </div>
-
-            <h2 className="font-display text-balance lg:text-6xl text-4xl sm:text-5xl font-extrabold tracking-tight mb-3">
-              Let's Build Something Real.
+            <h2 className="font-display text-balance text-4xl font-extrabold tracking-tight sm:text-5xl lg:text-6xl">
+              Let's build something real.
             </h2>
-            <p className="opacity-60 text-sm max-w-md mx-auto leading-relaxed mb-9">
-              Intrested in working with us? Send us messages. We'll get back
+            <p className="mx-auto mt-5 mb-10 max-w-md text-base leading-relaxed text-background/70">
+              Interested in working with us? Send a message and we'll reply
               within 24 hours with a clear path forward.
             </p>
-            <div className="flex flex-col sm:flex-row gap-3 justify-center">
+            <div className="flex flex-col justify-center gap-3 sm:flex-row">
               <Link
                 to="/contact"
-                className="group inline-flex items-center justify-center gap-2 bg-background text-foreground px-8 py-3.5 text-sm font-bold rounded-xl hover:opacity-90 transition-all hover:-translate-y-0.5 hover:shadow-2md active:scale-[0.98]"
+                className="group inline-flex items-center justify-center gap-2 rounded-xl bg-background px-8 py-3.5 text-sm font-bold text-foreground transition-all hover:-translate-y-0.5 hover:opacity-90 hover:shadow-sm active:scale-[0.98]"
               >
-                Get in Touch{" "}
-                <ArrowUpRight className="w-3.5 h-3.5 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                Get in touch
+                <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
               </Link>
               <BookCallSheet
                 trigger={
                   <button
                     type="button"
-                    className="group relative inline-flex items-center justify-center gap-2 overflow-hidden border-2 border-background/30 text-background px-8 py-3.5 text-sm font-bold rounded-xl transition-all hover:-translate-y-0.5 hover:border-background/55"
+                    className="inline-flex w-full items-center justify-center gap-2 rounded-xl border-2 border-background/30 px-8 py-3.5 text-sm font-bold text-background transition-all hover:-translate-y-0.5 hover:border-background/60 hover:bg-background/10 active:scale-[0.98] sm:w-auto"
                   >
-                    <span className="absolute inset-0 -z-10 bg-background/10 scale-x-0 origin-left transition-transform duration-300 ease-out group-hover:scale-x-100" />
-                    <CalendarIcon className="h-3.5 w-3.5" /> Book A Call Session
+                    <CalendarIcon className="h-4 w-4" /> Book a call
                   </button>
                 }
               />
@@ -1678,552 +1326,467 @@ const Index = () => {
                 href={whatsappUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center justify-center gap-2 border-2 border-background/30 text-background px-8 py-3.5 text-sm font-bold rounded-xl transition-all hover:-translate-y-0.5 hover:border-background/55 hover:bg-background/10 active:scale-[0.98]"
+                className="inline-flex items-center justify-center gap-2 rounded-xl border-2 border-background/30 px-8 py-3.5 text-sm font-bold text-background transition-all hover:-translate-y-0.5 hover:border-background/60 hover:bg-background/10 active:scale-[0.98]"
               >
-                <WhatsAppIcon className="w-3.5 h-3.5" /> WhatsApp
+                <WhatsAppIcon className="h-4 w-4" /> WhatsApp
               </a>
             </div>
-          </motion.div>
+          </Reveal>
         </div>
       </section>
 
       <Footer />
 
-      {/* ─── Service configurator: replaces the plain "go to contact" link ─── */}
-      <AnimatePresence>
+      {/* ═══════════ SERVICE MODAL ═══════════ */}
+      <Modal
+        open={activeService !== null}
+        onClose={closeServiceModal}
+        label="Configure service"
+      >
         {activeService !== null && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 flex items-end sm:items-center justify-center"
-          >
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              onClick={closeServiceModal}
-              className="absolute inset-0 bg-foreground/40 backdrop-blur-sm"
+          <>
+            <ModalHeader
+              kicker="Configure your project"
+              title={featuredServices[activeService].title}
+              onClose={closeServiceModal}
             />
-
-            <motion.div
-              initial={{ opacity: 0, y: 40, scale: 0.98 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ opacity: 0, y: 20, scale: 0.98 }}
-              transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
-              role="dialog"
-              aria-modal="true"
-              className="relative w-full sm:max-w-lg max-h-[92vh] overflow-y-auto bg-card border border-border rounded-t-2xl sm:rounded-2xl shadow-2md"
-            >
-              <div className="sticky top-0 z-10 bg-card/95 backdrop-blur-sm border-b border-border px-6 py-5 flex items-start justify-between gap-4">
-                <div>
-                  <p className="text-[10px] font-bold uppercase tracking-widest text-primary mb-1">
-                    {featuredServices[activeService].number} · Configure
-                  </p>
-                  <h3 className="font-display text-xl font-bold text-foreground">
-                    {featuredServices[activeService].title}
-                  </h3>
-                </div>
-                <button
-                  type="button"
-                  onClick={closeServiceModal}
-                  aria-label="Close"
-                  className="w-8 h-8 shrink-0 rounded-full border border-border flex items-center justify-center text-muted-foreground hover:text-foreground hover:border-foreground/40 transition-colors"
-                >
-                  <X className="w-4 h-4" />
-                </button>
-              </div>
-
-              <div className="px-6 py-6 space-y-6">
-                <div>
-                  <p className="text-xs font-semibold text-foreground mb-3">
-                    Choose your scope
-                  </p>
-                  <div className="grid grid-cols-3 gap-2">
-                    {scopeTiers.map((tier) => (
-                      <button
-                        key={tier.id}
-                        type="button"
-                        onClick={() => setSelectedTier(tier.id)}
-                        className={`text-left rounded-xl border px-3 py-3 transition-all duration-200 ${
-                          selectedTier === tier.id
-                            ? "border bg-primary/10 shadow-xs"
-                            : "border-border hover:border-primary/20"
-                        }`}
-                      >
-                        <p
-                          className={`text-xs font-bold mb-0.5 ${
-                            selectedTier === tier.id
-                              ? "text-primary"
-                              : "text-foreground"
-                          }`}
-                        >
-                          {tier.label}
-                        </p>
-                        <p className="text-[10px] text-muted-foreground">
-                          {tier.timeline}
-                        </p>
-                      </button>
-                    ))}
-                  </div>
-                  <AnimatePresence mode="wait">
-                    <motion.p
-                      key={selectedTier}
-                      initial={{ opacity: 0, y: 4 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: -4 }}
-                      transition={{ duration: 0.2 }}
-                      className="text-xs text-muted-foreground leading-relaxed mt-3"
-                    >
-                      {scopeTiers.find((t) => t.id === selectedTier)?.blurb}
-                    </motion.p>
-                  </AnimatePresence>
-                </div>
-
-                <div>
-                  <p className="text-xs font-semibold text-foreground mb-3">
-                    What's included
-                  </p>
-                  <ul className="space-y-2">
-                    {featuredServices[activeService].bullets.map((b) => (
-                      <li
-                        key={b}
-                        className="flex items-start gap-2 text-xs text-muted-foreground"
-                      >
-                        <CheckCircle2 className="w-3.5 h-3.5 text-primary shrink-0 mt-0.5" />
-                        {b}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-
-                <div>
-                  <label
-                    htmlFor="inquiry-note"
-                    className="text-xs font-semibold text-foreground mb-3 block"
-                  >
-                    Anything specific?{" "}
-                    <span className="text-muted-foreground font-normal">
-                      (optional)
-                    </span>
-                  </label>
-                  <textarea
-                    id="inquiry-note"
-                    value={inquiryNote}
-                    onChange={(e) => setInquiryNote(e.target.value)}
-                    rows={3}
-                    placeholder="type here..."
-                    className="w-full text-xs rounded-xl border border-border bg-background px-3 py-2.5 text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-primary/40 focus:border-primary/40 resize-none"
-                  />
-                </div>
-
-                <div className="flex flex-col sm:flex-row gap-2 pt-1">
-                  <button
-                    type="button"
-                    onClick={closeServiceModal}
-                    className="flex-1 text-center text-sm font-semibold py-2.5 rounded-lg border border-border text-foreground hover:bg-secondary transition-all duration-200"
-                  >
-                    Cancel
-                  </button>
-                  <button
-                    type="button"
-                    onClick={handleContinueToContact}
-                    disabled={isSubmittingInquiry}
-                    className="flex-1 inline-flex items-center justify-center gap-2 text-sm font-semibold py-3.5 rounded-lg bg-primary text-primary-foreground hover:bg-primary/90 transition-all duration-200 disabled:opacity-70"
-                  >
-                    {isSubmittingInquiry ? (
-                      <>
-                        <span className="w-3.5 h-3.5 text-xs rounded-full border-2 border-primary-foreground/40 border-t-primary-foreground animate-spin" />
-                        Preparing your brief...
-                      </>
-                    ) : (
-                      <>
-                        Continue to Contact{" "}
-                        <ArrowUpRight className="w-3.5 h-3.5" />
-                      </>
-                    )}
-                  </button>
-                </div>
-                <p className="text-[9px] text-muted-foreground text-center">
-                  We'll take you to the contact form with this pre-filled so you
-                  don't have to repeat yourself.
+            <div className="space-y-6 overflow-y-auto px-6 py-6">
+              <div>
+                <p className="mb-3 text-sm font-semibold text-foreground">
+                  Choose your scope
                 </p>
-              </div>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-
-      {/* ─── Course popup: overview → step-by-step questions → WhatsApp ─── */}
-      <AnimatePresence>
-        {activeCourseData && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 flex items-end sm:items-center justify-center"
-          >
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              onClick={closeCourseModal}
-              className="absolute inset-0 bg-foreground/40 backdrop-blur-sm"
-            />
-
-            <motion.div
-              initial={{ opacity: 0, y: 40, scale: 0.98 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ opacity: 0, y: 20, scale: 0.98 }}
-              transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
-              role="dialog"
-              aria-modal="true"
-              aria-label={`${activeCourseData.title} course details`}
-              className="relative w-full sm:max-w-xl max-h-[92vh] flex flex-col bg-card border border-border rounded-t-2xl sm:rounded-2xl shadow-2md overflow-hidden"
-            >
-              {/* Header */}
-              <div className="shrink-0 bg-card/95 backdrop-blur-sm border-b border-border px-6 py-5 flex items-start justify-between gap-4">
-                <div className="min-w-0">
-                  <p className="text-[10px] font-bold uppercase tracking-widest text-primary mb-1">
-                    {courseStep === 0
-                      ? "Course Details"
-                      : courseStep === reviewStep
-                        ? "Review & Enroll"
-                        : `Question ${courseStep} of ${courseQuestions.length}`}
-                  </p>
-                  <h3 className="font-display text-xl font-bold text-foreground">
-                    {activeCourseData.title}
-                  </h3>
+                <div className="grid grid-cols-3 gap-2">
+                  {scopeTiers.map((t) => (
+                    <button
+                      key={t.id}
+                      type="button"
+                      onClick={() => setSelectedTier(t.id)}
+                      className={`rounded-xl border px-3 py-3 text-left transition-all duration-200 ${
+                        selectedTier === t.id
+                          ? "border-primary/50 bg-primary/10"
+                          : "border-border hover:border-primary/25"
+                      }`}
+                    >
+                      <p
+                        className={`text-sm font-bold ${selectedTier === t.id ? "text-primary" : "text-foreground"}`}
+                      >
+                        {t.label}
+                      </p>
+                      <p className="mt-0.5 text-xs text-muted-foreground">
+                        {t.timeline}
+                      </p>
+                    </button>
+                  ))}
                 </div>
-                <button
-                  type="button"
-                  onClick={closeCourseModal}
-                  aria-label="Close"
-                  className="w-8 h-8 shrink-0 rounded-full border border-border flex items-center justify-center text-muted-foreground hover:text-foreground hover:border-foreground/40 transition-colors"
-                >
-                  <X className="w-4 h-4" />
-                </button>
-              </div>
-
-              {/* Progress bar */}
-              <div className="shrink-0 h-1 w-full bg-secondary">
-                <motion.div
-                  className="h-full bg-primary"
-                  initial={false}
-                  animate={{
-                    width: `${(courseStep / (totalCourseSteps - 1)) * 100}%`,
-                  }}
-                  transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
-                />
-              </div>
-
-              {/* Body */}
-              <div className="flex-1 overflow-y-auto px-6 py-6">
-                <AnimatePresence mode="wait" initial={false}>
-                  <motion.div
-                    key={courseStep}
-                    initial={{ opacity: 0, x: courseDir * 24 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    exit={{ opacity: 0, x: courseDir * -24 }}
-                    transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
+                <AnimatePresence mode="wait">
+                  <motion.p
+                    key={selectedTier}
+                    initial={{ opacity: 0, y: 4 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -4 }}
+                    transition={{ duration: 0.2 }}
+                    className="mt-3 text-sm leading-relaxed text-muted-foreground"
                   >
-                    {/* ── Step 0: detailed overview ── */}
-                    {courseStep === 0 && (
-                      <div className="space-y-6">
-                        <div className="flex items-center gap-2 flex-wrap">
-                          <span className="text-[10px] font-semibold uppercase tracking-wider text-primary bg-primary/10 px-2.5 py-1 rounded-full">
-                            {activeCourseData.level}
-                          </span>
-                          <span className="text-[11px] text-muted-foreground">
-                            {activeCourseData.duration}
-                          </span>
-                        </div>
-
-                        <p className="text-sm text-muted-foreground leading-relaxed">
-                          {activeCourseData.overview}
-                        </p>
-
-                        <div>
-                          <p className="text-xs font-semibold text-foreground mb-3">
-                            What you'll learn
-                          </p>
-                          <ul className="space-y-2">
-                            {activeCourseData.bullets.map((b) => (
-                              <li
-                                key={b}
-                                className="flex items-start gap-2 text-xs text-muted-foreground"
-                              >
-                                <CheckCircle2 className="w-3.5 h-3.5 text-primary shrink-0 mt-0.5" />
-                                {b}
-                              </li>
-                            ))}
-                          </ul>
-                        </div>
-
-                        <div>
-                          <p className="text-xs font-semibold text-foreground mb-3">
-                            Week by week
-                          </p>
-                          <ol className="border border-border rounded-xl divide-y divide-border overflow-hidden">
-                            {activeCourseData.curriculum.map((item) => (
-                              <li
-                                key={item.topic}
-                                className="flex items-start gap-3 px-4 py-3"
-                              >
-                                <span className="w-16 shrink-0 text-[10px] font-bold uppercase tracking-wider text-primary pt-0.5">
-                                  {item.weeks}
-                                </span>
-                                <div className="min-w-0">
-                                  <p className="text-xs font-bold text-foreground">
-                                    {item.topic}
-                                  </p>
-                                  <p className="text-[11px] text-muted-foreground leading-snug mt-0.5">
-                                    {item.detail}
-                                  </p>
-                                </div>
-                              </li>
-                            ))}
-                          </ol>
-                        </div>
-
-                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                          <div className="rounded-xl border border-border bg-background px-4 py-3">
-                            <p className="text-xs font-bold text-foreground mb-1">
-                              Who it's for
-                            </p>
-                            <p className="text-[11px] text-muted-foreground leading-snug">
-                              {activeCourseData.audience}
-                            </p>
-                          </div>
-                          <div className="rounded-xl border border-border bg-background px-4 py-3">
-                            <p className="text-xs font-bold text-foreground mb-1">
-                              How it works
-                            </p>
-                            <p className="text-[11px] text-muted-foreground leading-snug">
-                              {activeCourseData.format}
-                            </p>
-                          </div>
-                        </div>
-
-                        <p className="text-[11px] text-muted-foreground leading-relaxed">
-                          Ready? Answer a few quick questions and we'll send
-                          your details straight to our WhatsApp.
-                        </p>
-                      </div>
-                    )}
-
-                    {/* ── Steps 1..n: one question at a time ── */}
-                    {currentQuestion && (
-                      <div className="space-y-5">
-                        <div>
-                          <h4 className="font-display text-lg font-bold text-foreground leading-snug">
-                            {currentQuestion.label}
-                          </h4>
-                          {currentQuestion.helper && (
-                            <p className="text-xs text-muted-foreground leading-relaxed mt-1.5">
-                              {currentQuestion.helper}
-                            </p>
-                          )}
-                        </div>
-
-                        {currentQuestion.kind === "text" && (
-                          <input
-                            type="text"
-                            autoFocus
-                            value={courseAnswers[currentQuestion.id] ?? ""}
-                            onChange={(e) =>
-                              setCourseAnswer(
-                                currentQuestion.id,
-                                e.target.value,
-                              )
-                            }
-                            onKeyDown={(e) => {
-                              if (e.key === "Enter") {
-                                e.preventDefault();
-                                goNextCourseStep();
-                              }
-                            }}
-                            placeholder={currentQuestion.placeholder}
-                            aria-label={currentQuestion.label}
-                            className="w-full text-sm rounded-xl border border-border bg-background px-3.5 py-3 text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-primary/40 focus:border-primary/40"
-                          />
-                        )}
-
-                        {currentQuestion.kind === "note" && (
-                          <textarea
-                            value={courseAnswers[currentQuestion.id] ?? ""}
-                            onChange={(e) =>
-                              setCourseAnswer(
-                                currentQuestion.id,
-                                e.target.value,
-                              )
-                            }
-                            rows={4}
-                            placeholder={currentQuestion.placeholder}
-                            aria-label={currentQuestion.label}
-                            className="w-full text-xs rounded-xl border border-border bg-background px-3 py-2.5 text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-primary/40 focus:border-primary/40 resize-none"
-                          />
-                        )}
-
-                        {currentQuestion.kind === "choice" && (
-                          <div
-                            role="radiogroup"
-                            aria-label={currentQuestion.label}
-                            className="grid grid-cols-1 sm:grid-cols-2 gap-2"
-                          >
-                            {currentQuestion.options?.map((option) => {
-                              const selected =
-                                courseAnswers[currentQuestion.id] === option;
-                              return (
-                                <button
-                                  key={option}
-                                  type="button"
-                                  role="radio"
-                                  aria-checked={selected}
-                                  onClick={() =>
-                                    setCourseAnswer(currentQuestion.id, option)
-                                  }
-                                  className={`flex items-center justify-between gap-3 text-left rounded-xl border px-3.5 py-3 transition-all duration-200 ${
-                                    selected
-                                      ? "border-primary/50 bg-primary/10 shadow-xs"
-                                      : "border-border hover:border-primary/20"
-                                  }`}
-                                >
-                                  <span
-                                    className={`text-xs font-semibold ${
-                                      selected
-                                        ? "text-primary"
-                                        : "text-foreground"
-                                    }`}
-                                  >
-                                    {option}
-                                  </span>
-                                  <span
-                                    className={`w-4 h-4 shrink-0 rounded-full border flex items-center justify-center transition-colors ${
-                                      selected
-                                        ? "border-primary bg-primary"
-                                        : "border-border"
-                                    }`}
-                                  >
-                                    {selected && (
-                                      <span className="w-1.5 h-1.5 rounded-full bg-primary-foreground" />
-                                    )}
-                                  </span>
-                                </button>
-                              );
-                            })}
-                          </div>
-                        )}
-                      </div>
-                    )}
-
-                    {/* ── Final step: review ── */}
-                    {courseStep === reviewStep && (
-                      <div className="space-y-5">
-                        <div>
-                          <h4 className="font-display text-lg font-bold text-foreground leading-snug">
-                            Looks good? Let's chat.
-                          </h4>
-                          <p className="text-xs text-muted-foreground leading-relaxed mt-1.5">
-                            Tapping the button below opens WhatsApp with your
-                            answers already written, so you only need to press
-                            send.
-                          </p>
-                        </div>
-
-                        <dl className="border border-border rounded-xl divide-y divide-border overflow-hidden">
-                          <div className="flex items-start justify-between gap-4 px-4 py-3">
-                            <dt className="text-[11px] text-muted-foreground shrink-0">
-                              Course
-                            </dt>
-                            <dd className="text-xs font-semibold text-foreground text-right">
-                              {activeCourseData.title} ·{" "}
-                              {activeCourseData.duration}
-                            </dd>
-                          </div>
-                          {courseQuestions.map((q) => {
-                            const value = (courseAnswers[q.id] ?? "").trim();
-                            if (!value) return null;
-                            return (
-                              <div
-                                key={q.id}
-                                className="flex items-start justify-between gap-4 px-4 py-3"
-                              >
-                                <dt className="text-[11px] text-muted-foreground shrink-0">
-                                  {q.short}
-                                </dt>
-                                <dd className="text-xs font-semibold text-foreground text-right break-words min-w-0">
-                                  {value}
-                                </dd>
-                              </div>
-                            );
-                          })}
-                        </dl>
-                      </div>
-                    )}
-                  </motion.div>
+                    {scopeTiers.find((t) => t.id === selectedTier)?.blurb}
+                  </motion.p>
                 </AnimatePresence>
               </div>
 
-              {/* Footer actions */}
-              <div className="shrink-0 border-t border-border bg-card px-6 py-4">
-                <div className="flex flex-col-reverse sm:flex-row gap-2">
-                  {courseStep === 0 ? (
-                    <button
-                      type="button"
-                      onClick={closeCourseModal}
-                      className="flex-1 text-center text-sm font-semibold py-2.5 rounded-lg border border-border text-foreground hover:bg-secondary transition-all duration-200"
+              <div>
+                <p className="mb-3 text-sm font-semibold text-foreground">
+                  What's included
+                </p>
+                <ul className="space-y-2.5">
+                  {featuredServices[activeService].bullets.map((b) => (
+                    <li
+                      key={b}
+                      className="flex items-start gap-2.5 text-sm text-muted-foreground"
                     >
-                      Close
-                    </button>
+                      <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
+                      {b}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              <div>
+                <label
+                  htmlFor="inquiry-note"
+                  className="mb-3 block text-sm font-semibold text-foreground"
+                >
+                  Anything specific?{" "}
+                  <span className="font-normal text-muted-foreground">
+                    (optional)
+                  </span>
+                </label>
+                <textarea
+                  id="inquiry-note"
+                  value={inquiryNote}
+                  onChange={(e) => setInquiryNote(e.target.value)}
+                  rows={3}
+                  placeholder="Type here..."
+                  className="w-full resize-none rounded-xl border border-border bg-background px-3.5 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:border-primary/40 focus:outline-none focus:ring-1 focus:ring-primary/40"
+                />
+              </div>
+
+              <div className="flex flex-col-reverse gap-2 sm:flex-row">
+                <button
+                  type="button"
+                  onClick={closeServiceModal}
+                  className="flex-1 rounded-xl border border-border py-3 text-sm font-semibold text-foreground transition-colors hover:bg-secondary"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="button"
+                  onClick={handleContinueToContact}
+                  disabled={isSubmittingInquiry}
+                  className="inline-flex flex-1 items-center justify-center gap-2 rounded-xl bg-primary py-3 text-sm font-semibold text-primary-foreground transition-all hover:bg-primary/90 disabled:opacity-70"
+                >
+                  {isSubmittingInquiry ? (
+                    <>
+                      <span className="h-4 w-4 animate-spin rounded-full border-2 border-primary-foreground/40 border-t-primary-foreground" />
+                      Preparing your brief...
+                    </>
                   ) : (
-                    <button
-                      type="button"
-                      onClick={goBackCourseStep}
-                      disabled={isOpeningWhatsApp}
-                      className="flex-1 inline-flex items-center justify-center gap-1.5 text-sm font-semibold py-2.5 rounded-lg border border-border text-foreground hover:bg-secondary transition-all duration-200 disabled:opacity-60"
-                    >
-                      <ArrowLeft className="w-3.5 h-3.5" />
-                      Back
-                    </button>
+                    <>
+                      Continue to contact <ArrowUpRight className="h-4 w-4" />
+                    </>
+                  )}
+                </button>
+              </div>
+              <p className="text-center text-xs text-muted-foreground">
+                The contact form will be pre-filled so you don't have to repeat
+                yourself.
+              </p>
+            </div>
+          </>
+        )}
+      </Modal>
+
+      {/* ═══════════ COURSE MODAL ═══════════ */}
+      <Modal
+        open={!!activeCourseData}
+        onClose={closeCourseModal}
+        label={
+          activeCourseData
+            ? `${activeCourseData.title} course details`
+            : "Course details"
+        }
+        maxWidth="sm:max-w-xl"
+      >
+        {activeCourseData && (
+          <>
+            <ModalHeader
+              kicker={
+                courseStep === 0
+                  ? "Course details"
+                  : courseStep === reviewStep
+                    ? "Review & enroll"
+                    : `Question ${courseStep} of ${courseQuestions.length}`
+              }
+              title={activeCourseData.title}
+              onClose={closeCourseModal}
+            />
+
+            <div className="h-1 w-full shrink-0 bg-secondary">
+              <motion.div
+                className="h-full bg-primary"
+                initial={false}
+                animate={{
+                  width: `${(courseStep / (totalCourseSteps - 1)) * 100}%`,
+                }}
+                transition={{ duration: 0.4, ease: EASE }}
+              />
+            </div>
+
+            <div className="flex-1 overflow-y-auto px-6 py-6">
+              <AnimatePresence mode="wait" initial={false}>
+                <motion.div
+                  key={courseStep}
+                  initial={{ opacity: 0, x: courseDir * 24 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: courseDir * -24 }}
+                  transition={{ duration: 0.25, ease: EASE }}
+                >
+                  {courseStep === 0 && (
+                    <div className="space-y-6">
+                      <div className="flex flex-wrap items-center gap-2">
+                        <span className="rounded-full bg-primary/10 px-3 py-1 text-xs font-semibold text-primary">
+                          {activeCourseData.level}
+                        </span>
+                        <span className="text-sm text-muted-foreground">
+                          {activeCourseData.duration}
+                        </span>
+                      </div>
+                      <p className="text-sm leading-relaxed text-muted-foreground">
+                        {activeCourseData.overview}
+                      </p>
+
+                      <div>
+                        <p className="mb-3 text-sm font-semibold text-foreground">
+                          What you'll learn
+                        </p>
+                        <ul className="space-y-2.5">
+                          {activeCourseData.bullets.map((b) => (
+                            <li
+                              key={b}
+                              className="flex items-start gap-2.5 text-sm text-muted-foreground"
+                            >
+                              <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
+                              {b}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+
+                      <div>
+                        <p className="mb-3 text-sm font-semibold text-foreground">
+                          Week by week
+                        </p>
+                        <ol className="divide-y divide-border overflow-hidden rounded-xl border border-border">
+                          {activeCourseData.curriculum.map((item) => (
+                            <li
+                              key={item.topic}
+                              className="flex items-start gap-3 px-4 py-3.5"
+                            >
+                              <span className="w-20 shrink-0 pt-0.5 text-xs font-bold text-primary">
+                                {item.weeks}
+                              </span>
+                              <div className="min-w-0">
+                                <p className="text-sm font-semibold text-foreground">
+                                  {item.topic}
+                                </p>
+                                <p className="mt-0.5 text-xs leading-snug text-muted-foreground">
+                                  {item.detail}
+                                </p>
+                              </div>
+                            </li>
+                          ))}
+                        </ol>
+                      </div>
+
+                      <div className="grid gap-2 sm:grid-cols-2">
+                        <div className="rounded-xl border border-border bg-background px-4 py-3">
+                          <p className="mb-1 text-sm font-semibold text-foreground">
+                            Who it's for
+                          </p>
+                          <p className="text-xs leading-snug text-muted-foreground">
+                            {activeCourseData.audience}
+                          </p>
+                        </div>
+                        <div className="rounded-xl border border-border bg-background px-4 py-3">
+                          <p className="mb-1 text-sm font-semibold text-foreground">
+                            How it works
+                          </p>
+                          <p className="text-xs leading-snug text-muted-foreground">
+                            {activeCourseData.format}
+                          </p>
+                        </div>
+                      </div>
+
+                      <p className="text-xs leading-relaxed text-muted-foreground">
+                        Ready? Answer a few quick questions and we'll send your
+                        details straight to our WhatsApp.
+                      </p>
+                    </div>
                   )}
 
-                  {courseStep < reviewStep ? (
-                    <button
-                      type="button"
-                      onClick={goNextCourseStep}
-                      disabled={!canContinueCourse()}
-                      className="flex-1 inline-flex items-center justify-center gap-2 text-sm font-semibold py-3.5 rounded-lg bg-primary text-primary-foreground hover:bg-primary/90 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
-                    >
-                      {courseStep === 0 ? "Start Enrollment" : "Continue"}
-                      <ArrowRight className="w-3.5 h-3.5" />
-                    </button>
-                  ) : (
-                    <button
-                      type="button"
-                      onClick={handleCourseEnroll}
-                      disabled={isOpeningWhatsApp}
-                      className="flex-1 inline-flex items-center justify-center gap-2 text-sm font-semibold py-3.5 rounded-lg bg-primary text-primary-foreground hover:bg-primary/90 transition-all duration-200 disabled:opacity-70"
-                    >
-                      {isOpeningWhatsApp ? (
-                        <>
-                          <span className="w-3.5 h-3.5 text-xs rounded-full border-2 border-primary-foreground/40 border-t-primary-foreground animate-spin" />
-                          Opening WhatsApp...
-                        </>
-                      ) : (
-                        <>
-                          <WhatsAppIcon className="w-4 h-4" />
-                          Continue on WhatsApp
-                        </>
+                  {currentQuestion && (
+                    <div className="space-y-5">
+                      <div>
+                        <h4 className="font-display text-lg font-bold leading-snug text-foreground">
+                          {currentQuestion.label}
+                        </h4>
+                        {currentQuestion.helper && (
+                          <p className="mt-1.5 text-sm leading-relaxed text-muted-foreground">
+                            {currentQuestion.helper}
+                          </p>
+                        )}
+                      </div>
+
+                      {currentQuestion.kind === "text" && (
+                        <input
+                          type="text"
+                          autoFocus
+                          value={courseAnswers[currentQuestion.id] ?? ""}
+                          onChange={(e) =>
+                            setCourseAnswer(currentQuestion.id, e.target.value)
+                          }
+                          onKeyDown={(e) => {
+                            if (e.key === "Enter") {
+                              e.preventDefault();
+                              goNextCourseStep();
+                            }
+                          }}
+                          placeholder={currentQuestion.placeholder}
+                          aria-label={currentQuestion.label}
+                          className="w-full rounded-xl border border-border bg-background px-4 py-3 text-base text-foreground placeholder:text-muted-foreground focus:border-primary/40 focus:outline-none focus:ring-1 focus:ring-primary/40"
+                        />
                       )}
-                    </button>
+
+                      {currentQuestion.kind === "note" && (
+                        <textarea
+                          value={courseAnswers[currentQuestion.id] ?? ""}
+                          onChange={(e) =>
+                            setCourseAnswer(currentQuestion.id, e.target.value)
+                          }
+                          rows={4}
+                          placeholder={currentQuestion.placeholder}
+                          aria-label={currentQuestion.label}
+                          className="w-full resize-none rounded-xl border border-border bg-background px-4 py-3 text-base text-foreground placeholder:text-muted-foreground focus:border-primary/40 focus:outline-none focus:ring-1 focus:ring-primary/40"
+                        />
+                      )}
+
+                      {currentQuestion.kind === "choice" && (
+                        <div
+                          role="radiogroup"
+                          aria-label={currentQuestion.label}
+                          className="grid gap-2 sm:grid-cols-2"
+                        >
+                          {currentQuestion.options?.map((option) => {
+                            const selected =
+                              courseAnswers[currentQuestion.id] === option;
+                            return (
+                              <button
+                                key={option}
+                                type="button"
+                                role="radio"
+                                aria-checked={selected}
+                                onClick={() =>
+                                  setCourseAnswer(currentQuestion.id, option)
+                                }
+                                className={`flex items-center justify-between gap-3 rounded-xl border px-4 py-3.5 text-left transition-all duration-200 ${
+                                  selected
+                                    ? "border-primary/50 bg-primary/10"
+                                    : "border-border hover:border-primary/25"
+                                }`}
+                              >
+                                <span
+                                  className={`text-sm font-semibold ${selected ? "text-primary" : "text-foreground"}`}
+                                >
+                                  {option}
+                                </span>
+                                <span
+                                  className={`flex h-4 w-4 shrink-0 items-center justify-center rounded-full border transition-colors ${
+                                    selected
+                                      ? "border-primary bg-primary"
+                                      : "border-border"
+                                  }`}
+                                >
+                                  {selected && (
+                                    <span className="h-1.5 w-1.5 rounded-full bg-primary-foreground" />
+                                  )}
+                                </span>
+                              </button>
+                            );
+                          })}
+                        </div>
+                      )}
+                    </div>
                   )}
-                </div>
+
+                  {courseStep === reviewStep && (
+                    <div className="space-y-5">
+                      <div>
+                        <h4 className="font-display text-lg font-bold leading-snug text-foreground">
+                          Looks good? Let's chat.
+                        </h4>
+                        <p className="mt-1.5 text-sm leading-relaxed text-muted-foreground">
+                          The button below opens WhatsApp with your answers
+                          already written. Just press send.
+                        </p>
+                      </div>
+                      <dl className="divide-y divide-border overflow-hidden rounded-xl border border-border">
+                        <div className="flex items-start justify-between gap-4 px-4 py-3">
+                          <dt className="shrink-0 text-sm text-muted-foreground">
+                            Course
+                          </dt>
+                          <dd className="text-right text-sm font-semibold text-foreground">
+                            {activeCourseData.title} ·{" "}
+                            {activeCourseData.duration}
+                          </dd>
+                        </div>
+                        {courseQuestions.map((q) => {
+                          const value = (courseAnswers[q.id] ?? "").trim();
+                          if (!value) return null;
+                          return (
+                            <div
+                              key={q.id}
+                              className="flex items-start justify-between gap-4 px-4 py-3"
+                            >
+                              <dt className="shrink-0 text-sm text-muted-foreground">
+                                {q.short}
+                              </dt>
+                              <dd className="min-w-0 break-words text-right text-sm font-semibold text-foreground">
+                                {value}
+                              </dd>
+                            </div>
+                          );
+                        })}
+                      </dl>
+                    </div>
+                  )}
+                </motion.div>
+              </AnimatePresence>
+            </div>
+
+            <div className="shrink-0 border-t border-border bg-card px-6 py-4">
+              <div className="flex flex-col-reverse gap-2 sm:flex-row">
+                {courseStep === 0 ? (
+                  <button
+                    type="button"
+                    onClick={closeCourseModal}
+                    className="flex-1 rounded-xl border border-border py-3 text-sm font-semibold text-foreground transition-colors hover:bg-secondary"
+                  >
+                    Close
+                  </button>
+                ) : (
+                  <button
+                    type="button"
+                    onClick={goBackCourseStep}
+                    disabled={isOpeningWhatsApp}
+                    className="inline-flex flex-1 items-center justify-center gap-1.5 rounded-xl border border-border py-3 text-sm font-semibold text-foreground transition-colors hover:bg-secondary disabled:opacity-60"
+                  >
+                    <ArrowLeft className="h-4 w-4" /> Back
+                  </button>
+                )}
+
+                {courseStep < reviewStep ? (
+                  <button
+                    type="button"
+                    onClick={goNextCourseStep}
+                    disabled={!canContinueCourse()}
+                    className="inline-flex flex-1 items-center justify-center gap-2 rounded-xl bg-primary py-3 text-sm font-semibold text-primary-foreground transition-all hover:bg-primary/90 disabled:cursor-not-allowed disabled:opacity-50"
+                  >
+                    {courseStep === 0 ? "Start enrollment" : "Continue"}
+                    <ArrowRight className="h-4 w-4" />
+                  </button>
+                ) : (
+                  <button
+                    type="button"
+                    onClick={handleCourseEnroll}
+                    disabled={isOpeningWhatsApp}
+                    className="inline-flex flex-1 items-center justify-center gap-2 rounded-xl bg-primary py-3 text-sm font-semibold text-primary-foreground transition-all hover:bg-primary/90 disabled:opacity-70"
+                  >
+                    {isOpeningWhatsApp ? (
+                      <>
+                        <span className="h-4 w-4 animate-spin rounded-full border-2 border-primary-foreground/40 border-t-primary-foreground" />
+                        Opening WhatsApp...
+                      </>
+                    ) : (
+                      <>
+                        <WhatsAppIcon className="h-4 w-4" /> Continue on
+                        WhatsApp
+                      </>
+                    )}
+                  </button>
+                )}
               </div>
-            </motion.div>
-          </motion.div>
+            </div>
+          </>
         )}
-      </AnimatePresence>
+      </Modal>
     </div>
   );
 };

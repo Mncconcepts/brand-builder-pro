@@ -334,10 +334,15 @@ const Terms = () => {
       <Navbar />
 
       {/* ── HERO ── */}
-      <section className="relative pt-36 pb-16 border-b border-border overflow-hidden">
-        <div className="absolute inset-0 -z-10 bg-[linear-gradient(to_right,hsl(var(--border))_1px,transparent_1px),linear-gradient(to_bottom,hsl(var(--border))_1px,transparent_1px)] bg-[size:72px_72px] [mask-image:radial-gradient(ellipse_70%_60%_at_50%_0%,black,transparent)] opacity-20" />
+      <section className="relative isolate overflow-hidden pt-28 pb-16 sm:pt-36 lg:pb-24">
+        <div className="pointer-events-none absolute inset-0 -z-10">
+          <div className="absolute -top-40 left-1/2 h-[420px] w-[720px] -translate-x-1/2 rounded-full bg-primary/1 blur-[130px]" />
+          <div className="absolute inset-0 bg-[linear-gradient(to_right,hsl(var(--border))_1px,transparent_1px),linear-gradient(to_bottom,hsl(var(--border))_1px,transparent_1px)] bg-[size:80px_80px] opacity-50 [mask-image:linear-gradient(to_bottom,black_30%,transparent_95%)]" />
+          <div className="absolute inset-y-0 left-1/2 w-full max-w-6xl -translate-x-1/2 border-x border-border/70" />
+          <div className="absolute inset-x-0 bottom-0 h-px bg-border" />
+        </div>
 
-        <div className="max-w-6xl mx-auto px-6">
+        <div className="mx-auto max-w-6xl px-5 sm:px-6">
           <motion.div
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -410,7 +415,6 @@ const Terms = () => {
       {/* ── DOCUMENT BODY ── */}
       <section className="py-16">
         <div className="max-w-6xl mx-auto px-6">
-          {/* Mobile scroll-spy strip */}
           <div className="lg:hidden -mx-6 px-6 mb-10 overflow-x-auto">
             <div className="flex gap-2 w-max pb-1">
               {sections.map((s, i) => {

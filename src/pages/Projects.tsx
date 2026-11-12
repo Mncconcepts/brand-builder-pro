@@ -211,8 +211,6 @@ const matchesCategory = (project: Project, category: string) => {
   }
 };
 
-/* ---------- small helpers ---------- */
-
 // "DESIGN · DEVELOPMENT · FULL STACK" -> ["DESIGN", "DEVELOPMENT", "FULL STACK"]
 const splitCategory = (category: string) =>
   category
@@ -220,7 +218,6 @@ const splitCategory = (category: string) =>
     .map((c) => c.trim())
     .filter(Boolean);
 
-// Which of the filter groups a project belongs to (used for the small label on each card)
 const groupsFor = (project: Project) =>
   categories.slice(1).filter((c) => matchesCategory(project, c));
 
@@ -309,8 +306,6 @@ const Actions = ({ project }: { project: Project }) => (
   </div>
 );
 
-/* ---------- page ---------- */
-
 const Projects = () => {
   const [activeCategory, setActiveCategory] = useState("All");
   const [searchQuery, setSearchQuery] = useState("");
@@ -357,9 +352,15 @@ const Projects = () => {
       <Navbar />
 
       {/* Header */}
-      <section className="relative overflow-hidden pb-10 pt-40">
-        <div className="absolute inset-0 -z-10 bg-[radial-gradient(45%_40%_at_50%_50%,rgba(var(--primary-rgb),0.05)_0%,transparent_100%)]" />
-        <div className="mx-auto max-w-6xl px-6">
+      <section className="relative isolate overflow-hidden pt-28 pb-16 sm:pt-36 lg:pb-24">
+        <div className="pointer-events-none absolute inset-0 -z-10">
+          <div className="absolute -top-40 left-1/2 h-[420px] w-[720px] -translate-x-1/2 rounded-full bg-primary/1 blur-[130px]" />
+          <div className="absolute inset-0 bg-[linear-gradient(to_right,hsl(var(--border))_1px,transparent_1px),linear-gradient(to_bottom,hsl(var(--border))_1px,transparent_1px)] bg-[size:80px_80px] opacity-50 [mask-image:linear-gradient(to_bottom,black_30%,transparent_95%)]" />
+          <div className="absolute inset-y-0 left-1/2 w-full max-w-6xl -translate-x-1/2 border-x border-border/70" />
+          <div className="absolute inset-x-0 bottom-0 h-px bg-border" />
+        </div>
+
+        <div className="mx-auto max-w-6xl px-5 sm:px-6">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -384,7 +385,6 @@ const Projects = () => {
       {/* Toolbar */}
       <section className="border-b border-border/40 pb-8">
         <div className="mx-auto max-w-6xl space-y-5 px-6">
-          {/* Category tabs with counts */}
           <div
             role="tablist"
             aria-label="Project categories"

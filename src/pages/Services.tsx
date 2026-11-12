@@ -1,4 +1,9 @@
-import { motion, AnimatePresence } from "framer-motion";
+import {
+  motion,
+  AnimatePresence,
+  useReducedMotion,
+  type Variants,
+} from "framer-motion";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import type { ReactNode } from "react";
@@ -13,7 +18,6 @@ import {
   Code2,
   Lightbulb,
   Pen,
-  ChevronDown,
   Plus,
   Minus,
   Layers,
@@ -22,12 +26,47 @@ import {
   LifeBuoy,
 } from "lucide-react";
 
-/* ─── data ─── */
+/* ═════════════ Motion ═════════════ */
+const EASE = [0.22, 1, 0.36, 1] as const;
+
+const stagger: Variants = {
+  hidden: {},
+  show: { transition: { staggerChildren: 0.09, delayChildren: 0.1 } },
+};
+const rise: Variants = {
+  hidden: { opacity: 0, y: 24 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.7, ease: EASE } },
+};
+
+function Reveal({
+  children,
+  delay = 0,
+  className,
+}: {
+  children: ReactNode;
+  delay?: number;
+  className?: string;
+}) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 28 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-60px" }}
+      transition={{ duration: 0.7, delay, ease: EASE }}
+      className={className}
+    >
+      {children}
+    </motion.div>
+  );
+}
+
+/* ═════════════ Data ═════════════ */
 const WHATSAPP_NUMBER = "2349020495756";
 
 const services = [
   {
     number: "01",
+    id: "web-app-development",
     icon: Code2,
     title: "Web & App Development",
     tagline: "Ship fast. Scale further.",
@@ -42,13 +81,10 @@ const services = [
       "Performance Optimization",
       "Dart",
     ],
-    accent: "from-foreground/5 to-transparent",
-    accentBorder: "border-foreground/10",
-    accentText: "text-foreground",
-    accentBg: "bg-foreground/5",
   },
   {
     number: "02",
+    id: "product-design",
     icon: Palette,
     title: "Product Design",
     tagline: "From research to release.",
@@ -63,13 +99,10 @@ const services = [
       "Prototyping",
       "Usability Testing",
     ],
-    accent: "from-foreground/5 to-transparent",
-    accentBorder: "border-foreground/10",
-    accentText: "text-foreground",
-    accentBg: "bg-foreground/5",
   },
   {
     number: "03",
+    id: "ui-ux-design",
     icon: Zap,
     title: "UI/UX Design",
     tagline: "Interfaces that feel right.",
@@ -84,13 +117,10 @@ const services = [
       "Accessibility",
       "Prototyping",
     ],
-    accent: "from-foreground/5 to-transparent",
-    accentBorder: "border-foreground/10",
-    accentText: "text-foreground",
-    accentBg: "bg-foreground/5",
   },
   {
     number: "04",
+    id: "design-consulting",
     icon: Lightbulb,
     title: "Design Consulting",
     tagline: "Strategy that sticks.",
@@ -102,13 +132,10 @@ const services = [
       "Brand Strategy",
       "Process Optimization",
     ],
-    accent: "from-foreground/5 to-transparent",
-    accentBorder: "border-foreground/10",
-    accentText: "text-foreground",
-    accentBg: "bg-foreground/5",
   },
   {
     number: "05",
+    id: "logo-brand-design",
     icon: Pen,
     title: "Logo & Brand Design",
     tagline: "Marks that endure.",
@@ -120,10 +147,6 @@ const services = [
       "Style Guide",
       "Print & Digital Assets",
     ],
-    accent: "from-foreground/5 to-transparent",
-    accentBorder: "border-foreground/10",
-    accentText: "text-foreground",
-    accentBg: "bg-foreground/5",
   },
 ];
 
@@ -320,6 +343,7 @@ const getPlanContactUrl = (tier: (typeof pricing)[0]) => {
   return `/contact?${params.toString()}`;
 };
 
+/* ═════════════ Small components ═════════════ */
 const WhatsAppIcon = ({ className }: { className?: string }) => (
   <svg
     viewBox="0 0 24 24"
@@ -331,188 +355,73 @@ const WhatsAppIcon = ({ className }: { className?: string }) => (
   </svg>
 );
 
-/* ─── shared section heading ─── */
-function SectionHeading({
-  eyebrow,
+function SectionHeader({
   title,
   description,
+  tone = "light",
   center = false,
 }: {
-  eyebrow: string;
-  title: ReactNode;
+  title: string;
   description?: string;
+  tone?: "light" | "dark";
   center?: boolean;
 }) {
+  const dark = tone === "dark";
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-      className={`mb-12 sm:mb-14 ${center ? "text-center mx-auto max-w-2xl" : "max-w-2xl"}`}
+    <Reveal
+      className={`mb-12 sm:mb-16 ${center ? "mx-auto max-w-2xl text-center" : "max-w-2xl"}`}
     >
-      <div
-        className={`inline-flex items-center gap-2 mb-4 ${center ? "justify-center" : ""}`}
+      <h2
+        className={`font-display text-balance text-4xl font-extrabold leading-[1.08] tracking-tight sm:text-5xl ${
+          dark ? "text-background" : "text-foreground"
+        }`}
       >
-        <span className="w-6 h-px bg-foreground/40" />
-        <p className="text-[10px] font-bold tracking-widest uppercase text-muted-foreground">
-          {eyebrow}
-        </p>
-      </div>
-      <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl tracking-tight text-balance font-extrabold text-foreground leading-[1.02]">
         {title}
       </h2>
       {description && (
-        <p className="text-sm text-muted-foreground leading-relaxed mt-4">
+        <p
+          className={`mt-4 text-base leading-6 sm:text-lg sm:leading-7 ${
+            dark ? "text-background/75" : "text-muted-foreground"
+          }`}
+        >
           {description}
         </p>
       )}
-    </motion.div>
+    </Reveal>
   );
 }
 
-/* ─── service card ─── */
-function ServiceRow({
-  service,
-  index,
-}: {
-  service: (typeof services)[0];
-  index: number;
-}) {
-  const [open, setOpen] = useState(false);
-  const Icon = service.icon;
-  const featured = index === 0;
-  const previewTags = service.features.slice(0, 4);
-  const extra = service.features.length - previewTags.length;
-
+function Marquee({ items }: { items: string[] }) {
+  const reduce = useReducedMotion();
+  const loop = [...items, ...items];
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 24 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ delay: index * 0.09 }}
-      className={`group/card relative rounded-2xl border border-border bg-card overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:border-foreground/30 hover:shadow-l ${
-        featured ? "lg:col-span-2" : ""
-      }`}
+    <div
+      className="relative overflow-hidden"
+      style={{
+        maskImage:
+          "linear-gradient(to right, transparent, black 10%, black 90%, transparent)",
+        WebkitMaskImage:
+          "linear-gradient(to right, transparent, black 10%, black 90%, transparent)",
+      }}
     >
-      {/* top accent line */}
-      <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-foreground/30 to-transparent opacity-0 group-hover/card:opacity-100 transition-opacity duration-500" />
-
-      <button
-        type="button"
-        onClick={() => setOpen(!open)}
-        aria-expanded={open}
-        className="w-full text-left group block p-6 sm:p-8"
-      >
-        {/* Icon + number */}
-        <div className="flex items-start justify-between mb-6">
-          <div className="w-12 h-12 rounded-xl bg-foreground/5 border border-border flex items-center justify-center transition-all duration-300 group-hover:bg-foreground group-hover:border-foreground group-hover:scale-105">
-            <Icon className="w-5 h-5 text-foreground transition-colors duration-300 group-hover:text-background" />
-          </div>
-          <div className="flex items-center gap-2">
-            {featured && (
-              <span className="text-[9px] font-bold uppercase tracking-widest text-foreground bg-foreground/5 border border-border px-2.5 py-1 rounded-full">
-                Core offering
-              </span>
-            )}
-            <span className="font-display text-sm font-extrabold text-muted-foreground/40 tracking-tight">
-              {service.number}
-            </span>
-          </div>
-        </div>
-
-        {/* Title + tagline */}
-        <h3 className="font-display text-xl sm:text-2xl font-extrabold tracking-tight text-foreground mb-1">
-          {service.title}
-        </h3>
-        <p className="text-xs font-semibold text-muted-foreground mb-4">
-          {service.tagline}
-        </p>
-
-        <p
-          className={`text-sm text-muted-foreground leading-relaxed mb-6 ${
-            featured ? "max-w-2xl" : "line-clamp-3"
-          }`}
-        >
-          {service.description}
-        </p>
-
-        {/* Tag preview */}
-        <div className="flex flex-wrap gap-1.5">
-          {previewTags.map((f) => (
-            <span
-              key={f}
-              className="font-mono text-[10px] font-semibold tracking-tight px-2.5 py-1 rounded-md bg-foreground/5 text-foreground/70 border border-border transition-colors group-hover:border-foreground/20"
-            >
-              {f}
-            </span>
-          ))}
-          {extra > 0 && (
-            <span className="font-mono text-[10px] font-semibold tracking-tight px-2.5 py-1 rounded-md text-muted-foreground border border-dashed border-border">
-              +{extra} more
-            </span>
-          )}
-        </div>
-
-        {/* Expand affordance */}
-        <div className="flex items-center justify-between pt-5 mt-6 border-t border-border">
-          <span className="text-[11px] font-semibold text-muted-foreground transition-colors group-hover:text-foreground">
-            {open ? "Hide details" : "View details"}
-          </span>
-          <span className="w-7 h-7 rounded-full border border-border flex items-center justify-center transition-colors group-hover:border-foreground/30">
-            <ChevronDown
-              className={`w-3.5 h-3.5 text-muted-foreground shrink-0 transition-transform duration-300 ${open ? "rotate-180" : ""}`}
-            />
-          </span>
-        </div>
-      </button>
-
-      {/* Expanded content */}
       <motion.div
-        initial={false}
-        animate={{ height: open ? "auto" : 0, opacity: open ? 1 : 0 }}
-        transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
-        className="overflow-hidden"
+        className="flex w-max items-center"
+        animate={reduce ? undefined : { x: ["0%", "-50%"] }}
+        transition={{ duration: 28, ease: "linear", repeat: Infinity }}
       >
-        <div className="px-6 sm:px-8 pb-6 sm:pb-8">
-          <div
-            className={`rounded-xl bg-gradient-to-br ${service.accent} border border-border p-5`}
-          >
-            <div className="mb-5">
-              <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground mb-3">
-                Tech & Capabilities
-              </p>
-              <ul
-                className={`grid grid-cols-1 ${featured ? "sm:grid-cols-2" : ""} gap-2`}
-              >
-                {service.features.map((f) => (
-                  <li
-                    key={f}
-                    className="flex items-center gap-2.5 text-xs rounded-lg border border-border/60 bg-background/50 px-3 py-2.5"
-                  >
-                    <CheckCircle2 className="w-3.5 h-3.5 shrink-0 text-foreground" />
-                    <span className="font-mono text-foreground/80 tracking-tight">
-                      {f}
-                    </span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            <Link
-              to={`/contact?service=${encodeURIComponent(service.title)}`}
-              className="inline-flex w-full items-center justify-center gap-2 text-xs font-bold px-5 py-3 rounded-lg bg-foreground text-background hover:bg-foreground/90 transition-all active:scale-[0.98]"
-            >
-              Book This Service <ArrowUpRight className="w-3.5 h-3.5" />
-            </Link>
+        {loop.map((name, i) => (
+          <div key={name + i} className="flex items-center">
+            <span className="whitespace-nowrap px-8 font-display text-xl font-bold tracking-tight text-foreground/60 transition-colors hover:text-foreground sm:px-12 sm:text-2xl">
+              {name}
+            </span>
+            <span className="h-1.5 w-1.5 rounded-full bg-primary/50" />
           </div>
-        </div>
+        ))}
       </motion.div>
-    </motion.div>
+    </div>
   );
 }
 
-/* ─── faq item ─── */
 function FaqItem({
   item,
   open,
@@ -534,23 +443,19 @@ function FaqItem({
         type="button"
         onClick={onToggle}
         aria-expanded={open}
-        className="w-full flex items-center justify-between gap-4 text-left px-5 sm:px-6 py-5"
+        className="flex w-full items-center justify-between gap-4 px-5 py-5 text-left sm:px-6"
       >
-        <span className="font-display text-sm sm:text-base font-bold text-foreground">
+        <span className="font-display text-base font-bold text-foreground sm:text-lg">
           {item.q}
         </span>
         <span
-          className={`w-7 h-7 shrink-0 rounded-full border flex items-center justify-center transition-colors ${
+          className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full border transition-colors ${
             open
-              ? "bg-foreground text-background border-foreground"
+              ? "border-foreground bg-foreground text-background"
               : "border-border text-muted-foreground"
           }`}
         >
-          {open ? (
-            <Minus className="w-3.5 h-3.5" />
-          ) : (
-            <Plus className="w-3.5 h-3.5" />
-          )}
+          {open ? <Minus className="h-4 w-4" /> : <Plus className="h-4 w-4" />}
         </span>
       </button>
       <AnimatePresence initial={false}>
@@ -559,10 +464,10 @@ function FaqItem({
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+            transition={{ duration: 0.3, ease: EASE }}
             className="overflow-hidden"
           >
-            <p className="px-5 sm:px-6 pb-5 text-sm text-muted-foreground leading-relaxed">
+            <p className="px-5 pb-5 text-base leading-7 text-muted-foreground sm:px-6">
               {item.a}
             </p>
           </motion.div>
@@ -572,6 +477,7 @@ function FaqItem({
   );
 }
 
+/* ═════════════ Page ═════════════ */
 const Services = () => {
   const [openFaq, setOpenFaq] = useState<number | null>(0);
 
@@ -579,81 +485,73 @@ const Services = () => {
     "Hi! I'd like to discuss a project with you.",
   )}`;
 
+  const primaryBtn =
+    "inline-flex items-center justify-center gap-2 rounded-xl bg-primary px-7 py-3.5 text-sm font-semibold text-primary-foreground transition-all duration-300 hover:-translate-y-0.5 hover:bg-primary/90 hover:shadow-sm active:scale-[0.98]";
+  const ghostBtn =
+    "inline-flex items-center justify-center gap-2 rounded-xl border border-border px-7 py-3.5 text-sm font-semibold text-foreground transition-all duration-300 hover:-translate-y-0.5 hover:bg-secondary active:scale-[0.98]";
+
   return (
-    <div className="min-h-screen bg-background overflow-x-hidden">
+    <div className="min-h-screen overflow-x-hidden bg-background">
       <Navbar />
 
-      {/* ── HERO ── */}
-      <section className="relative pt-32 sm:pt-40 pb-16 sm:pb-20 border-b border-border overflow-hidden">
-        <div className="absolute inset-0 -z-10 pointer-events-none">
-          <div className="absolute -top-24 -left-24 w-[480px] h-[480px] rounded-full bg-primary/5 blur-[120px]" />
-          <div className="absolute top-1/3 -right-32 w-[380px] h-[380px] rounded-full bg-blue-500/5 blur-[100px]" />
-          <div className="absolute inset-0 bg-[linear-gradient(to_right,hsl(var(--border))_1px,transparent_1px),linear-gradient(to_bottom,hsl(var(--border))_1px,transparent_1px)] bg-[size:72px_72px] [mask-image:radial-gradient(ellipse_70%_60%_at_50%_0%,black,transparent)] opacity-30" />
+      {/* ═══════════ HERO ═══════════ */}
+      <section className="relative isolate overflow-hidden pt-32 pb-16 sm:pt-40 lg:pb-24">
+        <div className="pointer-events-none absolute inset-0 -z-10">
+          <div className="absolute -top-40 left-1/2 h-[420px] w-[720px] -translate-x-1/2 rounded-full bg-primary/1 blur-[130px]" />
+          <div className="absolute inset-0 bg-[linear-gradient(to_right,hsl(var(--border))_1px,transparent_1px),linear-gradient(to_bottom,hsl(var(--border))_1px,transparent_1px)] bg-[size:80px_80px] opacity-50 [mask-image:linear-gradient(to_bottom,black_30%,transparent_95%)]" />
+          <div className="absolute inset-y-0 left-1/2 w-full max-w-6xl -translate-x-1/2 border-x border-border/70" />
+          <div className="absolute inset-x-0 bottom-0 h-px bg-border" />
         </div>
 
-        <div className="max-w-6xl mx-auto px-6">
-          <div className="grid lg:grid-cols-12 gap-12 lg:gap-10 items-center">
+        <div className="mx-auto max-w-6xl px-5 sm:px-6">
+          <div className="grid items-center gap-12 lg:grid-cols-12 lg:gap-10">
             <motion.div
-              initial={{ opacity: 0, y: -30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
+              variants={stagger}
+              initial="hidden"
+              animate="show"
               className="lg:col-span-7"
             >
-              {/* <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-border bg-foreground/5 backdrop-blur-sm mb-6">
-                <span className="relative flex h-1.5 w-1.5">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-70" />
-                  <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-emerald-500" />
-                </span>
-                <span className="text-[10px] font-bold text-foreground tracking-wide uppercase">
-                  What We Offer
-                </span>
-              </div> */}
-
-              <h1 className="font-display text-5xl sm:text-6xl lg:text-7xl text-balance font-extrabold tracking-tighter leading-[0.97] mb-5">
-                Services Built for{" "}
-                <span className="text-muted-foreground">Real Outcomes.</span>
-              </h1>
-              <p className="text-sm sm:text-base text-muted-foreground max-w-xl leading-relaxed mb-8">
+              <motion.h1
+                variants={rise}
+                className="font-display text-balance text-[2.5rem] font-black leading-[1.05] tracking-tighter sm:text-6xl lg:text-7xl"
+              >
+                Digital product services for growing businesses.
+              </motion.h1>
+              <motion.p
+                variants={rise}
+                className="mt-6 max-w-xl text-base leading-7 text-muted-foreground sm:text-lg sm:leading-8"
+              >
                 From concept to launch, we provide end-to-end services covering
-                every aspect of building successful digital products with
-                clarity, craft, and accountability.
-              </p>
-
-              <div className="flex flex-col sm:flex-row gap-3">
-                <Link
-                  to="/contact"
-                  className="inline-flex items-center justify-center gap-2 bg-primary text-primary-foreground px-7 py-3.5 text-sm font-semibold rounded-xl hover:bg-primary/90 transition-all hover:-translate-y-0.5 active:scale-[0.98]"
-                >
-                  Start a Project <ArrowUpRight className="w-4 h-4" />
+                every part of building a successful digital product, with
+                clarity, craft and accountability.
+              </motion.p>
+              <motion.div
+                variants={rise}
+                className="mt-8 flex flex-col gap-3 sm:flex-row"
+              >
+                <Link to="/contact" className={primaryBtn}>
+                  Start a Project <ArrowUpRight className="h-4 w-4" />
                 </Link>
-                <a
-                  href="#pricing"
-                  className="inline-flex items-center justify-center gap-2 border border-border text-foreground px-7 py-3.5 text-sm font-semibold rounded-xl hover:bg-secondary transition-all hover:-translate-y-0.5 active:scale-[0.98]"
-                >
+                <a href="#pricing" className={ghostBtn}>
                   View Pricing
                 </a>
-              </div>
+              </motion.div>
             </motion.div>
 
             {/* Services at a glance */}
             <motion.div
-              initial={{ opacity: 0, scale: 0.96, y: 20 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              transition={{
-                duration: 0.9,
-                delay: 0.25,
-                ease: [0.22, 1, 0.36, 1],
-              }}
-              className="hidden lg:block lg:col-span-5 relative"
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.9, delay: 0.25, ease: EASE }}
+              className="hidden lg:col-span-5 lg:block"
             >
-              <div className="absolute -inset-3 rounded-3xl border border-border/40 bg-secondary/20 backdrop-blur-sm -z-10" />
-              <div className="rounded-2xl border border-border bg-card shadow-l overflow-hidden">
-                <div className="flex items-center justify-between px-5 py-4 border-b border-border bg-foreground/[0.02]">
-                  <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground">
-                    Services at a glance
+              <div className="overflow-hidden rounded-2xl border border-border bg-card/95 shadow-sm backdrop-blur">
+                <div className="flex items-center justify-between border-b border-border px-5 py-4">
+                  <p className="font-display text-base font-bold text-foreground">
+                    Our services
                   </p>
-                  <span className="text-[10px] font-bold text-foreground/60">
-                    {services.length} Core
+                  <span className="text-sm font-medium text-muted-foreground">
+                    {services.length} core services
                   </span>
                 </div>
                 <ul className="p-2">
@@ -662,21 +560,21 @@ const Services = () => {
                     return (
                       <li key={s.number}>
                         <a
-                          href="#services"
-                          className="group flex items-center gap-4 rounded-xl px-3 py-3 hover:bg-secondary transition-colors"
+                          href={`#${s.id}`}
+                          className="group flex items-center gap-4 rounded-xl px-3 py-3 transition-colors hover:bg-secondary"
                         >
-                          <span className="w-9 h-9 shrink-0 rounded-lg bg-foreground/5 border border-border flex items-center justify-center transition-colors group-hover:bg-foreground group-hover:border-foreground">
-                            <Icon className="w-4 h-4 text-foreground transition-colors group-hover:text-background" />
+                          <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border border-border bg-secondary transition-colors group-hover:border-foreground group-hover:bg-foreground">
+                            <Icon className="h-4 w-4 text-foreground transition-colors group-hover:text-background" />
                           </span>
-                          <span className="flex-1 min-w-0">
-                            <span className="block text-sm font-bold text-foreground truncate">
+                          <span className="min-w-0 flex-1">
+                            <span className="block truncate text-base font-bold text-foreground">
                               {s.title}
                             </span>
-                            <span className="block text-[11px] text-muted-foreground truncate">
+                            <span className="block truncate text-sm text-muted-foreground">
                               {s.tagline}
                             </span>
                           </span>
-                          <ArrowUpRight className="w-3.5 h-3.5 text-muted-foreground/50 transition-all group-hover:text-foreground group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                          <ArrowUpRight className="h-4 w-4 text-muted-foreground/60 transition-all group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-foreground" />
                         </a>
                       </li>
                     );
@@ -690,23 +588,23 @@ const Services = () => {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.35, duration: 0.7 }}
-            className="grid grid-cols-2 md:grid-cols-4 mt-14 sm:mt-16 border-t border-l border-border rounded-tl-2xl"
+            transition={{ delay: 0.4, duration: 0.7, ease: EASE }}
+            className="mt-14 grid grid-cols-2 border-t border-l border-border bg-card/60 backdrop-blur sm:mt-16 md:grid-cols-4"
           >
             {[
-              { n: "5", label: "Core Services" },
-              { n: "50+", label: "Projects Shipped" },
-              { n: "4+", label: "Years Active" },
-              { n: "100%", label: "Remote Active" },
+              { n: "5", label: "Core services" },
+              { n: "50+", label: "Projects shipped" },
+              { n: "4+", label: "Years active" },
+              { n: "100%", label: "Remote delivery" },
             ].map((s) => (
               <div
                 key={s.label}
                 className="border-r border-b border-border px-5 py-6 sm:px-7 sm:py-7"
               >
-                <p className="font-display text-3xl sm:text-4xl font-extrabold tracking-tight text-foreground leading-none">
+                <p className="font-display text-3xl font-extrabold leading-none tracking-tight text-foreground sm:text-4xl">
                   {s.n}
                 </p>
-                <p className="text-xs text-muted-foreground font-medium mt-2.5">
+                <p className="mt-2.5 text-sm font-medium text-muted-foreground sm:text-base">
                   {s.label}
                 </p>
               </div>
@@ -715,149 +613,159 @@ const Services = () => {
         </div>
       </section>
 
-      {/* ── TOOLS BAND ── */}
-      <section className="py-10 border-b border-border bg-secondary/20">
-        <div className="max-w-6xl mx-auto px-6 flex flex-col lg:flex-row lg:items-center gap-5 lg:gap-10">
-          <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground shrink-0">
-            Tools & technologies we ship with
-          </p>
-          <div className="flex flex-wrap gap-2">
-            {tools.map((t) => (
-              <span
-                key={t}
-                className="font-mono text-[11px] font-semibold tracking-tight px-3 py-1.5 rounded-full border border-border bg-card text-foreground/75 hover:border-foreground/30 hover:text-foreground transition-colors"
-              >
-                {t}
-              </span>
-            ))}
-          </div>
-        </div>
+      {/* ═══════════ TECHNOLOGY MARQUEE ═══════════ */}
+      <section
+        aria-label="Technologies we work with"
+        className="border-y border-border bg-secondary/30 py-8 sm:py-10"
+      >
+        <p className="mb-6 text-center text-base font-medium text-muted-foreground">
+          Tools and technologies we ship with
+        </p>
+        <Marquee items={tools} />
       </section>
 
-      {/* ── SERVICES ── */}
-      <section id="services" className="scroll-mt-20 py-24 sm:py-28">
-        <div className="max-w-6xl mx-auto px-6">
-          <SectionHeading
-            eyebrow="Core digital solutions"
-            title="Technical Expertise."
-            description="Pick a single service or combine them. Open any card to see exactly what's covered."
+      {/* ═══════════ SERVICES ═══════════ */}
+      <section id="services" className="scroll-mt-20 py-20 sm:py-28">
+        <div className="mx-auto max-w-6xl px-5 sm:px-6">
+          <SectionHeader
+            title="Everything you need to build and launch."
+            description="Choose a single service or combine them. Each one lists exactly what is covered."
           />
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 items-start">
-            {services.map((service, i) => (
-              <ServiceRow key={service.number} service={service} index={i} />
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ── WHY US ── */}
-      <section className="pb-24 sm:pb-28">
-        <div className="max-w-6xl mx-auto px-6">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 border-t border-l border-border rounded-tl-2xl overflow-hidden">
-            {whyUs.map((item, i) => {
-              const Icon = item.icon;
+          <div className="space-y-6">
+            {services.map((s) => {
+              const Icon = s.icon;
               return (
-                <motion.div
-                  key={item.title}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: i * 0.08 }}
-                  className="group border-r border-b border-border p-6 sm:p-7 hover:bg-secondary/40 transition-colors duration-300"
-                >
-                  <div className="w-10 h-10 rounded-xl bg-foreground/5 border border-border flex items-center justify-center mb-5 transition-all duration-300 group-hover:bg-foreground group-hover:border-foreground">
-                    <Icon className="w-4 h-4 text-foreground transition-colors duration-300 group-hover:text-background" />
-                  </div>
-                  <h3 className="font-display text-base font-bold text-foreground mb-2">
-                    {item.title}
-                  </h3>
-                  <p className="text-xs text-muted-foreground leading-relaxed">
-                    {item.description}
-                  </p>
-                </motion.div>
+                <Reveal key={s.number}>
+                  <article
+                    id={s.id}
+                    className="group scroll-mt-24 overflow-hidden rounded-2xl border border-border bg-card transition-all duration-300 hover:border-foreground/25 hover:shadow-sm"
+                  >
+                    <div className="grid lg:grid-cols-12">
+                      <div className="p-6 sm:p-8 lg:col-span-6 lg:p-10">
+                        <div className="mb-6 flex items-center justify-between">
+                          <div className="flex h-12 w-12 items-center justify-center rounded-xl border border-border bg-secondary transition-colors duration-300 group-hover:border-foreground group-hover:bg-foreground">
+                            <Icon className="h-5 w-5 text-foreground transition-colors duration-300 group-hover:text-background" />
+                          </div>
+                          <span className="font-display text-base font-extrabold text-muted-foreground/60">
+                            {s.number} /{" "}
+                            {String(services.length).padStart(2, "0")}
+                          </span>
+                        </div>
+                        <h3 className="font-display text-2xl font-extrabold tracking-tight text-foreground sm:text-3xl">
+                          {s.title}
+                        </h3>
+                        <p className="mt-1.5 text-base font-semibold text-muted-foreground">
+                          {s.tagline}
+                        </p>
+                        <p className="mt-4 text-[15px] leading-7 text-muted-foreground sm:text-base">
+                          {s.description}
+                        </p>
+                        <div className="mt-7 flex flex-col gap-3 sm:flex-row">
+                          <Link
+                            to={`/contact?service=${encodeURIComponent(s.title)}`}
+                            className={primaryBtn}
+                          >
+                            Book this service{" "}
+                            <ArrowUpRight className="h-4 w-4" />
+                          </Link>
+                          <a href="#pricing" className={ghostBtn}>
+                            See pricing
+                          </a>
+                        </div>
+                      </div>
+
+                      <div className="border-t border-border bg-secondary/40 p-6 sm:p-8 lg:col-span-6 lg:border-t-0 lg:border-l lg:p-10">
+                        <p className="mb-4 text-base font-bold text-foreground">
+                          What's included
+                        </p>
+                        <ul className="grid gap-3 sm:grid-cols-2">
+                          {s.features.map((f) => (
+                            <li
+                              key={f}
+                              className="flex items-start gap-3 rounded-xl border border-border/70 bg-background px-4 py-3 text-[15px] font-medium leading-6 text-foreground/90"
+                            >
+                              <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
+                              {f}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    </div>
+                  </article>
+                </Reveal>
               );
             })}
           </div>
         </div>
       </section>
 
-      {/* ── HOW WE WORK ── */}
+      {/* ═══════════ WHY US (dark) ═══════════ */}
+      <section className="relative overflow-hidden bg-foreground py-20 text-background sm:py-28">
+        <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(to_right,hsl(var(--background))_1px,transparent_1px),linear-gradient(to_bottom,hsl(var(--background))_1px,transparent_1px)] bg-[size:80px_80px] opacity-[0.05]" />
+        <div className="relative mx-auto max-w-6xl px-5 sm:px-6">
+          <SectionHeader
+            tone="dark"
+            title="Why businesses work with us."
+            description="One accountable team, honest communication and work that is built to last."
+          />
+          <div className="grid border-t border-l border-background/15 sm:grid-cols-2 lg:grid-cols-4">
+            {whyUs.map((item, i) => {
+              const Icon = item.icon;
+              return (
+                <Reveal key={item.title} delay={i * 0.08}>
+                  <div className="group h-full border-r border-b border-background/15 p-6 transition-colors duration-300 hover:bg-background/[0.05] sm:p-7">
+                    <div className="mb-5 flex h-11 w-11 items-center justify-center rounded-xl border border-background/20 bg-background/10 transition-colors duration-300 group-hover:bg-background group-hover:text-foreground">
+                      <Icon className="h-5 w-5" />
+                    </div>
+                    <h3 className="font-display text-lg font-bold text-background">
+                      {item.title}
+                    </h3>
+                    <p className="mt-2 text-[15px] leading-7 text-background/75">
+                      {item.description}
+                    </p>
+                  </div>
+                </Reveal>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* ═══════════ PROCESS ═══════════ */}
       <section
         id="process"
-        className="scroll-mt-20 py-24 sm:py-32 bg-secondary/30 border-y border-border relative overflow-hidden"
+        className="relative scroll-mt-20 overflow-hidden border-b border-border bg-secondary/40 py-20 sm:py-28"
       >
-        <div className="absolute inset-0 -z-0 pointer-events-none bg-[linear-gradient(to_right,hsl(var(--border))_1px,transparent_1px),linear-gradient(to_bottom,hsl(var(--border))_1px,transparent_1px)] bg-[size:64px_64px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,black,transparent)] opacity-20" />
-
-        <div className="relative max-w-6xl mx-auto px-6 grid lg:grid-cols-12 gap-12 lg:gap-16">
-          {/* Left: sticky intro */}
+        <div className="relative mx-auto grid max-w-6xl gap-12 px-5 sm:px-6 lg:grid-cols-12 lg:gap-16">
           <div className="lg:col-span-5">
             <div className="lg:sticky lg:top-28">
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-              >
-                <div className="inline-flex items-center gap-2 mb-4">
-                  <span className="w-6 h-px bg-foreground/40" />
-                  <p className="text-[10px] font-bold tracking-widest uppercase text-muted-foreground">
-                    How We Work
-                  </p>
-                </div>
-                <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl tracking-tight text-balance text-foreground font-extrabold leading-[1.02] mb-5">
-                  A Clear Process, Every Time.
+              <Reveal>
+                <h2 className="font-display text-balance text-4xl font-extrabold leading-[1.08] tracking-tight text-foreground sm:text-5xl">
+                  A clear process, every time.
                 </h2>
-                <p className="text-sm text-muted-foreground leading-relaxed mb-8 max-w-md">
+                <p className="mt-4 mb-8 max-w-md text-base leading-7 text-muted-foreground sm:text-lg sm:leading-8">
                   Four phases, clear deliverables and regular check-ins. You
                   always know what's happening, what's next and what we need
                   from you.
                 </p>
-
-                {/* Timeline overview */}
-                {/* <div className="rounded-2xl border border-border bg-card p-5 mb-8 max-w-md">
-                  <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground mb-4">
-                    Typical timeline
-                  </p>
-                  <div className="grid grid-cols-4 gap-1.5 mb-3">
-                    {process.map((p) => (
-                      <div key={p.step} className="space-y-2">
-                        <div className="h-1 rounded-full bg-foreground" />
-                        <p className="text-[10px] font-bold text-foreground leading-tight">
-                          {p.title}
-                        </p>
-                        <p className="text-[9px] text-muted-foreground leading-tight">
-                          {p.duration}
-                        </p>
-                      </div>
-                    ))}
-                  </div>
-                </div> */}
-
-                <div className="flex flex-col sm:flex-row gap-3">
-                  <Link
-                    to="/contact"
-                    className="inline-flex items-center justify-center gap-2 bg-primary text-primary-foreground px-6 py-3 text-sm font-semibold rounded-xl hover:bg-primary/90 transition-all hover:-translate-y-0.5 active:scale-[0.98]"
-                  >
-                    Start with Discovery <ArrowRight className="w-4 h-4" />
-                  </Link>
-                </div>
-              </motion.div>
+                <Link to="/contact" className={primaryBtn}>
+                  Start with Discovery <ArrowRight className="h-4 w-4" />
+                </Link>
+              </Reveal>
             </div>
           </div>
 
-          {/* Right: vertical timeline */}
           <div className="lg:col-span-7">
             <ol className="relative">
-              {/* track */}
-              <div className="absolute left-[27px] top-6 bottom-6 w-px bg-border" />
+              <div className="absolute top-6 bottom-6 left-[27px] w-px bg-border" />
               <motion.div
                 initial={{ scaleY: 0 }}
                 whileInView={{ scaleY: 1 }}
                 viewport={{ once: true, margin: "-80px" }}
-                transition={{ duration: 1.6, ease: [0.22, 1, 0.36, 1] }}
-                className="absolute left-[27px] top-6 bottom-6 w-px bg-foreground origin-top"
+                transition={{ duration: 1.6, ease: EASE }}
+                className="absolute top-6 bottom-6 left-[27px] w-px origin-top bg-foreground"
               />
-
               {process.map((p, i) => (
                 <motion.li
                   key={p.step}
@@ -865,55 +773,55 @@ const Services = () => {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, margin: "-60px" }}
                   transition={{ delay: i * 0.08, duration: 0.6 }}
-                  className="group relative flex gap-5 sm:gap-6 pb-6 last:pb-0"
+                  className="group relative flex gap-5 pb-6 last:pb-0 sm:gap-6"
                 >
-                  <div className="relative z-10 w-14 h-14 shrink-0 rounded-2xl bg-background border border-border shadow-sm flex items-center justify-center transition-all duration-300 group-hover:bg-foreground group-hover:border-foreground">
+                  <div className="relative z-10 flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl border border-border bg-background transition-all duration-300 group-hover:border-foreground group-hover:bg-foreground">
                     <span className="font-display text-sm font-extrabold text-foreground transition-colors duration-300 group-hover:text-background">
                       {p.step}
                     </span>
                   </div>
 
-                  <div className="flex-1 min-w-0 rounded-2xl border border-border bg-card p-5 sm:p-6 transition-all duration-300 hover:border-foreground/30 hover:shadow-xm">
-                    <div className="flex items-center justify-between gap-3 mb-3">
-                      <h3 className="font-display text-xl font-extrabold tracking-tight text-foreground">
+                  <div className="min-w-0 flex-1 rounded-2xl border border-border bg-card p-5 transition-all duration-300 hover:border-foreground/25 hover:shadow-sm sm:p-6">
+                    <div className="mb-3 flex items-center justify-between gap-3">
+                      <h3 className="font-display text-xl font-extrabold tracking-tight text-foreground sm:text-2xl">
                         {p.title}
                       </h3>
-                      <span className="shrink-0 text-[9px] font-bold uppercase tracking-widest text-muted-foreground border border-border px-2.5 py-1 rounded-full">
+                      <span className="shrink-0 rounded-full border border-border px-3 py-1 text-sm font-medium text-muted-foreground">
                         {p.duration}
                       </span>
                     </div>
-                    <p className="text-sm text-muted-foreground leading-relaxed mb-5">
+                    <p className="mb-5 text-[15px] leading-7 text-muted-foreground">
                       {p.description}
                     </p>
 
-                    <div className="grid sm:grid-cols-2 gap-4 pt-5 border-t border-border">
+                    <div className="grid gap-5 border-t border-border pt-5 sm:grid-cols-2">
                       <div>
-                        <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground mb-3">
+                        <p className="mb-3 text-sm font-bold text-foreground">
                           What we do
                         </p>
-                        <ul className="space-y-2">
+                        <ul className="space-y-2.5">
                           {p.activities.map((a) => (
                             <li
                               key={a}
-                              className="flex items-start gap-2 text-xs text-foreground/80 leading-snug"
+                              className="flex items-start gap-2.5 text-sm leading-6 text-foreground/85"
                             >
-                              <span className="mt-1.5 w-1 h-1 rounded-full bg-foreground/50 shrink-0" />
+                              <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-foreground/50" />
                               {a}
                             </li>
                           ))}
                         </ul>
                       </div>
                       <div>
-                        <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground mb-3">
+                        <p className="mb-3 text-sm font-bold text-foreground">
                           You get
                         </p>
-                        <ul className="space-y-2">
+                        <ul className="space-y-2.5">
                           {p.deliverables.map((d) => (
                             <li
                               key={d}
-                              className="flex items-start gap-2 text-xs text-foreground/80 leading-snug"
+                              className="flex items-start gap-2.5 text-sm leading-6 text-foreground/85"
                             >
-                              <CheckCircle2 className="w-3.5 h-3.5 text-foreground shrink-0 -mt-px" />
+                              <CheckCircle2 className="mt-1 h-4 w-4 shrink-0 text-primary" />
                               {d}
                             </li>
                           ))}
@@ -928,196 +836,182 @@ const Services = () => {
         </div>
       </section>
 
-      {/* ── PRICING ── */}
-      <section id="pricing" className="scroll-mt-20 py-24 sm:py-32">
-        <div className="max-w-6xl mx-auto px-6">
-          <SectionHeading
+      {/* ═══════════ PRICING ═══════════ */}
+      <section id="pricing" className="scroll-mt-20 py-20 sm:py-28">
+        <div className="mx-auto max-w-6xl px-5 sm:px-6">
+          <SectionHeader
             center
-            eyebrow="Transparent Pricing"
-            title="Investment Tiers"
-            description="Clear starting points for every stage. Every project is scoped to your goals before any work begins."
+            title="Clear pricing for every stage."
+            description="Transparent starting points. Every project is scoped to your goals before any work begins."
           />
 
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 items-stretch">
+          <div className="grid items-stretch gap-6 lg:grid-cols-3">
             {pricing.map((tier, i) => (
-              <motion.div
-                key={tier.name}
-                initial={{ opacity: 0, y: 24 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.12 }}
-                className={`relative rounded-2xl border flex flex-col overflow-hidden transition-all duration-300 hover:-translate-y-1 ${
-                  tier.featured
-                    ? "bg-foreground text-background border-foreground shadow-2md lg:scale-[1.03]"
-                    : "bg-card border-border hover:border-foreground/40 hover:shadow-l"
-                }`}
-              >
-                {tier.featured && (
-                  <div className="absolute inset-0 pointer-events-none bg-[linear-gradient(to_right,hsl(var(--background))_1px,transparent_1px),linear-gradient(to_bottom,hsl(var(--background))_1px,transparent_1px)] bg-[size:40px_40px] [mask-image:radial-gradient(ellipse_80%_50%_at_50%_0%,black,transparent)] opacity-[0.07]" />
-                )}
+              <Reveal key={tier.name} delay={i * 0.1} className="h-full">
+                <div
+                  className={`relative flex h-full flex-col overflow-hidden rounded-2xl border transition-all duration-300 hover:-translate-y-1 ${
+                    tier.featured
+                      ? "border-foreground bg-foreground text-background shadow-sm lg:scale-[1.03]"
+                      : "border-border bg-card hover:border-foreground/40 hover:shadow-sm"
+                  }`}
+                >
+                  {tier.featured && (
+                    <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(to_right,hsl(var(--background))_1px,transparent_1px),linear-gradient(to_bottom,hsl(var(--background))_1px,transparent_1px)] bg-[size:40px_40px] opacity-[0.07] [mask-image:radial-gradient(ellipse_80%_50%_at_50%_0%,black,transparent)]" />
+                  )}
 
-                {tier.featured && tier.badge && (
-                  <div className="absolute top-0 right-6 bg-background text-foreground text-[9px] font-bold uppercase tracking-widest px-3 py-2 rounded-b-lg">
-                    {tier.badge}
-                  </div>
-                )}
-
-                <div className="relative p-6 sm:p-8 flex flex-col flex-1">
-                  <p className="text-[10px] font-bold uppercase tracking-widest mb-5 opacity-60">
-                    {tier.name}
-                  </p>
-                  <div className="mb-3">
-                    <span className="text-[10px] opacity-50 block mb-1">
-                      {tier.priceNote}
-                    </span>
-                    <div className="font-display text-4xl sm:text-5xl font-extrabold tracking-tight leading-none">
-                      {tier.price}
+                  {tier.featured && tier.badge && (
+                    <div className="absolute top-0 right-6 rounded-b-lg bg-background px-3 py-2 text-xs font-bold text-foreground">
+                      {tier.badge}
                     </div>
+                  )}
+
+                  <div className="relative flex flex-1 flex-col p-6 sm:p-8">
+                    <p className="mb-5 text-base font-bold opacity-80">
+                      {tier.name}
+                    </p>
+                    <div className="mb-3">
+                      <span className="mb-1 block text-sm opacity-70">
+                        {tier.priceNote}
+                      </span>
+                      <div className="font-display text-4xl font-extrabold leading-none tracking-tight sm:text-5xl">
+                        {tier.price}
+                      </div>
+                    </div>
+                    <p className="mb-7 text-[15px] leading-7 opacity-75">
+                      {tier.description}
+                    </p>
+
+                    <div
+                      className={`mb-7 h-px w-full ${tier.featured ? "bg-background/15" : "bg-border"}`}
+                    />
+
+                    <ul className="mb-8 flex-1 space-y-3.5">
+                      {tier.features.map((f) => (
+                        <li
+                          key={f}
+                          className="flex items-center gap-3 text-[15px] opacity-90"
+                        >
+                          <CheckCircle2 className="h-4 w-4 shrink-0" />
+                          {f}
+                        </li>
+                      ))}
+                    </ul>
+
+                    <Link
+                      to={getPlanContactUrl(tier)}
+                      className={`inline-flex w-full items-center justify-center gap-2 rounded-xl py-3.5 text-sm font-bold transition-all active:scale-[0.98] ${
+                        tier.featured
+                          ? "bg-background text-foreground hover:bg-background/90"
+                          : "bg-foreground text-background hover:bg-foreground/90"
+                      }`}
+                    >
+                      {tier.cta} <ArrowUpRight className="h-4 w-4" />
+                    </Link>
                   </div>
-                  <p className="text-sm mb-7 leading-relaxed opacity-60">
-                    {tier.description}
-                  </p>
-
-                  <div
-                    className={`h-px w-full mb-7 ${tier.featured ? "bg-background/15" : "bg-border"}`}
-                  />
-
-                  <ul className="space-y-3.5 mb-8 flex-1">
-                    {tier.features.map((f) => (
-                      <li
-                        key={f}
-                        className="flex items-center gap-3 text-xs opacity-85"
-                      >
-                        <CheckCircle2 className="w-3.5 h-3.5 shrink-0" />
-                        {f}
-                      </li>
-                    ))}
-                  </ul>
-
-                  <Link
-                    to={getPlanContactUrl(tier)}
-                    className={`w-full inline-flex items-center justify-center gap-2 text-xs font-bold py-3.5 rounded-xl transition-all active:scale-[0.98] ${
-                      tier.featured
-                        ? "bg-background text-foreground hover:bg-background/90"
-                        : "bg-foreground text-background hover:bg-foreground/90"
-                    }`}
-                  >
-                    {tier.cta} <ArrowUpRight className="w-3.5 h-3.5" />
-                  </Link>
                 </div>
-              </motion.div>
+              </Reveal>
             ))}
           </div>
 
-          {/* Included with every project */}
-          <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="mt-10 flex flex-wrap items-center justify-center gap-x-8 gap-y-3 text-xs text-muted-foreground"
-          >
-            <span className="font-bold uppercase tracking-widest text-[10px] text-foreground">
+          <Reveal className="mt-12 flex flex-wrap items-center justify-center gap-x-8 gap-y-3 text-sm text-muted-foreground sm:text-base">
+            <span className="font-bold text-foreground">
               Every project includes
             </span>
             {["Kickoff call", "Regular check-ins", "Launch support"].map(
               (item) => (
                 <span key={item} className="inline-flex items-center gap-2">
-                  <CheckCircle2 className="w-3.5 h-3.5 text-foreground" />
+                  <CheckCircle2 className="h-4 w-4 text-primary" />
                   {item}
                 </span>
               ),
             )}
-          </motion.div>
+          </Reveal>
         </div>
       </section>
 
-      {/* ── FAQ ── */}
+      {/* ═══════════ FAQ ═══════════ */}
       <section
         id="faq"
-        className="scroll-mt-20 py-24 sm:py-28 bg-secondary/30 border-y border-border"
+        className="scroll-mt-20 border-y border-border bg-secondary/40 py-20 sm:py-28"
       >
-        <div className="max-w-6xl mx-auto px-6 grid lg:grid-cols-12 gap-12 lg:gap-16">
+        <div className="mx-auto grid max-w-6xl gap-12 px-5 sm:px-6 lg:grid-cols-12 lg:gap-16">
           <div className="lg:col-span-4">
             <div className="lg:sticky lg:top-28">
-              <SectionHeading
-                eyebrow="FAQ"
-                title="Good Questions."
-                description="Quick answers to what clients ask us most. Can't find yours? Send us a message."
-              />
-              <Link
-                to="/contact"
-                className="-mt-6 inline-flex items-center gap-1.5 text-sm font-semibold text-foreground border-b border-foreground/30 pb-0.5 hover:border-foreground hover:gap-2.5 transition-all"
-              >
-                Ask a question <ArrowUpRight className="w-3.5 h-3.5" />
-              </Link>
+              <Reveal>
+                <h2 className="font-display text-balance text-4xl font-extrabold leading-[1.08] tracking-tight text-foreground sm:text-5xl">
+                  Good questions.
+                </h2>
+                <p className="mt-4 text-base leading-7 text-muted-foreground sm:text-lg sm:leading-8">
+                  Quick answers to what clients ask us most. Can't find yours?
+                  Send us a message.
+                </p>
+                <Link
+                  to="/contact"
+                  className="group mt-6 inline-flex items-center gap-1.5 border-b border-foreground/30 pb-0.5 text-base font-semibold text-foreground transition-all hover:border-foreground"
+                >
+                  Ask a question
+                  <ArrowUpRight className="h-4 w-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+                </Link>
+              </Reveal>
             </div>
           </div>
 
-          <div className="lg:col-span-8 space-y-3">
+          <div className="space-y-3 lg:col-span-8">
             {faqs.map((item, i) => (
-              <motion.div
-                key={item.q}
-                initial={{ opacity: 0, y: 16 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.06 }}
-              >
+              <Reveal key={item.q} delay={i * 0.05}>
                 <FaqItem
                   item={item}
                   open={openFaq === i}
                   onToggle={() => setOpenFaq(openFaq === i ? null : i)}
                 />
-              </motion.div>
+              </Reveal>
             ))}
           </div>
         </div>
       </section>
 
-      {/* ── CTA STRIP ── */}
-      <section className="relative py-20 sm:py-28 bg-foreground text-background overflow-hidden">
-        <div className="absolute inset-0 -z-10 bg-[linear-gradient(to_right,hsl(var(--background))_1px,transparent_1px),linear-gradient(to_bottom,hsl(var(--background))_1px,transparent_1px)] bg-[size:64px_64px] [mask-image:radial-gradient(ellipse_70%_60%_at_50%_50%,black,transparent)] opacity-[0.06]" />
-        <div className="absolute -top-20 -left-20 w-72 h-72 rounded-full bg-background/10 blur-3xl pointer-events-none" />
-        <div className="absolute -bottom-20 -right-20 w-96 h-96 rounded-full bg-background/10 blur-3xl pointer-events-none" />
+      {/* ═══════════ CTA ═══════════ */}
+      <section className="relative overflow-hidden bg-foreground py-20 text-background sm:py-28">
+        <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(to_right,hsl(var(--background))_1px,transparent_1px),linear-gradient(to_bottom,hsl(var(--background))_1px,transparent_1px)] bg-[size:64px_64px] opacity-[0.06] [mask-image:radial-gradient(ellipse_70%_60%_at_50%_50%,black,transparent)]" />
+        <div className="pointer-events-none absolute -top-20 -left-20 h-72 w-72 rounded-full bg-background/10 blur-3xl" />
+        <div className="pointer-events-none absolute -right-20 -bottom-20 h-96 w-96 rounded-full bg-background/10 blur-3xl" />
 
-        <div className="max-w-3xl mx-auto px-6 text-center relative z-10">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-          >
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-background/15 bg-background/5 backdrop-blur-sm mb-6">
-              <span className="relative flex h-1.5 w-1.5">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-70" />
-                <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-emerald-400" />
+        <div className="relative mx-auto max-w-3xl px-5 text-center sm:px-6">
+          <Reveal>
+            <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-background/20 bg-background/5 px-4 py-1.5 backdrop-blur">
+              <span className="relative flex h-2 w-2">
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-70" />
+                <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-400" />
               </span>
-              <span className="text-[11px] font-semibold text-background/80">
+              <span className="text-sm font-medium text-background/85">
                 Available for new projects
               </span>
             </div>
-            <h2 className="font-display text-balance lg:text-6xl text-4xl sm:text-5xl font-extrabold tracking-tight mb-3">
-              Let's Build Something Real.
+            <h2 className="font-display text-balance text-4xl font-extrabold tracking-tight sm:text-5xl lg:text-6xl">
+              Let's build something real.
             </h2>
-            <p className="opacity-60 text-sm max-w-md mx-auto leading-relaxed mb-9">
+            <p className="mx-auto mt-5 mb-10 max-w-md text-base leading-7 text-background/75 sm:text-lg sm:leading-8">
               Tell us what you're working on. We'll get back within 24 hours
               with a clear path forward.
             </p>
-            <div className="flex flex-col sm:flex-row gap-3 justify-center">
+            <div className="flex flex-col justify-center gap-3 sm:flex-row">
               <Link
                 to="/contact"
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-background text-foreground px-8 py-3.5 text-xs font-bold rounded-xl hover:bg-background/90 transition-all hover:-translate-y-0.5 active:scale-[0.97]"
+                className="group inline-flex items-center justify-center gap-2 rounded-xl bg-background px-8 py-3.5 text-sm font-bold text-foreground transition-all hover:-translate-y-0.5 hover:opacity-90 active:scale-[0.98]"
               >
-                Start a Project <ArrowUpRight className="w-3.5 h-3.5" />
+                Start a Project
+                <ArrowUpRight className="h-4 w-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
               </Link>
               <a
                 href={whatsappUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 border-2 border-background/30 text-background px-8 py-3.5 text-xs font-bold rounded-xl hover:border-background/55 hover:bg-background/10 transition-all hover:-translate-y-0.5 active:scale-[0.97]"
+                className="inline-flex items-center justify-center gap-2 rounded-xl border-2 border-background/30 px-8 py-3.5 text-sm font-bold text-background transition-all hover:-translate-y-0.5 hover:border-background/60 hover:bg-background/10 active:scale-[0.98]"
               >
-                <WhatsAppIcon className="w-3.5 h-3.5" /> Chat on WhatsApp
+                <WhatsAppIcon className="h-4 w-4" /> Chat on WhatsApp
               </a>
             </div>
-          </motion.div>
+          </Reveal>
         </div>
       </section>
 
