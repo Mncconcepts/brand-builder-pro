@@ -841,7 +841,7 @@ const Index = () => {
                 className="group mb-6 inline-flex items-center gap-2.5 rounded-full border border-border bg-card/70 py-1.5 pr-4 pl-1.5 text-sm backdrop-blur transition-colors hover:border-primary/40"
               >
                 <span className="flex h-7 w-7 items-center justify-center rounded-full bg-primary text-primary-foreground">
-                  <BellRing className="h-3.5 w-3.5" />
+                  <CheckCircle2 className="h-3.5 w-3.5" />
                 </span>
                 <span className="font-medium text-foreground">
                   Design, Development, Launch, Support.
@@ -849,7 +849,7 @@ const Index = () => {
               </a>
             </motion.div>
 
-            <h1 className="font-display text-balance text-5xl font-black leading-[1.03] tracking-tighter text-foreground sm:text-7xl lg:text-7xl">
+            <h1 className="font-display text-balance text-5xl font-black leading-[1.07] tracking-tighter text-foreground sm:text-7xl lg:text-7xl">
               {headlineWords.map((w, i) => (
                 <span
                   key={i}
@@ -881,19 +881,7 @@ const Index = () => {
 
             <motion.div
               variants={rise}
-              className="mt-8 flex w-full flex-col gap-3 sm:w-auto sm:flex-row"
-            >
-              <Link to="/projects" className={primaryBtn}>
-                View Projects <ArrowUpRight className="h-4 w-4" />
-              </Link>
-              <Link to="/contact" className={ghostBtn}>
-                Start a Project
-              </Link>
-            </motion.div>
-
-            <motion.div
-              variants={rise}
-              className="mt-10 flex items-center gap-4 border-t border-border/70 pt-6"
+              className="mt-4 flex items-center gap-4 border-t border-border/70 pt-6"
             >
               <div className="flex items-center">
                 {trustedAvatars.map((av, i) => (
@@ -932,6 +920,18 @@ const Index = () => {
                   </span>
                 </p>
               </div>
+            </motion.div>
+
+            <motion.div
+              variants={rise}
+              className="mt-8 flex w-full flex-col gap-3 sm:w-auto sm:flex-row"
+            >
+              <Link to="/projects" className={primaryBtn}>
+                View Projects <ArrowUpRight className="h-4 w-4" />
+              </Link>
+              <Link to="/contact" className={ghostBtn}>
+                Start a Project
+              </Link>
             </motion.div>
           </motion.div>
 
