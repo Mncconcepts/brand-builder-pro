@@ -392,7 +392,7 @@ const About = () => {
             >
               <motion.h1
                 variants={rise}
-                className="font-display text-balance text-[2.5rem] font-black leading-[1.05] tracking-tighter sm:text-6xl lg:text-7xl"
+                className="font-display text-balance text-5xl font-black leading-[1.05] tracking-tighter sm:text-6xl lg:text-7xl"
               >
                 A digital product studio businesses can rely on.
               </motion.h1>
