@@ -30,6 +30,7 @@ import {
   BellRing,
 } from "lucide-react";
 
+
 /* ═════════════ Motion presets ═════════════ */
 const EASE = [0.22, 1, 0.36, 1] as const;
 
@@ -63,6 +64,7 @@ function Reveal({
     </motion.div>
   );
 }
+
 
 /* ═════════════ Small building blocks ═════════════ */
 const SkeletonImage = ({
@@ -279,6 +281,66 @@ function Marquee({ items }: { items: string[] }) {
   );
 }
 
+/* Vertical sliding column (seamless loop, faded top & bottom edges) */
+function VerticalMarqueeColumn({
+  images,
+  direction,
+  duration,
+}: {
+  images: { src: string; alt: string }[];
+  direction: "up" | "down";
+  duration: number;
+}) {
+  const reduce = useReducedMotion();
+  // Duplicate the list so translating by -50% loops seamlessly
+  const loop = [...images, ...images];
+
+  return (
+    <div
+      className="relative h-full overflow-hidden"
+      style={{
+        maskImage:
+          "linear-gradient(to bottom, transparent 0%, black 16%, black 84%, transparent 100%)",
+        WebkitMaskImage:
+          "linear-gradient(to bottom, transparent 0%, black 16%, black 84%, transparent 100%)",
+      }}
+    >
+      <motion.div
+        className="flex flex-col will-change-transform"
+        animate={
+          reduce
+            ? undefined
+            : { y: direction === "up" ? ["0%", "-50%"] : ["-50%", "0%"] }
+        }
+        transition={{ duration, ease: "linear", repeat: Infinity }}
+      >
+        {loop.map((img, i) => (
+          // padding (not gap) keeps the -50% loop perfectly seamless
+          <div key={img.src + i} className="pb-4">
+            <div className="aspect-[1/1.1] overflow-hidden rounded-2xl border border-border/60 shadow-sm">
+              <SkeletonImage
+                src={img.src}
+                alt={img.alt}
+                className="h-full w-full"
+              />
+            </div>
+          </div>
+        ))}
+      </motion.div>
+    </div>
+  );
+}
+
+function HeroGallery() {
+  return (
+    <div className="grid h-[640px] grid-cols-3 gap-4">
+      {heroColumns.map((col, i) => (
+        <VerticalMarqueeColumn key={i} {...col} />
+      ))}
+    </div>
+  );
+}
+
 /* Count-up stats */
 function useCountUp(target: number, triggered: boolean, duration = 1800) {
   const [count, setCount] = useState(0);
@@ -335,7 +397,44 @@ const stats = [
 
 const trustedAvatars = [
   { src: "/cc1.png", name: "Client 1" },
+  { src: "/cc3.png", name: "Client 1" },
   { src: "/cc2.png", name: "Client 2" },
+];
+
+const heroColumns = [
+  {
+    direction: "up" as const,
+    duration: 38,
+    images: [
+      { src: "/proj-pearlz-store.png", alt: "Pearlz store project" },
+      { src: "/post-2dap.png", alt: "Design post" },
+      { src: "/xerai.jpg", alt: "Supersonic Dynamic Services project" },
+      { src: "/visaguard.jpg", alt: "Visa Guard Africa project" },
+      { src: "/logoo11.jpg", alt: "quickboost logo" },
+    ],
+  },
+  {
+    direction: "down" as const,
+    duration: 46,
+    images: [
+      { src: "/proj-storeapp22.png", alt: "CVMP store app" },
+      { src: "/logoo0.jpg", alt: "logo quickboost" },
+      { src: "/post-2dap.png", alt: "Design post" },
+      { src: "/proj-oma.png", alt: "OMA project" },
+      { src: "/logoo11.jpg", alt: "logo quickboost" },
+    ],
+  },
+  {
+    direction: "up" as const,
+    duration: 42,
+    images: [
+      { src: "/proj-oma.png", alt: "OMA project" },
+      { src: "/sds000.jpeg", alt: "Supersonic Dynamic Services project" },
+      { src: "/proj-pearlz-store.png", alt: "Pearlz store project" },
+      { src: "/proj-storeapp22.png", alt: "CVMP store app" },
+      { src: "/visaguard.jpg", alt: "Visa Guard Africa project" },
+    ],
+  },
 ];
 
 const trustedBy = [
@@ -942,14 +1041,7 @@ const Index = () => {
             transition={{ duration: 1, delay: 0.3, ease: EASE }}
             className="relative mx-auto hidden w-full lg:block lg:max-w-none"
           >
-            <div className="absolute -inset-3 -z-10 rounded-3xl sm:-inset-4" />
-            <div className="aspect-[5/4] overflow-hidden rounded-2xl border border-border/60 shadow-sm lg:aspect-square">
-              <SkeletonImage
-                src="/profile33.jpeg"
-                alt="Featured project preview"
-                className="h-full w-full"
-              />
-            </div>
+            <HeroGallery />
 
             <motion.div
               animate={{ y: [0, -8, 0] }}
