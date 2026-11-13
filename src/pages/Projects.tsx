@@ -398,7 +398,7 @@ const Projects = () => {
                   role="tab"
                   aria-selected={active}
                   onClick={() => setActiveCategory(cat)}
-                  className={`inline-flex shrink-0 items-center gap-2 rounded-full border px-5 py-2 text-sm font-semibold transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background ${
+                  className={`inline-flex shrink-0 items-center gap-2 rounded-full border mt-4 px-4 py-2 text-sm font-semibold transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background ${
                     active
                       ? "border-foreground bg-foreground text-background"
                       : "border-border bg-transparent text-muted-foreground hover:border-foreground/50 hover:text-foreground"
