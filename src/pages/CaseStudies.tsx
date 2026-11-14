@@ -223,7 +223,7 @@ const CaseStudies = () => {
               Selected Work,{" "}
               <span className="text-muted-foreground">In Depth.</span>
             </h1>
-            <p className="text-sm sm:text-base text-muted-foreground max-w-xl leading-relaxed mb-8">
+            <p className="text-base sm:text-lg text-muted-foreground max-w-xl leading-relaxed mb-8">
               A closer look at select projects: the challenge each client faced,
               how it was solved, and the outcomes delivered.
             </p>
@@ -258,7 +258,7 @@ const CaseStudies = () => {
                 <p className="font-display text-3xl sm:text-4xl font-extrabold tracking-tight text-foreground leading-none">
                   {s.n}
                 </p>
-                <p className="text-xs text-muted-foreground font-medium mt-2.5">
+                <p className="text-sm text-muted-foreground font-medium mt-2.5">
                   {s.label}
                 </p>
               </div>
@@ -270,7 +270,7 @@ const CaseStudies = () => {
       {/* ── AT A GLANCE ── */}
       <section className="py-14 sm:py-16 border-b border-border bg-secondary/20">
         <div className="max-w-6xl mx-auto px-6">
-          <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground mb-6">
+          <p className="text-xs font-bold uppercase tracking-widest text-muted-foreground mb-6">
             At a glance
           </p>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -289,19 +289,19 @@ const CaseStudies = () => {
                   <span className="font-display text-sm font-bold text-primary">
                     {numerals[i]}
                   </span>
-                  <ArrowUpRight className="w-4 h-4 text-muted-foreground/50 transition-all group-hover:text-foreground group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                  <ArrowUpRight className="w-4 h-4 text-muted-foreground transition-all group-hover:text-foreground group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                 </div>
                 <p className="font-display text-4xl font-extrabold text-foreground tabular-nums leading-none">
                   {cs.results[0].value}
                 </p>
-                <p className="text-[11px] text-muted-foreground mt-2 uppercase tracking-wide">
+                <p className="text-[13px] text-muted-foreground mt-2 uppercase tracking-wide">
                   {cs.results[0].metric}
                 </p>
                 <div className="mt-6 pt-5 border-t border-border">
-                  <p className="text-sm font-bold text-foreground">
+                  <p className="text-base font-bold text-foreground">
                     {cs.client}
                   </p>
-                  <p className="text-[11px] text-muted-foreground mt-0.5">
+                  <p className="text-[13px] text-muted-foreground mt-0.5">
                     {cs.industry}
                   </p>
                 </div>
@@ -324,13 +324,13 @@ const CaseStudies = () => {
                     key={cs.slug}
                     type="button"
                     onClick={() => scrollToSection(cs.slug)}
-                    className={`shrink-0 inline-flex items-center gap-2 px-4 py-2 rounded-full border text-xs font-semibold whitespace-nowrap transition-colors ${
+                    className={`shrink-0 inline-flex items-center gap-2 px-4 py-2 rounded-full border text-sm font-semibold whitespace-nowrap transition-colors ${
                       active
                         ? "bg-foreground text-background border-foreground"
                         : "border-border text-muted-foreground"
                     }`}
                   >
-                    <span className={active ? "opacity-70" : "opacity-40"}>
+                    <span className={active ? "opacity-80" : "opacity-60"}>
                       {numerals[i]}
                     </span>
                     {cs.client}
@@ -344,7 +344,7 @@ const CaseStudies = () => {
             {/* Sticky index — desktop only */}
             <div className="hidden lg:block lg:col-span-3">
               <div className="sticky top-32">
-                <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground mb-5">
+                <p className="text-xs font-bold uppercase tracking-widest text-muted-foreground mb-5">
                   Selected Work
                 </p>
                 <div className="flex flex-col">
@@ -362,17 +362,15 @@ const CaseStudies = () => {
                         }`}
                       >
                         <span
-                          className={`font-display text-xs mt-0.5 shrink-0 transition-colors ${
-                            active
-                              ? "text-foreground"
-                              : "text-muted-foreground/40"
+                          className={`font-display text-sm mt-0.5 shrink-0 transition-colors ${
+                            active ? "text-foreground" : "text-muted-foreground"
                           }`}
                         >
                           {numerals[i]}
                         </span>
                         <span className="min-w-0">
                           <span
-                            className={`block text-sm font-semibold leading-snug transition-colors ${
+                            className={`block text-[15px] font-semibold leading-snug transition-colors ${
                               active
                                 ? "text-foreground"
                                 : "text-muted-foreground"
@@ -380,7 +378,7 @@ const CaseStudies = () => {
                           >
                             {cs.client}
                           </span>
-                          <span className="block text-[10px] text-muted-foreground/70 mt-0.5">
+                          <span className="block text-xs text-muted-foreground mt-0.5">
                             {cs.industry}
                           </span>
                         </span>
@@ -390,12 +388,12 @@ const CaseStudies = () => {
                 </div>
 
                 <div className="mt-10 pt-6 border-t border-border">
-                  <p className="text-xs text-muted-foreground leading-relaxed mb-3">
+                  <p className="text-sm text-muted-foreground leading-relaxed mb-3">
                     Have something similar in mind?
                   </p>
                   <Link
                     to="/contact"
-                    className="inline-flex items-center gap-1.5 text-xs font-semibold text-foreground border-b border-foreground/30 pb-0.5 hover:border-foreground hover:gap-2.5 transition-all"
+                    className="inline-flex items-center gap-1.5 text-sm font-semibold text-foreground border-b border-foreground/30 pb-0.5 hover:border-foreground hover:gap-2.5 transition-all"
                   >
                     Start a project <ArrowUpRight className="w-3.5 h-3.5" />
                   </Link>
@@ -427,23 +425,23 @@ const CaseStudies = () => {
                       className="w-full h-full object-cover object-top"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-card/70 via-transparent to-transparent pointer-events-none" />
-                    <span className="absolute top-4 left-4 inline-flex items-center justify-center w-9 h-9 rounded-full bg-background/85 backdrop-blur-sm border border-border/40 font-display text-xs font-bold text-foreground">
+                    <span className="absolute top-4 left-4 inline-flex items-center justify-center w-9 h-9 rounded-full bg-background/90 backdrop-blur-sm border border-border/40 font-display text-sm font-bold text-foreground">
                       {numerals[idx]}
                     </span>
-                    <span className="absolute top-4 right-4 text-[10px] font-bold text-foreground bg-background/85 backdrop-blur-sm border border-border/40 px-3 py-1.5 rounded-full">
+                    <span className="absolute top-4 right-4 text-xs font-bold text-foreground bg-background/90 backdrop-blur-sm border border-border/40 px-3 py-1.5 rounded-full">
                       {cs.year}
                     </span>
                   </div>
 
                   <div className="p-6 sm:p-10">
                     {/* Title */}
-                    <p className="text-[10px] font-bold uppercase tracking-widest text-primary mb-3">
+                    <p className="text-xs font-bold uppercase tracking-widest text-primary mb-3">
                       {cs.industry}
                     </p>
                     <h2 className="font-display text-balance leading-tight text-2xl sm:text-4xl font-extrabold tracking-tight text-foreground mb-2 max-w-2xl">
                       {cs.title}
                     </h2>
-                    <p className="text-xs uppercase tracking-widest text-muted-foreground mb-8">
+                    <p className="text-sm uppercase tracking-widest text-muted-foreground mb-8">
                       {cs.client}
                     </p>
 
@@ -459,10 +457,10 @@ const CaseStudies = () => {
                           key={f.k}
                           className="border-r border-b border-border px-4 py-4"
                         >
-                          <dt className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground mb-1.5">
+                          <dt className="text-xs font-bold uppercase tracking-widest text-muted-foreground mb-1.5">
                             {f.k}
                           </dt>
-                          <dd className="text-xs font-semibold text-foreground leading-snug">
+                          <dd className="text-sm font-semibold text-foreground leading-snug">
                             {f.v}
                           </dd>
                         </div>
@@ -475,11 +473,11 @@ const CaseStudies = () => {
                         <p className="font-display text-5xl sm:text-6xl font-extrabold text-foreground tabular-nums leading-none">
                           {cs.results[0].value}
                         </p>
-                        <p className="text-[11px] text-muted-foreground mt-2 uppercase tracking-wide max-w-[10rem]">
+                        <p className="text-[13px] text-muted-foreground mt-2 uppercase tracking-wide max-w-[10rem]">
                           {cs.results[0].metric}
                         </p>
                       </div>
-                      <p className="text-foreground/90 leading-relaxed text-sm max-w-lg pt-1">
+                      <p className="text-foreground leading-relaxed text-[15px] sm:text-base max-w-lg pt-1">
                         {cs.summary}
                       </p>
                     </div>
@@ -495,14 +493,14 @@ const CaseStudies = () => {
                           className="rounded-2xl border border-border bg-background p-6"
                         >
                           <div className="flex items-center justify-between mb-4">
-                            <h3 className="text-[11px] font-bold uppercase tracking-widest text-primary">
+                            <h3 className="text-[13px] font-bold uppercase tracking-widest text-primary">
                               {block.label}
                             </h3>
-                            <span className="font-display text-xs font-extrabold text-muted-foreground/40">
+                            <span className="font-display text-sm font-extrabold text-muted-foreground">
                               {block.n}
                             </span>
                           </div>
-                          <p className="text-muted-foreground text-sm leading-relaxed">
+                          <p className="text-foreground/80 text-[15px] leading-relaxed">
                             {block.body}
                           </p>
                         </div>
@@ -511,7 +509,7 @@ const CaseStudies = () => {
 
                     {/* Results */}
                     <div className="mb-12">
-                      <h3 className="text-[11px] font-bold uppercase tracking-widest text-muted-foreground mb-4">
+                      <h3 className="text-[13px] font-bold uppercase tracking-widest text-muted-foreground mb-4">
                         Results
                       </h3>
                       <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
@@ -528,9 +526,9 @@ const CaseStudies = () => {
                               {r.value}
                             </p>
                             <p
-                              className={`text-[11px] mt-2.5 leading-snug ${
+                              className={`text-[13px] mt-2.5 leading-snug ${
                                 ri === 0
-                                  ? "text-background/60"
+                                  ? "text-background/85"
                                   : "text-muted-foreground"
                               }`}
                             >
@@ -544,19 +542,19 @@ const CaseStudies = () => {
                     {/* Client testimonial */}
                     {cs.testimonial && (
                       <figure className="relative rounded-2xl border border-border bg-secondary/40 p-6 sm:p-8 mb-12">
-                        <Quote className="w-6 h-6 text-primary/60 mb-4" />
-                        <blockquote className="font-display text-base sm:text-lg font-semibold text-foreground leading-snug tracking-tight">
+                        <Quote className="w-6 h-6 text-primary/80 mb-4" />
+                        <blockquote className="font-display text-lg sm:text-xl font-semibold text-foreground leading-snug tracking-tight">
                           {cs.testimonial.quote}
                         </blockquote>
                         <figcaption className="mt-5 flex items-center gap-3">
-                          <span className="w-9 h-9 rounded-full bg-foreground text-background flex items-center justify-center text-xs font-bold">
+                          <span className="w-9 h-9 rounded-full bg-foreground text-background flex items-center justify-center text-sm font-bold">
                             {cs.testimonial.name.charAt(0)}
                           </span>
                           <span>
-                            <span className="block text-xs font-bold text-foreground">
+                            <span className="block text-sm font-bold text-foreground">
                               {cs.testimonial.name}
                             </span>
-                            <span className="block text-[11px] text-muted-foreground">
+                            <span className="block text-[13px] text-muted-foreground">
                               {cs.testimonial.role}
                             </span>
                           </span>
@@ -567,14 +565,14 @@ const CaseStudies = () => {
                     {/* Tech + CTA */}
                     <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 pt-8 border-t border-border">
                       <div>
-                        <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground mb-3">
+                        <p className="text-xs font-bold uppercase tracking-widest text-muted-foreground mb-3">
                           Tools & Methods
                         </p>
                         <div className="flex flex-wrap gap-1.5">
                           {cs.tech.map((t) => (
                             <span
                               key={t}
-                              className="font-mono text-[11px] font-semibold tracking-tight px-3 py-1.5 rounded-lg border border-border bg-background text-foreground/75"
+                              className="font-mono text-[13px] font-semibold tracking-tight px-3 py-1.5 rounded-lg border border-border bg-background text-foreground/90"
                             >
                               {t}
                             </span>
@@ -583,7 +581,7 @@ const CaseStudies = () => {
                       </div>
                       <Link
                         to={getProjectUrl(cs)}
-                        className="group inline-flex items-center justify-center gap-2 bg-foreground text-background px-6 py-3 text-xs font-bold rounded-xl hover:bg-foreground/90 transition-all active:scale-[0.98] shrink-0"
+                        className="group inline-flex items-center justify-center gap-2 bg-foreground text-background px-6 py-3 text-sm font-bold rounded-xl hover:bg-foreground/90 transition-all active:scale-[0.98] shrink-0"
                       >
                         Start a similar project
                         <ArrowUpRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
@@ -609,26 +607,26 @@ const CaseStudies = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
           >
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-background/15 bg-background/5 backdrop-blur-sm mb-6">
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-background/25 bg-background/5 backdrop-blur-sm mb-6">
               <span className="relative flex h-1.5 w-1.5">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-70" />
                 <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-emerald-400" />
               </span>
-              <span className="text-[11px] font-semibold text-background/80">
+              <span className="text-[13px] font-semibold text-background/95">
                 Available for new projects
               </span>
             </div>
             <h2 className="font-display text-balance lg:text-6xl text-4xl sm:text-5xl font-extrabold tracking-tight mb-3">
               Let's Build Something Real.
             </h2>
-            <p className="opacity-60 text-sm max-w-md mx-auto leading-relaxed mb-9">
+            <p className="opacity-85 text-base max-w-md mx-auto leading-relaxed mb-9">
               Let us discuss how we can deliver measurable impact for your
               business
             </p>
             <div className="flex flex-col sm:flex-row gap-3 justify-center">
               <Link
                 to="/contact"
-                className="inline-flex items-center justify-center gap-2 bg-background text-foreground px-8 py-3.5 text-xs font-bold rounded-xl hover:bg-background/90 transition-all hover:-translate-y-0.5 active:scale-[0.97]"
+                className="inline-flex items-center justify-center gap-2 bg-background text-foreground px-8 py-3.5 text-sm font-bold rounded-xl hover:bg-background/90 transition-all hover:-translate-y-0.5 active:scale-[0.97]"
               >
                 Start a Project <ArrowUpRight className="w-3.5 h-3.5" />
               </Link>
@@ -636,7 +634,7 @@ const CaseStudies = () => {
                 trigger={
                   <button
                     type="button"
-                    className="group relative inline-flex items-center justify-center gap-2 overflow-hidden border-2 border-background/30 text-background px-8 py-3.5 text-xs font-bold rounded-xl transition-all hover:-translate-y-0.5 hover:border-background/55"
+                    className="group relative inline-flex items-center justify-center gap-2 overflow-hidden border-2 border-background/40 text-background px-8 py-3.5 text-sm font-bold rounded-xl transition-all hover:-translate-y-0.5 hover:border-background/70"
                   >
                     <span className="absolute inset-0 -z-10 bg-background/10 scale-x-0 origin-left transition-transform duration-300 ease-out group-hover:scale-x-100" />
                     <CalendarIcon className="h-3.5 w-3.5" /> Book A Call Session

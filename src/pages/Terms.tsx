@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import { motion } from "framer-motion";
+import { motion, useScroll, useSpring } from "framer-motion";
 import { Link } from "react-router-dom";
 import { FileText, ShieldCheck, Info, ArrowUpRight } from "lucide-react";
 import Navbar from "@/components/Navbar";
@@ -298,6 +298,20 @@ const Terms = () => {
 
   const sections = docs[activeDoc].sections;
 
+  // Reading progress for the thin bar at the top of the page
+  const { scrollYProgress } = useScroll();
+  const progressX = useSpring(scrollYProgress, {
+    stiffness: 120,
+    damping: 30,
+    restDelta: 0.001,
+  });
+
+  // Progress through the current document's sections (sidebar)
+  const activeIndex = Math.max(
+    0,
+    sections.findIndex((s) => s.id === activeSectionId),
+  );
+
   useEffect(() => {
     setActiveSectionId(sections[0].id);
   }, [activeDoc]);
@@ -331,10 +345,17 @@ const Terms = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      {/* Reading progress */}
+      <motion.div
+        aria-hidden="true"
+        style={{ scaleX: progressX }}
+        className="fixed inset-x-0 top-0 z-[60] h-0.5 origin-left bg-primary"
+      />
+
       <Navbar />
 
       {/* ── HERO ── */}
-      <section className="relative isolate overflow-hidden pt-28 pb-16 sm:pt-36 lg:pb-24">
+      <section className="relative isolate overflow-hidden pt-28 pb-14 sm:pt-36 lg:pb-20">
         <div className="pointer-events-none absolute inset-0 -z-10">
           <div className="absolute -top-40 left-1/2 h-[420px] w-[720px] -translate-x-1/2 rounded-full bg-primary/1 blur-[130px]" />
           <div className="absolute inset-0 bg-[linear-gradient(to_right,hsl(var(--border))_1px,transparent_1px),linear-gradient(to_bottom,hsl(var(--border))_1px,transparent_1px)] bg-[size:80px_80px] opacity-50 [mask-image:linear-gradient(to_bottom,black_30%,transparent_95%)]" />
@@ -347,35 +368,63 @@ const Terms = () => {
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+            className="max-w-3xl"
           >
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-border bg-foreground/5 mb-6">
-              <span className="w-1 h-1 rounded-full bg-foreground animate-pulse" />
-              <span className="text-[10px] font-bold text-foreground tracking-wide uppercase">
+            <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-border bg-card px-3.5 py-1.5">
+              <span className="h-1.5 w-1.5 rounded-full bg-primary" />
+              <span className="text-xs font-semibold uppercase tracking-wider text-foreground">
                 Legal
               </span>
             </div>
 
-            <h1 className="font-display text-6xl sm:text-6xl lg:text-6xl text-balance font-extrabold tracking-tighter leading-[0.95] mb-2">
+            <h1 className="font-display mb-4 text-balance text-5xl font-extrabold leading-[0.98] tracking-tighter text-foreground sm:text-6xl lg:text-7xl">
               Terms & Privacy.
             </h1>
-            <p className="text-sm text-muted-foreground max-w-xl leading-relaxed mb-3">
+            <p className="max-w-xl text-base leading-relaxed text-muted-foreground sm:text-lg">
               The terms that govern our design and development services, and how
               we handle information collected through this website.
             </p>
-            <p className="text-xs text-muted-foreground/70 font-medium">
-              Last updated: {LAST_UPDATED}
-            </p>
           </motion.div>
+
+          {/* Document facts */}
+          <motion.dl
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2, duration: 0.6 }}
+            className="mt-10 grid grid-cols-1 overflow-hidden rounded-2xl border border-border bg-card sm:grid-cols-3 sm:divide-x sm:divide-border"
+          >
+            {[
+              { k: "Last updated", v: LAST_UPDATED },
+              { k: "Governing law", v: GOVERNING_LAW },
+              {
+                k: "Sections",
+                v: `${sections.length} in ${docs[activeDoc].label}`,
+              },
+            ].map((f, i) => (
+              <div
+                key={f.k}
+                className={`px-6 py-5 ${i !== 0 ? "border-t border-border sm:border-t-0" : ""}`}
+              >
+                <dt className="mb-1.5 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+                  {f.k}
+                </dt>
+                <dd className="text-base font-semibold text-foreground">
+                  {f.v}
+                </dd>
+              </div>
+            ))}
+          </motion.dl>
 
           {/* Disclaimer callout */}
           <motion.div
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.25, duration: 0.6 }}
-            className="mt-10 flex items-start gap-3 rounded-xl border border-border bg-secondary/40 px-5 py-4 max-w-2xl"
+            transition={{ delay: 0.3, duration: 0.6 }}
+            role="note"
+            className="mt-4 flex max-w-3xl items-start gap-3 rounded-xl border border-border border-l-4 border-l-primary bg-secondary/40 px-5 py-4"
           >
-            <Info className="w-4 h-4 text-muted-foreground mt-0.5 shrink-0" />
-            <p className="text-xs text-muted-foreground leading-relaxed">
+            <Info className="mt-0.5 h-4 w-4 shrink-0 text-foreground" />
+            <p className="text-sm leading-relaxed text-foreground/80">
               This page is a general template for a design and development
               studio. It's a starting point, not legal advice have it reviewed
               by a qualified professional for your jurisdiction before
@@ -386,9 +435,13 @@ const Terms = () => {
       </section>
 
       {/* ── DOCUMENT TABS ── */}
-      <section className="pt-10">
-        <div className="max-w-6xl mx-auto px-6">
-          <div className="inline-flex border border-border rounded-xl bg-card p-1 gap-1">
+      <section className="border-b border-border">
+        <div className="mx-auto max-w-6xl px-6">
+          <div
+            role="tablist"
+            aria-label="Legal documents"
+            className="flex gap-1 overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+          >
             {(Object.keys(docs) as DocKey[]).map((key) => {
               const doc = docs[key];
               const Icon = doc.icon;
@@ -396,15 +449,26 @@ const Terms = () => {
               return (
                 <button
                   key={key}
+                  role="tab"
+                  aria-selected={active}
                   onClick={() => setActiveDoc(key)}
-                  className={`flex items-center gap-2 px-5 py-2.5 rounded-lg text-xs font-bold uppercase tracking-wide transition-colors ${
+                  className={`relative -mb-px flex shrink-0 items-center gap-2.5 border-b-2 px-5 py-4 text-sm font-semibold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring ${
                     active
-                      ? "bg-foreground text-background"
-                      : "text-muted-foreground hover:text-foreground"
+                      ? "border-foreground text-foreground"
+                      : "border-transparent text-muted-foreground hover:text-foreground"
                   }`}
                 >
-                  <Icon className="w-3.5 h-3.5" />
+                  <Icon className="h-4 w-4" />
                   {doc.label}
+                  <span
+                    className={`rounded-full px-2 py-0.5 text-xs font-bold leading-none tabular-nums ${
+                      active
+                        ? "bg-foreground text-background"
+                        : "bg-secondary text-muted-foreground"
+                    }`}
+                  >
+                    {doc.sections.length}
+                  </span>
                 </button>
               );
             })}
@@ -413,23 +477,26 @@ const Terms = () => {
       </section>
 
       {/* ── DOCUMENT BODY ── */}
-      <section className="py-16">
-        <div className="max-w-6xl mx-auto px-6">
-          <div className="lg:hidden -mx-6 px-6 mb-10 overflow-x-auto">
-            <div className="flex gap-2 w-max pb-1">
+      <section className="py-12 sm:py-16">
+        <div className="mx-auto max-w-6xl px-6">
+          {/* Mobile section strip */}
+          <div className="lg:hidden sticky top-16 z-30 -mx-6 mb-8 overflow-x-auto border-b border-border bg-background/90 px-6 py-3 backdrop-blur-md [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+            <div className="flex w-max gap-2">
               {sections.map((s, i) => {
                 const active = activeSectionId === s.id;
                 return (
                   <button
                     key={s.id}
                     onClick={() => scrollToSection(s.id)}
-                    className={`shrink-0 inline-flex items-center gap-2 px-4 py-2 rounded-full border text-xs font-semibold whitespace-nowrap transition-colors ${
+                    className={`inline-flex shrink-0 items-center gap-2 whitespace-nowrap rounded-full border px-4 py-2 text-sm font-semibold transition-colors ${
                       active
-                        ? "bg-foreground text-background border-foreground"
+                        ? "border-foreground bg-foreground text-background"
                         : "border-border text-muted-foreground"
                     }`}
                   >
-                    <span className={active ? "opacity-70" : "opacity-40"}>
+                    <span
+                      className={`tabular-nums ${active ? "opacity-80" : "opacity-60"}`}
+                    >
                       {String(i + 1).padStart(2, "0")}
                     </span>
                     {s.title}
@@ -439,38 +506,59 @@ const Terms = () => {
             </div>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-x-16">
+          <div className="grid grid-cols-1 gap-x-14 lg:grid-cols-12">
             {/* Sticky index — desktop only */}
-            <div className="hidden lg:block lg:col-span-3">
-              <div className="sticky top-32">
-                <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground mb-5">
-                  {docs[activeDoc].label}
-                </p>
-                <div className="flex flex-col">
+            <aside className="hidden lg:col-span-3 lg:block">
+              <div className="sticky top-28">
+                <div className="mb-4 flex items-center justify-between">
+                  <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+                    On this page
+                  </p>
+                  <p className="text-xs font-semibold tabular-nums text-muted-foreground">
+                    {String(activeIndex + 1).padStart(2, "0")} /{" "}
+                    {String(sections.length).padStart(2, "0")}
+                  </p>
+                </div>
+
+                {/* Section progress */}
+                <div className="mb-5 h-1 w-full overflow-hidden rounded-full bg-secondary">
+                  <div
+                    className="h-full rounded-full bg-foreground transition-all duration-300"
+                    style={{
+                      width: `${((activeIndex + 1) / sections.length) * 100}%`,
+                    }}
+                  />
+                </div>
+
+                <nav
+                  aria-label={`${docs[activeDoc].label} sections`}
+                  className="flex flex-col gap-0.5"
+                >
                   {sections.map((s, i) => {
                     const active = activeSectionId === s.id;
                     return (
                       <button
                         key={s.id}
                         onClick={() => scrollToSection(s.id)}
-                        className={`text-left flex items-start gap-3 py-3 pl-4 border-l-2 transition-colors ${
-                          active
-                            ? "border-foreground"
-                            : "border-border/60 hover:border-foreground/30"
+                        aria-current={active ? "true" : undefined}
+                        className={`flex items-start gap-3 rounded-lg px-3 py-2.5 text-left transition-colors ${
+                          active ? "bg-secondary" : "hover:bg-secondary/60"
                         }`}
                       >
                         <span
-                          className={`font-display text-xs mt-0.5 shrink-0 tabular-nums transition-colors ${
+                          className={`font-display mt-px shrink-0 text-sm tabular-nums transition-colors ${
                             active
-                              ? "text-foreground"
-                              : "text-muted-foreground/40"
+                              ? "font-bold text-primary"
+                              : "text-muted-foreground"
                           }`}
                         >
                           {String(i + 1).padStart(2, "0")}
                         </span>
                         <span
-                          className={`text-sm font-semibold leading-snug transition-colors ${
-                            active ? "text-foreground" : "text-muted-foreground"
+                          className={`text-sm leading-snug transition-colors ${
+                            active
+                              ? "font-semibold text-foreground"
+                              : "font-medium text-muted-foreground"
                           }`}
                         >
                           {s.title}
@@ -478,92 +566,108 @@ const Terms = () => {
                       </button>
                     );
                   })}
-                </div>
+                </nav>
 
-                <div className="mt-10 pt-6 border-t border-border">
+                <div className="mt-8 border-t border-border pt-6">
                   <Link
                     to="/contact"
-                    className="inline-flex items-center gap-1.5 text-xs font-semibold text-foreground hover:gap-2.5 transition-all"
+                    className="inline-flex items-center gap-1.5 text-sm font-semibold text-foreground transition-all hover:gap-2.5"
                   >
                     Questions? Contact us{" "}
-                    <ArrowUpRight className="w-3.5 h-3.5" />
+                    <ArrowUpRight className="h-3.5 w-3.5" />
                   </Link>
                 </div>
               </div>
-            </div>
+            </aside>
 
             {/* Content */}
             <div className="lg:col-span-9">
-              {sections.map((s, idx) => (
-                <motion.article
-                  key={s.id}
-                  id={s.id}
-                  data-id={s.id}
-                  ref={(el) => {
-                    sectionRefs.current[s.id] = el;
-                  }}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, margin: "-80px" }}
-                  transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-                  className={`scroll-mt-28 py-10 ${
-                    idx !== 0 ? "border-t border-border/60" : "pt-0"
-                  }`}
-                >
-                  <div className="flex items-baseline gap-3 mb-4">
-                    <span className="font-display text-sm font-bold text-primary tabular-nums">
-                      {String(idx + 1).padStart(2, "0")}
-                    </span>
-                    <h2 className="font-display text-xl sm:text-2xl font-bold text-foreground">
-                      {s.title}
-                    </h2>
-                  </div>
+              <div className="mb-8">
+                <h2 className="font-display text-2xl font-extrabold tracking-tight text-foreground sm:text-3xl">
+                  {docs[activeDoc].label}
+                </h2>
+                <p className="mt-1.5 text-sm text-muted-foreground">
+                  Last updated {LAST_UPDATED}
+                </p>
+              </div>
 
-                  <div className="max-w-2xl space-y-4">
-                    {s.blocks.map((block, bIdx) =>
-                      block.type === "p" ? (
-                        <p
-                          key={bIdx}
-                          className="text-sm text-muted-foreground leading-relaxed"
-                        >
-                          {block.text}
-                        </p>
-                      ) : (
-                        <ul key={bIdx} className="space-y-2.5">
-                          {block.items.map((item) => (
-                            <li key={item} className="flex items-start gap-3">
-                              <span className="w-1 h-1 rounded-full bg-foreground/40 mt-2 shrink-0" />
-                              <span className="text-sm text-muted-foreground leading-relaxed">
-                                {item}
-                              </span>
-                            </li>
-                          ))}
-                        </ul>
-                      ),
-                    )}
-                  </div>
-                </motion.article>
-              ))}
+              <div className="divide-y divide-border overflow-hidden rounded-2xl border border-border bg-card">
+                {sections.map((s, idx) => (
+                  <motion.article
+                    key={s.id}
+                    id={s.id}
+                    data-id={s.id}
+                    ref={(el) => {
+                      sectionRefs.current[s.id] = el;
+                    }}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, margin: "-80px" }}
+                    transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+                    className="scroll-mt-28 px-6 py-8 sm:px-10 sm:py-10"
+                  >
+                    <div className="sm:grid sm:grid-cols-[3.5rem_1fr] sm:gap-x-4">
+                      <span className="font-display mb-2 block text-sm font-bold tabular-nums text-primary sm:mb-0 sm:pt-1.5">
+                        {String(idx + 1).padStart(2, "0")}
+                      </span>
+
+                      <div>
+                        <h3 className="font-display mb-4 text-xl font-bold tracking-tight text-foreground sm:text-2xl">
+                          {s.title}
+                        </h3>
+
+                        <div className="max-w-2xl space-y-4">
+                          {s.blocks.map((block, bIdx) =>
+                            block.type === "p" ? (
+                              <p
+                                key={bIdx}
+                                className="text-base leading-7 text-foreground/80"
+                              >
+                                {block.text}
+                              </p>
+                            ) : (
+                              <ul
+                                key={bIdx}
+                                className="space-y-3 rounded-xl border border-border bg-background px-5 py-4"
+                              >
+                                {block.items.map((item) => (
+                                  <li
+                                    key={item}
+                                    className="flex items-start gap-3"
+                                  >
+                                    <span className="mt-2.5 h-1.5 w-1.5 shrink-0 rounded-full bg-primary" />
+                                    <span className="text-base leading-7 text-foreground/80">
+                                      {item}
+                                    </span>
+                                  </li>
+                                ))}
+                              </ul>
+                            ),
+                          )}
+                        </div>
+                      </div>
+                    </div>
+                  </motion.article>
+                ))}
+              </div>
 
               {/* Closing contact note */}
-              <div className="mt-4 pt-10 border-t border-border/60">
-                <div className="rounded-xl border border-border bg-card p-6 sm:p-8 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-                  <div>
-                    <h3 className="font-display text-base text-balance font-bold text-foreground mb-1">
-                      Have A Question About These Terms?
-                    </h3>
-                    <p className="text-sm text-muted-foreground">
-                      We're happy to clarify anything before you start a project
-                      with us.
-                    </p>
-                  </div>
-                  <Link
-                    to="/contact"
-                    className="inline-flex items-center justify-center gap-2 bg-foreground text-background px-6 py-3 text-sm font-bold rounded-xl hover:opacity-90 transition-all hover:-translate-y-0.5 shrink-0"
-                  >
-                    Get in Touch <ArrowUpRight className="w-3.5 h-3.5" />
-                  </Link>
+              <div className="mt-8 flex flex-col justify-between gap-5 rounded-2xl border border-border bg-secondary/40 p-6 sm:flex-row sm:items-center sm:p-8">
+                <div>
+                  <h3 className="font-display mb-1 text-balance text-lg font-bold text-foreground">
+                    Have A Question About These Terms?
+                  </h3>
+                  <p className="text-[15px] leading-relaxed text-muted-foreground">
+                    We're happy to clarify anything before you start a project
+                    with us.
+                  </p>
                 </div>
+                <Link
+                  to="/contact"
+                  className="inline-flex shrink-0 items-center justify-center gap-2 rounded-xl bg-foreground px-6 py-3 text-sm font-bold text-background transition-all hover:-translate-y-0.5 hover:opacity-90"
+                >
+                  Get in Touch <ArrowUpRight className="h-3.5 w-3.5" />
+                </Link>
               </div>
             </div>
           </div>

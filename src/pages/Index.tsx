@@ -918,7 +918,7 @@ const Index = () => {
       <Navbar />
 
       {/* ═══════════ HERO ═══════════ */}
-      <section className="relative isolate overflow-hidden pt-28 pb-16 sm:pt-32 lg:pt-36 lg:pb-24">
+      <section className="relative isolate overflow-hidden pt-28 pb-16 sm:pt-32 lg:pt-30 lg:pb-24">
         <div className="pointer-events-none absolute inset-0 -z-10">
           <div className="absolute -top-40 left-1/2 h-[420px] w-[720px] -translate-x-1/2 rounded-full bg-primary/1 blur-[130px]" />
           <div className="absolute inset-0 bg-[linear-gradient(to_right,hsl(var(--border))_1px,transparent_1px),linear-gradient(to_bottom,hsl(var(--border))_1px,transparent_1px)] bg-[size:80px_80px] opacity-50 [mask-image:linear-gradient(to_bottom,black_30%,transparent_95%)]" />
@@ -943,7 +943,7 @@ const Index = () => {
                   <CheckCircle2 className="h-3.5 w-3.5" />
                 </span>
                 <span className="font-medium text-foreground">
-                  Design, Development, Launch, Support.
+                  Design, Development.
                 </span>
               </a>
             </motion.div>
