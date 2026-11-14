@@ -8,17 +8,17 @@ import {
   MapPin,
   Clock,
   ArrowRight,
+  ArrowUpRight,
   Send,
   HelpCircle,
   CheckCircle2,
-  ChartAreaIcon,
   MessageCircle,
 } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import BookCallSheet from "@/components/BookCallSheet";
 import { toast } from "sonner";
-import { useForm } from "@formspree/react";
+import { useForm, ValidationError } from "@formspree/react";
 import {
   Accordion,
   AccordionContent,
@@ -50,6 +50,44 @@ const socials = [
   { name: "LinkedIn", url: "https://linkedin.com/in/miracle-nweze-52aab330b" },
   { name: "Facebook", url: "https://facebook.com/miracle.nweze.524" },
 ];
+
+const contactDetails = [
+  {
+    icon: Mail,
+    label: "Email",
+    value: "clintonnweze111@gmail.com",
+    href: "mailto:clintonnweze111@gmail.com",
+  },
+  {
+    icon: Phone,
+    label: "Phone",
+    value: "+234 902 049 5756",
+    href: "tel:+2349020495756",
+  },
+  {
+    icon: MapPin,
+    label: "Location",
+    value: "Available Worldwide · Remote",
+    href: null,
+  },
+  {
+    icon: Clock,
+    label: "Availability",
+    value: "Currently accepting new projects",
+    href: null,
+  },
+];
+
+const highlights = [
+  { icon: Clock, text: "We reply within 24 hours" },
+  { icon: MapPin, text: "Remote · Worldwide" },
+  { icon: CheckCircle2, text: "Currently accepting new projects" },
+];
+
+const inputClass =
+  "w-full rounded-xl border border-border bg-background px-4 py-3 text-base text-foreground placeholder:text-muted-foreground transition-all focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20";
+
+const labelClass = "block text-sm font-semibold text-foreground";
 
 const Contact = () => {
   // Formspree Integration
@@ -104,7 +142,7 @@ const Contact = () => {
       <Navbar />
 
       {/* Hero Header Section */}
-      <section className="relative isolate overflow-hidden pt-28 pb-16 sm:pt-36 lg:pb-24">
+      <section className="relative isolate overflow-hidden pt-28 pb-14 sm:pt-36 lg:pb-20">
         <div className="pointer-events-none absolute inset-0 -z-10">
           <div className="absolute -top-40 left-1/2 h-[420px] w-[720px] -translate-x-1/2 rounded-full bg-primary/1 blur-[130px]" />
           <div className="absolute inset-0 bg-[linear-gradient(to_right,hsl(var(--border))_1px,transparent_1px),linear-gradient(to_bottom,hsl(var(--border))_1px,transparent_1px)] bg-[size:80px_80px] opacity-50 [mask-image:linear-gradient(to_bottom,black_30%,transparent_95%)]" />
@@ -118,189 +156,94 @@ const Contact = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
           >
-            {/* <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-border bg-foreground/5 backdrop-blur-sm mb-6">
-              <span className="relative flex h-1.5 w-1.5">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-70" />
-                <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-emerald-500" />
+            <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-border bg-card px-3.5 py-1.5">
+              <span className="relative flex h-2 w-2">
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-70 motion-reduce:animate-none" />
+                <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500" />
               </span>
-              <span className="text-[10px] font-bold text-foreground tracking-widest uppercase">
-                Contact Us
+              <span className="text-xs font-semibold uppercase tracking-wider text-foreground">
+                Contact
               </span>
-            </div> */}
+            </div>
 
-            <h1 className="font-display text-balance max-w-3xl text-4xl sm:text-6xl lg:text-7xl text-foreground leading-[1.08] font-extrabold tracking-tight mb-4">
+            <h1 className="font-display mb-5 max-w-3xl text-balance text-4xl font-extrabold leading-[1.08] tracking-tight text-foreground sm:text-6xl lg:text-7xl">
               Get in Touch. Let's Talk About Your Project.
             </h1>
-            <p className="text-sm sm:text-base text-muted-foreground max-w-xl leading-relaxed -mb-12">
+            <p className="max-w-xl text-base leading-relaxed text-muted-foreground sm:text-lg">
               Have a project in mind or want to discuss a potential
               collaboration? We would love to hear from you. Fill out the form
               below or reach out directly.
             </p>
+
+            <ul className="mt-8 flex flex-wrap gap-x-8 gap-y-3">
+              {highlights.map(({ icon: Icon, text }) => (
+                <li
+                  key={text}
+                  className="flex items-center gap-2 text-sm font-medium text-foreground/80"
+                >
+                  <Icon className="h-4 w-4 text-primary" />
+                  {text}
+                </li>
+              ))}
+            </ul>
           </motion.div>
         </div>
       </section>
 
       {/* Contact Form + Info Section */}
-      <section className="py-20">
-        <div className="max-w-6xl mx-auto px-6">
-          <div className="grid lg:grid-cols-[1fr_1.3fr] gap-12 lg:gap-16 items-start">
-            {/* Left Column: Info & Booking */}
+      <section className="border-t border-border pb-20 pt-12 sm:pb-24 sm:pt-16">
+        <div className="mx-auto max-w-6xl px-6">
+          <div className="grid items-start gap-10 lg:grid-cols-[1.4fr_1fr] lg:gap-14">
+            {/* Left Column: Interactive Form */}
             <motion.div
-              initial={{ opacity: 0, x: -20 }}
-              whileInView={{ opacity: 1, x: 0 }}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="flex flex-col justify-between space-y-10"
             >
-              <div className="p-8 sm:p-10 rounded-3xl border border-border/80 bg-card/50 backdrop-blur-sm shadow-xs">
-                <h2 className="text-lg font-bold text-foreground mb-6 pb-4 border-b border-border/60">
-                  Contact Information.
-                </h2>
-
-                <div className="space-y-6">
-                  <div className="flex items-start gap-4 group">
-                    <div className="p-3 bg-secondary/80 rounded-xl text-foreground group-hover:bg-primary group-hover:text-primary-foreground transition-all duration-300 shadow-xs">
-                      <Mail className="w-5 h-5" />
-                    </div>
-                    <div>
-                      <p className="text-xs font-medium text-muted-foreground mb-1 uppercase tracking-wider">
-                        Email
-                      </p>
-                      <a
-                        href="mailto:clintonnweze111@gmail.com"
-                        className="text-foreground text-sm font-semibold hover:text-primary transition-colors"
-                      >
-                        clintonnweze111@gmail.com
-                      </a>
-                    </div>
-                  </div>
-
-                  <div className="flex items-start gap-4 group">
-                    <div className="p-3 bg-secondary/80 rounded-xl text-foreground group-hover:bg-primary group-hover:text-primary-foreground transition-all duration-300 shadow-xs">
-                      <Phone className="w-5 h-5" />
-                    </div>
-                    <div>
-                      <p className="text-xs font-medium text-muted-foreground mb-1 uppercase tracking-wider">
-                        Phone
-                      </p>
-                      <a
-                        href="tel:+2349020495756"
-                        className="text-foreground text-sm font-semibold hover:text-primary transition-colors"
-                      >
-                        +234 902 049 5756
-                      </a>
-                    </div>
-                  </div>
-
-                  <div className="flex items-start gap-4 group">
-                    <div className="p-3 bg-secondary/80 rounded-xl text-foreground group-hover:bg-primary group-hover:text-primary-foreground transition-all duration-300 shadow-xs">
-                      <MapPin className="w-5 h-5" />
-                    </div>
-                    <div>
-                      <p className="text-xs font-medium text-muted-foreground mb-1 uppercase tracking-wider">
-                        Location
-                      </p>
-                      <p className="text-foreground text-sm font-semibold">
-                        Available Worldwide · Remote
-                      </p>
-                    </div>
-                  </div>
-
-                  <div className="flex items-start gap-4 group">
-                    <div className="p-3 bg-secondary/80 rounded-xl text-foreground group-hover:bg-primary group-hover:text-primary-foreground transition-all duration-300 shadow-xs">
-                      <Clock className="w-5 h-5" />
-                    </div>
-                    <div>
-                      <p className="text-xs font-medium text-muted-foreground mb-1 uppercase tracking-wider">
-                        Availability
-                      </p>
-                      <p className="text-foreground text-sm font-semibold">
-                        Currently accepting new projects
-                      </p>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="mt-8 pt-6 border-t border-border/60">
-                  <p className="text-xs font-bold text-foreground mb-3 uppercase tracking-wider">
-                    Follow Us
-                  </p>
-                  <div className="flex flex-wrap gap-2">
-                    {socials.map((s) => (
-                      <a
-                        key={s.name}
-                        href={s.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="px-4 py-2 rounded-xl bg-secondary/60 text-xs font-semibold text-muted-foreground hover:bg-primary hover:text-primary-foreground transition-all duration-300 shadow-xs"
-                      >
-                        {s.name}
-                      </a>
-                    ))}
-                  </div>
-                </div>
-              </div>
-
-              {/* WhatsApp Direct Chat Card */}
-              <div className="p-8 rounded-3xl border border-border/80 bg-card/50 backdrop-blur-sm flex flex-col sm:flex-row items-center justify-between gap-6 shadow-sm">
-                <div className="text-center sm:text-left">
-                  <h3 className="text-base font-bold text-foreground mb-1">
-                    Prefer a direct conversation?
-                  </h3>
-                  <p className="text-xs text-muted-foreground">
-                    Skip the form and chat with us directly on WhatsApp.
-                  </p>
-                </div>
-                <a
-                  href="https://wa.me/2349020495756"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="group inline-flex items-center justify-center gap-2 bg-foreground text-background px-5 py-3.5 text-xs font-semibold rounded-xl hover:bg-foreground/90 transition-all duration-300 shrink-0 shadow-sm"
-                >
-                  <MessageCircle className="h-4 w-4" />
-                  <span>Chat on WhatsApp</span>
-                  <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
-                </a>
-              </div>
-            </motion.div>
-
-            {/* Right Column: Interactive Form */}
-            <motion.div
-              initial={{ opacity: 0, x: 20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.1 }}
-            >
-              <div className="bg-card border border-border/80 rounded-3xl p-8 sm:p-10 shadow-sm relative overflow-hidden">
+              <div className="relative overflow-hidden rounded-2xl border border-border bg-card p-6 shadow-sm sm:p-10">
                 {isSuccessfullySubmitted ? (
-                  <div className="h-full min-h-[460px] flex flex-col items-center justify-center text-center space-y-6">
-                    <div className="w-20 h-20 bg-emerald-500/10 text-emerald-500 rounded-2xl flex items-center justify-center mb-2 shadow-inner">
-                      <CheckCircle2 className="w-10 h-10" />
+                  <div
+                    role="status"
+                    className="flex h-full min-h-[460px] flex-col items-center justify-center space-y-6 text-center"
+                  >
+                    <div className="mb-2 flex h-20 w-20 items-center justify-center rounded-2xl bg-emerald-500/10 text-emerald-500">
+                      <CheckCircle2 className="h-10 w-10" />
                     </div>
                     <div>
-                      <h3 className="font-display text-2xl font-bold text-foreground mb-3">
+                      <h3 className="font-display mb-3 text-2xl font-bold text-foreground">
                         Message Sent Successfully!
                       </h3>
-                      <p className="text-sm text-muted-foreground max-w-sm mx-auto mb-6 leading-relaxed">
+                      <p className="mx-auto mb-6 max-w-sm text-base leading-relaxed text-muted-foreground">
                         Thank you for reaching out. We have received your
                         message and will get back to you within 24 hours.
                       </p>
                     </div>
                     <button
                       onClick={() => setIsSuccessfullySubmitted(false)}
-                      className="text-xs font-semibold text-primary hover:text-primary/80 transition-colors bg-secondary/80 px-5 py-3 rounded-xl"
+                      className="rounded-xl bg-secondary px-5 py-3 text-sm font-semibold text-foreground transition-colors hover:bg-secondary/70"
                     >
                       Send another message
                     </button>
                   </div>
                 ) : (
                   <>
+                    <div className="mb-8 border-b border-border pb-6">
+                      <h2 className="font-display text-2xl font-bold tracking-tight text-foreground">
+                        Send us a message
+                      </h2>
+                      <p className="mt-1.5 text-sm text-muted-foreground">
+                        Fields marked with{" "}
+                        <span className="text-primary">*</span> are required.
+                      </p>
+                    </div>
+
                     {hasPrefill && (
-                      <div className="mb-6 flex items-start justify-between gap-3 rounded-2xl border border-primary/20 bg-primary/5 px-4 py-3.5">
+                      <div className="mb-6 flex items-start justify-between gap-3 rounded-xl border border-primary/20 bg-primary/5 px-4 py-3.5">
                         <div>
-                          <p className="text-xs font-semibold text-foreground">
+                          <p className="text-sm font-semibold text-foreground">
                             Picking up your {prefillService} request
                           </p>
-                          <p className="text-[11px] text-muted-foreground mt-0.5">
+                          <p className="mt-0.5 text-[13px] leading-relaxed text-muted-foreground">
                             {prefillScope && `${prefillScope} scope`}
                             {prefillTimeline && ` · ${prefillTimeline}`} — we've
                             pre-filled the details below. Just add your contact
@@ -310,7 +253,7 @@ const Contact = () => {
                         <button
                           type="button"
                           onClick={clearPrefill}
-                          className="text-[11px] font-semibold text-muted-foreground hover:text-foreground underline underline-offset-4 shrink-0"
+                          className="shrink-0 text-[13px] font-semibold text-muted-foreground underline underline-offset-4 hover:text-foreground"
                         >
                           Clear
                         </button>
@@ -330,58 +273,68 @@ const Contact = () => {
                         />
                       )}
 
-                      <div className="grid sm:grid-cols-2 gap-5">
+                      <div className="grid gap-5 sm:grid-cols-2">
                         <div className="space-y-2">
-                          <label className="text-xs font-semibold text-foreground tracking-wide uppercase">
+                          <label htmlFor="name" className={labelClass}>
                             Your Name <span className="text-primary">*</span>
                           </label>
                           <input
+                            id="name"
                             type="text"
                             name="name"
                             required
                             placeholder="John Doe"
-                            className="w-full bg-background border border-border/80 rounded-xl px-4 py-3.5 text-xs text-foreground placeholder:text-muted-foreground/60 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all shadow-xs"
+                            className={inputClass}
                           />
                         </div>
                         <div className="space-y-2">
-                          <label className="text-xs font-semibold text-foreground tracking-wide uppercase">
+                          <label htmlFor="email" className={labelClass}>
                             Email Address{" "}
                             <span className="text-primary">*</span>
                           </label>
                           <input
+                            id="email"
                             type="email"
                             name="email"
                             required
                             placeholder="john@example.com"
-                            className="w-full bg-background border border-border/80 rounded-xl px-4 py-3.5 text-xs text-foreground placeholder:text-muted-foreground/60 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all shadow-xs"
+                            className={inputClass}
+                          />
+                          <ValidationError
+                            prefix="Email"
+                            field="email"
+                            errors={state.errors}
+                            className="text-sm text-destructive"
                           />
                         </div>
                       </div>
 
                       <div className="space-y-2">
-                        <label className="text-xs font-semibold text-foreground tracking-wide uppercase">
+                        <label htmlFor="subject" className={labelClass}>
                           Subject <span className="text-primary">*</span>
                         </label>
                         <input
+                          id="subject"
                           type="text"
                           name="subject"
                           required
                           defaultValue={prefillSubject}
                           placeholder="What is this regarding?"
-                          className="w-full bg-background border border-border/80 rounded-xl px-4 py-3.5 text-xs text-foreground placeholder:text-muted-foreground/60 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all shadow-xs"
+                          className={inputClass}
                         />
                       </div>
 
                       <div className="space-y-2">
-                        <label className="text-xs font-semibold text-foreground tracking-wide uppercase">
+                        <label htmlFor="budget" className={labelClass}>
                           Budget Range{" "}
-                          <span className="text-muted-foreground font-normal lowercase">
+                          <span className="font-normal text-muted-foreground">
                             (Optional)
                           </span>
                         </label>
                         <select
+                          id="budget"
                           name="budget"
-                          className="w-full bg-background border border-border/80 rounded-xl px-4 py-3.5 text-xs text-foreground focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all shadow-xs cursor-pointer"
+                          className={`${inputClass} cursor-pointer`}
                         >
                           <option value="">Select an estimated budget</option>
                           <option value="$500 - $2,500">$500 - $2,500</option>
@@ -396,25 +349,32 @@ const Contact = () => {
                       </div>
 
                       <div className="space-y-2">
-                        <label className="text-xs font-semibold text-foreground tracking-wide uppercase">
+                        <label htmlFor="message" className={labelClass}>
                           Message <span className="text-primary">*</span>
                         </label>
                         <textarea
+                          id="message"
                           name="message"
                           required
-                          rows={5}
+                          rows={6}
                           defaultValue={prefillMessage}
                           placeholder="Tell us about your project, goals, and timeline..."
-                          className="w-full bg-background border border-border/80 rounded-xl px-4 py-3.5 text-xs text-foreground placeholder:text-muted-foreground/60 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all resize-none shadow-xs"
+                          className={`${inputClass} resize-none`}
+                        />
+                        <ValidationError
+                          prefix="Message"
+                          field="message"
+                          errors={state.errors}
+                          className="text-sm text-destructive"
                         />
                       </div>
 
                       <button
                         type="submit"
                         disabled={state.submitting}
-                        className="w-full flex justify-center items-center gap-2 bg-primary text-primary-foreground py-4 text-xs font-bold uppercase tracking-wider rounded-xl hover:bg-primary/90 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed shadow-md shadow-primary/20 cursor-pointer"
+                        className="flex w-full cursor-pointer items-center justify-center gap-2 rounded-xl bg-primary py-3.5 text-sm font-semibold text-primary-foreground transition-all duration-300 hover:bg-primary/90 disabled:cursor-not-allowed disabled:opacity-50"
                       >
-                        <Send className="w-4 h-4" />
+                        <Send className="h-4 w-4" />
                         {state.submitting
                           ? "Sending Message..."
                           : "Send Message"}
@@ -424,45 +384,153 @@ const Contact = () => {
                 )}
               </div>
             </motion.div>
+
+            {/* Right Column: Info, Booking & WhatsApp */}
+            <motion.aside
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.1 }}
+              className="space-y-6 lg:sticky lg:top-28"
+            >
+              <div className="rounded-2xl border border-border bg-card p-6 sm:p-8">
+                <h2 className="font-display mb-2 text-xl font-bold text-foreground">
+                  Contact Information
+                </h2>
+
+                <ul className="divide-y divide-border">
+                  {contactDetails.map(({ icon: Icon, label, value, href }) => (
+                    <li key={label} className="flex items-start gap-4 py-4">
+                      <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-secondary text-foreground">
+                        <Icon className="h-[18px] w-[18px]" />
+                      </span>
+                      <div className="min-w-0">
+                        <p className="mb-0.5 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+                          {label}
+                        </p>
+                        {href ? (
+                          <a
+                            href={href}
+                            className="break-words text-[15px] font-semibold text-foreground transition-colors hover:text-primary"
+                          >
+                            {value}
+                          </a>
+                        ) : (
+                          <p className="text-[15px] font-semibold text-foreground">
+                            {value}
+                          </p>
+                        )}
+                      </div>
+                    </li>
+                  ))}
+                </ul>
+
+                <div className="mt-2 border-t border-border pt-6">
+                  <p className="mb-3 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+                    Follow Us
+                  </p>
+                  <div className="flex flex-wrap gap-2">
+                    {socials.map((s) => (
+                      <a
+                        key={s.name}
+                        href={s.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-1.5 rounded-lg border border-border px-3.5 py-2 text-sm font-semibold text-foreground transition-colors hover:border-foreground/40 hover:bg-secondary"
+                      >
+                        {s.name}
+                        <ArrowUpRight className="h-3.5 w-3.5 text-muted-foreground" />
+                      </a>
+                    ))}
+                  </div>
+                </div>
+              </div>
+
+              {/* Book a call */}
+              <div className="rounded-2xl border border-border bg-card p-6 sm:p-8">
+                <h3 className="font-display mb-1 text-lg font-bold text-foreground">
+                  Prefer to talk it through?
+                </h3>
+                <p className="mb-5 text-[15px] leading-relaxed text-muted-foreground">
+                  Book a call session and we'll discuss your project live.
+                </p>
+                <BookCallSheet
+                  trigger={
+                    <button
+                      type="button"
+                      className="inline-flex w-full items-center justify-center gap-2 rounded-xl border border-border px-5 py-3 text-sm font-semibold text-foreground transition-colors hover:border-foreground/40 hover:bg-secondary"
+                    >
+                      <CalendarIcon className="h-4 w-4" /> Book A Call Session
+                    </button>
+                  }
+                />
+              </div>
+
+              {/* WhatsApp Direct Chat Card */}
+              <div className="rounded-2xl bg-foreground p-6 text-background sm:p-8">
+                <h3 className="font-display mb-1 text-lg font-bold">
+                  Prefer a direct conversation?
+                </h3>
+                <p className="mb-5 text-[15px] leading-relaxed text-background/80">
+                  Skip the form and chat with us directly on WhatsApp.
+                </p>
+                <a
+                  href="https://wa.me/2349020495756"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group inline-flex w-full items-center justify-center gap-2 rounded-xl bg-background px-5 py-3 text-sm font-semibold text-foreground transition-all duration-300 hover:bg-background/90"
+                >
+                  <MessageCircle className="h-4 w-4" />
+                  <span>Chat on WhatsApp</span>
+                  <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                </a>
+              </div>
+            </motion.aside>
           </div>
         </div>
       </section>
 
       {/* FAQ Section */}
-      <section className="py-20 border-t border-border/60 bg-secondary/20">
-        <div className="max-w-4xl mx-auto px-6">
-          <div className="text-center max-w-xl mx-auto mb-12">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-border/80 bg-background mb-4 shadow-xs">
-              <HelpCircle className="w-3.5 h-3.5 text-primary" />
-              <span className="text-[11px] font-bold text-foreground tracking-wide uppercase">
-                Got Questions?
-              </span>
+      <section className="border-t border-border bg-secondary/20 py-20 sm:py-24">
+        <div className="mx-auto max-w-6xl px-6">
+          <div className="grid gap-10 lg:grid-cols-[1fr_1.6fr] lg:gap-16">
+            <div className="lg:sticky lg:top-28 lg:self-start">
+              <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-border bg-background px-3.5 py-1.5">
+                <HelpCircle className="h-3.5 w-3.5 text-primary" />
+                <span className="text-xs font-semibold uppercase tracking-wider text-foreground">
+                  Got Questions?
+                </span>
+              </div>
+              <h2 className="font-display text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
+                Frequently Asked Questions
+              </h2>
+              <p className="mt-3 max-w-sm text-base leading-relaxed text-muted-foreground">
+                Everything you need to know about working together and project
+                delivery.
+              </p>
             </div>
-            <h2 className="font-display text-3xl font-bold tracking-tight text-foreground">
-              Frequently Asked Questions
-            </h2>
-            <p className="text-sm text-muted-foreground mt-2">
-              Everything you need to know about working together and project
-              delivery.
-            </p>
-          </div>
 
-          <Accordion type="single" collapsible className="space-y-4">
-            {faqs.map((faq, index) => (
-              <AccordionItem
-                key={index}
-                value={`item-${index}`}
-                className="bg-card border border-border/80 rounded-2xl px-6 shadow-xs overflow-hidden"
-              >
-                <AccordionTrigger className="text-sm font-semibold text-foreground py-5 hover:no-underline text-left">
-                  {faq.q}
-                </AccordionTrigger>
-                <AccordionContent className="text-sm text-muted-foreground pb-5 leading-relaxed">
-                  {faq.a}
-                </AccordionContent>
-              </AccordionItem>
-            ))}
-          </Accordion>
+            <Accordion
+              type="single"
+              collapsible
+              className="overflow-hidden rounded-2xl border border-border bg-card px-6"
+            >
+              {faqs.map((faq, index) => (
+                <AccordionItem
+                  key={index}
+                  value={`item-${index}`}
+                  className="border-border"
+                >
+                  <AccordionTrigger className="py-5 text-left text-base font-semibold text-foreground hover:no-underline">
+                    {faq.q}
+                  </AccordionTrigger>
+                  <AccordionContent className="pb-5 text-[15px] leading-relaxed text-muted-foreground">
+                    {faq.a}
+                  </AccordionContent>
+                </AccordionItem>
+              ))}
+            </Accordion>
+          </div>
         </div>
       </section>
 
