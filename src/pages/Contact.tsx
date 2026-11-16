@@ -47,7 +47,7 @@ const faqs = [
 
 const socials = [
   { name: "GitHub", url: "https://github.com/Mncconcepts" },
-  { name: "LinkedIn", url: "https://linkedin.com/in/miracle-nweze-52aab330b" },
+  { name: "LinkedIn", url: "https://www.linkedin.com/company/mncconcepts" },
   { name: "Facebook", url: "https://facebook.com/miracle.nweze.524" },
 ];
 
