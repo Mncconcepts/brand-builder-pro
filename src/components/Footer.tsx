@@ -6,7 +6,7 @@ const CONTACT_EMAIL = "clintonnweze111@gmail.com";
 
 const socials = [
   { label: "GitHub",   url: "https://github.com/Mncconcepts",              icon: Github },
-  { label: "LinkedIn", url: "https://linkedin.com/in/miracle-nweze-52aab330b",       icon: Linkedin },
+  { label: "LinkedIn", url: "https://www.linkedin.com/company/mncconcepts",       icon: Linkedin },
   // { label: "Twitter",  url: "https://twitter.com/mncconcepts",            icon: Twitter },
   { label: "Facebook", url: "https://facebook.com/miracle.nweze.524",          icon: Facebook },
 ];
