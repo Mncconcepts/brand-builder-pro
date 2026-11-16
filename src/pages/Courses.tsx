@@ -720,7 +720,7 @@ const Courses = () => {
               </span>
             </div> */}
 
-            <h1 className="font-display text-5xl sm:text-6xl lg:text-7xl text-balance font-extrabold tracking-tighter leading-[0.97] mb-5">
+            <h1 className="font-display text-5xl sm:text-6xl lg:text-7xl text-balance font-extrabold tracking-tight leading-[0.97] mb-5">
               Courses &{" "}
               <span className="text-muted-foreground">Mentorship Program.</span>
             </h1>
